@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package identity.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "identity/v1/types/enums/user_type.proto";
+
+option go_package = "github.com/arm-1234/protos/identity/v1/types;types";
+
+message UserInfo {
+  string user_id = 1;
+  identity.v1.types.enums.UserType user_type = 2;
+  string name = 3;
+  string phone = 4;
+  string email = 5;
+  // Set only for merchant users: the store they own.
+  string merchant_id = 6;
+  // Identity source: "local" for self-registered users, or a partner/IdP name
+  // (e.g. "paytm", "google") for federated identities.
+  string provider = 7;
+  string external_id = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+}

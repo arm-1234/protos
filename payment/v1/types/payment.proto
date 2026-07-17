@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package payment.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "order/v1/types/enums/payment_mode.proto";
+
+option go_package = "github.com/arm-1234/protos/payment/v1/types;types";
+
+message PaymentInfo {
+  string payment_id = 1;
+  string order_id = 2;
+  double amount = 3;
+  string currency = 4;
+  order.v1.types.enums.PaymentMode mode = 5;
+  order.v1.types.enums.PaymentStatus status = 6;
+  string gateway_ref = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}

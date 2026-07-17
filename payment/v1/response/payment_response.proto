@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package payment.v1.response;
+
+import "payment/v1/types/payment.proto";
+
+option go_package = "github.com/arm-1234/protos/payment/v1/response;response";
+
+message InitiatePaymentResponse {
+  payment.v1.types.PaymentInfo payment = 1;
+}
+
+message GetPaymentStatusResponse {
+  payment.v1.types.PaymentInfo payment = 1;
+}
+
+message HandleWebhookResponse {
+  bool success = 1;
+}

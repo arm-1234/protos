@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package order.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/order/v1/types/enums;enums";
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PLACED = 1;
+  ORDER_STATUS_ACCEPTED = 2;
+  ORDER_STATUS_FULFILLED = 3;
+  ORDER_STATUS_CANCELLED = 4;
+}

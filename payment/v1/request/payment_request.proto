@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package payment.v1.request;
+
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/arm-1234/protos/payment/v1/request;request";
+
+message InitiatePaymentRequest {
+  string order_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+}
+
+message GetPaymentStatusRequest {
+  string order_id = 1 [(validate.rules).string.min_len = 1];
+  string payment_id = 2 [(validate.rules).string.min_len = 1];
+}
+
+// HandleWebhookRequest is the (stubbed) gateway callback.
+message HandleWebhookRequest {
+  string gateway_ref = 1 [(validate.rules).string.min_len = 1];
+  // e.g. "PAID" | "FAILED"
+  string status = 2 [(validate.rules).string.min_len = 1];
+}

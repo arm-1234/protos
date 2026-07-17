@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package identity.v1.request;
+
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+import "identity/v1/types/enums/user_type.proto";
+
+option go_package = "github.com/arm-1234/protos/identity/v1/request;request";
+
+message RegisterUserRequest {
+  string name = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string phone = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
+  string email = 3 [(validate.rules).string = {ignore_empty: true, email: true}];
+}
+
+// RegisterMerchantRequest creates a merchant user AND their store in one call.
+message RegisterMerchantRequest {
+  // owner (user) fields
+  string name = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string phone = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
+  string email = 3 [(validate.rules).string = {ignore_empty: true, email: true}];
+  // store fields
+  string store_name = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string description = 5;
+  string logo_url = 6;
+  string address = 7;
+  string upi_vpa = 8 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.pattern = "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
+  ];
+  // Fixed shop location (recommended; needed for geofenced ordering).
+  double latitude = 9 [(validate.rules).double = {gte: -90, lte: 90}];
+  double longitude = 10 [(validate.rules).double = {gte: -180, lte: 180}];
+}
+
+message LoginWithPhoneRequest {
+  string phone = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
+}
+
+// AuthenticateWithProviderRequest is the future integration seam: given a
+// partner/IdP identity, find-or-create the matching local user and issue a token.
+message AuthenticateWithProviderRequest {
+  string provider = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string external_id = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  // Defaults to USER when unspecified.
+  identity.v1.types.enums.UserType user_type = 3;
+  string name = 4;
+  string phone = 5;
+  string email = 6;
+}
+
+message GetMeRequest {}

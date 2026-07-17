@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package order.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/order/v1/types/enums;enums";
+
+enum PaymentMode {
+  PAYMENT_MODE_UNSPECIFIED = 0;
+  PAYMENT_MODE_ON_PLATFORM = 1; // pay through our website
+  PAYMENT_MODE_DIRECT = 2;      // pay the merchant directly (UPI, cash)
+}
+
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_PAID = 2;
+  PAYMENT_STATUS_FAILED = 3;
+}

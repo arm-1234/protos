@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package identity.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "identity/v1/request/identity_request.proto";
+import "identity/v1/response/identity_response.proto";
+
+option go_package = "github.com/arm-1234/protos/identity/v1;v1";
+
+// Identity owns users (normal + merchant) and issues auth tokens. It is the
+// single place partner/IdP identities are mapped to local users.
+service Identity {
+  // RegisterUser creates a normal shopper account and returns a token.
+  rpc RegisterUser (identity.v1.request.RegisterUserRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/users:register"
+      body: "*"
+    };
+  }
+
+  // RegisterMerchant creates a merchant user + their store and returns a token.
+  rpc RegisterMerchant (identity.v1.request.RegisterMerchantRequest) returns (identity.v1.response.RegisterMerchantResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/merchants:register"
+      body: "*"
+    };
+  }
+
+  // LoginWithPhone issues a token for an existing user (stub: no OTP yet).
+  rpc LoginWithPhone (identity.v1.request.LoginWithPhoneRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/login"
+      body: "*"
+    };
+  }
+
+  // AuthenticateWithProvider maps a partner/IdP identity to a local user
+  // (creating it on first sight) and returns a token.
+  rpc AuthenticateWithProvider (identity.v1.request.AuthenticateWithProviderRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/external"
+      body: "*"
+    };
+  }
+
+  // GetMe returns the authenticated caller's user record.
+  rpc GetMe (identity.v1.request.GetMeRequest) returns (identity.v1.response.GetMeResponse) {
+    option (google.api.http) = {
+      get: "/v1/auth/me"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+  IDENTITY_UNSPECIFIED = 0 [(errors.code) = 500];
+  USER_NOT_FOUND = 1 [(errors.code) = 404];
+  USER_ALREADY_EXISTS = 2 [(errors.code) = 409];
+  IDENTITY_INVALID_REQUEST = 3 [(errors.code) = 400];
+  IDENTITY_UNAUTHENTICATED = 4 [(errors.code) = 401];
+}

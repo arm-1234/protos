@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package order.v1.response;
+
+import "order/v1/types/order.proto";
+
+option go_package = "github.com/arm-1234/protos/order/v1/response;response";
+
+message PlaceOrderResponse {
+  order.v1.types.OrderInfo order = 1;
+}
+
+message GetOrderResponse {
+  order.v1.types.OrderInfo order = 1;
+}
+
+message ListMyOrdersResponse {
+  repeated order.v1.types.OrderInfo orders = 1;
+  int64 page_number = 2;
+  int64 page_size = 3;
+  int64 total_pages = 4;
+  int64 total_records = 5;
+}
+
+message ListMerchantOrdersResponse {
+  repeated order.v1.types.OrderInfo orders = 1;
+  int64 page_number = 2;
+  int64 page_size = 3;
+  int64 total_pages = 4;
+  int64 total_records = 5;
+}
+
+message UpdateOrderStatusResponse {
+  order.v1.types.OrderInfo order = 1;
+}

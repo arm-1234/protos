@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package order.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "order/v1/request/order_request.proto";
+import "order/v1/response/order_response.proto";
+
+option go_package = "github.com/arm-1234/protos/order/v1;v1";
+
+service Order {
+  // PlaceOrder: caller submits line items; server prices and totals the order.
+  rpc PlaceOrder (order.v1.request.PlaceOrderRequest) returns (order.v1.response.PlaceOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders"
+      body: "*"
+    };
+  }
+
+  rpc GetOrder (order.v1.request.GetOrderRequest) returns (order.v1.response.GetOrderResponse) {
+    option (google.api.http) = {
+      get: "/v1/orders/{order_id}"
+    };
+  }
+
+  // ListMyOrders returns the authenticated shopper's own orders.
+  rpc ListMyOrders (order.v1.request.ListMyOrdersRequest) returns (order.v1.response.ListMyOrdersResponse) {
+    option (google.api.http) = {
+      get: "/v1/orders"
+    };
+  }
+
+  // ListMerchantOrders is the merchant's incoming-orders view.
+  rpc ListMerchantOrders (order.v1.request.ListMerchantOrdersRequest) returns (order.v1.response.ListMerchantOrdersResponse) {
+    option (google.api.http) = {
+      get: "/v1/merchants/{merchant_id}/orders"
+    };
+  }
+
+  rpc UpdateOrderStatus (order.v1.request.UpdateOrderStatusRequest) returns (order.v1.response.UpdateOrderStatusResponse) {
+    option (google.api.http) = {
+      patch: "/v1/orders/{order_id}/status"
+      body: "*"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+  ORDER_UNSPECIFIED = 0 [(errors.code) = 500];
+  ORDER_NOT_FOUND = 1 [(errors.code) = 404];
+  ORDER_INVALID_REQUEST = 2 [(errors.code) = 400];
+  ORDER_PRODUCT_NOT_FOUND = 3 [(errors.code) = 404];
+  ORDER_FORBIDDEN = 4 [(errors.code) = 403];
+  ORDER_INVALID_STATUS_TRANSITION = 5 [(errors.code) = 409];
+  ORDER_TOO_FAR = 6 [(errors.code) = 403];
+}

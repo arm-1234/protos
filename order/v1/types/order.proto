@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package order.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "order/v1/types/enums/order_status.proto";
+import "order/v1/types/enums/payment_mode.proto";
+
+option go_package = "github.com/arm-1234/protos/order/v1/types;types";
+
+message OrderItem {
+  string product_id = 1;
+  string product_name = 2; // snapshot at order time
+  double unit_price = 3;   // snapshot at order time
+  int32 quantity = 4;
+  double subtotal = 5;
+}
+
+message OrderInfo {
+  string order_id = 1;
+  string merchant_id = 2;
+  string user_id = 3;
+  string user_name = 4; // who placed it (denormalized for merchant view)
+  repeated OrderItem items = 5;
+  double total_amount = 6;
+  string currency = 7;
+  order.v1.types.enums.OrderStatus status = 8;
+  order.v1.types.enums.PaymentMode payment_mode = 9;
+  order.v1.types.enums.PaymentStatus payment_status = 10;
+  google.protobuf.Timestamp placed_at = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+}

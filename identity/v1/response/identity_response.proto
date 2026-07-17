@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package identity.v1.response;
+
+import "google/protobuf/timestamp.proto";
+import "identity/v1/types/user.proto";
+
+option go_package = "github.com/arm-1234/protos/identity/v1/response;response";
+
+// AuthResponse is returned by every auth entry point that issues a token.
+message AuthResponse {
+  string token = 1;
+  google.protobuf.Timestamp expires_at = 2;
+  identity.v1.types.UserInfo user = 3;
+}
+
+message RegisterMerchantResponse {
+  string token = 1;
+  google.protobuf.Timestamp expires_at = 2;
+  identity.v1.types.UserInfo user = 3;
+  string merchant_id = 4;
+}
+
+message GetMeResponse {
+  identity.v1.types.UserInfo user = 1;
+}
