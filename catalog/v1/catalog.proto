@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package catalog.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "catalog/v1/request/catalog_request.proto";
+import "catalog/v1/response/catalog_response.proto";
+
+option go_package = "github.com/arm-1234/protos/catalog/v1;v1";
+
+service Catalog {
+  rpc CreateProduct (catalog.v1.request.CreateProductRequest) returns (catalog.v1.response.CreateProductResponse) {
+    option (google.api.http) = {
+      post: "/v1/products"
+      body: "*"
+    };
+  }
+
+  // BatchCreateProducts adds many products at once for the caller's merchant.
+  rpc BatchCreateProducts (catalog.v1.request.BatchCreateProductsRequest) returns (catalog.v1.response.BatchCreateProductsResponse) {
+    option (google.api.http) = {
+      post: "/v1/products:batchCreate"
+      body: "*"
+    };
+  }
+
+  rpc GetProduct (catalog.v1.request.GetProductRequest) returns (catalog.v1.response.GetProductResponse) {
+    option (google.api.http) = {
+      get: "/v1/products/{product_id}"
+    };
+  }
+
+  rpc UpdateProduct (catalog.v1.request.UpdateProductRequest) returns (catalog.v1.response.UpdateProductResponse) {
+    option (google.api.http) = {
+      patch: "/v1/products/{product_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteProduct (catalog.v1.request.DeleteProductRequest) returns (catalog.v1.response.DeleteProductResponse) {
+    option (google.api.http) = {
+      delete: "/v1/products/{product_id}"
+    };
+  }
+
+  // ListProducts returns a merchant's products with filtering + sorting.
+  rpc ListProducts (catalog.v1.request.ListProductsRequest) returns (catalog.v1.response.ListProductsResponse) {
+    option (google.api.http) = {
+      get: "/v1/merchants/{merchant_id}/products"
+    };
+  }
+
+  // CreateProductImageUpload returns a presigned URL for direct image upload.
+  rpc CreateProductImageUpload (catalog.v1.request.CreateProductImageUploadRequest) returns (catalog.v1.response.CreateProductImageUploadResponse) {
+    option (google.api.http) = {
+      post: "/v1/products/image-uploads"
+      body: "*"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+  PRODUCT_UNSPECIFIED = 0 [(errors.code) = 500];
+  PRODUCT_NOT_FOUND = 1 [(errors.code) = 404];
+  PRODUCT_INVALID_REQUEST = 2 [(errors.code) = 400];
+  PRODUCT_FORBIDDEN = 3 [(errors.code) = 403];
+  PRODUCT_UPLOAD_UNAVAILABLE = 4 [(errors.code) = 503];
+}

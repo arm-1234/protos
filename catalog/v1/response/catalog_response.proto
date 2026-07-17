@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package catalog.v1.response;
+
+import "catalog/v1/types/product.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/arm-1234/protos/catalog/v1/response;response";
+
+message CreateProductResponse {
+  catalog.v1.types.ProductInfo product = 1;
+}
+
+message BatchCreateProductsResponse {
+  repeated catalog.v1.types.ProductInfo products = 1;
+  int64 created_count = 2;
+}
+
+message GetProductResponse {
+  catalog.v1.types.ProductInfo product = 1;
+}
+
+message UpdateProductResponse {
+  catalog.v1.types.ProductInfo product = 1;
+}
+
+message DeleteProductResponse {
+  bool success = 1;
+}
+
+message ListProductsResponse {
+  repeated catalog.v1.types.ProductInfo products = 1;
+  int64 page_number = 2;
+  int64 page_size = 3;
+  int64 total_pages = 4;
+  int64 total_records = 5;
+}
+
+message CreateProductImageUploadResponse {
+  // Presigned URL the client uploads the image bytes to (via HTTP PUT).
+  string upload_url = 1;
+  string method = 2;
+  // Object key + the public URL to store on the product afterwards.
+  string image_key = 3;
+  string image_url = 4;
+  google.protobuf.Timestamp expires_at = 5;
+}

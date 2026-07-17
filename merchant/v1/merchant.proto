@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package merchant.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "merchant/v1/request/merchant_request.proto";
+import "merchant/v1/response/merchant_response.proto";
+
+option go_package = "github.com/arm-1234/protos/merchant/v1;v1";
+
+service Merchant {
+  // OnboardMerchant registers a new merchant (their store + UPI VPA).
+  rpc OnboardMerchant (merchant.v1.request.OnboardMerchantRequest) returns (merchant.v1.response.OnboardMerchantResponse) {
+    option (google.api.http) = {
+      post: "/v1/merchants"
+      body: "*"
+    };
+  }
+
+  rpc GetMerchant (merchant.v1.request.GetMerchantRequest) returns (merchant.v1.response.GetMerchantResponse) {
+    option (google.api.http) = {
+      get: "/v1/merchants/{merchant_id}"
+    };
+  }
+
+  rpc UpdateMerchant (merchant.v1.request.UpdateMerchantRequest) returns (merchant.v1.response.UpdateMerchantResponse) {
+    option (google.api.http) = {
+      patch: "/v1/merchants/{merchant_id}"
+      body: "*"
+    };
+  }
+
+  // ResolveStoreByVpa is the QR-scan entry point: given the UPI VPA parsed
+  // from a Paytm/GPay/PhonePe QR, return the merchant's store. Resolves by
+  // any of the merchant's VPAs.
+  rpc ResolveStoreByVpa (merchant.v1.request.ResolveStoreByVpaRequest) returns (merchant.v1.response.ResolveStoreByVpaResponse) {
+    option (google.api.http) = {
+      get: "/v1/stores:resolve"
+    };
+  }
+
+  // ListMerchantVpas returns all UPI VPAs a merchant holds (owner only).
+  rpc ListMerchantVpas (merchant.v1.request.ListMerchantVpasRequest) returns (merchant.v1.response.MerchantVpasResponse) {
+    option (google.api.http) = {
+      get: "/v1/merchants/{merchant_id}/vpas"
+    };
+  }
+
+  // AddMerchantVpa attaches another UPI VPA to the merchant (owner only).
+  rpc AddMerchantVpa (merchant.v1.request.AddMerchantVpaRequest) returns (merchant.v1.response.MerchantVpasResponse) {
+    option (google.api.http) = {
+      post: "/v1/merchants/{merchant_id}/vpas"
+      body: "*"
+    };
+  }
+
+  // RemoveMerchantVpa detaches a VPA (owner only); cannot remove the last one.
+  rpc RemoveMerchantVpa (merchant.v1.request.RemoveMerchantVpaRequest) returns (merchant.v1.response.MerchantVpasResponse) {
+    option (google.api.http) = {
+      delete: "/v1/merchants/{merchant_id}/vpas/{vpa_id}"
+    };
+  }
+
+  // SetPrimaryMerchantVpa promotes a VPA to primary (owner only).
+  rpc SetPrimaryMerchantVpa (merchant.v1.request.SetPrimaryMerchantVpaRequest) returns (merchant.v1.response.MerchantVpasResponse) {
+    option (google.api.http) = {
+      patch: "/v1/merchants/{merchant_id}/vpas/{vpa_id}"
+      body: "*"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+  MERCHANT_UNSPECIFIED = 0 [(errors.code) = 500];
+  MERCHANT_NOT_FOUND = 1 [(errors.code) = 404];
+  MERCHANT_ALREADY_EXISTS = 2 [(errors.code) = 409];
+  MERCHANT_INVALID_REQUEST = 3 [(errors.code) = 400];
+  MERCHANT_FORBIDDEN = 4 [(errors.code) = 403];
+}

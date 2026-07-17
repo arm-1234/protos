@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package catalog.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/catalog/v1/types/enums;enums";
+
+// ProductSortBy controls the ordering of a product listing.
+enum ProductSortBy {
+  PRODUCT_SORT_BY_UNSPECIFIED = 0;
+  PRODUCT_SORT_BY_PRICE_ASC = 1;    // price low -> high
+  PRODUCT_SORT_BY_PRICE_DESC = 2;   // price high -> low
+  PRODUCT_SORT_BY_RATING_DESC = 3;  // highest rated first
+  PRODUCT_SORT_BY_MOST_REVIEWED = 4; // most reviews first
+  PRODUCT_SORT_BY_NEWEST = 5;       // most recently added first
+}

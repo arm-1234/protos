@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package merchant.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "merchant/v1/types/enums/merchant_status.proto";
+
+option go_package = "github.com/arm-1234/protos/merchant/v1/types;types";
+
+// MerchantInfo is the full merchant record.
+message MerchantInfo {
+  string merchant_id = 1;
+  string name = 2;
+  string phone = 3;
+  string store_name = 4;
+  string description = 5;
+  string logo_url = 6;
+  string address = 7;
+  string upi_vpa = 8;
+  merchant.v1.types.enums.MerchantStatus status = 9;
+  // Store gelocation; 0/0 means "not set" (geofence checks are then skipped).
+  double latitude = 10;
+  double longitude = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+}
+
+// MerchantVpa is one UPI VPA belonging to a merchant. A merchant may hold
+// several (Paytm, GPay, PhonePe, …); exactly one is the primary.
+message MerchantVpa {
+  string vpa_id = 1;
+  string vpa = 2;
+  string label = 3;
+  bool is_primary = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+
+// StoreSummary is the public store view returned when a QR/VPA is resolved.
+message StoreSummary {
+  string merchant_id = 1;
+  string store_name = 2;
+  string description = 3;
+  string logo_url = 4;
+  string address = 5;
+  string upi_vpa = 6;
+  double latitude = 7;
+  double longitude = 8;
+}

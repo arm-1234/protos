@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package review.v1.request;
+
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/arm-1234/protos/review/v1/request;request";
+
+// UpsertReviewRequest creates or updates the caller's review for a product.
+// user_id is taken from the authenticated caller.
+message UpsertReviewRequest {
+  string product_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  int32 rating = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).int32 = {gte: 1, lte: 5}
+  ];
+  string comment = 3 [(validate.rules).string.max_len = 2000];
+}
+
+message GetMyReviewRequest {
+  string product_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message ListReviewsRequest {
+  string product_id = 1 [(validate.rules).string.min_len = 1];
+  int64 page_number = 2;
+  int64 page_size = 3;
+}

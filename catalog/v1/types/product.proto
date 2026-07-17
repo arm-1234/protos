@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package catalog.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "catalog/v1/types/enums/product_status.proto";
+
+option go_package = "github.com/arm-1234/protos/catalog/v1/types;types";
+
+message ProductInfo {
+  string product_id = 1;
+  string merchant_id = 2;
+  string name = 3;
+  string description = 4;
+  string image_url = 5;
+  double price = 6;
+  string currency = 7;
+  catalog.v1.types.enums.ProductStatus status = 8;
+  // Denormalized rating aggregates, maintained on every review upsert.
+  double rating_avg = 9;
+  int64 rating_count = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+}

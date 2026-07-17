@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package review.v1.response;
+
+import "review/v1/types/review.proto";
+
+option go_package = "github.com/arm-1234/protos/review/v1/response;response";
+
+message UpsertReviewResponse {
+  review.v1.types.ReviewInfo review = 1;
+  double product_rating_avg = 2;
+  int64 product_rating_count = 3;
+}
+
+message GetMyReviewResponse {
+  // review is unset if the caller has not reviewed this product.
+  review.v1.types.ReviewInfo review = 1;
+  bool has_reviewed = 2;
+}
+
+message ListReviewsResponse {
+  repeated review.v1.types.ReviewInfo reviews = 1;
+  int64 page_number = 2;
+  int64 page_size = 3;
+  int64 total_pages = 4;
+  int64 total_records = 5;
+}

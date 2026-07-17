@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package review.v1.types;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/arm-1234/protos/review/v1/types;types";
+
+message ReviewInfo {
+  string review_id = 1;
+  string product_id = 2;
+  string user_id = 3;
+  string merchant_id = 4;
+  int32 rating = 5; // 1..5
+  string comment = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}

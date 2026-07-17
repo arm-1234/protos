@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package catalog.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/catalog/v1/types/enums;enums";
+
+enum ProductStatus {
+  PRODUCT_STATUS_UNSPECIFIED = 0;
+  PRODUCT_STATUS_ACTIVE = 1;
+  PRODUCT_STATUS_INACTIVE = 2;
+}

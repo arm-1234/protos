@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package merchant.v1.response;
+
+import "merchant/v1/types/merchant.proto";
+
+option go_package = "github.com/arm-1234/protos/merchant/v1/response;response";
+
+message OnboardMerchantResponse {
+  merchant.v1.types.MerchantInfo merchant = 1;
+}
+
+message GetMerchantResponse {
+  merchant.v1.types.MerchantInfo merchant = 1;
+}
+
+message UpdateMerchantResponse {
+  merchant.v1.types.MerchantInfo merchant = 1;
+}
+
+message ResolveStoreByVpaResponse {
+  merchant.v1.types.StoreSummary store = 1;
+}
+
+// The merchant's full VPA set (primary first).
+message MerchantVpasResponse {
+  repeated merchant.v1.types.MerchantVpa vpas = 1;
+}
