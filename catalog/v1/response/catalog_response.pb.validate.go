@@ -671,6 +671,137 @@ var _ interface {
 	ErrorName() string
 } = DeleteProductResponseValidationError{}
 
+// Validate checks the field values on SetInventoryResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetInventoryResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetInventoryResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetInventoryResponseMultiError, or nil if none found.
+func (m *SetInventoryResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetInventoryResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProduct()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SetInventoryResponseValidationError{
+					field:  "Product",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SetInventoryResponseValidationError{
+					field:  "Product",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProduct()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SetInventoryResponseValidationError{
+				field:  "Product",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SetInventoryResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetInventoryResponseMultiError is an error wrapping multiple validation
+// errors returned by SetInventoryResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SetInventoryResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetInventoryResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetInventoryResponseMultiError) AllErrors() []error { return m }
+
+// SetInventoryResponseValidationError is the validation error returned by
+// SetInventoryResponse.Validate if the designated constraints aren't met.
+type SetInventoryResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetInventoryResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetInventoryResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetInventoryResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetInventoryResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetInventoryResponseValidationError) ErrorName() string {
+	return "SetInventoryResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetInventoryResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetInventoryResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetInventoryResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetInventoryResponseValidationError{}
+
 // Validate checks the field values on ListProductsResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

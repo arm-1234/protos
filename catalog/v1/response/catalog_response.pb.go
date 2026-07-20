@@ -251,6 +251,50 @@ func (x *DeleteProductResponse) GetSuccess() bool {
 	return false
 }
 
+type SetInventoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Product       *types.ProductInfo     `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetInventoryResponse) Reset() {
+	*x = SetInventoryResponse{}
+	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetInventoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetInventoryResponse) ProtoMessage() {}
+
+func (x *SetInventoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetInventoryResponse.ProtoReflect.Descriptor instead.
+func (*SetInventoryResponse) Descriptor() ([]byte, []int) {
+	return file_catalog_v1_response_catalog_response_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SetInventoryResponse) GetProduct() *types.ProductInfo {
+	if x != nil {
+		return x.Product
+	}
+	return nil
+}
+
 type ListProductsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Products      []*types.ProductInfo   `protobuf:"bytes,1,rep,name=products,proto3" json:"products,omitempty"`
@@ -264,7 +308,7 @@ type ListProductsResponse struct {
 
 func (x *ListProductsResponse) Reset() {
 	*x = ListProductsResponse{}
-	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[5]
+	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -276,7 +320,7 @@ func (x *ListProductsResponse) String() string {
 func (*ListProductsResponse) ProtoMessage() {}
 
 func (x *ListProductsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[5]
+	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -289,7 +333,7 @@ func (x *ListProductsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProductsResponse.ProtoReflect.Descriptor instead.
 func (*ListProductsResponse) Descriptor() ([]byte, []int) {
-	return file_catalog_v1_response_catalog_response_proto_rawDescGZIP(), []int{5}
+	return file_catalog_v1_response_catalog_response_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ListProductsResponse) GetProducts() []*types.ProductInfo {
@@ -342,7 +386,7 @@ type CreateProductImageUploadResponse struct {
 
 func (x *CreateProductImageUploadResponse) Reset() {
 	*x = CreateProductImageUploadResponse{}
-	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[6]
+	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -354,7 +398,7 @@ func (x *CreateProductImageUploadResponse) String() string {
 func (*CreateProductImageUploadResponse) ProtoMessage() {}
 
 func (x *CreateProductImageUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[6]
+	mi := &file_catalog_v1_response_catalog_response_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -367,7 +411,7 @@ func (x *CreateProductImageUploadResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateProductImageUploadResponse.ProtoReflect.Descriptor instead.
 func (*CreateProductImageUploadResponse) Descriptor() ([]byte, []int) {
-	return file_catalog_v1_response_catalog_response_proto_rawDescGZIP(), []int{6}
+	return file_catalog_v1_response_catalog_response_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateProductImageUploadResponse) GetUploadUrl() string {
@@ -420,7 +464,9 @@ const file_catalog_v1_response_catalog_response_proto_rawDesc = "" +
 	"\x15UpdateProductResponse\x127\n" +
 	"\aproduct\x18\x01 \x01(\v2\x1d.catalog.v1.types.ProductInfoR\aproduct\"1\n" +
 	"\x15DeleteProductResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"\xd5\x01\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"O\n" +
+	"\x14SetInventoryResponse\x127\n" +
+	"\aproduct\x18\x01 \x01(\v2\x1d.catalog.v1.types.ProductInfoR\aproduct\"\xd5\x01\n" +
 	"\x14ListProductsResponse\x129\n" +
 	"\bproducts\x18\x01 \x03(\v2\x1d.catalog.v1.types.ProductInfoR\bproducts\x12\x1f\n" +
 	"\vpage_number\x18\x02 \x01(\x03R\n" +
@@ -450,30 +496,32 @@ func file_catalog_v1_response_catalog_response_proto_rawDescGZIP() []byte {
 	return file_catalog_v1_response_catalog_response_proto_rawDescData
 }
 
-var file_catalog_v1_response_catalog_response_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_catalog_v1_response_catalog_response_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_catalog_v1_response_catalog_response_proto_goTypes = []any{
 	(*CreateProductResponse)(nil),            // 0: catalog.v1.response.CreateProductResponse
 	(*BatchCreateProductsResponse)(nil),      // 1: catalog.v1.response.BatchCreateProductsResponse
 	(*GetProductResponse)(nil),               // 2: catalog.v1.response.GetProductResponse
 	(*UpdateProductResponse)(nil),            // 3: catalog.v1.response.UpdateProductResponse
 	(*DeleteProductResponse)(nil),            // 4: catalog.v1.response.DeleteProductResponse
-	(*ListProductsResponse)(nil),             // 5: catalog.v1.response.ListProductsResponse
-	(*CreateProductImageUploadResponse)(nil), // 6: catalog.v1.response.CreateProductImageUploadResponse
-	(*types.ProductInfo)(nil),                // 7: catalog.v1.types.ProductInfo
-	(*timestamppb.Timestamp)(nil),            // 8: google.protobuf.Timestamp
+	(*SetInventoryResponse)(nil),             // 5: catalog.v1.response.SetInventoryResponse
+	(*ListProductsResponse)(nil),             // 6: catalog.v1.response.ListProductsResponse
+	(*CreateProductImageUploadResponse)(nil), // 7: catalog.v1.response.CreateProductImageUploadResponse
+	(*types.ProductInfo)(nil),                // 8: catalog.v1.types.ProductInfo
+	(*timestamppb.Timestamp)(nil),            // 9: google.protobuf.Timestamp
 }
 var file_catalog_v1_response_catalog_response_proto_depIdxs = []int32{
-	7, // 0: catalog.v1.response.CreateProductResponse.product:type_name -> catalog.v1.types.ProductInfo
-	7, // 1: catalog.v1.response.BatchCreateProductsResponse.products:type_name -> catalog.v1.types.ProductInfo
-	7, // 2: catalog.v1.response.GetProductResponse.product:type_name -> catalog.v1.types.ProductInfo
-	7, // 3: catalog.v1.response.UpdateProductResponse.product:type_name -> catalog.v1.types.ProductInfo
-	7, // 4: catalog.v1.response.ListProductsResponse.products:type_name -> catalog.v1.types.ProductInfo
-	8, // 5: catalog.v1.response.CreateProductImageUploadResponse.expires_at:type_name -> google.protobuf.Timestamp
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	8, // 0: catalog.v1.response.CreateProductResponse.product:type_name -> catalog.v1.types.ProductInfo
+	8, // 1: catalog.v1.response.BatchCreateProductsResponse.products:type_name -> catalog.v1.types.ProductInfo
+	8, // 2: catalog.v1.response.GetProductResponse.product:type_name -> catalog.v1.types.ProductInfo
+	8, // 3: catalog.v1.response.UpdateProductResponse.product:type_name -> catalog.v1.types.ProductInfo
+	8, // 4: catalog.v1.response.SetInventoryResponse.product:type_name -> catalog.v1.types.ProductInfo
+	8, // 5: catalog.v1.response.ListProductsResponse.products:type_name -> catalog.v1.types.ProductInfo
+	9, // 6: catalog.v1.response.CreateProductImageUploadResponse.expires_at:type_name -> google.protobuf.Timestamp
+	7, // [7:7] is the sub-list for method output_type
+	7, // [7:7] is the sub-list for method input_type
+	7, // [7:7] is the sub-list for extension type_name
+	7, // [7:7] is the sub-list for extension extendee
+	0, // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_catalog_v1_response_catalog_response_proto_init() }
@@ -487,7 +535,7 @@ func file_catalog_v1_response_catalog_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_catalog_v1_response_catalog_response_proto_rawDesc), len(file_catalog_v1_response_catalog_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

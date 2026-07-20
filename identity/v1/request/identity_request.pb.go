@@ -371,6 +371,58 @@ func (*GetMeRequest) Descriptor() ([]byte, []int) {
 	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{4}
 }
 
+type RegisterPushTokenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Platform      string                 `protobuf:"bytes,2,opt,name=platform,proto3" json:"platform,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterPushTokenRequest) Reset() {
+	*x = RegisterPushTokenRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterPushTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterPushTokenRequest) ProtoMessage() {}
+
+func (x *RegisterPushTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterPushTokenRequest.ProtoReflect.Descriptor instead.
+func (*RegisterPushTokenRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RegisterPushTokenRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *RegisterPushTokenRequest) GetPlatform() string {
+	if x != nil {
+		return x.Platform
+	}
+	return ""
+}
+
 var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
 
 const file_identity_v1_request_identity_request_proto_rawDesc = "" +
@@ -405,7 +457,10 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\x04name\x18\x04 \x01(\tR\x04name\x12\x14\n" +
 	"\x05phone\x18\x05 \x01(\tR\x05phone\x12\x14\n" +
 	"\x05email\x18\x06 \x01(\tR\x05email\"\x0e\n" +
-	"\fGetMeRequestB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
+	"\fGetMeRequest\"Y\n" +
+	"\x18RegisterPushTokenRequest\x12!\n" +
+	"\x05token\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x05token\x12\x1a\n" +
+	"\bplatform\x18\x02 \x01(\tR\bplatformB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
 
 var (
 	file_identity_v1_request_identity_request_proto_rawDescOnce sync.Once
@@ -419,17 +474,18 @@ func file_identity_v1_request_identity_request_proto_rawDescGZIP() []byte {
 	return file_identity_v1_request_identity_request_proto_rawDescData
 }
 
-var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),             // 0: identity.v1.request.RegisterUserRequest
 	(*RegisterMerchantRequest)(nil),         // 1: identity.v1.request.RegisterMerchantRequest
 	(*LoginWithPhoneRequest)(nil),           // 2: identity.v1.request.LoginWithPhoneRequest
 	(*AuthenticateWithProviderRequest)(nil), // 3: identity.v1.request.AuthenticateWithProviderRequest
 	(*GetMeRequest)(nil),                    // 4: identity.v1.request.GetMeRequest
-	(enums.UserType)(0),                     // 5: identity.v1.types.enums.UserType
+	(*RegisterPushTokenRequest)(nil),        // 5: identity.v1.request.RegisterPushTokenRequest
+	(enums.UserType)(0),                     // 6: identity.v1.types.enums.UserType
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	5, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	6, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -448,7 +504,7 @@ func file_identity_v1_request_identity_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_request_identity_request_proto_rawDesc), len(file_identity_v1_request_identity_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

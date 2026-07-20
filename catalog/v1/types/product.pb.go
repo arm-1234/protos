@@ -34,12 +34,14 @@ type ProductInfo struct {
 	Currency    string                 `protobuf:"bytes,7,opt,name=currency,proto3" json:"currency,omitempty"`
 	Status      enums.ProductStatus    `protobuf:"varint,8,opt,name=status,proto3,enum=catalog.v1.types.enums.ProductStatus" json:"status,omitempty"`
 	// Denormalized rating aggregates, maintained on every review upsert.
-	RatingAvg     float64                `protobuf:"fixed64,9,opt,name=rating_avg,json=ratingAvg,proto3" json:"rating_avg,omitempty"`
-	RatingCount   int64                  `protobuf:"varint,10,opt,name=rating_count,json=ratingCount,proto3" json:"rating_count,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	RatingAvg      float64                `protobuf:"fixed64,9,opt,name=rating_avg,json=ratingAvg,proto3" json:"rating_avg,omitempty"`
+	RatingCount    int64                  `protobuf:"varint,10,opt,name=rating_count,json=ratingCount,proto3" json:"rating_count,omitempty"`
+	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt      *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	TrackInventory bool                   `protobuf:"varint,13,opt,name=track_inventory,json=trackInventory,proto3" json:"track_inventory,omitempty"`
+	StockQuantity  int64                  `protobuf:"varint,14,opt,name=stock_quantity,json=stockQuantity,proto3" json:"stock_quantity,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *ProductInfo) Reset() {
@@ -156,11 +158,25 @@ func (x *ProductInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *ProductInfo) GetTrackInventory() bool {
+	if x != nil {
+		return x.TrackInventory
+	}
+	return false
+}
+
+func (x *ProductInfo) GetStockQuantity() int64 {
+	if x != nil {
+		return x.StockQuantity
+	}
+	return 0
+}
+
 var File_catalog_v1_types_product_proto protoreflect.FileDescriptor
 
 const file_catalog_v1_types_product_proto_rawDesc = "" +
 	"\n" +
-	"\x1ecatalog/v1/types/product.proto\x12\x10catalog.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a+catalog/v1/types/enums/product_status.proto\"\xc9\x03\n" +
+	"\x1ecatalog/v1/types/product.proto\x12\x10catalog.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a+catalog/v1/types/enums/product_status.proto\"\x99\x04\n" +
 	"\vProductInfo\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tR\tproductId\x12\x1f\n" +
@@ -179,7 +195,9 @@ const file_catalog_v1_types_product_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB3Z1github.com/arm-1234/protos/catalog/v1/types;typesb\x06proto3"
+	"updated_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12'\n" +
+	"\x0ftrack_inventory\x18\r \x01(\bR\x0etrackInventory\x12%\n" +
+	"\x0estock_quantity\x18\x0e \x01(\x03R\rstockQuantityB3Z1github.com/arm-1234/protos/catalog/v1/types;typesb\x06proto3"
 
 var (
 	file_catalog_v1_types_product_proto_rawDescOnce sync.Once

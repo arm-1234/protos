@@ -51,6 +51,13 @@ service Identity {
       get: "/v1/auth/me"
     };
   }
+
+  rpc RegisterPushToken (identity.v1.request.RegisterPushTokenRequest) returns (identity.v1.response.RegisterPushTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/push/register"
+      body: "*"
+    };
+  }
 }
 
 enum ErrorReason {

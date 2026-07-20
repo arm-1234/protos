@@ -44,6 +44,13 @@ service Catalog {
     };
   }
 
+  rpc SetInventory (catalog.v1.request.SetInventoryRequest) returns (catalog.v1.response.SetInventoryResponse) {
+    option (google.api.http) = {
+      patch: "/v1/products/{product_id}/inventory"
+      body: "*"
+    };
+  }
+
   // ListProducts returns a merchant's products with filtering + sorting.
   rpc ListProducts (catalog.v1.request.ListProductsRequest) returns (catalog.v1.response.ListProductsResponse) {
     option (google.api.http) = {

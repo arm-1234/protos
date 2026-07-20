@@ -26,6 +26,7 @@ const (
 	Catalog_GetProduct_FullMethodName               = "/catalog.v1.Catalog/GetProduct"
 	Catalog_UpdateProduct_FullMethodName            = "/catalog.v1.Catalog/UpdateProduct"
 	Catalog_DeleteProduct_FullMethodName            = "/catalog.v1.Catalog/DeleteProduct"
+	Catalog_SetInventory_FullMethodName             = "/catalog.v1.Catalog/SetInventory"
 	Catalog_ListProducts_FullMethodName             = "/catalog.v1.Catalog/ListProducts"
 	Catalog_CreateProductImageUpload_FullMethodName = "/catalog.v1.Catalog/CreateProductImageUpload"
 )
@@ -40,6 +41,7 @@ type CatalogClient interface {
 	GetProduct(ctx context.Context, in *request.GetProductRequest, opts ...grpc.CallOption) (*response.GetProductResponse, error)
 	UpdateProduct(ctx context.Context, in *request.UpdateProductRequest, opts ...grpc.CallOption) (*response.UpdateProductResponse, error)
 	DeleteProduct(ctx context.Context, in *request.DeleteProductRequest, opts ...grpc.CallOption) (*response.DeleteProductResponse, error)
+	SetInventory(ctx context.Context, in *request.SetInventoryRequest, opts ...grpc.CallOption) (*response.SetInventoryResponse, error)
 	// ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(ctx context.Context, in *request.ListProductsRequest, opts ...grpc.CallOption) (*response.ListProductsResponse, error)
 	// CreateProductImageUpload returns a presigned URL for direct image upload.
@@ -104,6 +106,16 @@ func (c *catalogClient) DeleteProduct(ctx context.Context, in *request.DeletePro
 	return out, nil
 }
 
+func (c *catalogClient) SetInventory(ctx context.Context, in *request.SetInventoryRequest, opts ...grpc.CallOption) (*response.SetInventoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.SetInventoryResponse)
+	err := c.cc.Invoke(ctx, Catalog_SetInventory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *catalogClient) ListProducts(ctx context.Context, in *request.ListProductsRequest, opts ...grpc.CallOption) (*response.ListProductsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.ListProductsResponse)
@@ -134,6 +146,7 @@ type CatalogServer interface {
 	GetProduct(context.Context, *request.GetProductRequest) (*response.GetProductResponse, error)
 	UpdateProduct(context.Context, *request.UpdateProductRequest) (*response.UpdateProductResponse, error)
 	DeleteProduct(context.Context, *request.DeleteProductRequest) (*response.DeleteProductResponse, error)
+	SetInventory(context.Context, *request.SetInventoryRequest) (*response.SetInventoryResponse, error)
 	// ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(context.Context, *request.ListProductsRequest) (*response.ListProductsResponse, error)
 	// CreateProductImageUpload returns a presigned URL for direct image upload.
@@ -162,6 +175,9 @@ func (UnimplementedCatalogServer) UpdateProduct(context.Context, *request.Update
 }
 func (UnimplementedCatalogServer) DeleteProduct(context.Context, *request.DeleteProductRequest) (*response.DeleteProductResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteProduct not implemented")
+}
+func (UnimplementedCatalogServer) SetInventory(context.Context, *request.SetInventoryRequest) (*response.SetInventoryResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SetInventory not implemented")
 }
 func (UnimplementedCatalogServer) ListProducts(context.Context, *request.ListProductsRequest) (*response.ListProductsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListProducts not implemented")
@@ -280,6 +296,24 @@ func _Catalog_DeleteProduct_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Catalog_SetInventory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.SetInventoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServer).SetInventory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Catalog_SetInventory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServer).SetInventory(ctx, req.(*request.SetInventoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Catalog_ListProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.ListProductsRequest)
 	if err := dec(in); err != nil {
@@ -342,6 +376,10 @@ var Catalog_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProduct",
 			Handler:    _Catalog_DeleteProduct_Handler,
+		},
+		{
+			MethodName: "SetInventory",
+			Handler:    _Catalog_SetInventory_Handler,
 		},
 		{
 			MethodName: "ListProducts",

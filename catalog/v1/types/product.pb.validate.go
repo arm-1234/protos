@@ -139,6 +139,10 @@ func (m *ProductInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for TrackInventory
+
+	// no validation rules for StockQuantity
+
 	if len(errors) > 0 {
 		return ProductInfoMultiError(errors)
 	}

@@ -25,6 +25,7 @@ const OperationIdentityAuthenticateWithProvider = "/identity.v1.Identity/Authent
 const OperationIdentityGetMe = "/identity.v1.Identity/GetMe"
 const OperationIdentityLoginWithPhone = "/identity.v1.Identity/LoginWithPhone"
 const OperationIdentityRegisterMerchant = "/identity.v1.Identity/RegisterMerchant"
+const OperationIdentityRegisterPushToken = "/identity.v1.Identity/RegisterPushToken"
 const OperationIdentityRegisterUser = "/identity.v1.Identity/RegisterUser"
 
 type IdentityHTTPServer interface {
@@ -37,6 +38,7 @@ type IdentityHTTPServer interface {
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
 	// RegisterMerchant RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
+	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 }
@@ -48,6 +50,7 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.POST("/v1/auth/login", _Identity_LoginWithPhone0_HTTP_Handler(srv))
 	r.POST("/v1/auth/external", _Identity_AuthenticateWithProvider0_HTTP_Handler(srv))
 	r.GET("/v1/auth/me", _Identity_GetMe0_HTTP_Handler(srv))
+	r.POST("/v1/push/register", _Identity_RegisterPushToken0_HTTP_Handler(srv))
 }
 
 func _Identity_RegisterUser0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
@@ -157,6 +160,28 @@ func _Identity_GetMe0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context
 	}
 }
 
+func _Identity_RegisterPushToken0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RegisterPushTokenRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityRegisterPushToken)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RegisterPushToken(ctx, req.(*request.RegisterPushTokenRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RegisterPushTokenResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type IdentityHTTPClient interface {
 	// AuthenticateWithProvider AuthenticateWithProvider maps a partner/IdP identity to a local user
 	// (creating it on first sight) and returns a token.
@@ -167,6 +192,7 @@ type IdentityHTTPClient interface {
 	LoginWithPhone(ctx context.Context, req *request.LoginWithPhoneRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	// RegisterMerchant RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(ctx context.Context, req *request.RegisterMerchantRequest, opts ...http.CallOption) (rsp *response.RegisterMerchantResponse, err error)
+	RegisterPushToken(ctx context.Context, req *request.RegisterPushTokenRequest, opts ...http.CallOption) (rsp *response.RegisterPushTokenResponse, err error)
 	// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(ctx context.Context, req *request.RegisterUserRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 }
@@ -228,6 +254,19 @@ func (c *IdentityHTTPClientImpl) RegisterMerchant(ctx context.Context, in *reque
 	pattern := "/v1/auth/merchants:register"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationIdentityRegisterMerchant))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *IdentityHTTPClientImpl) RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...http.CallOption) (*response.RegisterPushTokenResponse, error) {
+	var out response.RegisterPushTokenResponse
+	pattern := "/v1/push/register"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityRegisterPushToken))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

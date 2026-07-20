@@ -90,13 +90,14 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\x0eUSER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1d\n" +
 	"\x13USER_ALREADY_EXISTS\x10\x02\x1a\x04\xa8E\x99\x03\x12\"\n" +
 	"\x18IDENTITY_INVALID_REQUEST\x10\x03\x1a\x04\xa8E\x90\x03\x12\"\n" +
-	"\x18IDENTITY_UNAUTHENTICATED\x10\x04\x1a\x04\xa8E\x91\x03\x1a\x04\xa0E\xf4\x032\xa0\x05\n" +
+	"\x18IDENTITY_UNAUTHENTICATED\x10\x04\x1a\x04\xa8E\x91\x03\x1a\x04\xa0E\xf4\x032\xb4\x06\n" +
 	"\bIdentity\x12\x80\x01\n" +
 	"\fRegisterUser\x12(.identity.v1.request.RegisterUserRequest\x1a\".identity.v1.response.AuthResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/auth/users:register\x12\x98\x01\n" +
 	"\x10RegisterMerchant\x12,.identity.v1.request.RegisterMerchantRequest\x1a..identity.v1.response.RegisterMerchantResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/auth/merchants:register\x12{\n" +
 	"\x0eLoginWithPhone\x12*.identity.v1.request.LoginWithPhoneRequest\x1a\".identity.v1.response.AuthResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12\x92\x01\n" +
 	"\x18AuthenticateWithProvider\x124.identity.v1.request.AuthenticateWithProviderRequest\x1a\".identity.v1.response.AuthResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/auth/external\x12d\n" +
-	"\x05GetMe\x12!.identity.v1.request.GetMeRequest\x1a#.identity.v1.response.GetMeResponse\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/v1/auth/meB+Z)github.com/arm-1234/protos/identity/v1;v1b\x06proto3"
+	"\x05GetMe\x12!.identity.v1.request.GetMeRequest\x1a#.identity.v1.response.GetMeResponse\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/v1/auth/me\x12\x91\x01\n" +
+	"\x11RegisterPushToken\x12-.identity.v1.request.RegisterPushTokenRequest\x1a/.identity.v1.response.RegisterPushTokenResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/push/registerB+Z)github.com/arm-1234/protos/identity/v1;v1b\x06proto3"
 
 var (
 	file_identity_v1_identity_proto_rawDescOnce sync.Once
@@ -118,26 +119,30 @@ var file_identity_v1_identity_proto_goTypes = []any{
 	(*request.LoginWithPhoneRequest)(nil),           // 3: identity.v1.request.LoginWithPhoneRequest
 	(*request.AuthenticateWithProviderRequest)(nil), // 4: identity.v1.request.AuthenticateWithProviderRequest
 	(*request.GetMeRequest)(nil),                    // 5: identity.v1.request.GetMeRequest
-	(*response.AuthResponse)(nil),                   // 6: identity.v1.response.AuthResponse
-	(*response.RegisterMerchantResponse)(nil),       // 7: identity.v1.response.RegisterMerchantResponse
-	(*response.GetMeResponse)(nil),                  // 8: identity.v1.response.GetMeResponse
+	(*request.RegisterPushTokenRequest)(nil),        // 6: identity.v1.request.RegisterPushTokenRequest
+	(*response.AuthResponse)(nil),                   // 7: identity.v1.response.AuthResponse
+	(*response.RegisterMerchantResponse)(nil),       // 8: identity.v1.response.RegisterMerchantResponse
+	(*response.GetMeResponse)(nil),                  // 9: identity.v1.response.GetMeResponse
+	(*response.RegisterPushTokenResponse)(nil),      // 10: identity.v1.response.RegisterPushTokenResponse
 }
 var file_identity_v1_identity_proto_depIdxs = []int32{
-	1, // 0: identity.v1.Identity.RegisterUser:input_type -> identity.v1.request.RegisterUserRequest
-	2, // 1: identity.v1.Identity.RegisterMerchant:input_type -> identity.v1.request.RegisterMerchantRequest
-	3, // 2: identity.v1.Identity.LoginWithPhone:input_type -> identity.v1.request.LoginWithPhoneRequest
-	4, // 3: identity.v1.Identity.AuthenticateWithProvider:input_type -> identity.v1.request.AuthenticateWithProviderRequest
-	5, // 4: identity.v1.Identity.GetMe:input_type -> identity.v1.request.GetMeRequest
-	6, // 5: identity.v1.Identity.RegisterUser:output_type -> identity.v1.response.AuthResponse
-	7, // 6: identity.v1.Identity.RegisterMerchant:output_type -> identity.v1.response.RegisterMerchantResponse
-	6, // 7: identity.v1.Identity.LoginWithPhone:output_type -> identity.v1.response.AuthResponse
-	6, // 8: identity.v1.Identity.AuthenticateWithProvider:output_type -> identity.v1.response.AuthResponse
-	8, // 9: identity.v1.Identity.GetMe:output_type -> identity.v1.response.GetMeResponse
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1,  // 0: identity.v1.Identity.RegisterUser:input_type -> identity.v1.request.RegisterUserRequest
+	2,  // 1: identity.v1.Identity.RegisterMerchant:input_type -> identity.v1.request.RegisterMerchantRequest
+	3,  // 2: identity.v1.Identity.LoginWithPhone:input_type -> identity.v1.request.LoginWithPhoneRequest
+	4,  // 3: identity.v1.Identity.AuthenticateWithProvider:input_type -> identity.v1.request.AuthenticateWithProviderRequest
+	5,  // 4: identity.v1.Identity.GetMe:input_type -> identity.v1.request.GetMeRequest
+	6,  // 5: identity.v1.Identity.RegisterPushToken:input_type -> identity.v1.request.RegisterPushTokenRequest
+	7,  // 6: identity.v1.Identity.RegisterUser:output_type -> identity.v1.response.AuthResponse
+	8,  // 7: identity.v1.Identity.RegisterMerchant:output_type -> identity.v1.response.RegisterMerchantResponse
+	7,  // 8: identity.v1.Identity.LoginWithPhone:output_type -> identity.v1.response.AuthResponse
+	7,  // 9: identity.v1.Identity.AuthenticateWithProvider:output_type -> identity.v1.response.AuthResponse
+	9,  // 10: identity.v1.Identity.GetMe:output_type -> identity.v1.response.GetMeResponse
+	10, // 11: identity.v1.Identity.RegisterPushToken:output_type -> identity.v1.response.RegisterPushTokenResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_identity_v1_identity_proto_init() }

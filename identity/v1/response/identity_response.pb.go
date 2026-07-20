@@ -196,6 +196,50 @@ func (x *GetMeResponse) GetUser() *types.UserInfo {
 	return nil
 }
 
+type RegisterPushTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterPushTokenResponse) Reset() {
+	*x = RegisterPushTokenResponse{}
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterPushTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterPushTokenResponse) ProtoMessage() {}
+
+func (x *RegisterPushTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterPushTokenResponse.ProtoReflect.Descriptor instead.
+func (*RegisterPushTokenResponse) Descriptor() ([]byte, []int) {
+	return file_identity_v1_response_identity_response_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RegisterPushTokenResponse) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
 var File_identity_v1_response_identity_response_proto protoreflect.FileDescriptor
 
 const file_identity_v1_response_identity_response_proto_rawDesc = "" +
@@ -214,7 +258,9 @@ const file_identity_v1_response_identity_response_proto_rawDesc = "" +
 	"\vmerchant_id\x18\x04 \x01(\tR\n" +
 	"merchantId\"@\n" +
 	"\rGetMeResponse\x12/\n" +
-	"\x04user\x18\x01 \x01(\v2\x1b.identity.v1.types.UserInfoR\x04userB:Z8github.com/arm-1234/protos/identity/v1/response;responseb\x06proto3"
+	"\x04user\x18\x01 \x01(\v2\x1b.identity.v1.types.UserInfoR\x04user\"+\n" +
+	"\x19RegisterPushTokenResponse\x12\x0e\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02okB:Z8github.com/arm-1234/protos/identity/v1/response;responseb\x06proto3"
 
 var (
 	file_identity_v1_response_identity_response_proto_rawDescOnce sync.Once
@@ -228,20 +274,21 @@ func file_identity_v1_response_identity_response_proto_rawDescGZIP() []byte {
 	return file_identity_v1_response_identity_response_proto_rawDescData
 }
 
-var file_identity_v1_response_identity_response_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_identity_v1_response_identity_response_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_identity_v1_response_identity_response_proto_goTypes = []any{
-	(*AuthResponse)(nil),             // 0: identity.v1.response.AuthResponse
-	(*RegisterMerchantResponse)(nil), // 1: identity.v1.response.RegisterMerchantResponse
-	(*GetMeResponse)(nil),            // 2: identity.v1.response.GetMeResponse
-	(*timestamppb.Timestamp)(nil),    // 3: google.protobuf.Timestamp
-	(*types.UserInfo)(nil),           // 4: identity.v1.types.UserInfo
+	(*AuthResponse)(nil),              // 0: identity.v1.response.AuthResponse
+	(*RegisterMerchantResponse)(nil),  // 1: identity.v1.response.RegisterMerchantResponse
+	(*GetMeResponse)(nil),             // 2: identity.v1.response.GetMeResponse
+	(*RegisterPushTokenResponse)(nil), // 3: identity.v1.response.RegisterPushTokenResponse
+	(*timestamppb.Timestamp)(nil),     // 4: google.protobuf.Timestamp
+	(*types.UserInfo)(nil),            // 5: identity.v1.types.UserInfo
 }
 var file_identity_v1_response_identity_response_proto_depIdxs = []int32{
-	3, // 0: identity.v1.response.AuthResponse.expires_at:type_name -> google.protobuf.Timestamp
-	4, // 1: identity.v1.response.AuthResponse.user:type_name -> identity.v1.types.UserInfo
-	3, // 2: identity.v1.response.RegisterMerchantResponse.expires_at:type_name -> google.protobuf.Timestamp
-	4, // 3: identity.v1.response.RegisterMerchantResponse.user:type_name -> identity.v1.types.UserInfo
-	4, // 4: identity.v1.response.GetMeResponse.user:type_name -> identity.v1.types.UserInfo
+	4, // 0: identity.v1.response.AuthResponse.expires_at:type_name -> google.protobuf.Timestamp
+	5, // 1: identity.v1.response.AuthResponse.user:type_name -> identity.v1.types.UserInfo
+	4, // 2: identity.v1.response.RegisterMerchantResponse.expires_at:type_name -> google.protobuf.Timestamp
+	5, // 3: identity.v1.response.RegisterMerchantResponse.user:type_name -> identity.v1.types.UserInfo
+	5, // 4: identity.v1.response.GetMeResponse.user:type_name -> identity.v1.types.UserInfo
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name
@@ -260,7 +307,7 @@ func file_identity_v1_response_identity_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_response_identity_response_proto_rawDesc), len(file_identity_v1_response_identity_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

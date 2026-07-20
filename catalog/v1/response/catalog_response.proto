@@ -28,6 +28,10 @@ message DeleteProductResponse {
   bool success = 1;
 }
 
+message SetInventoryResponse {
+  catalog.v1.types.ProductInfo product = 1;
+}
+
 message ListProductsResponse {
   repeated catalog.v1.types.ProductInfo products = 1;
   int64 page_number = 2;

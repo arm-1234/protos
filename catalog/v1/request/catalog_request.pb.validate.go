@@ -103,6 +103,19 @@ func (m *CreateProductRequest) validate(all bool) error {
 
 	}
 
+	// no validation rules for TrackInventory
+
+	if m.GetStockQuantity() < 0 {
+		err := CreateProductRequestValidationError{
+			field:  "StockQuantity",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return CreateProductRequestMultiError(errors)
 	}
@@ -832,6 +845,142 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteProductRequestValidationError{}
+
+// Validate checks the field values on SetInventoryRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetInventoryRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetInventoryRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetInventoryRequestMultiError, or nil if none found.
+func (m *SetInventoryRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetInventoryRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetProductId()) < 1 {
+		err := SetInventoryRequestValidationError{
+			field:  "ProductId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.Available != nil {
+		// no validation rules for Available
+	}
+
+	if m.TrackInventory != nil {
+		// no validation rules for TrackInventory
+	}
+
+	if m.StockQuantity != nil {
+
+		if m.GetStockQuantity() < 0 {
+			err := SetInventoryRequestValidationError{
+				field:  "StockQuantity",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SetInventoryRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetInventoryRequestMultiError is an error wrapping multiple validation
+// errors returned by SetInventoryRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SetInventoryRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetInventoryRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetInventoryRequestMultiError) AllErrors() []error { return m }
+
+// SetInventoryRequestValidationError is the validation error returned by
+// SetInventoryRequest.Validate if the designated constraints aren't met.
+type SetInventoryRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetInventoryRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetInventoryRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetInventoryRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetInventoryRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetInventoryRequestValidationError) ErrorName() string {
+	return "SetInventoryRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetInventoryRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetInventoryRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetInventoryRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetInventoryRequestValidationError{}
 
 // Validate checks the field values on ListProductsRequest with the rules
 // defined in the proto definition for this message. If any rules are

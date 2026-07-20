@@ -21,4 +21,6 @@ message ProductInfo {
   int64 rating_count = 10;
   google.protobuf.Timestamp created_at = 11;
   google.protobuf.Timestamp updated_at = 12;
+  bool track_inventory = 13;
+  int64 stock_quantity = 14;
 }

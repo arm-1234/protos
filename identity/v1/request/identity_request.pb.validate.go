@@ -815,3 +815,118 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetMeRequestValidationError{}
+
+// Validate checks the field values on RegisterPushTokenRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegisterPushTokenRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegisterPushTokenRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegisterPushTokenRequestMultiError, or nil if none found.
+func (m *RegisterPushTokenRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegisterPushTokenRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetToken()) < 1 {
+		err := RegisterPushTokenRequestValidationError{
+			field:  "Token",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Platform
+
+	if len(errors) > 0 {
+		return RegisterPushTokenRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegisterPushTokenRequestMultiError is an error wrapping multiple validation
+// errors returned by RegisterPushTokenRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RegisterPushTokenRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegisterPushTokenRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegisterPushTokenRequestMultiError) AllErrors() []error { return m }
+
+// RegisterPushTokenRequestValidationError is the validation error returned by
+// RegisterPushTokenRequest.Validate if the designated constraints aren't met.
+type RegisterPushTokenRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegisterPushTokenRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegisterPushTokenRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegisterPushTokenRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegisterPushTokenRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegisterPushTokenRequestValidationError) ErrorName() string {
+	return "RegisterPushTokenRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegisterPushTokenRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegisterPushTokenRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegisterPushTokenRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegisterPushTokenRequestValidationError{}

@@ -26,6 +26,7 @@ const (
 	Identity_LoginWithPhone_FullMethodName           = "/identity.v1.Identity/LoginWithPhone"
 	Identity_AuthenticateWithProvider_FullMethodName = "/identity.v1.Identity/AuthenticateWithProvider"
 	Identity_GetMe_FullMethodName                    = "/identity.v1.Identity/GetMe"
+	Identity_RegisterPushToken_FullMethodName        = "/identity.v1.Identity/RegisterPushToken"
 )
 
 // IdentityClient is the client API for Identity service.
@@ -46,6 +47,7 @@ type IdentityClient interface {
 	AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	// GetMe returns the authenticated caller's user record.
 	GetMe(ctx context.Context, in *request.GetMeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
+	RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error)
 }
 
 type identityClient struct {
@@ -106,6 +108,16 @@ func (c *identityClient) GetMe(ctx context.Context, in *request.GetMeRequest, op
 	return out, nil
 }
 
+func (c *identityClient) RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RegisterPushTokenResponse)
+	err := c.cc.Invoke(ctx, Identity_RegisterPushToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentityServer is the server API for Identity service.
 // All implementations must embed UnimplementedIdentityServer
 // for forward compatibility.
@@ -124,6 +136,7 @@ type IdentityServer interface {
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
 	// GetMe returns the authenticated caller's user record.
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
+	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	mustEmbedUnimplementedIdentityServer()
 }
 
@@ -148,6 +161,9 @@ func (UnimplementedIdentityServer) AuthenticateWithProvider(context.Context, *re
 }
 func (UnimplementedIdentityServer) GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetMe not implemented")
+}
+func (UnimplementedIdentityServer) RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RegisterPushToken not implemented")
 }
 func (UnimplementedIdentityServer) mustEmbedUnimplementedIdentityServer() {}
 func (UnimplementedIdentityServer) testEmbeddedByValue()                  {}
@@ -260,6 +276,24 @@ func _Identity_GetMe_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identity_RegisterPushToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RegisterPushTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).RegisterPushToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_RegisterPushToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).RegisterPushToken(ctx, req.(*request.RegisterPushTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Identity_ServiceDesc is the grpc.ServiceDesc for Identity service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -286,6 +320,10 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMe",
 			Handler:    _Identity_GetMe_Handler,
+		},
+		{
+			MethodName: "RegisterPushToken",
+			Handler:    _Identity_RegisterPushToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

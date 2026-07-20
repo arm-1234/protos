@@ -51,3 +51,8 @@ message AuthenticateWithProviderRequest {
 }
 
 message GetMeRequest {}
+
+message RegisterPushTokenRequest {
+  string token = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string platform = 2;
+}

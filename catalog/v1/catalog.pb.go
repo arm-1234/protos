@@ -91,14 +91,15 @@ const file_catalog_v1_catalog_proto_rawDesc = "" +
 	"\x11PRODUCT_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12!\n" +
 	"\x17PRODUCT_INVALID_REQUEST\x10\x02\x1a\x04\xa8E\x90\x03\x12\x1b\n" +
 	"\x11PRODUCT_FORBIDDEN\x10\x03\x1a\x04\xa8E\x93\x03\x12$\n" +
-	"\x1aPRODUCT_UPLOAD_UNAVAILABLE\x10\x04\x1a\x04\xa8E\xf7\x03\x1a\x04\xa0E\xf4\x032\x85\b\n" +
+	"\x1aPRODUCT_UPLOAD_UNAVAILABLE\x10\x04\x1a\x04\xa8E\xf7\x03\x1a\x04\xa0E\xf4\x032\x9a\t\n" +
 	"\aCatalog\x12~\n" +
 	"\rCreateProduct\x12(.catalog.v1.request.CreateProductRequest\x1a*.catalog.v1.response.CreateProductResponse\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/v1/products\x12\x9c\x01\n" +
 	"\x13BatchCreateProducts\x12..catalog.v1.request.BatchCreateProductsRequest\x1a0.catalog.v1.response.BatchCreateProductsResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/products:batchCreate\x12\x7f\n" +
 	"\n" +
 	"GetProduct\x12%.catalog.v1.request.GetProductRequest\x1a'.catalog.v1.response.GetProductResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/products/{product_id}\x12\x8b\x01\n" +
 	"\rUpdateProduct\x12(.catalog.v1.request.UpdateProductRequest\x1a*.catalog.v1.response.UpdateProductResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*2\x19/v1/products/{product_id}\x12\x88\x01\n" +
-	"\rDeleteProduct\x12(.catalog.v1.request.DeleteProductRequest\x1a*.catalog.v1.response.DeleteProductResponse\"!\x82\xd3\xe4\x93\x02\x1b*\x19/v1/products/{product_id}\x12\x90\x01\n" +
+	"\rDeleteProduct\x12(.catalog.v1.request.DeleteProductRequest\x1a*.catalog.v1.response.DeleteProductResponse\"!\x82\xd3\xe4\x93\x02\x1b*\x19/v1/products/{product_id}\x12\x92\x01\n" +
+	"\fSetInventory\x12'.catalog.v1.request.SetInventoryRequest\x1a).catalog.v1.response.SetInventoryResponse\".\x82\xd3\xe4\x93\x02(:\x01*2#/v1/products/{product_id}/inventory\x12\x90\x01\n" +
 	"\fListProducts\x12'.catalog.v1.request.ListProductsRequest\x1a).catalog.v1.response.ListProductsResponse\",\x82\xd3\xe4\x93\x02&\x12$/v1/merchants/{merchant_id}/products\x12\xad\x01\n" +
 	"\x18CreateProductImageUpload\x123.catalog.v1.request.CreateProductImageUploadRequest\x1a5.catalog.v1.response.CreateProductImageUploadResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/v1/products/image-uploadsB*Z(github.com/arm-1234/protos/catalog/v1;v1b\x06proto3"
 
@@ -122,15 +123,17 @@ var file_catalog_v1_catalog_proto_goTypes = []any{
 	(*request.GetProductRequest)(nil),                 // 3: catalog.v1.request.GetProductRequest
 	(*request.UpdateProductRequest)(nil),              // 4: catalog.v1.request.UpdateProductRequest
 	(*request.DeleteProductRequest)(nil),              // 5: catalog.v1.request.DeleteProductRequest
-	(*request.ListProductsRequest)(nil),               // 6: catalog.v1.request.ListProductsRequest
-	(*request.CreateProductImageUploadRequest)(nil),   // 7: catalog.v1.request.CreateProductImageUploadRequest
-	(*response.CreateProductResponse)(nil),            // 8: catalog.v1.response.CreateProductResponse
-	(*response.BatchCreateProductsResponse)(nil),      // 9: catalog.v1.response.BatchCreateProductsResponse
-	(*response.GetProductResponse)(nil),               // 10: catalog.v1.response.GetProductResponse
-	(*response.UpdateProductResponse)(nil),            // 11: catalog.v1.response.UpdateProductResponse
-	(*response.DeleteProductResponse)(nil),            // 12: catalog.v1.response.DeleteProductResponse
-	(*response.ListProductsResponse)(nil),             // 13: catalog.v1.response.ListProductsResponse
-	(*response.CreateProductImageUploadResponse)(nil), // 14: catalog.v1.response.CreateProductImageUploadResponse
+	(*request.SetInventoryRequest)(nil),               // 6: catalog.v1.request.SetInventoryRequest
+	(*request.ListProductsRequest)(nil),               // 7: catalog.v1.request.ListProductsRequest
+	(*request.CreateProductImageUploadRequest)(nil),   // 8: catalog.v1.request.CreateProductImageUploadRequest
+	(*response.CreateProductResponse)(nil),            // 9: catalog.v1.response.CreateProductResponse
+	(*response.BatchCreateProductsResponse)(nil),      // 10: catalog.v1.response.BatchCreateProductsResponse
+	(*response.GetProductResponse)(nil),               // 11: catalog.v1.response.GetProductResponse
+	(*response.UpdateProductResponse)(nil),            // 12: catalog.v1.response.UpdateProductResponse
+	(*response.DeleteProductResponse)(nil),            // 13: catalog.v1.response.DeleteProductResponse
+	(*response.SetInventoryResponse)(nil),             // 14: catalog.v1.response.SetInventoryResponse
+	(*response.ListProductsResponse)(nil),             // 15: catalog.v1.response.ListProductsResponse
+	(*response.CreateProductImageUploadResponse)(nil), // 16: catalog.v1.response.CreateProductImageUploadResponse
 }
 var file_catalog_v1_catalog_proto_depIdxs = []int32{
 	1,  // 0: catalog.v1.Catalog.CreateProduct:input_type -> catalog.v1.request.CreateProductRequest
@@ -138,17 +141,19 @@ var file_catalog_v1_catalog_proto_depIdxs = []int32{
 	3,  // 2: catalog.v1.Catalog.GetProduct:input_type -> catalog.v1.request.GetProductRequest
 	4,  // 3: catalog.v1.Catalog.UpdateProduct:input_type -> catalog.v1.request.UpdateProductRequest
 	5,  // 4: catalog.v1.Catalog.DeleteProduct:input_type -> catalog.v1.request.DeleteProductRequest
-	6,  // 5: catalog.v1.Catalog.ListProducts:input_type -> catalog.v1.request.ListProductsRequest
-	7,  // 6: catalog.v1.Catalog.CreateProductImageUpload:input_type -> catalog.v1.request.CreateProductImageUploadRequest
-	8,  // 7: catalog.v1.Catalog.CreateProduct:output_type -> catalog.v1.response.CreateProductResponse
-	9,  // 8: catalog.v1.Catalog.BatchCreateProducts:output_type -> catalog.v1.response.BatchCreateProductsResponse
-	10, // 9: catalog.v1.Catalog.GetProduct:output_type -> catalog.v1.response.GetProductResponse
-	11, // 10: catalog.v1.Catalog.UpdateProduct:output_type -> catalog.v1.response.UpdateProductResponse
-	12, // 11: catalog.v1.Catalog.DeleteProduct:output_type -> catalog.v1.response.DeleteProductResponse
-	13, // 12: catalog.v1.Catalog.ListProducts:output_type -> catalog.v1.response.ListProductsResponse
-	14, // 13: catalog.v1.Catalog.CreateProductImageUpload:output_type -> catalog.v1.response.CreateProductImageUploadResponse
-	7,  // [7:14] is the sub-list for method output_type
-	0,  // [0:7] is the sub-list for method input_type
+	6,  // 5: catalog.v1.Catalog.SetInventory:input_type -> catalog.v1.request.SetInventoryRequest
+	7,  // 6: catalog.v1.Catalog.ListProducts:input_type -> catalog.v1.request.ListProductsRequest
+	8,  // 7: catalog.v1.Catalog.CreateProductImageUpload:input_type -> catalog.v1.request.CreateProductImageUploadRequest
+	9,  // 8: catalog.v1.Catalog.CreateProduct:output_type -> catalog.v1.response.CreateProductResponse
+	10, // 9: catalog.v1.Catalog.BatchCreateProducts:output_type -> catalog.v1.response.BatchCreateProductsResponse
+	11, // 10: catalog.v1.Catalog.GetProduct:output_type -> catalog.v1.response.GetProductResponse
+	12, // 11: catalog.v1.Catalog.UpdateProduct:output_type -> catalog.v1.response.UpdateProductResponse
+	13, // 12: catalog.v1.Catalog.DeleteProduct:output_type -> catalog.v1.response.DeleteProductResponse
+	14, // 13: catalog.v1.Catalog.SetInventory:output_type -> catalog.v1.response.SetInventoryResponse
+	15, // 14: catalog.v1.Catalog.ListProducts:output_type -> catalog.v1.response.ListProductsResponse
+	16, // 15: catalog.v1.Catalog.CreateProductImageUpload:output_type -> catalog.v1.response.CreateProductImageUploadResponse
+	8,  // [8:16] is the sub-list for method output_type
+	0,  // [0:8] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

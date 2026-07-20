@@ -24,3 +24,7 @@ message RegisterMerchantResponse {
 message GetMeResponse {
   identity.v1.types.UserInfo user = 1;
 }
+
+message RegisterPushTokenResponse {
+  bool ok = 1;
+}

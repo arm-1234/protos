@@ -21,6 +21,8 @@ message CreateProductRequest {
     (validate.rules).double.gt = 0
   ];
   string currency = 5 [(validate.rules).string = {ignore_empty: true, len: 3}];
+  bool track_inventory = 6;
+  int64 stock_quantity = 7 [(validate.rules).int64.gte = 0];
 }
 
 // ProductDraft is one product in a bulk create.
@@ -52,6 +54,13 @@ message UpdateProductRequest {
 
 message DeleteProductRequest {
   string product_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message SetInventoryRequest {
+  string product_id = 1 [(validate.rules).string.min_len = 1];
+  optional bool available = 2;
+  optional bool track_inventory = 3;
+  optional int64 stock_quantity = 4 [(validate.rules).int64.gte = 0];
 }
 
 message ListProductsRequest {

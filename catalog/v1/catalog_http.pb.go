@@ -27,6 +27,7 @@ const OperationCatalogCreateProductImageUpload = "/catalog.v1.Catalog/CreateProd
 const OperationCatalogDeleteProduct = "/catalog.v1.Catalog/DeleteProduct"
 const OperationCatalogGetProduct = "/catalog.v1.Catalog/GetProduct"
 const OperationCatalogListProducts = "/catalog.v1.Catalog/ListProducts"
+const OperationCatalogSetInventory = "/catalog.v1.Catalog/SetInventory"
 const OperationCatalogUpdateProduct = "/catalog.v1.Catalog/UpdateProduct"
 
 type CatalogHTTPServer interface {
@@ -39,6 +40,7 @@ type CatalogHTTPServer interface {
 	GetProduct(context.Context, *request.GetProductRequest) (*response.GetProductResponse, error)
 	// ListProducts ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(context.Context, *request.ListProductsRequest) (*response.ListProductsResponse, error)
+	SetInventory(context.Context, *request.SetInventoryRequest) (*response.SetInventoryResponse, error)
 	UpdateProduct(context.Context, *request.UpdateProductRequest) (*response.UpdateProductResponse, error)
 }
 
@@ -49,6 +51,7 @@ func RegisterCatalogHTTPServer(s *http.Server, srv CatalogHTTPServer) {
 	r.GET("/v1/products/{product_id}", _Catalog_GetProduct0_HTTP_Handler(srv))
 	r.PATCH("/v1/products/{product_id}", _Catalog_UpdateProduct0_HTTP_Handler(srv))
 	r.DELETE("/v1/products/{product_id}", _Catalog_DeleteProduct0_HTTP_Handler(srv))
+	r.PATCH("/v1/products/{product_id}/inventory", _Catalog_SetInventory0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}/products", _Catalog_ListProducts0_HTTP_Handler(srv))
 	r.POST("/v1/products/image-uploads", _Catalog_CreateProductImageUpload0_HTTP_Handler(srv))
 }
@@ -166,6 +169,31 @@ func _Catalog_DeleteProduct0_HTTP_Handler(srv CatalogHTTPServer) func(ctx http.C
 	}
 }
 
+func _Catalog_SetInventory0_HTTP_Handler(srv CatalogHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.SetInventoryRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCatalogSetInventory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SetInventory(ctx, req.(*request.SetInventoryRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.SetInventoryResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Catalog_ListProducts0_HTTP_Handler(srv CatalogHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.ListProductsRequest
@@ -220,6 +248,7 @@ type CatalogHTTPClient interface {
 	GetProduct(ctx context.Context, req *request.GetProductRequest, opts ...http.CallOption) (rsp *response.GetProductResponse, err error)
 	// ListProducts ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(ctx context.Context, req *request.ListProductsRequest, opts ...http.CallOption) (rsp *response.ListProductsResponse, err error)
+	SetInventory(ctx context.Context, req *request.SetInventoryRequest, opts ...http.CallOption) (rsp *response.SetInventoryResponse, err error)
 	UpdateProduct(ctx context.Context, req *request.UpdateProductRequest, opts ...http.CallOption) (rsp *response.UpdateProductResponse, err error)
 }
 
@@ -306,6 +335,19 @@ func (c *CatalogHTTPClientImpl) ListProducts(ctx context.Context, in *request.Li
 	opts = append(opts, http.Operation(OperationCatalogListProducts))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *CatalogHTTPClientImpl) SetInventory(ctx context.Context, in *request.SetInventoryRequest, opts ...http.CallOption) (*response.SetInventoryResponse, error) {
+	var out response.SetInventoryResponse
+	pattern := "/v1/products/{product_id}/inventory"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationCatalogSetInventory))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
