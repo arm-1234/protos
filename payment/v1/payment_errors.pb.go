@@ -70,3 +70,15 @@ func IsPaymentGatewayError(err error) bool {
 func ErrorPaymentGatewayError(format string, args ...interface{}) *errors.Error {
 	return errors.New(502, ErrorReason_PAYMENT_GATEWAY_ERROR.String(), fmt.Sprintf(format, args...))
 }
+
+func IsPaymentVerificationFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_VERIFICATION_FAILED.String() && e.Code == 400
+}
+
+func ErrorPaymentVerificationFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_PAYMENT_VERIFICATION_FAILED.String(), fmt.Sprintf(format, args...))
+}

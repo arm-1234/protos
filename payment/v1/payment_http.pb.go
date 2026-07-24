@@ -22,22 +22,20 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationPaymentGetPaymentStatus = "/payment.v1.Payment/GetPaymentStatus"
-const OperationPaymentHandleWebhook = "/payment.v1.Payment/HandleWebhook"
 const OperationPaymentInitiatePayment = "/payment.v1.Payment/InitiatePayment"
+const OperationPaymentVerifyPayment = "/payment.v1.Payment/VerifyPayment"
 
 type PaymentHTTPServer interface {
 	GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error)
-	// HandleWebhook HandleWebhook receives gateway callbacks and updates payment + order state.
-	HandleWebhook(context.Context, *request.HandleWebhookRequest) (*response.HandleWebhookResponse, error)
-	// InitiatePayment InitiatePayment starts an on-platform payment for an order via the gateway.
 	InitiatePayment(context.Context, *request.InitiatePaymentRequest) (*response.InitiatePaymentResponse, error)
+	VerifyPayment(context.Context, *request.VerifyPaymentRequest) (*response.VerifyPaymentResponse, error)
 }
 
 func RegisterPaymentHTTPServer(s *http.Server, srv PaymentHTTPServer) {
 	r := s.Route("/")
 	r.POST("/v1/orders/{order_id}/payments", _Payment_InitiatePayment0_HTTP_Handler(srv))
+	r.POST("/v1/orders/{order_id}/payments/{payment_id}/verify", _Payment_VerifyPayment0_HTTP_Handler(srv))
 	r.GET("/v1/orders/{order_id}/payments/{payment_id}", _Payment_GetPaymentStatus0_HTTP_Handler(srv))
-	r.POST("/v1/payments/webhook", _Payment_HandleWebhook0_HTTP_Handler(srv))
 }
 
 func _Payment_InitiatePayment0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
@@ -65,6 +63,31 @@ func _Payment_InitiatePayment0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http
 	}
 }
 
+func _Payment_VerifyPayment0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.VerifyPaymentRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentVerifyPayment)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.VerifyPayment(ctx, req.(*request.VerifyPaymentRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.VerifyPaymentResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Payment_GetPaymentStatus0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.GetPaymentStatusRequest
@@ -87,34 +110,10 @@ func _Payment_GetPaymentStatus0_HTTP_Handler(srv PaymentHTTPServer) func(ctx htt
 	}
 }
 
-func _Payment_HandleWebhook0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in request.HandleWebhookRequest
-		if err := ctx.Bind(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationPaymentHandleWebhook)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.HandleWebhook(ctx, req.(*request.HandleWebhookRequest))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*response.HandleWebhookResponse)
-		return ctx.Result(200, reply)
-	}
-}
-
 type PaymentHTTPClient interface {
 	GetPaymentStatus(ctx context.Context, req *request.GetPaymentStatusRequest, opts ...http.CallOption) (rsp *response.GetPaymentStatusResponse, err error)
-	// HandleWebhook HandleWebhook receives gateway callbacks and updates payment + order state.
-	HandleWebhook(ctx context.Context, req *request.HandleWebhookRequest, opts ...http.CallOption) (rsp *response.HandleWebhookResponse, err error)
-	// InitiatePayment InitiatePayment starts an on-platform payment for an order via the gateway.
 	InitiatePayment(ctx context.Context, req *request.InitiatePaymentRequest, opts ...http.CallOption) (rsp *response.InitiatePaymentResponse, err error)
+	VerifyPayment(ctx context.Context, req *request.VerifyPaymentRequest, opts ...http.CallOption) (rsp *response.VerifyPaymentResponse, err error)
 }
 
 type PaymentHTTPClientImpl struct {
@@ -138,12 +137,11 @@ func (c *PaymentHTTPClientImpl) GetPaymentStatus(ctx context.Context, in *reques
 	return &out, nil
 }
 
-// HandleWebhook HandleWebhook receives gateway callbacks and updates payment + order state.
-func (c *PaymentHTTPClientImpl) HandleWebhook(ctx context.Context, in *request.HandleWebhookRequest, opts ...http.CallOption) (*response.HandleWebhookResponse, error) {
-	var out response.HandleWebhookResponse
-	pattern := "/v1/payments/webhook"
+func (c *PaymentHTTPClientImpl) InitiatePayment(ctx context.Context, in *request.InitiatePaymentRequest, opts ...http.CallOption) (*response.InitiatePaymentResponse, error) {
+	var out response.InitiatePaymentResponse
+	pattern := "/v1/orders/{order_id}/payments"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationPaymentHandleWebhook))
+	opts = append(opts, http.Operation(OperationPaymentInitiatePayment))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -152,12 +150,11 @@ func (c *PaymentHTTPClientImpl) HandleWebhook(ctx context.Context, in *request.H
 	return &out, nil
 }
 
-// InitiatePayment InitiatePayment starts an on-platform payment for an order via the gateway.
-func (c *PaymentHTTPClientImpl) InitiatePayment(ctx context.Context, in *request.InitiatePaymentRequest, opts ...http.CallOption) (*response.InitiatePaymentResponse, error) {
-	var out response.InitiatePaymentResponse
-	pattern := "/v1/orders/{order_id}/payments"
+func (c *PaymentHTTPClientImpl) VerifyPayment(ctx context.Context, in *request.VerifyPaymentRequest, opts ...http.CallOption) (*response.VerifyPaymentResponse, error) {
+	var out response.VerifyPaymentResponse
+	pattern := "/v1/orders/{order_id}/payments/{payment_id}/verify"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationPaymentInitiatePayment))
+	opts = append(opts, http.Operation(OperationPaymentVerifyPayment))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

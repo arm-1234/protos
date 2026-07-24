@@ -22,19 +22,17 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	Payment_InitiatePayment_FullMethodName  = "/payment.v1.Payment/InitiatePayment"
+	Payment_VerifyPayment_FullMethodName    = "/payment.v1.Payment/VerifyPayment"
 	Payment_GetPaymentStatus_FullMethodName = "/payment.v1.Payment/GetPaymentStatus"
-	Payment_HandleWebhook_FullMethodName    = "/payment.v1.Payment/HandleWebhook"
 )
 
 // PaymentClient is the client API for Payment service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PaymentClient interface {
-	// InitiatePayment starts an on-platform payment for an order via the gateway.
 	InitiatePayment(ctx context.Context, in *request.InitiatePaymentRequest, opts ...grpc.CallOption) (*response.InitiatePaymentResponse, error)
+	VerifyPayment(ctx context.Context, in *request.VerifyPaymentRequest, opts ...grpc.CallOption) (*response.VerifyPaymentResponse, error)
 	GetPaymentStatus(ctx context.Context, in *request.GetPaymentStatusRequest, opts ...grpc.CallOption) (*response.GetPaymentStatusResponse, error)
-	// HandleWebhook receives gateway callbacks and updates payment + order state.
-	HandleWebhook(ctx context.Context, in *request.HandleWebhookRequest, opts ...grpc.CallOption) (*response.HandleWebhookResponse, error)
 }
 
 type paymentClient struct {
@@ -55,6 +53,16 @@ func (c *paymentClient) InitiatePayment(ctx context.Context, in *request.Initiat
 	return out, nil
 }
 
+func (c *paymentClient) VerifyPayment(ctx context.Context, in *request.VerifyPaymentRequest, opts ...grpc.CallOption) (*response.VerifyPaymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.VerifyPaymentResponse)
+	err := c.cc.Invoke(ctx, Payment_VerifyPayment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *paymentClient) GetPaymentStatus(ctx context.Context, in *request.GetPaymentStatusRequest, opts ...grpc.CallOption) (*response.GetPaymentStatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.GetPaymentStatusResponse)
@@ -65,25 +73,13 @@ func (c *paymentClient) GetPaymentStatus(ctx context.Context, in *request.GetPay
 	return out, nil
 }
 
-func (c *paymentClient) HandleWebhook(ctx context.Context, in *request.HandleWebhookRequest, opts ...grpc.CallOption) (*response.HandleWebhookResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(response.HandleWebhookResponse)
-	err := c.cc.Invoke(ctx, Payment_HandleWebhook_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // PaymentServer is the server API for Payment service.
 // All implementations must embed UnimplementedPaymentServer
 // for forward compatibility.
 type PaymentServer interface {
-	// InitiatePayment starts an on-platform payment for an order via the gateway.
 	InitiatePayment(context.Context, *request.InitiatePaymentRequest) (*response.InitiatePaymentResponse, error)
+	VerifyPayment(context.Context, *request.VerifyPaymentRequest) (*response.VerifyPaymentResponse, error)
 	GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error)
-	// HandleWebhook receives gateway callbacks and updates payment + order state.
-	HandleWebhook(context.Context, *request.HandleWebhookRequest) (*response.HandleWebhookResponse, error)
 	mustEmbedUnimplementedPaymentServer()
 }
 
@@ -97,11 +93,11 @@ type UnimplementedPaymentServer struct{}
 func (UnimplementedPaymentServer) InitiatePayment(context.Context, *request.InitiatePaymentRequest) (*response.InitiatePaymentResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method InitiatePayment not implemented")
 }
+func (UnimplementedPaymentServer) VerifyPayment(context.Context, *request.VerifyPaymentRequest) (*response.VerifyPaymentResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method VerifyPayment not implemented")
+}
 func (UnimplementedPaymentServer) GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPaymentStatus not implemented")
-}
-func (UnimplementedPaymentServer) HandleWebhook(context.Context, *request.HandleWebhookRequest) (*response.HandleWebhookResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method HandleWebhook not implemented")
 }
 func (UnimplementedPaymentServer) mustEmbedUnimplementedPaymentServer() {}
 func (UnimplementedPaymentServer) testEmbeddedByValue()                 {}
@@ -142,6 +138,24 @@ func _Payment_InitiatePayment_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Payment_VerifyPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.VerifyPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).VerifyPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_VerifyPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).VerifyPayment(ctx, req.(*request.VerifyPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Payment_GetPaymentStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.GetPaymentStatusRequest)
 	if err := dec(in); err != nil {
@@ -160,24 +174,6 @@ func _Payment_GetPaymentStatus_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Payment_HandleWebhook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(request.HandleWebhookRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PaymentServer).HandleWebhook(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Payment_HandleWebhook_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServer).HandleWebhook(ctx, req.(*request.HandleWebhookRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Payment_ServiceDesc is the grpc.ServiceDesc for Payment service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,12 +186,12 @@ var Payment_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Payment_InitiatePayment_Handler,
 		},
 		{
-			MethodName: "GetPaymentStatus",
-			Handler:    _Payment_GetPaymentStatus_Handler,
+			MethodName: "VerifyPayment",
+			Handler:    _Payment_VerifyPayment_Handler,
 		},
 		{
-			MethodName: "HandleWebhook",
-			Handler:    _Payment_HandleWebhook_Handler,
+			MethodName: "GetPaymentStatus",
+			Handler:    _Payment_GetPaymentStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

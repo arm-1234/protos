@@ -86,6 +86,14 @@ func (m *InitiatePaymentResponse) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Provider
+
+	// no validation rules for ProviderRef
+
+	// no validation rules for ProviderKey
+
+	// no validation rules for AmountMinor
+
 	if len(errors) > 0 {
 		return InitiatePaymentResponseMultiError(errors)
 	}
@@ -165,6 +173,139 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = InitiatePaymentResponseValidationError{}
+
+// Validate checks the field values on VerifyPaymentResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VerifyPaymentResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyPaymentResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyPaymentResponseMultiError, or nil if none found.
+func (m *VerifyPaymentResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyPaymentResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPayment()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VerifyPaymentResponseValidationError{
+					field:  "Payment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VerifyPaymentResponseValidationError{
+					field:  "Payment",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPayment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VerifyPaymentResponseValidationError{
+				field:  "Payment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Verified
+
+	if len(errors) > 0 {
+		return VerifyPaymentResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyPaymentResponseMultiError is an error wrapping multiple validation
+// errors returned by VerifyPaymentResponse.ValidateAll() if the designated
+// constraints aren't met.
+type VerifyPaymentResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyPaymentResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyPaymentResponseMultiError) AllErrors() []error { return m }
+
+// VerifyPaymentResponseValidationError is the validation error returned by
+// VerifyPaymentResponse.Validate if the designated constraints aren't met.
+type VerifyPaymentResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyPaymentResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyPaymentResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyPaymentResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyPaymentResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyPaymentResponseValidationError) ErrorName() string {
+	return "VerifyPaymentResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VerifyPaymentResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyPaymentResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyPaymentResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyPaymentResponseValidationError{}
 
 // Validate checks the field values on GetPaymentStatusResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -296,107 +437,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPaymentStatusResponseValidationError{}
-
-// Validate checks the field values on HandleWebhookResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *HandleWebhookResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on HandleWebhookResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// HandleWebhookResponseMultiError, or nil if none found.
-func (m *HandleWebhookResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *HandleWebhookResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Success
-
-	if len(errors) > 0 {
-		return HandleWebhookResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// HandleWebhookResponseMultiError is an error wrapping multiple validation
-// errors returned by HandleWebhookResponse.ValidateAll() if the designated
-// constraints aren't met.
-type HandleWebhookResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m HandleWebhookResponseMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m HandleWebhookResponseMultiError) AllErrors() []error { return m }
-
-// HandleWebhookResponseValidationError is the validation error returned by
-// HandleWebhookResponse.Validate if the designated constraints aren't met.
-type HandleWebhookResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e HandleWebhookResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e HandleWebhookResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e HandleWebhookResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e HandleWebhookResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e HandleWebhookResponseValidationError) ErrorName() string {
-	return "HandleWebhookResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e HandleWebhookResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sHandleWebhookResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = HandleWebhookResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = HandleWebhookResponseValidationError{}

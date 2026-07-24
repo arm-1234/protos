@@ -67,6 +67,74 @@ func (x *InitiatePaymentRequest) GetOrderId() string {
 	return ""
 }
 
+type VerifyPaymentRequest struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	OrderId           string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	PaymentId         string                 `protobuf:"bytes,2,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
+	ProviderPaymentId string                 `protobuf:"bytes,3,opt,name=provider_payment_id,json=providerPaymentId,proto3" json:"provider_payment_id,omitempty"`
+	CheckoutToken     string                 `protobuf:"bytes,4,opt,name=checkout_token,json=checkoutToken,proto3" json:"checkout_token,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *VerifyPaymentRequest) Reset() {
+	*x = VerifyPaymentRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerifyPaymentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyPaymentRequest) ProtoMessage() {}
+
+func (x *VerifyPaymentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyPaymentRequest.ProtoReflect.Descriptor instead.
+func (*VerifyPaymentRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *VerifyPaymentRequest) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+func (x *VerifyPaymentRequest) GetPaymentId() string {
+	if x != nil {
+		return x.PaymentId
+	}
+	return ""
+}
+
+func (x *VerifyPaymentRequest) GetProviderPaymentId() string {
+	if x != nil {
+		return x.ProviderPaymentId
+	}
+	return ""
+}
+
+func (x *VerifyPaymentRequest) GetCheckoutToken() string {
+	if x != nil {
+		return x.CheckoutToken
+	}
+	return ""
+}
+
 type GetPaymentStatusRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
@@ -77,7 +145,7 @@ type GetPaymentStatusRequest struct {
 
 func (x *GetPaymentStatusRequest) Reset() {
 	*x = GetPaymentStatusRequest{}
-	mi := &file_payment_v1_request_payment_request_proto_msgTypes[1]
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -89,7 +157,7 @@ func (x *GetPaymentStatusRequest) String() string {
 func (*GetPaymentStatusRequest) ProtoMessage() {}
 
 func (x *GetPaymentStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payment_v1_request_payment_request_proto_msgTypes[1]
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -102,7 +170,7 @@ func (x *GetPaymentStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPaymentStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetPaymentStatusRequest) Descriptor() ([]byte, []int) {
-	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{1}
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetPaymentStatusRequest) GetOrderId() string {
@@ -119,75 +187,23 @@ func (x *GetPaymentStatusRequest) GetPaymentId() string {
 	return ""
 }
 
-// HandleWebhookRequest is the (stubbed) gateway callback.
-type HandleWebhookRequest struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	GatewayRef string                 `protobuf:"bytes,1,opt,name=gateway_ref,json=gatewayRef,proto3" json:"gateway_ref,omitempty"`
-	// e.g. "PAID" | "FAILED"
-	Status        string `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *HandleWebhookRequest) Reset() {
-	*x = HandleWebhookRequest{}
-	mi := &file_payment_v1_request_payment_request_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *HandleWebhookRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*HandleWebhookRequest) ProtoMessage() {}
-
-func (x *HandleWebhookRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payment_v1_request_payment_request_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use HandleWebhookRequest.ProtoReflect.Descriptor instead.
-func (*HandleWebhookRequest) Descriptor() ([]byte, []int) {
-	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *HandleWebhookRequest) GetGatewayRef() string {
-	if x != nil {
-		return x.GatewayRef
-	}
-	return ""
-}
-
-func (x *HandleWebhookRequest) GetStatus() string {
-	if x != nil {
-		return x.Status
-	}
-	return ""
-}
-
 var File_payment_v1_request_payment_request_proto protoreflect.FileDescriptor
 
 const file_payment_v1_request_payment_request_proto_rawDesc = "" +
 	"\n" +
 	"(payment/v1/request/payment_request.proto\x12\x12payment.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\"@\n" +
 	"\x16InitiatePaymentRequest\x12&\n" +
-	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\"e\n" +
+	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\"\xcb\x01\n" +
+	"\x14VerifyPaymentRequest\x12\"\n" +
+	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\x12&\n" +
+	"\n" +
+	"payment_id\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tpaymentId\x127\n" +
+	"\x13provider_payment_id\x18\x03 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x11providerPaymentId\x12.\n" +
+	"\x0echeckout_token\x18\x04 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcheckoutToken\"e\n" +
 	"\x17GetPaymentStatusRequest\x12\"\n" +
 	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\x12&\n" +
 	"\n" +
-	"payment_id\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tpaymentId\"a\n" +
-	"\x14HandleWebhookRequest\x12(\n" +
-	"\vgateway_ref\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
-	"gatewayRef\x12\x1f\n" +
-	"\x06status\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x06statusB7Z5github.com/arm-1234/protos/payment/v1/request;requestb\x06proto3"
+	"payment_id\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tpaymentIdB7Z5github.com/arm-1234/protos/payment/v1/request;requestb\x06proto3"
 
 var (
 	file_payment_v1_request_payment_request_proto_rawDescOnce sync.Once
@@ -204,8 +220,8 @@ func file_payment_v1_request_payment_request_proto_rawDescGZIP() []byte {
 var file_payment_v1_request_payment_request_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_payment_v1_request_payment_request_proto_goTypes = []any{
 	(*InitiatePaymentRequest)(nil),  // 0: payment.v1.request.InitiatePaymentRequest
-	(*GetPaymentStatusRequest)(nil), // 1: payment.v1.request.GetPaymentStatusRequest
-	(*HandleWebhookRequest)(nil),    // 2: payment.v1.request.HandleWebhookRequest
+	(*VerifyPaymentRequest)(nil),    // 1: payment.v1.request.VerifyPaymentRequest
+	(*GetPaymentStatusRequest)(nil), // 2: payment.v1.request.GetPaymentStatusRequest
 }
 var file_payment_v1_request_payment_request_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -14,14 +14,14 @@ message InitiatePaymentRequest {
   ];
 }
 
+message VerifyPaymentRequest {
+  string order_id = 1 [(validate.rules).string.min_len = 1];
+  string payment_id = 2 [(validate.rules).string.min_len = 1];
+  string provider_payment_id = 3 [(validate.rules).string.min_len = 1];
+  string checkout_token = 4 [(validate.rules).string.min_len = 1];
+}
+
 message GetPaymentStatusRequest {
   string order_id = 1 [(validate.rules).string.min_len = 1];
   string payment_id = 2 [(validate.rules).string.min_len = 1];
-}
-
-// HandleWebhookRequest is the (stubbed) gateway callback.
-message HandleWebhookRequest {
-  string gateway_ref = 1 [(validate.rules).string.min_len = 1];
-  // e.g. "PAID" | "FAILED"
-  string status = 2 [(validate.rules).string.min_len = 1];
 }

@@ -148,6 +148,152 @@ var _ interface {
 	ErrorName() string
 } = InitiatePaymentRequestValidationError{}
 
+// Validate checks the field values on VerifyPaymentRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VerifyPaymentRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyPaymentRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyPaymentRequestMultiError, or nil if none found.
+func (m *VerifyPaymentRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyPaymentRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetOrderId()) < 1 {
+		err := VerifyPaymentRequestValidationError{
+			field:  "OrderId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetPaymentId()) < 1 {
+		err := VerifyPaymentRequestValidationError{
+			field:  "PaymentId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetProviderPaymentId()) < 1 {
+		err := VerifyPaymentRequestValidationError{
+			field:  "ProviderPaymentId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCheckoutToken()) < 1 {
+		err := VerifyPaymentRequestValidationError{
+			field:  "CheckoutToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return VerifyPaymentRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyPaymentRequestMultiError is an error wrapping multiple validation
+// errors returned by VerifyPaymentRequest.ValidateAll() if the designated
+// constraints aren't met.
+type VerifyPaymentRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyPaymentRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyPaymentRequestMultiError) AllErrors() []error { return m }
+
+// VerifyPaymentRequestValidationError is the validation error returned by
+// VerifyPaymentRequest.Validate if the designated constraints aren't met.
+type VerifyPaymentRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyPaymentRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyPaymentRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyPaymentRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyPaymentRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyPaymentRequestValidationError) ErrorName() string {
+	return "VerifyPaymentRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VerifyPaymentRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyPaymentRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyPaymentRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyPaymentRequestValidationError{}
+
 // Validate checks the field values on GetPaymentStatusRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -271,127 +417,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPaymentStatusRequestValidationError{}
-
-// Validate checks the field values on HandleWebhookRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *HandleWebhookRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on HandleWebhookRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// HandleWebhookRequestMultiError, or nil if none found.
-func (m *HandleWebhookRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *HandleWebhookRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if utf8.RuneCountInString(m.GetGatewayRef()) < 1 {
-		err := HandleWebhookRequestValidationError{
-			field:  "GatewayRef",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetStatus()) < 1 {
-		err := HandleWebhookRequestValidationError{
-			field:  "Status",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return HandleWebhookRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// HandleWebhookRequestMultiError is an error wrapping multiple validation
-// errors returned by HandleWebhookRequest.ValidateAll() if the designated
-// constraints aren't met.
-type HandleWebhookRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m HandleWebhookRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m HandleWebhookRequestMultiError) AllErrors() []error { return m }
-
-// HandleWebhookRequestValidationError is the validation error returned by
-// HandleWebhookRequest.Validate if the designated constraints aren't met.
-type HandleWebhookRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e HandleWebhookRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e HandleWebhookRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e HandleWebhookRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e HandleWebhookRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e HandleWebhookRequestValidationError) ErrorName() string {
-	return "HandleWebhookRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e HandleWebhookRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sHandleWebhookRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = HandleWebhookRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = HandleWebhookRequestValidationError{}

@@ -28,11 +28,12 @@ const (
 type ErrorReason int32
 
 const (
-	ErrorReason_PAYMENT_UNSPECIFIED     ErrorReason = 0
-	ErrorReason_PAYMENT_ORDER_NOT_FOUND ErrorReason = 1
-	ErrorReason_PAYMENT_NOT_FOUND       ErrorReason = 2
-	ErrorReason_PAYMENT_INVALID_REQUEST ErrorReason = 3
-	ErrorReason_PAYMENT_GATEWAY_ERROR   ErrorReason = 4
+	ErrorReason_PAYMENT_UNSPECIFIED         ErrorReason = 0
+	ErrorReason_PAYMENT_ORDER_NOT_FOUND     ErrorReason = 1
+	ErrorReason_PAYMENT_NOT_FOUND           ErrorReason = 2
+	ErrorReason_PAYMENT_INVALID_REQUEST     ErrorReason = 3
+	ErrorReason_PAYMENT_GATEWAY_ERROR       ErrorReason = 4
+	ErrorReason_PAYMENT_VERIFICATION_FAILED ErrorReason = 5
 )
 
 // Enum value maps for ErrorReason.
@@ -43,13 +44,15 @@ var (
 		2: "PAYMENT_NOT_FOUND",
 		3: "PAYMENT_INVALID_REQUEST",
 		4: "PAYMENT_GATEWAY_ERROR",
+		5: "PAYMENT_VERIFICATION_FAILED",
 	}
 	ErrorReason_value = map[string]int32{
-		"PAYMENT_UNSPECIFIED":     0,
-		"PAYMENT_ORDER_NOT_FOUND": 1,
-		"PAYMENT_NOT_FOUND":       2,
-		"PAYMENT_INVALID_REQUEST": 3,
-		"PAYMENT_GATEWAY_ERROR":   4,
+		"PAYMENT_UNSPECIFIED":         0,
+		"PAYMENT_ORDER_NOT_FOUND":     1,
+		"PAYMENT_NOT_FOUND":           2,
+		"PAYMENT_INVALID_REQUEST":     3,
+		"PAYMENT_GATEWAY_ERROR":       4,
+		"PAYMENT_VERIFICATION_FAILED": 5,
 	}
 )
 
@@ -85,17 +88,18 @@ var File_payment_v1_payment_proto protoreflect.FileDescriptor
 const file_payment_v1_payment_proto_rawDesc = "" +
 	"\n" +
 	"\x18payment/v1/payment.proto\x12\n" +
-	"payment.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(payment/v1/request/payment_request.proto\x1a*payment/v1/response/payment_response.proto*\xb6\x01\n" +
+	"payment.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(payment/v1/request/payment_request.proto\x1a*payment/v1/response/payment_response.proto*\xdd\x01\n" +
 	"\vErrorReason\x12\x1d\n" +
 	"\x13PAYMENT_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12!\n" +
 	"\x17PAYMENT_ORDER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1b\n" +
 	"\x11PAYMENT_NOT_FOUND\x10\x02\x1a\x04\xa8E\x94\x03\x12!\n" +
 	"\x17PAYMENT_INVALID_REQUEST\x10\x03\x1a\x04\xa8E\x90\x03\x12\x1f\n" +
-	"\x15PAYMENT_GATEWAY_ERROR\x10\x04\x1a\x04\xa8E\xf6\x03\x1a\x04\xa0E\xf4\x032\xd1\x03\n" +
+	"\x15PAYMENT_GATEWAY_ERROR\x10\x04\x1a\x04\xa8E\xf6\x03\x12%\n" +
+	"\x1bPAYMENT_VERIFICATION_FAILED\x10\x05\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x032\xef\x03\n" +
 	"\aPayment\x12\x96\x01\n" +
-	"\x0fInitiatePayment\x12*.payment.v1.request.InitiatePaymentRequest\x1a,.payment.v1.response.InitiatePaymentResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/v1/orders/{order_id}/payments\x12\xa3\x01\n" +
-	"\x10GetPaymentStatus\x12+.payment.v1.request.GetPaymentStatusRequest\x1a-.payment.v1.response.GetPaymentStatusResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/orders/{order_id}/payments/{payment_id}\x12\x86\x01\n" +
-	"\rHandleWebhook\x12(.payment.v1.request.HandleWebhookRequest\x1a*.payment.v1.response.HandleWebhookResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/payments/webhookB*Z(github.com/arm-1234/protos/payment/v1;v1b\x06proto3"
+	"\x0fInitiatePayment\x12*.payment.v1.request.InitiatePaymentRequest\x1a,.payment.v1.response.InitiatePaymentResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/v1/orders/{order_id}/payments\x12\xa4\x01\n" +
+	"\rVerifyPayment\x12(.payment.v1.request.VerifyPaymentRequest\x1a*.payment.v1.response.VerifyPaymentResponse\"=\x82\xd3\xe4\x93\x027:\x01*\"2/v1/orders/{order_id}/payments/{payment_id}/verify\x12\xa3\x01\n" +
+	"\x10GetPaymentStatus\x12+.payment.v1.request.GetPaymentStatusRequest\x1a-.payment.v1.response.GetPaymentStatusResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/orders/{order_id}/payments/{payment_id}B*Z(github.com/arm-1234/protos/payment/v1;v1b\x06proto3"
 
 var (
 	file_payment_v1_payment_proto_rawDescOnce sync.Once
@@ -113,19 +117,19 @@ var file_payment_v1_payment_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_payment_v1_payment_proto_goTypes = []any{
 	(ErrorReason)(0),                          // 0: payment.v1.ErrorReason
 	(*request.InitiatePaymentRequest)(nil),    // 1: payment.v1.request.InitiatePaymentRequest
-	(*request.GetPaymentStatusRequest)(nil),   // 2: payment.v1.request.GetPaymentStatusRequest
-	(*request.HandleWebhookRequest)(nil),      // 3: payment.v1.request.HandleWebhookRequest
+	(*request.VerifyPaymentRequest)(nil),      // 2: payment.v1.request.VerifyPaymentRequest
+	(*request.GetPaymentStatusRequest)(nil),   // 3: payment.v1.request.GetPaymentStatusRequest
 	(*response.InitiatePaymentResponse)(nil),  // 4: payment.v1.response.InitiatePaymentResponse
-	(*response.GetPaymentStatusResponse)(nil), // 5: payment.v1.response.GetPaymentStatusResponse
-	(*response.HandleWebhookResponse)(nil),    // 6: payment.v1.response.HandleWebhookResponse
+	(*response.VerifyPaymentResponse)(nil),    // 5: payment.v1.response.VerifyPaymentResponse
+	(*response.GetPaymentStatusResponse)(nil), // 6: payment.v1.response.GetPaymentStatusResponse
 }
 var file_payment_v1_payment_proto_depIdxs = []int32{
 	1, // 0: payment.v1.Payment.InitiatePayment:input_type -> payment.v1.request.InitiatePaymentRequest
-	2, // 1: payment.v1.Payment.GetPaymentStatus:input_type -> payment.v1.request.GetPaymentStatusRequest
-	3, // 2: payment.v1.Payment.HandleWebhook:input_type -> payment.v1.request.HandleWebhookRequest
+	2, // 1: payment.v1.Payment.VerifyPayment:input_type -> payment.v1.request.VerifyPaymentRequest
+	3, // 2: payment.v1.Payment.GetPaymentStatus:input_type -> payment.v1.request.GetPaymentStatusRequest
 	4, // 3: payment.v1.Payment.InitiatePayment:output_type -> payment.v1.response.InitiatePaymentResponse
-	5, // 4: payment.v1.Payment.GetPaymentStatus:output_type -> payment.v1.response.GetPaymentStatusResponse
-	6, // 5: payment.v1.Payment.HandleWebhook:output_type -> payment.v1.response.HandleWebhookResponse
+	5, // 4: payment.v1.Payment.VerifyPayment:output_type -> payment.v1.response.VerifyPaymentResponse
+	6, // 5: payment.v1.Payment.GetPaymentStatus:output_type -> payment.v1.response.GetPaymentStatusResponse
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

@@ -10,7 +10,6 @@ import "payment/v1/response/payment_response.proto";
 option go_package = "github.com/arm-1234/protos/payment/v1;v1";
 
 service Payment {
-  // InitiatePayment starts an on-platform payment for an order via the gateway.
   rpc InitiatePayment (payment.v1.request.InitiatePaymentRequest) returns (payment.v1.response.InitiatePaymentResponse) {
     option (google.api.http) = {
       post: "/v1/orders/{order_id}/payments"
@@ -18,17 +17,16 @@ service Payment {
     };
   }
 
-  rpc GetPaymentStatus (payment.v1.request.GetPaymentStatusRequest) returns (payment.v1.response.GetPaymentStatusResponse) {
+  rpc VerifyPayment (payment.v1.request.VerifyPaymentRequest) returns (payment.v1.response.VerifyPaymentResponse) {
     option (google.api.http) = {
-      get: "/v1/orders/{order_id}/payments/{payment_id}"
+      post: "/v1/orders/{order_id}/payments/{payment_id}/verify"
+      body: "*"
     };
   }
 
-  // HandleWebhook receives gateway callbacks and updates payment + order state.
-  rpc HandleWebhook (payment.v1.request.HandleWebhookRequest) returns (payment.v1.response.HandleWebhookResponse) {
+  rpc GetPaymentStatus (payment.v1.request.GetPaymentStatusRequest) returns (payment.v1.response.GetPaymentStatusResponse) {
     option (google.api.http) = {
-      post: "/v1/payments/webhook"
-      body: "*"
+      get: "/v1/orders/{order_id}/payments/{payment_id}"
     };
   }
 }
@@ -40,4 +38,5 @@ enum ErrorReason {
   PAYMENT_NOT_FOUND = 2 [(errors.code) = 404];
   PAYMENT_INVALID_REQUEST = 3 [(errors.code) = 400];
   PAYMENT_GATEWAY_ERROR = 4 [(errors.code) = 502];
+  PAYMENT_VERIFICATION_FAILED = 5 [(errors.code) = 400];
 }
