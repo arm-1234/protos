@@ -25,3 +25,11 @@ message GetPaymentStatusRequest {
   string order_id = 1 [(validate.rules).string.min_len = 1];
   string payment_id = 2 [(validate.rules).string.min_len = 1];
 }
+
+message RequestInstantPayoutRequest {
+  string order_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetPayoutRequest {
+  string order_id = 1 [(validate.rules).string.min_len = 1];
+}

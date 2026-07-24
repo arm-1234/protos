@@ -8,6 +8,7 @@ package request
 
 import (
 	enums "github.com/arm-1234/protos/order/v1/types/enums"
+	enums1 "github.com/arm-1234/protos/payment/v1/types/enums"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -83,8 +84,9 @@ type PlaceOrderRequest struct {
 	Items       []*OrderLineItem       `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
 	PaymentMode enums.PaymentMode      `protobuf:"varint,3,opt,name=payment_mode,json=paymentMode,proto3,enum=order.v1.types.enums.PaymentMode" json:"payment_mode,omitempty"`
 	// Caller's current location, used for the proximity (geofence) check.
-	UserLatitude  float64 `protobuf:"fixed64,4,opt,name=user_latitude,json=userLatitude,proto3" json:"user_latitude,omitempty"`
-	UserLongitude float64 `protobuf:"fixed64,5,opt,name=user_longitude,json=userLongitude,proto3" json:"user_longitude,omitempty"`
+	UserLatitude  float64           `protobuf:"fixed64,4,opt,name=user_latitude,json=userLatitude,proto3" json:"user_latitude,omitempty"`
+	UserLongitude float64           `protobuf:"fixed64,5,opt,name=user_longitude,json=userLongitude,proto3" json:"user_longitude,omitempty"`
+	PayoutMode    enums1.PayoutMode `protobuf:"varint,6,opt,name=payout_mode,json=payoutMode,proto3,enum=payment.v1.types.enums.PayoutMode" json:"payout_mode,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -152,6 +154,13 @@ func (x *PlaceOrderRequest) GetUserLongitude() float64 {
 		return x.UserLongitude
 	}
 	return 0
+}
+
+func (x *PlaceOrderRequest) GetPayoutMode() enums1.PayoutMode {
+	if x != nil {
+		return x.PayoutMode
+	}
+	return enums1.PayoutMode(0)
 }
 
 type GetOrderRequest struct {
@@ -374,11 +383,11 @@ var File_order_v1_request_order_request_proto protoreflect.FileDescriptor
 
 const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"\n" +
-	"$order/v1/request/order_request.proto\x12\x10order.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a'order/v1/types/enums/order_status.proto\x1a'order/v1/types/enums/payment_mode.proto\"\\\n" +
+	"$order/v1/request/order_request.proto\x12\x10order.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a'order/v1/types/enums/order_status.proto\x1a'order/v1/types/enums/payment_mode.proto\x1a#payment/v1/types/enums/payout.proto\"\\\n" +
 	"\rOrderLineItem\x12&\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tproductId\x12#\n" +
-	"\bquantity\x18\x02 \x01(\x05B\a\xfaB\x04\x1a\x02(\x01R\bquantity\"\xd2\x02\n" +
+	"\bquantity\x18\x02 \x01(\x05B\a\xfaB\x04\x1a\x02(\x01R\bquantity\"\x97\x03\n" +
 	"\x11PlaceOrderRequest\x12,\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\n" +
 	"merchantId\x12?\n" +
@@ -386,7 +395,9 @@ const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"\fpayment_mode\x18\x03 \x01(\x0e2!.order.v1.types.enums.PaymentModeB\n" +
 	"\xfaB\a\x82\x01\x04\x10\x01 \x00R\vpaymentMode\x12<\n" +
 	"\ruser_latitude\x18\x04 \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\fuserLatitude\x12>\n" +
-	"\x0euser_longitude\x18\x05 \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\ruserLongitude\"5\n" +
+	"\x0euser_longitude\x18\x05 \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\ruserLongitude\x12C\n" +
+	"\vpayout_mode\x18\x06 \x01(\x0e2\".payment.v1.types.enums.PayoutModeR\n" +
+	"payoutMode\"5\n" +
 	"\x0fGetOrderRequest\x12\"\n" +
 	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\"S\n" +
 	"\x13ListMyOrdersRequest\x12\x1f\n" +
@@ -425,18 +436,20 @@ var file_order_v1_request_order_request_proto_goTypes = []any{
 	(*ListMerchantOrdersRequest)(nil), // 4: order.v1.request.ListMerchantOrdersRequest
 	(*UpdateOrderStatusRequest)(nil),  // 5: order.v1.request.UpdateOrderStatusRequest
 	(enums.PaymentMode)(0),            // 6: order.v1.types.enums.PaymentMode
-	(enums.OrderStatus)(0),            // 7: order.v1.types.enums.OrderStatus
+	(enums1.PayoutMode)(0),            // 7: payment.v1.types.enums.PayoutMode
+	(enums.OrderStatus)(0),            // 8: order.v1.types.enums.OrderStatus
 }
 var file_order_v1_request_order_request_proto_depIdxs = []int32{
 	0, // 0: order.v1.request.PlaceOrderRequest.items:type_name -> order.v1.request.OrderLineItem
 	6, // 1: order.v1.request.PlaceOrderRequest.payment_mode:type_name -> order.v1.types.enums.PaymentMode
-	7, // 2: order.v1.request.ListMerchantOrdersRequest.status:type_name -> order.v1.types.enums.OrderStatus
-	7, // 3: order.v1.request.UpdateOrderStatusRequest.status:type_name -> order.v1.types.enums.OrderStatus
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	7, // 2: order.v1.request.PlaceOrderRequest.payout_mode:type_name -> payment.v1.types.enums.PayoutMode
+	8, // 3: order.v1.request.ListMerchantOrdersRequest.status:type_name -> order.v1.types.enums.OrderStatus
+	8, // 4: order.v1.request.UpdateOrderStatusRequest.status:type_name -> order.v1.types.enums.OrderStatus
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_order_v1_request_order_request_proto_init() }

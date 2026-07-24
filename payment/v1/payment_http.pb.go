@@ -22,12 +22,16 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationPaymentGetPaymentStatus = "/payment.v1.Payment/GetPaymentStatus"
+const OperationPaymentGetPayout = "/payment.v1.Payment/GetPayout"
 const OperationPaymentInitiatePayment = "/payment.v1.Payment/InitiatePayment"
+const OperationPaymentRequestInstantPayout = "/payment.v1.Payment/RequestInstantPayout"
 const OperationPaymentVerifyPayment = "/payment.v1.Payment/VerifyPayment"
 
 type PaymentHTTPServer interface {
 	GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error)
+	GetPayout(context.Context, *request.GetPayoutRequest) (*response.GetPayoutResponse, error)
 	InitiatePayment(context.Context, *request.InitiatePaymentRequest) (*response.InitiatePaymentResponse, error)
+	RequestInstantPayout(context.Context, *request.RequestInstantPayoutRequest) (*response.RequestInstantPayoutResponse, error)
 	VerifyPayment(context.Context, *request.VerifyPaymentRequest) (*response.VerifyPaymentResponse, error)
 }
 
@@ -36,6 +40,8 @@ func RegisterPaymentHTTPServer(s *http.Server, srv PaymentHTTPServer) {
 	r.POST("/v1/orders/{order_id}/payments", _Payment_InitiatePayment0_HTTP_Handler(srv))
 	r.POST("/v1/orders/{order_id}/payments/{payment_id}/verify", _Payment_VerifyPayment0_HTTP_Handler(srv))
 	r.GET("/v1/orders/{order_id}/payments/{payment_id}", _Payment_GetPaymentStatus0_HTTP_Handler(srv))
+	r.POST("/v1/orders/{order_id}/payout:instant", _Payment_RequestInstantPayout0_HTTP_Handler(srv))
+	r.GET("/v1/orders/{order_id}/payout", _Payment_GetPayout0_HTTP_Handler(srv))
 }
 
 func _Payment_InitiatePayment0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
@@ -110,9 +116,58 @@ func _Payment_GetPaymentStatus0_HTTP_Handler(srv PaymentHTTPServer) func(ctx htt
 	}
 }
 
+func _Payment_RequestInstantPayout0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RequestInstantPayoutRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentRequestInstantPayout)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RequestInstantPayout(ctx, req.(*request.RequestInstantPayoutRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RequestInstantPayoutResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_GetPayout0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetPayoutRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentGetPayout)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetPayout(ctx, req.(*request.GetPayoutRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetPayoutResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type PaymentHTTPClient interface {
 	GetPaymentStatus(ctx context.Context, req *request.GetPaymentStatusRequest, opts ...http.CallOption) (rsp *response.GetPaymentStatusResponse, err error)
+	GetPayout(ctx context.Context, req *request.GetPayoutRequest, opts ...http.CallOption) (rsp *response.GetPayoutResponse, err error)
 	InitiatePayment(ctx context.Context, req *request.InitiatePaymentRequest, opts ...http.CallOption) (rsp *response.InitiatePaymentResponse, err error)
+	RequestInstantPayout(ctx context.Context, req *request.RequestInstantPayoutRequest, opts ...http.CallOption) (rsp *response.RequestInstantPayoutResponse, err error)
 	VerifyPayment(ctx context.Context, req *request.VerifyPaymentRequest, opts ...http.CallOption) (rsp *response.VerifyPaymentResponse, err error)
 }
 
@@ -137,11 +192,37 @@ func (c *PaymentHTTPClientImpl) GetPaymentStatus(ctx context.Context, in *reques
 	return &out, nil
 }
 
+func (c *PaymentHTTPClientImpl) GetPayout(ctx context.Context, in *request.GetPayoutRequest, opts ...http.CallOption) (*response.GetPayoutResponse, error) {
+	var out response.GetPayoutResponse
+	pattern := "/v1/orders/{order_id}/payout"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentGetPayout))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *PaymentHTTPClientImpl) InitiatePayment(ctx context.Context, in *request.InitiatePaymentRequest, opts ...http.CallOption) (*response.InitiatePaymentResponse, error) {
 	var out response.InitiatePaymentResponse
 	pattern := "/v1/orders/{order_id}/payments"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPaymentInitiatePayment))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *PaymentHTTPClientImpl) RequestInstantPayout(ctx context.Context, in *request.RequestInstantPayoutRequest, opts ...http.CallOption) (*response.RequestInstantPayoutResponse, error) {
+	var out response.RequestInstantPayoutResponse
+	pattern := "/v1/orders/{order_id}/payout:instant"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationPaymentRequestInstantPayout))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

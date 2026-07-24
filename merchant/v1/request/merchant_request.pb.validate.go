@@ -129,6 +129,17 @@ func (m *OnboardMerchantRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if val := m.GetMaxOrderDistanceM(); val < 0 || val > 100000 {
+		err := OnboardMerchantRequestValidationError{
+			field:  "MaxOrderDistanceM",
+			reason: "value must be inside range [0, 100000]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return OnboardMerchantRequestMultiError(errors)
 	}
@@ -387,6 +398,21 @@ func (m *UpdateMerchantRequest) validate(all bool) error {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	if m.MaxOrderDistanceM != nil {
+
+		if val := m.GetMaxOrderDistanceM(); val < 0 || val > 100000 {
+			err := UpdateMerchantRequestValidationError{
+				field:  "MaxOrderDistanceM",
+				reason: "value must be inside range [0, 100000]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if len(errors) > 0 {

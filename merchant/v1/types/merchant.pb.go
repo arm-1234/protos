@@ -36,12 +36,13 @@ type MerchantInfo struct {
 	UpiVpa      string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
 	Status      enums.MerchantStatus   `protobuf:"varint,9,opt,name=status,proto3,enum=merchant.v1.types.enums.MerchantStatus" json:"status,omitempty"`
 	// Store gelocation; 0/0 means "not set" (geofence checks are then skipped).
-	Latitude      float64                `protobuf:"fixed64,10,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude     float64                `protobuf:"fixed64,11,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	Latitude          float64                `protobuf:"fixed64,10,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude         float64                `protobuf:"fixed64,11,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	CreatedAt         *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt         *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	MaxOrderDistanceM float64                `protobuf:"fixed64,14,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *MerchantInfo) Reset() {
@@ -165,6 +166,13 @@ func (x *MerchantInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *MerchantInfo) GetMaxOrderDistanceM() float64 {
+	if x != nil {
+		return x.MaxOrderDistanceM
+	}
+	return 0
+}
+
 // MerchantVpa is one UPI VPA belonging to a merchant. A merchant may hold
 // several (Paytm, GPay, PhonePe, …); exactly one is the primary.
 type MerchantVpa struct {
@@ -245,17 +253,18 @@ func (x *MerchantVpa) GetCreatedAt() *timestamppb.Timestamp {
 
 // StoreSummary is the public store view returned when a QR/VPA is resolved.
 type StoreSummary struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	StoreName     string                 `protobuf:"bytes,2,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl       string                 `protobuf:"bytes,4,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address       string                 `protobuf:"bytes,5,opt,name=address,proto3" json:"address,omitempty"`
-	UpiVpa        string                 `protobuf:"bytes,6,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	Latitude      float64                `protobuf:"fixed64,7,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude     float64                `protobuf:"fixed64,8,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId        string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	StoreName         string                 `protobuf:"bytes,2,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description       string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl           string                 `protobuf:"bytes,4,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address           string                 `protobuf:"bytes,5,opt,name=address,proto3" json:"address,omitempty"`
+	UpiVpa            string                 `protobuf:"bytes,6,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Latitude          float64                `protobuf:"fixed64,7,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude         float64                `protobuf:"fixed64,8,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	MaxOrderDistanceM float64                `protobuf:"fixed64,9,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *StoreSummary) Reset() {
@@ -344,11 +353,18 @@ func (x *StoreSummary) GetLongitude() float64 {
 	return 0
 }
 
+func (x *StoreSummary) GetMaxOrderDistanceM() float64 {
+	if x != nil {
+		return x.MaxOrderDistanceM
+	}
+	return 0
+}
+
 var File_merchant_v1_types_merchant_proto protoreflect.FileDescriptor
 
 const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\n" +
-	" merchant/v1/types/merchant.proto\x12\x11merchant.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a-merchant/v1/types/enums/merchant_status.proto\"\xd9\x03\n" +
+	" merchant/v1/types/merchant.proto\x12\x11merchant.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a-merchant/v1/types/enums/merchant_status.proto\"\x8a\x04\n" +
 	"\fMerchantInfo\x12\x1f\n" +
 	"\vmerchant_id\x18\x01 \x01(\tR\n" +
 	"merchantId\x12\x12\n" +
@@ -367,7 +383,8 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xa6\x01\n" +
+	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12/\n" +
+	"\x14max_order_distance_m\x18\x0e \x01(\x01R\x11maxOrderDistanceM\"\xa6\x01\n" +
 	"\vMerchantVpa\x12\x15\n" +
 	"\x06vpa_id\x18\x01 \x01(\tR\x05vpaId\x12\x10\n" +
 	"\x03vpa\x18\x02 \x01(\tR\x03vpa\x12\x14\n" +
@@ -375,7 +392,7 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\n" +
 	"is_primary\x18\x04 \x01(\bR\tisPrimary\x129\n" +
 	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xf8\x01\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xa9\x02\n" +
 	"\fStoreSummary\x12\x1f\n" +
 	"\vmerchant_id\x18\x01 \x01(\tR\n" +
 	"merchantId\x12\x1d\n" +
@@ -386,7 +403,8 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\aaddress\x18\x05 \x01(\tR\aaddress\x12\x17\n" +
 	"\aupi_vpa\x18\x06 \x01(\tR\x06upiVpa\x12\x1a\n" +
 	"\blatitude\x18\a \x01(\x01R\blatitude\x12\x1c\n" +
-	"\tlongitude\x18\b \x01(\x01R\tlongitudeB4Z2github.com/arm-1234/protos/merchant/v1/types;typesb\x06proto3"
+	"\tlongitude\x18\b \x01(\x01R\tlongitude\x12/\n" +
+	"\x14max_order_distance_m\x18\t \x01(\x01R\x11maxOrderDistanceMB4Z2github.com/arm-1234/protos/merchant/v1/types;typesb\x06proto3"
 
 var (
 	file_merchant_v1_types_merchant_proto_rawDescOnce sync.Once

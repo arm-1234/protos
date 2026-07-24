@@ -24,3 +24,11 @@ message VerifyPaymentResponse {
 message GetPaymentStatusResponse {
   payment.v1.types.PaymentInfo payment = 1;
 }
+
+message RequestInstantPayoutResponse {
+  payment.v1.types.PayoutInfo payout = 1;
+}
+
+message GetPayoutResponse {
+  payment.v1.types.PayoutInfo payout = 1;
+}

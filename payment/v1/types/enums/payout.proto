@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package payment.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/payment/v1/types/enums;enums";
+
+enum PayoutMode {
+  PAYOUT_MODE_UNSPECIFIED = 0;
+  PAYOUT_MODE_SCHEDULED = 1;
+  PAYOUT_MODE_INSTANT = 2;
+}
+
+enum PayoutStatus {
+  PAYOUT_STATUS_UNSPECIFIED = 0;
+  PAYOUT_STATUS_PENDING = 1;
+  PAYOUT_STATUS_RELEASED = 2;
+  PAYOUT_STATUS_FAILED = 3;
+}

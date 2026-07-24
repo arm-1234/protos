@@ -4,6 +4,7 @@ package payment.v1.types;
 
 import "google/protobuf/timestamp.proto";
 import "order/v1/types/enums/payment_mode.proto";
+import "payment/v1/types/enums/payout.proto";
 
 option go_package = "github.com/arm-1234/protos/payment/v1/types;types";
 
@@ -17,4 +18,20 @@ message PaymentInfo {
   string gateway_ref = 7;
   google.protobuf.Timestamp created_at = 8;
   google.protobuf.Timestamp updated_at = 9;
+}
+
+message PayoutInfo {
+  string payout_id = 1;
+  string order_id = 2;
+  string merchant_id = 3;
+  int64 gross_minor = 4;
+  int64 platform_fee_minor = 5;
+  int64 net_minor = 6;
+  string currency = 7;
+  payment.v1.types.enums.PayoutMode mode = 8;
+  payment.v1.types.enums.PayoutStatus status = 9;
+  string transfer_ref = 10;
+  google.protobuf.Timestamp released_at = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
 }

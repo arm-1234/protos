@@ -19,6 +19,8 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 
 	enums "github.com/arm-1234/protos/order/v1/types/enums"
+
+	enums1 "github.com/arm-1234/protos/payment/v1/types/enums"
 )
 
 // ensure the imports are used
@@ -37,6 +39,8 @@ var (
 	_ = sort.Sort
 
 	_ = enums.PaymentMode(0)
+
+	_ = enums1.PayoutMode(0)
 )
 
 // Validate checks the field values on OrderLineItem with the rules defined in
@@ -282,6 +286,8 @@ func (m *PlaceOrderRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for PayoutMode
 
 	if len(errors) > 0 {
 		return PlaceOrderRequestMultiError(errors)

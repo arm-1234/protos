@@ -141,6 +141,8 @@ func (m *MerchantInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for MaxOrderDistanceM
+
 	if len(errors) > 0 {
 		return MerchantInfoMultiError(errors)
 	}
@@ -391,6 +393,8 @@ func (m *StoreSummary) validate(all bool) error {
 	// no validation rules for Latitude
 
 	// no validation rules for Longitude
+
+	// no validation rules for MaxOrderDistanceM
 
 	if len(errors) > 0 {
 		return StoreSummaryMultiError(errors)

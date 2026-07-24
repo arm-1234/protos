@@ -34,6 +34,8 @@ const (
 	ErrorReason_PAYMENT_INVALID_REQUEST     ErrorReason = 3
 	ErrorReason_PAYMENT_GATEWAY_ERROR       ErrorReason = 4
 	ErrorReason_PAYMENT_VERIFICATION_FAILED ErrorReason = 5
+	ErrorReason_PAYMENT_PAYOUT_NOT_FOUND    ErrorReason = 6
+	ErrorReason_PAYMENT_PAYOUT_NOT_ALLOWED  ErrorReason = 7
 )
 
 // Enum value maps for ErrorReason.
@@ -45,6 +47,8 @@ var (
 		3: "PAYMENT_INVALID_REQUEST",
 		4: "PAYMENT_GATEWAY_ERROR",
 		5: "PAYMENT_VERIFICATION_FAILED",
+		6: "PAYMENT_PAYOUT_NOT_FOUND",
+		7: "PAYMENT_PAYOUT_NOT_ALLOWED",
 	}
 	ErrorReason_value = map[string]int32{
 		"PAYMENT_UNSPECIFIED":         0,
@@ -53,6 +57,8 @@ var (
 		"PAYMENT_INVALID_REQUEST":     3,
 		"PAYMENT_GATEWAY_ERROR":       4,
 		"PAYMENT_VERIFICATION_FAILED": 5,
+		"PAYMENT_PAYOUT_NOT_FOUND":    6,
+		"PAYMENT_PAYOUT_NOT_ALLOWED":  7,
 	}
 )
 
@@ -88,18 +94,22 @@ var File_payment_v1_payment_proto protoreflect.FileDescriptor
 const file_payment_v1_payment_proto_rawDesc = "" +
 	"\n" +
 	"\x18payment/v1/payment.proto\x12\n" +
-	"payment.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(payment/v1/request/payment_request.proto\x1a*payment/v1/response/payment_response.proto*\xdd\x01\n" +
+	"payment.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(payment/v1/request/payment_request.proto\x1a*payment/v1/response/payment_response.proto*\xa7\x02\n" +
 	"\vErrorReason\x12\x1d\n" +
 	"\x13PAYMENT_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12!\n" +
 	"\x17PAYMENT_ORDER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1b\n" +
 	"\x11PAYMENT_NOT_FOUND\x10\x02\x1a\x04\xa8E\x94\x03\x12!\n" +
 	"\x17PAYMENT_INVALID_REQUEST\x10\x03\x1a\x04\xa8E\x90\x03\x12\x1f\n" +
 	"\x15PAYMENT_GATEWAY_ERROR\x10\x04\x1a\x04\xa8E\xf6\x03\x12%\n" +
-	"\x1bPAYMENT_VERIFICATION_FAILED\x10\x05\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x032\xef\x03\n" +
+	"\x1bPAYMENT_VERIFICATION_FAILED\x10\x05\x1a\x04\xa8E\x90\x03\x12\"\n" +
+	"\x18PAYMENT_PAYOUT_NOT_FOUND\x10\x06\x1a\x04\xa8E\x94\x03\x12$\n" +
+	"\x1aPAYMENT_PAYOUT_NOT_ALLOWED\x10\a\x1a\x04\xa8E\x99\x03\x1a\x04\xa0E\xf4\x032\x9e\x06\n" +
 	"\aPayment\x12\x96\x01\n" +
 	"\x0fInitiatePayment\x12*.payment.v1.request.InitiatePaymentRequest\x1a,.payment.v1.response.InitiatePaymentResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/v1/orders/{order_id}/payments\x12\xa4\x01\n" +
 	"\rVerifyPayment\x12(.payment.v1.request.VerifyPaymentRequest\x1a*.payment.v1.response.VerifyPaymentResponse\"=\x82\xd3\xe4\x93\x027:\x01*\"2/v1/orders/{order_id}/payments/{payment_id}/verify\x12\xa3\x01\n" +
-	"\x10GetPaymentStatus\x12+.payment.v1.request.GetPaymentStatusRequest\x1a-.payment.v1.response.GetPaymentStatusResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/orders/{order_id}/payments/{payment_id}B*Z(github.com/arm-1234/protos/payment/v1;v1b\x06proto3"
+	"\x10GetPaymentStatus\x12+.payment.v1.request.GetPaymentStatusRequest\x1a-.payment.v1.response.GetPaymentStatusResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/orders/{order_id}/payments/{payment_id}\x12\xab\x01\n" +
+	"\x14RequestInstantPayout\x12/.payment.v1.request.RequestInstantPayoutRequest\x1a1.payment.v1.response.RequestInstantPayoutResponse\"/\x82\xd3\xe4\x93\x02):\x01*\"$/v1/orders/{order_id}/payout:instant\x12\x7f\n" +
+	"\tGetPayout\x12$.payment.v1.request.GetPayoutRequest\x1a&.payment.v1.response.GetPayoutResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/v1/orders/{order_id}/payoutB*Z(github.com/arm-1234/protos/payment/v1;v1b\x06proto3"
 
 var (
 	file_payment_v1_payment_proto_rawDescOnce sync.Once
@@ -115,26 +125,34 @@ func file_payment_v1_payment_proto_rawDescGZIP() []byte {
 
 var file_payment_v1_payment_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_payment_v1_payment_proto_goTypes = []any{
-	(ErrorReason)(0),                          // 0: payment.v1.ErrorReason
-	(*request.InitiatePaymentRequest)(nil),    // 1: payment.v1.request.InitiatePaymentRequest
-	(*request.VerifyPaymentRequest)(nil),      // 2: payment.v1.request.VerifyPaymentRequest
-	(*request.GetPaymentStatusRequest)(nil),   // 3: payment.v1.request.GetPaymentStatusRequest
-	(*response.InitiatePaymentResponse)(nil),  // 4: payment.v1.response.InitiatePaymentResponse
-	(*response.VerifyPaymentResponse)(nil),    // 5: payment.v1.response.VerifyPaymentResponse
-	(*response.GetPaymentStatusResponse)(nil), // 6: payment.v1.response.GetPaymentStatusResponse
+	(ErrorReason)(0),                              // 0: payment.v1.ErrorReason
+	(*request.InitiatePaymentRequest)(nil),        // 1: payment.v1.request.InitiatePaymentRequest
+	(*request.VerifyPaymentRequest)(nil),          // 2: payment.v1.request.VerifyPaymentRequest
+	(*request.GetPaymentStatusRequest)(nil),       // 3: payment.v1.request.GetPaymentStatusRequest
+	(*request.RequestInstantPayoutRequest)(nil),   // 4: payment.v1.request.RequestInstantPayoutRequest
+	(*request.GetPayoutRequest)(nil),              // 5: payment.v1.request.GetPayoutRequest
+	(*response.InitiatePaymentResponse)(nil),      // 6: payment.v1.response.InitiatePaymentResponse
+	(*response.VerifyPaymentResponse)(nil),        // 7: payment.v1.response.VerifyPaymentResponse
+	(*response.GetPaymentStatusResponse)(nil),     // 8: payment.v1.response.GetPaymentStatusResponse
+	(*response.RequestInstantPayoutResponse)(nil), // 9: payment.v1.response.RequestInstantPayoutResponse
+	(*response.GetPayoutResponse)(nil),            // 10: payment.v1.response.GetPayoutResponse
 }
 var file_payment_v1_payment_proto_depIdxs = []int32{
-	1, // 0: payment.v1.Payment.InitiatePayment:input_type -> payment.v1.request.InitiatePaymentRequest
-	2, // 1: payment.v1.Payment.VerifyPayment:input_type -> payment.v1.request.VerifyPaymentRequest
-	3, // 2: payment.v1.Payment.GetPaymentStatus:input_type -> payment.v1.request.GetPaymentStatusRequest
-	4, // 3: payment.v1.Payment.InitiatePayment:output_type -> payment.v1.response.InitiatePaymentResponse
-	5, // 4: payment.v1.Payment.VerifyPayment:output_type -> payment.v1.response.VerifyPaymentResponse
-	6, // 5: payment.v1.Payment.GetPaymentStatus:output_type -> payment.v1.response.GetPaymentStatusResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1,  // 0: payment.v1.Payment.InitiatePayment:input_type -> payment.v1.request.InitiatePaymentRequest
+	2,  // 1: payment.v1.Payment.VerifyPayment:input_type -> payment.v1.request.VerifyPaymentRequest
+	3,  // 2: payment.v1.Payment.GetPaymentStatus:input_type -> payment.v1.request.GetPaymentStatusRequest
+	4,  // 3: payment.v1.Payment.RequestInstantPayout:input_type -> payment.v1.request.RequestInstantPayoutRequest
+	5,  // 4: payment.v1.Payment.GetPayout:input_type -> payment.v1.request.GetPayoutRequest
+	6,  // 5: payment.v1.Payment.InitiatePayment:output_type -> payment.v1.response.InitiatePaymentResponse
+	7,  // 6: payment.v1.Payment.VerifyPayment:output_type -> payment.v1.response.VerifyPaymentResponse
+	8,  // 7: payment.v1.Payment.GetPaymentStatus:output_type -> payment.v1.response.GetPaymentStatusResponse
+	9,  // 8: payment.v1.Payment.RequestInstantPayout:output_type -> payment.v1.response.RequestInstantPayoutResponse
+	10, // 9: payment.v1.Payment.GetPayout:output_type -> payment.v1.response.GetPayoutResponse
+	5,  // [5:10] is the sub-list for method output_type
+	0,  // [0:5] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_payment_v1_payment_proto_init() }

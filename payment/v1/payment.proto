@@ -29,6 +29,19 @@ service Payment {
       get: "/v1/orders/{order_id}/payments/{payment_id}"
     };
   }
+
+  rpc RequestInstantPayout (payment.v1.request.RequestInstantPayoutRequest) returns (payment.v1.response.RequestInstantPayoutResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{order_id}/payout:instant"
+      body: "*"
+    };
+  }
+
+  rpc GetPayout (payment.v1.request.GetPayoutRequest) returns (payment.v1.response.GetPayoutResponse) {
+    option (google.api.http) = {
+      get: "/v1/orders/{order_id}/payout"
+    };
+  }
 }
 
 enum ErrorReason {
@@ -39,4 +52,6 @@ enum ErrorReason {
   PAYMENT_INVALID_REQUEST = 3 [(errors.code) = 400];
   PAYMENT_GATEWAY_ERROR = 4 [(errors.code) = 502];
   PAYMENT_VERIFICATION_FAILED = 5 [(errors.code) = 400];
+  PAYMENT_PAYOUT_NOT_FOUND = 6 [(errors.code) = 404];
+  PAYMENT_PAYOUT_NOT_ALLOWED = 7 [(errors.code) = 409];
 }

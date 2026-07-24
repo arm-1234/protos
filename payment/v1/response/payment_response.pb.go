@@ -196,6 +196,94 @@ func (x *GetPaymentStatusResponse) GetPayment() *types.PaymentInfo {
 	return nil
 }
 
+type RequestInstantPayoutResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Payout        *types.PayoutInfo      `protobuf:"bytes,1,opt,name=payout,proto3" json:"payout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RequestInstantPayoutResponse) Reset() {
+	*x = RequestInstantPayoutResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestInstantPayoutResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestInstantPayoutResponse) ProtoMessage() {}
+
+func (x *RequestInstantPayoutResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestInstantPayoutResponse.ProtoReflect.Descriptor instead.
+func (*RequestInstantPayoutResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RequestInstantPayoutResponse) GetPayout() *types.PayoutInfo {
+	if x != nil {
+		return x.Payout
+	}
+	return nil
+}
+
+type GetPayoutResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Payout        *types.PayoutInfo      `protobuf:"bytes,1,opt,name=payout,proto3" json:"payout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPayoutResponse) Reset() {
+	*x = GetPayoutResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPayoutResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPayoutResponse) ProtoMessage() {}
+
+func (x *GetPayoutResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPayoutResponse.ProtoReflect.Descriptor instead.
+func (*GetPayoutResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetPayoutResponse) GetPayout() *types.PayoutInfo {
+	if x != nil {
+		return x.Payout
+	}
+	return nil
+}
+
 var File_payment_v1_response_payment_response_proto protoreflect.FileDescriptor
 
 const file_payment_v1_response_payment_response_proto_rawDesc = "" +
@@ -211,7 +299,11 @@ const file_payment_v1_response_payment_response_proto_rawDesc = "" +
 	"\apayment\x18\x01 \x01(\v2\x1d.payment.v1.types.PaymentInfoR\apayment\x12\x1a\n" +
 	"\bverified\x18\x02 \x01(\bR\bverified\"S\n" +
 	"\x18GetPaymentStatusResponse\x127\n" +
-	"\apayment\x18\x01 \x01(\v2\x1d.payment.v1.types.PaymentInfoR\apaymentB9Z7github.com/arm-1234/protos/payment/v1/response;responseb\x06proto3"
+	"\apayment\x18\x01 \x01(\v2\x1d.payment.v1.types.PaymentInfoR\apayment\"T\n" +
+	"\x1cRequestInstantPayoutResponse\x124\n" +
+	"\x06payout\x18\x01 \x01(\v2\x1c.payment.v1.types.PayoutInfoR\x06payout\"I\n" +
+	"\x11GetPayoutResponse\x124\n" +
+	"\x06payout\x18\x01 \x01(\v2\x1c.payment.v1.types.PayoutInfoR\x06payoutB9Z7github.com/arm-1234/protos/payment/v1/response;responseb\x06proto3"
 
 var (
 	file_payment_v1_response_payment_response_proto_rawDescOnce sync.Once
@@ -225,22 +317,27 @@ func file_payment_v1_response_payment_response_proto_rawDescGZIP() []byte {
 	return file_payment_v1_response_payment_response_proto_rawDescData
 }
 
-var file_payment_v1_response_payment_response_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_payment_v1_response_payment_response_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_payment_v1_response_payment_response_proto_goTypes = []any{
-	(*InitiatePaymentResponse)(nil),  // 0: payment.v1.response.InitiatePaymentResponse
-	(*VerifyPaymentResponse)(nil),    // 1: payment.v1.response.VerifyPaymentResponse
-	(*GetPaymentStatusResponse)(nil), // 2: payment.v1.response.GetPaymentStatusResponse
-	(*types.PaymentInfo)(nil),        // 3: payment.v1.types.PaymentInfo
+	(*InitiatePaymentResponse)(nil),      // 0: payment.v1.response.InitiatePaymentResponse
+	(*VerifyPaymentResponse)(nil),        // 1: payment.v1.response.VerifyPaymentResponse
+	(*GetPaymentStatusResponse)(nil),     // 2: payment.v1.response.GetPaymentStatusResponse
+	(*RequestInstantPayoutResponse)(nil), // 3: payment.v1.response.RequestInstantPayoutResponse
+	(*GetPayoutResponse)(nil),            // 4: payment.v1.response.GetPayoutResponse
+	(*types.PaymentInfo)(nil),            // 5: payment.v1.types.PaymentInfo
+	(*types.PayoutInfo)(nil),             // 6: payment.v1.types.PayoutInfo
 }
 var file_payment_v1_response_payment_response_proto_depIdxs = []int32{
-	3, // 0: payment.v1.response.InitiatePaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
-	3, // 1: payment.v1.response.VerifyPaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
-	3, // 2: payment.v1.response.GetPaymentStatusResponse.payment:type_name -> payment.v1.types.PaymentInfo
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	5, // 0: payment.v1.response.InitiatePaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
+	5, // 1: payment.v1.response.VerifyPaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
+	5, // 2: payment.v1.response.GetPaymentStatusResponse.payment:type_name -> payment.v1.types.PaymentInfo
+	6, // 3: payment.v1.response.RequestInstantPayoutResponse.payout:type_name -> payment.v1.types.PayoutInfo
+	6, // 4: payment.v1.response.GetPayoutResponse.payout:type_name -> payment.v1.types.PayoutInfo
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_payment_v1_response_payment_response_proto_init() }
@@ -254,7 +351,7 @@ func file_payment_v1_response_payment_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_payment_v1_response_payment_response_proto_rawDesc), len(file_payment_v1_response_payment_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

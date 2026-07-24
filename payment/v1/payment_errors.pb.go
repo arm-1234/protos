@@ -82,3 +82,27 @@ func IsPaymentVerificationFailed(err error) bool {
 func ErrorPaymentVerificationFailed(format string, args ...interface{}) *errors.Error {
 	return errors.New(400, ErrorReason_PAYMENT_VERIFICATION_FAILED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsPaymentPayoutNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_PAYOUT_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorPaymentPayoutNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_PAYMENT_PAYOUT_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentPayoutNotAllowed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_PAYOUT_NOT_ALLOWED.String() && e.Code == 409
+}
+
+func ErrorPaymentPayoutNotAllowed(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_PAYMENT_PAYOUT_NOT_ALLOWED.String(), fmt.Sprintf(format, args...))
+}

@@ -19,6 +19,8 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 
 	enums "github.com/arm-1234/protos/order/v1/types/enums"
+
+	enums1 "github.com/arm-1234/protos/payment/v1/types/enums"
 )
 
 // ensure the imports are used
@@ -37,6 +39,8 @@ var (
 	_ = sort.Sort
 
 	_ = enums.PaymentMode(0)
+
+	_ = enums1.PayoutMode(0)
 )
 
 // Validate checks the field values on PaymentInfo with the rules defined in
@@ -209,3 +213,209 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PaymentInfoValidationError{}
+
+// Validate checks the field values on PayoutInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PayoutInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PayoutInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PayoutInfoMultiError, or
+// nil if none found.
+func (m *PayoutInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PayoutInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for PayoutId
+
+	// no validation rules for OrderId
+
+	// no validation rules for MerchantId
+
+	// no validation rules for GrossMinor
+
+	// no validation rules for PlatformFeeMinor
+
+	// no validation rules for NetMinor
+
+	// no validation rules for Currency
+
+	// no validation rules for Mode
+
+	// no validation rules for Status
+
+	// no validation rules for TransferRef
+
+	if all {
+		switch v := interface{}(m.GetReleasedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PayoutInfoValidationError{
+					field:  "ReleasedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PayoutInfoValidationError{
+					field:  "ReleasedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReleasedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PayoutInfoValidationError{
+				field:  "ReleasedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCreatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PayoutInfoValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PayoutInfoValidationError{
+					field:  "CreatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PayoutInfoValidationError{
+				field:  "CreatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUpdatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PayoutInfoValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PayoutInfoValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PayoutInfoValidationError{
+				field:  "UpdatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PayoutInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// PayoutInfoMultiError is an error wrapping multiple validation errors
+// returned by PayoutInfo.ValidateAll() if the designated constraints aren't met.
+type PayoutInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PayoutInfoMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PayoutInfoMultiError) AllErrors() []error { return m }
+
+// PayoutInfoValidationError is the validation error returned by
+// PayoutInfo.Validate if the designated constraints aren't met.
+type PayoutInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PayoutInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PayoutInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PayoutInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PayoutInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PayoutInfoValidationError) ErrorName() string { return "PayoutInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PayoutInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPayoutInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PayoutInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PayoutInfoValidationError{}

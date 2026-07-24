@@ -6,6 +6,7 @@ import "google/api/field_behavior.proto";
 import "validate/validate.proto";
 import "order/v1/types/enums/order_status.proto";
 import "order/v1/types/enums/payment_mode.proto";
+import "payment/v1/types/enums/payout.proto";
 
 option go_package = "github.com/arm-1234/protos/order/v1/request;request";
 
@@ -27,6 +28,7 @@ message PlaceOrderRequest {
   // Caller's current location, used for the proximity (geofence) check.
   double user_latitude = 4 [(validate.rules).double = {gte: -90, lte: 90}];
   double user_longitude = 5 [(validate.rules).double = {gte: -180, lte: 180}];
+  payment.v1.types.enums.PayoutMode payout_mode = 6;
 }
 
 message GetOrderRequest {

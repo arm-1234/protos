@@ -21,9 +21,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Payment_InitiatePayment_FullMethodName  = "/payment.v1.Payment/InitiatePayment"
-	Payment_VerifyPayment_FullMethodName    = "/payment.v1.Payment/VerifyPayment"
-	Payment_GetPaymentStatus_FullMethodName = "/payment.v1.Payment/GetPaymentStatus"
+	Payment_InitiatePayment_FullMethodName      = "/payment.v1.Payment/InitiatePayment"
+	Payment_VerifyPayment_FullMethodName        = "/payment.v1.Payment/VerifyPayment"
+	Payment_GetPaymentStatus_FullMethodName     = "/payment.v1.Payment/GetPaymentStatus"
+	Payment_RequestInstantPayout_FullMethodName = "/payment.v1.Payment/RequestInstantPayout"
+	Payment_GetPayout_FullMethodName            = "/payment.v1.Payment/GetPayout"
 )
 
 // PaymentClient is the client API for Payment service.
@@ -33,6 +35,8 @@ type PaymentClient interface {
 	InitiatePayment(ctx context.Context, in *request.InitiatePaymentRequest, opts ...grpc.CallOption) (*response.InitiatePaymentResponse, error)
 	VerifyPayment(ctx context.Context, in *request.VerifyPaymentRequest, opts ...grpc.CallOption) (*response.VerifyPaymentResponse, error)
 	GetPaymentStatus(ctx context.Context, in *request.GetPaymentStatusRequest, opts ...grpc.CallOption) (*response.GetPaymentStatusResponse, error)
+	RequestInstantPayout(ctx context.Context, in *request.RequestInstantPayoutRequest, opts ...grpc.CallOption) (*response.RequestInstantPayoutResponse, error)
+	GetPayout(ctx context.Context, in *request.GetPayoutRequest, opts ...grpc.CallOption) (*response.GetPayoutResponse, error)
 }
 
 type paymentClient struct {
@@ -73,6 +77,26 @@ func (c *paymentClient) GetPaymentStatus(ctx context.Context, in *request.GetPay
 	return out, nil
 }
 
+func (c *paymentClient) RequestInstantPayout(ctx context.Context, in *request.RequestInstantPayoutRequest, opts ...grpc.CallOption) (*response.RequestInstantPayoutResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RequestInstantPayoutResponse)
+	err := c.cc.Invoke(ctx, Payment_RequestInstantPayout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) GetPayout(ctx context.Context, in *request.GetPayoutRequest, opts ...grpc.CallOption) (*response.GetPayoutResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetPayoutResponse)
+	err := c.cc.Invoke(ctx, Payment_GetPayout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServer is the server API for Payment service.
 // All implementations must embed UnimplementedPaymentServer
 // for forward compatibility.
@@ -80,6 +104,8 @@ type PaymentServer interface {
 	InitiatePayment(context.Context, *request.InitiatePaymentRequest) (*response.InitiatePaymentResponse, error)
 	VerifyPayment(context.Context, *request.VerifyPaymentRequest) (*response.VerifyPaymentResponse, error)
 	GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error)
+	RequestInstantPayout(context.Context, *request.RequestInstantPayoutRequest) (*response.RequestInstantPayoutResponse, error)
+	GetPayout(context.Context, *request.GetPayoutRequest) (*response.GetPayoutResponse, error)
 	mustEmbedUnimplementedPaymentServer()
 }
 
@@ -98,6 +124,12 @@ func (UnimplementedPaymentServer) VerifyPayment(context.Context, *request.Verify
 }
 func (UnimplementedPaymentServer) GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPaymentStatus not implemented")
+}
+func (UnimplementedPaymentServer) RequestInstantPayout(context.Context, *request.RequestInstantPayoutRequest) (*response.RequestInstantPayoutResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RequestInstantPayout not implemented")
+}
+func (UnimplementedPaymentServer) GetPayout(context.Context, *request.GetPayoutRequest) (*response.GetPayoutResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetPayout not implemented")
 }
 func (UnimplementedPaymentServer) mustEmbedUnimplementedPaymentServer() {}
 func (UnimplementedPaymentServer) testEmbeddedByValue()                 {}
@@ -174,6 +206,42 @@ func _Payment_GetPaymentStatus_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Payment_RequestInstantPayout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RequestInstantPayoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).RequestInstantPayout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_RequestInstantPayout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).RequestInstantPayout(ctx, req.(*request.RequestInstantPayoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_GetPayout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetPayoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).GetPayout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_GetPayout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).GetPayout(ctx, req.(*request.GetPayoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Payment_ServiceDesc is the grpc.ServiceDesc for Payment service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -192,6 +260,14 @@ var Payment_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPaymentStatus",
 			Handler:    _Payment_GetPaymentStatus_Handler,
+		},
+		{
+			MethodName: "RequestInstantPayout",
+			Handler:    _Payment_RequestInstantPayout_Handler,
+		},
+		{
+			MethodName: "GetPayout",
+			Handler:    _Payment_GetPayout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

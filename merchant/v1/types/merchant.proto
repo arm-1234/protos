@@ -23,6 +23,7 @@ message MerchantInfo {
   double longitude = 11;
   google.protobuf.Timestamp created_at = 12;
   google.protobuf.Timestamp updated_at = 13;
+  double max_order_distance_m = 14;
 }
 
 // MerchantVpa is one UPI VPA belonging to a merchant. A merchant may hold
@@ -45,4 +46,5 @@ message StoreSummary {
   string upi_vpa = 6;
   double latitude = 7;
   double longitude = 8;
+  double max_order_distance_m = 9;
 }

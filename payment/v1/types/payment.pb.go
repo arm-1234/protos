@@ -8,6 +8,7 @@ package types
 
 import (
 	enums "github.com/arm-1234/protos/order/v1/types/enums"
+	enums1 "github.com/arm-1234/protos/payment/v1/types/enums"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -131,11 +132,151 @@ func (x *PaymentInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type PayoutInfo struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	PayoutId         string                 `protobuf:"bytes,1,opt,name=payout_id,json=payoutId,proto3" json:"payout_id,omitempty"`
+	OrderId          string                 `protobuf:"bytes,2,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	MerchantId       string                 `protobuf:"bytes,3,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	GrossMinor       int64                  `protobuf:"varint,4,opt,name=gross_minor,json=grossMinor,proto3" json:"gross_minor,omitempty"`
+	PlatformFeeMinor int64                  `protobuf:"varint,5,opt,name=platform_fee_minor,json=platformFeeMinor,proto3" json:"platform_fee_minor,omitempty"`
+	NetMinor         int64                  `protobuf:"varint,6,opt,name=net_minor,json=netMinor,proto3" json:"net_minor,omitempty"`
+	Currency         string                 `protobuf:"bytes,7,opt,name=currency,proto3" json:"currency,omitempty"`
+	Mode             enums1.PayoutMode      `protobuf:"varint,8,opt,name=mode,proto3,enum=payment.v1.types.enums.PayoutMode" json:"mode,omitempty"`
+	Status           enums1.PayoutStatus    `protobuf:"varint,9,opt,name=status,proto3,enum=payment.v1.types.enums.PayoutStatus" json:"status,omitempty"`
+	TransferRef      string                 `protobuf:"bytes,10,opt,name=transfer_ref,json=transferRef,proto3" json:"transfer_ref,omitempty"`
+	ReleasedAt       *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=released_at,json=releasedAt,proto3" json:"released_at,omitempty"`
+	CreatedAt        *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt        *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *PayoutInfo) Reset() {
+	*x = PayoutInfo{}
+	mi := &file_payment_v1_types_payment_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PayoutInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PayoutInfo) ProtoMessage() {}
+
+func (x *PayoutInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_types_payment_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PayoutInfo.ProtoReflect.Descriptor instead.
+func (*PayoutInfo) Descriptor() ([]byte, []int) {
+	return file_payment_v1_types_payment_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *PayoutInfo) GetPayoutId() string {
+	if x != nil {
+		return x.PayoutId
+	}
+	return ""
+}
+
+func (x *PayoutInfo) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+func (x *PayoutInfo) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
+}
+
+func (x *PayoutInfo) GetGrossMinor() int64 {
+	if x != nil {
+		return x.GrossMinor
+	}
+	return 0
+}
+
+func (x *PayoutInfo) GetPlatformFeeMinor() int64 {
+	if x != nil {
+		return x.PlatformFeeMinor
+	}
+	return 0
+}
+
+func (x *PayoutInfo) GetNetMinor() int64 {
+	if x != nil {
+		return x.NetMinor
+	}
+	return 0
+}
+
+func (x *PayoutInfo) GetCurrency() string {
+	if x != nil {
+		return x.Currency
+	}
+	return ""
+}
+
+func (x *PayoutInfo) GetMode() enums1.PayoutMode {
+	if x != nil {
+		return x.Mode
+	}
+	return enums1.PayoutMode(0)
+}
+
+func (x *PayoutInfo) GetStatus() enums1.PayoutStatus {
+	if x != nil {
+		return x.Status
+	}
+	return enums1.PayoutStatus(0)
+}
+
+func (x *PayoutInfo) GetTransferRef() string {
+	if x != nil {
+		return x.TransferRef
+	}
+	return ""
+}
+
+func (x *PayoutInfo) GetReleasedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ReleasedAt
+	}
+	return nil
+}
+
+func (x *PayoutInfo) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *PayoutInfo) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
 var File_payment_v1_types_payment_proto protoreflect.FileDescriptor
 
 const file_payment_v1_types_payment_proto_rawDesc = "" +
 	"\n" +
-	"\x1epayment/v1/types/payment.proto\x12\x10payment.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'order/v1/types/enums/payment_mode.proto\"\x86\x03\n" +
+	"\x1epayment/v1/types/payment.proto\x12\x10payment.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'order/v1/types/enums/payment_mode.proto\x1a#payment/v1/types/enums/payout.proto\"\x86\x03\n" +
 	"\vPaymentInfo\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\tR\tpaymentId\x12\x19\n" +
@@ -149,7 +290,28 @@ const file_payment_v1_types_payment_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB3Z1github.com/arm-1234/protos/payment/v1/types;typesb\x06proto3"
+	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xb9\x04\n" +
+	"\n" +
+	"PayoutInfo\x12\x1b\n" +
+	"\tpayout_id\x18\x01 \x01(\tR\bpayoutId\x12\x19\n" +
+	"\border_id\x18\x02 \x01(\tR\aorderId\x12\x1f\n" +
+	"\vmerchant_id\x18\x03 \x01(\tR\n" +
+	"merchantId\x12\x1f\n" +
+	"\vgross_minor\x18\x04 \x01(\x03R\n" +
+	"grossMinor\x12,\n" +
+	"\x12platform_fee_minor\x18\x05 \x01(\x03R\x10platformFeeMinor\x12\x1b\n" +
+	"\tnet_minor\x18\x06 \x01(\x03R\bnetMinor\x12\x1a\n" +
+	"\bcurrency\x18\a \x01(\tR\bcurrency\x126\n" +
+	"\x04mode\x18\b \x01(\x0e2\".payment.v1.types.enums.PayoutModeR\x04mode\x12<\n" +
+	"\x06status\x18\t \x01(\x0e2$.payment.v1.types.enums.PayoutStatusR\x06status\x12!\n" +
+	"\ftransfer_ref\x18\n" +
+	" \x01(\tR\vtransferRef\x12;\n" +
+	"\vreleased_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"releasedAt\x129\n" +
+	"\n" +
+	"created_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB3Z1github.com/arm-1234/protos/payment/v1/types;typesb\x06proto3"
 
 var (
 	file_payment_v1_types_payment_proto_rawDescOnce sync.Once
@@ -163,23 +325,31 @@ func file_payment_v1_types_payment_proto_rawDescGZIP() []byte {
 	return file_payment_v1_types_payment_proto_rawDescData
 }
 
-var file_payment_v1_types_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_payment_v1_types_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_payment_v1_types_payment_proto_goTypes = []any{
 	(*PaymentInfo)(nil),           // 0: payment.v1.types.PaymentInfo
-	(enums.PaymentMode)(0),        // 1: order.v1.types.enums.PaymentMode
-	(enums.PaymentStatus)(0),      // 2: order.v1.types.enums.PaymentStatus
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*PayoutInfo)(nil),            // 1: payment.v1.types.PayoutInfo
+	(enums.PaymentMode)(0),        // 2: order.v1.types.enums.PaymentMode
+	(enums.PaymentStatus)(0),      // 3: order.v1.types.enums.PaymentStatus
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(enums1.PayoutMode)(0),        // 5: payment.v1.types.enums.PayoutMode
+	(enums1.PayoutStatus)(0),      // 6: payment.v1.types.enums.PayoutStatus
 }
 var file_payment_v1_types_payment_proto_depIdxs = []int32{
-	1, // 0: payment.v1.types.PaymentInfo.mode:type_name -> order.v1.types.enums.PaymentMode
-	2, // 1: payment.v1.types.PaymentInfo.status:type_name -> order.v1.types.enums.PaymentStatus
-	3, // 2: payment.v1.types.PaymentInfo.created_at:type_name -> google.protobuf.Timestamp
-	3, // 3: payment.v1.types.PaymentInfo.updated_at:type_name -> google.protobuf.Timestamp
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	2, // 0: payment.v1.types.PaymentInfo.mode:type_name -> order.v1.types.enums.PaymentMode
+	3, // 1: payment.v1.types.PaymentInfo.status:type_name -> order.v1.types.enums.PaymentStatus
+	4, // 2: payment.v1.types.PaymentInfo.created_at:type_name -> google.protobuf.Timestamp
+	4, // 3: payment.v1.types.PaymentInfo.updated_at:type_name -> google.protobuf.Timestamp
+	5, // 4: payment.v1.types.PayoutInfo.mode:type_name -> payment.v1.types.enums.PayoutMode
+	6, // 5: payment.v1.types.PayoutInfo.status:type_name -> payment.v1.types.enums.PayoutStatus
+	4, // 6: payment.v1.types.PayoutInfo.released_at:type_name -> google.protobuf.Timestamp
+	4, // 7: payment.v1.types.PayoutInfo.created_at:type_name -> google.protobuf.Timestamp
+	4, // 8: payment.v1.types.PayoutInfo.updated_at:type_name -> google.protobuf.Timestamp
+	9, // [9:9] is the sub-list for method output_type
+	9, // [9:9] is the sub-list for method input_type
+	9, // [9:9] is the sub-list for extension type_name
+	9, // [9:9] is the sub-list for extension extendee
+	0, // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_payment_v1_types_payment_proto_init() }
@@ -193,7 +363,7 @@ func file_payment_v1_types_payment_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_payment_v1_types_payment_proto_rawDesc), len(file_payment_v1_types_payment_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

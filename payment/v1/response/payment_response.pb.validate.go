@@ -437,3 +437,266 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPaymentStatusResponseValidationError{}
+
+// Validate checks the field values on RequestInstantPayoutResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestInstantPayoutResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RequestInstantPayoutResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RequestInstantPayoutResponseMultiError, or nil if none found.
+func (m *RequestInstantPayoutResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RequestInstantPayoutResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPayout()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RequestInstantPayoutResponseValidationError{
+					field:  "Payout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RequestInstantPayoutResponseValidationError{
+					field:  "Payout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPayout()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RequestInstantPayoutResponseValidationError{
+				field:  "Payout",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RequestInstantPayoutResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RequestInstantPayoutResponseMultiError is an error wrapping multiple
+// validation errors returned by RequestInstantPayoutResponse.ValidateAll() if
+// the designated constraints aren't met.
+type RequestInstantPayoutResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RequestInstantPayoutResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RequestInstantPayoutResponseMultiError) AllErrors() []error { return m }
+
+// RequestInstantPayoutResponseValidationError is the validation error returned
+// by RequestInstantPayoutResponse.Validate if the designated constraints
+// aren't met.
+type RequestInstantPayoutResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RequestInstantPayoutResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RequestInstantPayoutResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RequestInstantPayoutResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RequestInstantPayoutResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RequestInstantPayoutResponseValidationError) ErrorName() string {
+	return "RequestInstantPayoutResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RequestInstantPayoutResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRequestInstantPayoutResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RequestInstantPayoutResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RequestInstantPayoutResponseValidationError{}
+
+// Validate checks the field values on GetPayoutResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetPayoutResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPayoutResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetPayoutResponseMultiError, or nil if none found.
+func (m *GetPayoutResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPayoutResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPayout()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetPayoutResponseValidationError{
+					field:  "Payout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetPayoutResponseValidationError{
+					field:  "Payout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPayout()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetPayoutResponseValidationError{
+				field:  "Payout",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetPayoutResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPayoutResponseMultiError is an error wrapping multiple validation errors
+// returned by GetPayoutResponse.ValidateAll() if the designated constraints
+// aren't met.
+type GetPayoutResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPayoutResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPayoutResponseMultiError) AllErrors() []error { return m }
+
+// GetPayoutResponseValidationError is the validation error returned by
+// GetPayoutResponse.Validate if the designated constraints aren't met.
+type GetPayoutResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPayoutResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPayoutResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPayoutResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPayoutResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPayoutResponseValidationError) ErrorName() string {
+	return "GetPayoutResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPayoutResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPayoutResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPayoutResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPayoutResponseValidationError{}
