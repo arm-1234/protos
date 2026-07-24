@@ -70,3 +70,27 @@ func IsIdentityUnauthenticated(err error) bool {
 func ErrorIdentityUnauthenticated(format string, args ...interface{}) *errors.Error {
 	return errors.New(401, ErrorReason_IDENTITY_UNAUTHENTICATED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsIdentityInvalidCredentials(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_INVALID_CREDENTIALS.String() && e.Code == 401
+}
+
+func ErrorIdentityInvalidCredentials(format string, args ...interface{}) *errors.Error {
+	return errors.New(401, ErrorReason_IDENTITY_INVALID_CREDENTIALS.String(), fmt.Sprintf(format, args...))
+}
+
+func IsIdentityPasswordRequired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_PASSWORD_REQUIRED.String() && e.Code == 409
+}
+
+func ErrorIdentityPasswordRequired(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_IDENTITY_PASSWORD_REQUIRED.String(), fmt.Sprintf(format, args...))
+}

@@ -99,6 +99,17 @@ func (m *RegisterUserRequest) validate(all bool) error {
 
 	}
 
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 6 || l > 128 {
+		err := RegisterUserRequestValidationError{
+			field:  "Password",
+			reason: "value length must be between 6 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return RegisterUserRequestMultiError(errors)
 	}
@@ -339,6 +350,17 @@ func (m *RegisterMerchantRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 6 || l > 128 {
+		err := RegisterMerchantRequestValidationError{
+			field:  "Password",
+			reason: "value length must be between 6 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return RegisterMerchantRequestMultiError(errors)
 	}
@@ -504,6 +526,17 @@ func (m *LoginWithPhoneRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 1 || l > 128 {
+		err := LoginWithPhoneRequestValidationError{
+			field:  "Password",
+			reason: "value length must be between 1 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return LoginWithPhoneRequestMultiError(errors)
 	}
@@ -583,6 +616,302 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = LoginWithPhoneRequestValidationError{}
+
+// Validate checks the field values on SetPasswordRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetPasswordRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetPasswordRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetPasswordRequestMultiError, or nil if none found.
+func (m *SetPasswordRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetPasswordRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetPhone()); l < 8 || l > 15 {
+		err := SetPasswordRequestValidationError{
+			field:  "Phone",
+			reason: "value length must be between 8 and 15 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetNewPassword()); l < 6 || l > 128 {
+		err := SetPasswordRequestValidationError{
+			field:  "NewPassword",
+			reason: "value length must be between 6 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for CurrentPassword
+
+	if len(errors) > 0 {
+		return SetPasswordRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetPasswordRequestMultiError is an error wrapping multiple validation errors
+// returned by SetPasswordRequest.ValidateAll() if the designated constraints
+// aren't met.
+type SetPasswordRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetPasswordRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetPasswordRequestMultiError) AllErrors() []error { return m }
+
+// SetPasswordRequestValidationError is the validation error returned by
+// SetPasswordRequest.Validate if the designated constraints aren't met.
+type SetPasswordRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetPasswordRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetPasswordRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetPasswordRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetPasswordRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetPasswordRequestValidationError) ErrorName() string {
+	return "SetPasswordRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetPasswordRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetPasswordRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetPasswordRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetPasswordRequestValidationError{}
+
+// Validate checks the field values on UpdateProfileRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateProfileRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateProfileRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateProfileRequestMultiError, or nil if none found.
+func (m *UpdateProfileRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateProfileRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	if m.GetEmail() != "" {
+
+		if err := m._validateEmail(m.GetEmail()); err != nil {
+			err = UpdateProfileRequestValidationError{
+				field:  "Email",
+				reason: "value must be a valid email address",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpdateProfileRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *UpdateProfileRequest) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *UpdateProfileRequest) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+// UpdateProfileRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdateProfileRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateProfileRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateProfileRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateProfileRequestMultiError) AllErrors() []error { return m }
+
+// UpdateProfileRequestValidationError is the validation error returned by
+// UpdateProfileRequest.Validate if the designated constraints aren't met.
+type UpdateProfileRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateProfileRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateProfileRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateProfileRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateProfileRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateProfileRequestValidationError) ErrorName() string {
+	return "UpdateProfileRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateProfileRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateProfileRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateProfileRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateProfileRequestValidationError{}
 
 // Validate checks the field values on AuthenticateWithProviderRequest with the
 // rules defined in the proto definition for this message. If any rules are

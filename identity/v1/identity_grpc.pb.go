@@ -24,6 +24,8 @@ const (
 	Identity_RegisterUser_FullMethodName             = "/identity.v1.Identity/RegisterUser"
 	Identity_RegisterMerchant_FullMethodName         = "/identity.v1.Identity/RegisterMerchant"
 	Identity_LoginWithPhone_FullMethodName           = "/identity.v1.Identity/LoginWithPhone"
+	Identity_SetPassword_FullMethodName              = "/identity.v1.Identity/SetPassword"
+	Identity_UpdateProfile_FullMethodName            = "/identity.v1.Identity/UpdateProfile"
 	Identity_AuthenticateWithProvider_FullMethodName = "/identity.v1.Identity/AuthenticateWithProvider"
 	Identity_GetMe_FullMethodName                    = "/identity.v1.Identity/GetMe"
 	Identity_RegisterPushToken_FullMethodName        = "/identity.v1.Identity/RegisterPushToken"
@@ -40,8 +42,13 @@ type IdentityClient interface {
 	RegisterUser(ctx context.Context, in *request.RegisterUserRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	// RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(ctx context.Context, in *request.RegisterMerchantRequest, opts ...grpc.CallOption) (*response.RegisterMerchantResponse, error)
-	// LoginWithPhone issues a token for an existing user (stub: no OTP yet).
+	// LoginWithPhone issues a token for an existing user given phone + password.
 	LoginWithPhone(ctx context.Context, in *request.LoginWithPhoneRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
+	// SetPassword sets or changes a user's password. First-time set (for legacy
+	// accounts) omits current_password; a change requires it.
+	SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
+	// UpdateProfile edits the authenticated caller's own profile fields.
+	UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	// AuthenticateWithProvider maps a partner/IdP identity to a local user
 	// (creating it on first sight) and returns a token.
 	AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
@@ -82,6 +89,26 @@ func (c *identityClient) LoginWithPhone(ctx context.Context, in *request.LoginWi
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.AuthResponse)
 	err := c.cc.Invoke(ctx, Identity_LoginWithPhone_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.AuthResponse)
+	err := c.cc.Invoke(ctx, Identity_SetPassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetMeResponse)
+	err := c.cc.Invoke(ctx, Identity_UpdateProfile_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -129,8 +156,13 @@ type IdentityServer interface {
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 	// RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
-	// LoginWithPhone issues a token for an existing user (stub: no OTP yet).
+	// LoginWithPhone issues a token for an existing user given phone + password.
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
+	// SetPassword sets or changes a user's password. First-time set (for legacy
+	// accounts) omits current_password; a change requires it.
+	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
+	// UpdateProfile edits the authenticated caller's own profile fields.
+	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
 	// AuthenticateWithProvider maps a partner/IdP identity to a local user
 	// (creating it on first sight) and returns a token.
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
@@ -155,6 +187,12 @@ func (UnimplementedIdentityServer) RegisterMerchant(context.Context, *request.Re
 }
 func (UnimplementedIdentityServer) LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method LoginWithPhone not implemented")
+}
+func (UnimplementedIdentityServer) SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SetPassword not implemented")
+}
+func (UnimplementedIdentityServer) UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateProfile not implemented")
 }
 func (UnimplementedIdentityServer) AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method AuthenticateWithProvider not implemented")
@@ -240,6 +278,42 @@ func _Identity_LoginWithPhone_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identity_SetPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.SetPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).SetPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_SetPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).SetPassword(ctx, req.(*request.SetPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).UpdateProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_UpdateProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).UpdateProfile(ctx, req.(*request.UpdateProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Identity_AuthenticateWithProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.AuthenticateWithProviderRequest)
 	if err := dec(in); err != nil {
@@ -312,6 +386,14 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LoginWithPhone",
 			Handler:    _Identity_LoginWithPhone_Handler,
+		},
+		{
+			MethodName: "SetPassword",
+			Handler:    _Identity_SetPassword_Handler,
+		},
+		{
+			MethodName: "UpdateProfile",
+			Handler:    _Identity_UpdateProfile_Handler,
 		},
 		{
 			MethodName: "AuthenticateWithProvider",

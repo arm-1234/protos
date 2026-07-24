@@ -28,10 +28,27 @@ service Identity {
     };
   }
 
-  // LoginWithPhone issues a token for an existing user (stub: no OTP yet).
+  // LoginWithPhone issues a token for an existing user given phone + password.
   rpc LoginWithPhone (identity.v1.request.LoginWithPhoneRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/login"
+      body: "*"
+    };
+  }
+
+  // SetPassword sets or changes a user's password. First-time set (for legacy
+  // accounts) omits current_password; a change requires it.
+  rpc SetPassword (identity.v1.request.SetPasswordRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/password:set"
+      body: "*"
+    };
+  }
+
+  // UpdateProfile edits the authenticated caller's own profile fields.
+  rpc UpdateProfile (identity.v1.request.UpdateProfileRequest) returns (identity.v1.response.GetMeResponse) {
+    option (google.api.http) = {
+      patch: "/v1/auth/me"
       body: "*"
     };
   }
@@ -67,4 +84,6 @@ enum ErrorReason {
   USER_ALREADY_EXISTS = 2 [(errors.code) = 409];
   IDENTITY_INVALID_REQUEST = 3 [(errors.code) = 400];
   IDENTITY_UNAUTHENTICATED = 4 [(errors.code) = 401];
+  IDENTITY_INVALID_CREDENTIALS = 5 [(errors.code) = 401];
+  IDENTITY_PASSWORD_REQUIRED = 6 [(errors.code) = 409];
 }

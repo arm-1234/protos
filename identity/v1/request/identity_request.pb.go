@@ -29,6 +29,7 @@ type RegisterUserRequest struct {
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Phone         string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -84,6 +85,13 @@ func (x *RegisterUserRequest) GetEmail() string {
 	return ""
 }
 
+func (x *RegisterUserRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
 // RegisterMerchantRequest creates a merchant user AND their store in one call.
 type RegisterMerchantRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -100,6 +108,7 @@ type RegisterMerchantRequest struct {
 	// Fixed shop location (recommended; needed for geofenced ordering).
 	Latitude      float64 `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude     float64 `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Password      string  `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -204,9 +213,17 @@ func (x *RegisterMerchantRequest) GetLongitude() float64 {
 	return 0
 }
 
+func (x *RegisterMerchantRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
 type LoginWithPhoneRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Phone         string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -248,6 +265,127 @@ func (x *LoginWithPhoneRequest) GetPhone() string {
 	return ""
 }
 
+func (x *LoginWithPhoneRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type SetPasswordRequest struct {
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	Phone       string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	NewPassword string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	// Optional current password: required to change an existing password; omitted
+	// when an account with no password sets one for the first time.
+	CurrentPassword string `protobuf:"bytes,3,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *SetPasswordRequest) Reset() {
+	*x = SetPasswordRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetPasswordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetPasswordRequest) ProtoMessage() {}
+
+func (x *SetPasswordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetPasswordRequest.ProtoReflect.Descriptor instead.
+func (*SetPasswordRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SetPasswordRequest) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *SetPasswordRequest) GetNewPassword() string {
+	if x != nil {
+		return x.NewPassword
+	}
+	return ""
+}
+
+func (x *SetPasswordRequest) GetCurrentPassword() string {
+	if x != nil {
+		return x.CurrentPassword
+	}
+	return ""
+}
+
+type UpdateProfileRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateProfileRequest) Reset() {
+	*x = UpdateProfileRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateProfileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateProfileRequest) ProtoMessage() {}
+
+func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateProfileRequest.ProtoReflect.Descriptor instead.
+func (*UpdateProfileRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UpdateProfileRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *UpdateProfileRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
 // AuthenticateWithProviderRequest is the future integration seam: given a
 // partner/IdP identity, find-or-create the matching local user and issue a token.
 type AuthenticateWithProviderRequest struct {
@@ -265,7 +403,7 @@ type AuthenticateWithProviderRequest struct {
 
 func (x *AuthenticateWithProviderRequest) Reset() {
 	*x = AuthenticateWithProviderRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[3]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -277,7 +415,7 @@ func (x *AuthenticateWithProviderRequest) String() string {
 func (*AuthenticateWithProviderRequest) ProtoMessage() {}
 
 func (x *AuthenticateWithProviderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[3]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -290,7 +428,7 @@ func (x *AuthenticateWithProviderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthenticateWithProviderRequest.ProtoReflect.Descriptor instead.
 func (*AuthenticateWithProviderRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{3}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *AuthenticateWithProviderRequest) GetProvider() string {
@@ -343,7 +481,7 @@ type GetMeRequest struct {
 
 func (x *GetMeRequest) Reset() {
 	*x = GetMeRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[4]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -355,7 +493,7 @@ func (x *GetMeRequest) String() string {
 func (*GetMeRequest) ProtoMessage() {}
 
 func (x *GetMeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[4]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -368,7 +506,7 @@ func (x *GetMeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMeRequest.ProtoReflect.Descriptor instead.
 func (*GetMeRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{4}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{6}
 }
 
 type RegisterPushTokenRequest struct {
@@ -381,7 +519,7 @@ type RegisterPushTokenRequest struct {
 
 func (x *RegisterPushTokenRequest) Reset() {
 	*x = RegisterPushTokenRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[5]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -393,7 +531,7 @@ func (x *RegisterPushTokenRequest) String() string {
 func (*RegisterPushTokenRequest) ProtoMessage() {}
 
 func (x *RegisterPushTokenRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[5]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -406,7 +544,7 @@ func (x *RegisterPushTokenRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterPushTokenRequest.ProtoReflect.Descriptor instead.
 func (*RegisterPushTokenRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{5}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *RegisterPushTokenRequest) GetToken() string {
@@ -427,12 +565,13 @@ var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
 
 const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\n" +
-	"*identity/v1/request/identity_request.proto\x12\x13identity.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a'identity/v1/types/enums/user_type.proto\"}\n" +
+	"*identity/v1/request/identity_request.proto\x12\x13identity.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a'identity/v1/types/enums/user_type.proto\"\xa9\x01\n" +
 	"\x13RegisterUserRequest\x12\x1f\n" +
 	"\x04name\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x04name\x12#\n" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12 \n" +
 	"\x05email\x18\x03 \x01(\tB\n" +
-	"\xfaB\ar\x05\xd0\x01\x01`\x01R\x05email\"\xbd\x03\n" +
+	"\xfaB\ar\x05\xd0\x01\x01`\x01R\x05email\x12*\n" +
+	"\bpassword\x18\x04 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"\xe9\x03\n" +
 	"\x17RegisterMerchantRequest\x12\x1f\n" +
 	"\x04name\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x04name\x12#\n" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12 \n" +
@@ -446,9 +585,19 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\aupi_vpa\x18\b \x01(\tB2\xe2A\x01\x02\xfaB+r)2'^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$R\x06upiVpa\x123\n" +
 	"\blatitude\x18\t \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\blatitude\x125\n" +
 	"\tlongitude\x18\n" +
-	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude\"<\n" +
+	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude\x12*\n" +
+	"\bpassword\x18\v \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"h\n" +
 	"\x15LoginWithPhoneRequest\x12#\n" +
-	"\x05phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\"\xf8\x01\n" +
+	"\x05phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12*\n" +
+	"\bpassword\x18\x02 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\bpassword\"\x97\x01\n" +
+	"\x12SetPasswordRequest\x12#\n" +
+	"\x05phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x121\n" +
+	"\fnew_password\x18\x02 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\vnewPassword\x12)\n" +
+	"\x10current_password\x18\x03 \x01(\tR\x0fcurrentPassword\"L\n" +
+	"\x14UpdateProfileRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
+	"\x05email\x18\x02 \x01(\tB\n" +
+	"\xfaB\ar\x05\xd0\x01\x01`\x01R\x05email\"\xf8\x01\n" +
 	"\x1fAuthenticateWithProviderRequest\x12'\n" +
 	"\bprovider\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\bprovider\x12,\n" +
 	"\vexternal_id\x18\x02 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\n" +
@@ -474,18 +623,20 @@ func file_identity_v1_request_identity_request_proto_rawDescGZIP() []byte {
 	return file_identity_v1_request_identity_request_proto_rawDescData
 }
 
-var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),             // 0: identity.v1.request.RegisterUserRequest
 	(*RegisterMerchantRequest)(nil),         // 1: identity.v1.request.RegisterMerchantRequest
 	(*LoginWithPhoneRequest)(nil),           // 2: identity.v1.request.LoginWithPhoneRequest
-	(*AuthenticateWithProviderRequest)(nil), // 3: identity.v1.request.AuthenticateWithProviderRequest
-	(*GetMeRequest)(nil),                    // 4: identity.v1.request.GetMeRequest
-	(*RegisterPushTokenRequest)(nil),        // 5: identity.v1.request.RegisterPushTokenRequest
-	(enums.UserType)(0),                     // 6: identity.v1.types.enums.UserType
+	(*SetPasswordRequest)(nil),              // 3: identity.v1.request.SetPasswordRequest
+	(*UpdateProfileRequest)(nil),            // 4: identity.v1.request.UpdateProfileRequest
+	(*AuthenticateWithProviderRequest)(nil), // 5: identity.v1.request.AuthenticateWithProviderRequest
+	(*GetMeRequest)(nil),                    // 6: identity.v1.request.GetMeRequest
+	(*RegisterPushTokenRequest)(nil),        // 7: identity.v1.request.RegisterPushTokenRequest
+	(enums.UserType)(0),                     // 8: identity.v1.types.enums.UserType
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	6, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	8, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -504,7 +655,7 @@ func file_identity_v1_request_identity_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_request_identity_request_proto_rawDesc), len(file_identity_v1_request_identity_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

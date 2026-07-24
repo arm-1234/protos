@@ -12,6 +12,7 @@ message RegisterUserRequest {
   string name = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
   string phone = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
   string email = 3 [(validate.rules).string = {ignore_empty: true, email: true}];
+  string password = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
 }
 
 // RegisterMerchantRequest creates a merchant user AND their store in one call.
@@ -32,10 +33,25 @@ message RegisterMerchantRequest {
   // Fixed shop location (recommended; needed for geofenced ordering).
   double latitude = 9 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 10 [(validate.rules).double = {gte: -180, lte: 180}];
+  string password = 11 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
 }
 
 message LoginWithPhoneRequest {
   string phone = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
+  string password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 128}];
+}
+
+message SetPasswordRequest {
+  string phone = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
+  string new_password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
+  // Optional current password: required to change an existing password; omitted
+  // when an account with no password sets one for the first time.
+  string current_password = 3;
+}
+
+message UpdateProfileRequest {
+  string name = 1;
+  string email = 2 [(validate.rules).string = {ignore_empty: true, email: true}];
 }
 
 // AuthenticateWithProviderRequest is the future integration seam: given a
