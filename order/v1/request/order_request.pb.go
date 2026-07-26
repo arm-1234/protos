@@ -87,8 +87,12 @@ type PlaceOrderRequest struct {
 	UserLatitude  float64           `protobuf:"fixed64,4,opt,name=user_latitude,json=userLatitude,proto3" json:"user_latitude,omitempty"`
 	UserLongitude float64           `protobuf:"fixed64,5,opt,name=user_longitude,json=userLongitude,proto3" json:"user_longitude,omitempty"`
 	PayoutMode    enums1.PayoutMode `protobuf:"varint,6,opt,name=payout_mode,json=payoutMode,proto3,enum=payment.v1.types.enums.PayoutMode" json:"payout_mode,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	// Client-generated key that makes retries safe: replaying a request with the
+	// same key returns the order already placed instead of creating a second one.
+	// Optional, so older clients keep working.
+	IdempotencyKey string `protobuf:"bytes,7,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *PlaceOrderRequest) Reset() {
@@ -161,6 +165,13 @@ func (x *PlaceOrderRequest) GetPayoutMode() enums1.PayoutMode {
 		return x.PayoutMode
 	}
 	return enums1.PayoutMode(0)
+}
+
+func (x *PlaceOrderRequest) GetIdempotencyKey() string {
+	if x != nil {
+		return x.IdempotencyKey
+	}
+	return ""
 }
 
 type GetOrderRequest struct {
@@ -387,7 +398,7 @@ const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"\rOrderLineItem\x12&\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tproductId\x12#\n" +
-	"\bquantity\x18\x02 \x01(\x05B\a\xfaB\x04\x1a\x02(\x01R\bquantity\"\x97\x03\n" +
+	"\bquantity\x18\x02 \x01(\x05B\a\xfaB\x04\x1a\x02(\x01R\bquantity\"\xc9\x03\n" +
 	"\x11PlaceOrderRequest\x12,\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\n" +
 	"merchantId\x12?\n" +
@@ -397,7 +408,8 @@ const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"\ruser_latitude\x18\x04 \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\fuserLatitude\x12>\n" +
 	"\x0euser_longitude\x18\x05 \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\ruserLongitude\x12C\n" +
 	"\vpayout_mode\x18\x06 \x01(\x0e2\".payment.v1.types.enums.PayoutModeR\n" +
-	"payoutMode\"5\n" +
+	"payoutMode\x120\n" +
+	"\x0fidempotency_key\x18\a \x01(\tB\a\xfaB\x04r\x02\x18@R\x0eidempotencyKey\"5\n" +
 	"\x0fGetOrderRequest\x12\"\n" +
 	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\"S\n" +
 	"\x13ListMyOrdersRequest\x12\x1f\n" +

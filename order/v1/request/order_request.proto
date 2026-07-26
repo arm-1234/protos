@@ -29,6 +29,10 @@ message PlaceOrderRequest {
   double user_latitude = 4 [(validate.rules).double = {gte: -90, lte: 90}];
   double user_longitude = 5 [(validate.rules).double = {gte: -180, lte: 180}];
   payment.v1.types.enums.PayoutMode payout_mode = 6;
+  // Client-generated key that makes retries safe: replaying a request with the
+  // same key returns the order already placed instead of creating a second one.
+  // Optional, so older clients keep working.
+  string idempotency_key = 7 [(validate.rules).string.max_len = 64];
 }
 
 message GetOrderRequest {

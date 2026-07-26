@@ -289,6 +289,17 @@ func (m *PlaceOrderRequest) validate(all bool) error {
 
 	// no validation rules for PayoutMode
 
+	if utf8.RuneCountInString(m.GetIdempotencyKey()) > 64 {
+		err := PlaceOrderRequestValidationError{
+			field:  "IdempotencyKey",
+			reason: "value length must be at most 64 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return PlaceOrderRequestMultiError(errors)
 	}
