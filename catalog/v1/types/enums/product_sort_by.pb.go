@@ -21,16 +21,15 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// ProductSortBy controls the ordering of a product listing.
 type ProductSortBy int32
 
 const (
 	ProductSortBy_PRODUCT_SORT_BY_UNSPECIFIED   ProductSortBy = 0
-	ProductSortBy_PRODUCT_SORT_BY_PRICE_ASC     ProductSortBy = 1 // price low -> high
-	ProductSortBy_PRODUCT_SORT_BY_PRICE_DESC    ProductSortBy = 2 // price high -> low
-	ProductSortBy_PRODUCT_SORT_BY_RATING_DESC   ProductSortBy = 3 // highest rated first
-	ProductSortBy_PRODUCT_SORT_BY_MOST_REVIEWED ProductSortBy = 4 // most reviews first
-	ProductSortBy_PRODUCT_SORT_BY_NEWEST        ProductSortBy = 5 // most recently added first
+	ProductSortBy_PRODUCT_SORT_BY_PRICE_ASC     ProductSortBy = 1
+	ProductSortBy_PRODUCT_SORT_BY_PRICE_DESC    ProductSortBy = 2
+	ProductSortBy_PRODUCT_SORT_BY_RATING_DESC   ProductSortBy = 3
+	ProductSortBy_PRODUCT_SORT_BY_MOST_REVIEWED ProductSortBy = 4
+	ProductSortBy_PRODUCT_SORT_BY_NEWEST        ProductSortBy = 5
 )
 
 // Enum value maps for ProductSortBy.

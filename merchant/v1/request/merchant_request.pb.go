@@ -24,19 +24,17 @@ const (
 )
 
 type OnboardMerchantRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	Name        string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phone       string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	StoreName   string                 `protobuf:"bytes,3,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl     string                 `protobuf:"bytes,5,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address     string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
-	// UPI VPA parsed from the merchant's payment QR, e.g. "shop@paytm".
-	UpiVpa string `protobuf:"bytes,7,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	// Store location (optional). Required only if you want geofenced ordering.
-	Latitude          float64 `protobuf:"fixed64,8,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude         float64 `protobuf:"fixed64,9,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	MaxOrderDistanceM float64 `protobuf:"fixed64,10,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Name              string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phone             string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	StoreName         string                 `protobuf:"bytes,3,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description       string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl           string                 `protobuf:"bytes,5,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address           string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
+	UpiVpa            string                 `protobuf:"bytes,7,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Latitude          float64                `protobuf:"fixed64,8,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude         float64                `protobuf:"fixed64,9,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	MaxOrderDistanceM float64                `protobuf:"fixed64,10,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -185,7 +183,6 @@ func (x *GetMerchantRequest) GetMerchantId() string {
 	return ""
 }
 
-// UPI VPAs are managed via the dedicated Add/Remove/SetPrimary VPA RPCs, not here.
 type UpdateMerchantRequest struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	MerchantId        string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
@@ -383,12 +380,11 @@ func (x *ListMerchantVpasRequest) GetMerchantId() string {
 }
 
 type AddMerchantVpaRequest struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	MerchantId string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Vpa        string                 `protobuf:"bytes,2,opt,name=vpa,proto3" json:"vpa,omitempty"`
-	Label      string                 `protobuf:"bytes,3,opt,name=label,proto3" json:"label,omitempty"`
-	// Make this the new primary VPA (used for the store's QR/display).
-	MakePrimary   bool `protobuf:"varint,4,opt,name=make_primary,json=makePrimary,proto3" json:"make_primary,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Vpa           string                 `protobuf:"bytes,2,opt,name=vpa,proto3" json:"vpa,omitempty"`
+	Label         string                 `protobuf:"bytes,3,opt,name=label,proto3" json:"label,omitempty"`
+	MakePrimary   bool                   `protobuf:"varint,4,opt,name=make_primary,json=makePrimary,proto3" json:"make_primary,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

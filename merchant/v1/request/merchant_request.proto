@@ -23,12 +23,10 @@ message OnboardMerchantRequest {
   string description = 4;
   string logo_url = 5;
   string address = 6;
-  // UPI VPA parsed from the merchant's payment QR, e.g. "shop@paytm".
   string upi_vpa = 7 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string.pattern = "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
   ];
-  // Store location (optional). Required only if you want geofenced ordering.
   double latitude = 8 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 9 [(validate.rules).double = {gte: -180, lte: 180}];
   double max_order_distance_m = 10 [(validate.rules).double = {gte: 0, lte: 100000}];
@@ -38,7 +36,6 @@ message GetMerchantRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
 }
 
-// UPI VPAs are managed via the dedicated Add/Remove/SetPrimary VPA RPCs, not here.
 message UpdateMerchantRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
   string name = 2;
@@ -69,7 +66,6 @@ message AddMerchantVpaRequest {
     (validate.rules).string.pattern = "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
   ];
   string label = 3;
-  // Make this the new primary VPA (used for the store's QR/display).
   bool make_primary = 4;
 }
 

@@ -21,8 +21,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// OtpChannel selects how a one-time code reaches the user. Add a value here to
-// support a new transport; the RPCs stay unchanged.
 type OtpChannel int32
 
 const (

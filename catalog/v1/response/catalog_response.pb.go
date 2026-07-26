@@ -372,11 +372,9 @@ func (x *ListProductsResponse) GetTotalRecords() int64 {
 }
 
 type CreateProductImageUploadResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Presigned URL the client uploads the image bytes to (via HTTP PUT).
-	UploadUrl string `protobuf:"bytes,1,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
-	Method    string `protobuf:"bytes,2,opt,name=method,proto3" json:"method,omitempty"`
-	// Object key + the public URL to store on the product afterwards.
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UploadUrl     string                 `protobuf:"bytes,1,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
+	Method        string                 `protobuf:"bytes,2,opt,name=method,proto3" json:"method,omitempty"`
 	ImageKey      string                 `protobuf:"bytes,3,opt,name=image_key,json=imageKey,proto3" json:"image_key,omitempty"`
 	ImageUrl      string                 `protobuf:"bytes,4,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
 	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`

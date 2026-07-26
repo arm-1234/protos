@@ -10,8 +10,6 @@ import "review/v1/response/review_response.proto";
 option go_package = "github.com/arm-1234/protos/review/v1;v1";
 
 service Review {
-  // UpsertReview creates or updates the caller's review for a product.
-  // Idempotent per (product, user): re-scanning + re-rating updates in place.
   rpc UpsertReview (review.v1.request.UpsertReviewRequest) returns (review.v1.response.UpsertReviewResponse) {
     option (google.api.http) = {
       put: "/v1/products/{product_id}/reviews"
@@ -19,7 +17,6 @@ service Review {
     };
   }
 
-  // GetMyReview returns the caller's existing review for a product, if any.
   rpc GetMyReview (review.v1.request.GetMyReviewRequest) returns (review.v1.response.GetMyReviewResponse) {
     option (google.api.http) = {
       get: "/v1/products/{product_id}/reviews/me"
@@ -39,6 +36,5 @@ enum ErrorReason {
   REVIEW_PRODUCT_NOT_FOUND = 1 [(errors.code) = 404];
   REVIEW_INVALID_REQUEST = 2 [(errors.code) = 400];
   REVIEW_UNAUTHENTICATED = 3 [(errors.code) = 401];
-  // Caller has not purchased the product they are trying to review.
   REVIEW_PURCHASE_REQUIRED = 4 [(errors.code) = 403];
 }

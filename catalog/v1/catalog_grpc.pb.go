@@ -36,15 +36,12 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CatalogClient interface {
 	CreateProduct(ctx context.Context, in *request.CreateProductRequest, opts ...grpc.CallOption) (*response.CreateProductResponse, error)
-	// BatchCreateProducts adds many products at once for the caller's merchant.
 	BatchCreateProducts(ctx context.Context, in *request.BatchCreateProductsRequest, opts ...grpc.CallOption) (*response.BatchCreateProductsResponse, error)
 	GetProduct(ctx context.Context, in *request.GetProductRequest, opts ...grpc.CallOption) (*response.GetProductResponse, error)
 	UpdateProduct(ctx context.Context, in *request.UpdateProductRequest, opts ...grpc.CallOption) (*response.UpdateProductResponse, error)
 	DeleteProduct(ctx context.Context, in *request.DeleteProductRequest, opts ...grpc.CallOption) (*response.DeleteProductResponse, error)
 	SetInventory(ctx context.Context, in *request.SetInventoryRequest, opts ...grpc.CallOption) (*response.SetInventoryResponse, error)
-	// ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(ctx context.Context, in *request.ListProductsRequest, opts ...grpc.CallOption) (*response.ListProductsResponse, error)
-	// CreateProductImageUpload returns a presigned URL for direct image upload.
 	CreateProductImageUpload(ctx context.Context, in *request.CreateProductImageUploadRequest, opts ...grpc.CallOption) (*response.CreateProductImageUploadResponse, error)
 }
 
@@ -141,15 +138,12 @@ func (c *catalogClient) CreateProductImageUpload(ctx context.Context, in *reques
 // for forward compatibility.
 type CatalogServer interface {
 	CreateProduct(context.Context, *request.CreateProductRequest) (*response.CreateProductResponse, error)
-	// BatchCreateProducts adds many products at once for the caller's merchant.
 	BatchCreateProducts(context.Context, *request.BatchCreateProductsRequest) (*response.BatchCreateProductsResponse, error)
 	GetProduct(context.Context, *request.GetProductRequest) (*response.GetProductResponse, error)
 	UpdateProduct(context.Context, *request.UpdateProductRequest) (*response.UpdateProductResponse, error)
 	DeleteProduct(context.Context, *request.DeleteProductRequest) (*response.DeleteProductResponse, error)
 	SetInventory(context.Context, *request.SetInventoryRequest) (*response.SetInventoryResponse, error)
-	// ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(context.Context, *request.ListProductsRequest) (*response.ListProductsResponse, error)
-	// CreateProductImageUpload returns a presigned URL for direct image upload.
 	CreateProductImageUpload(context.Context, *request.CreateProductImageUploadRequest) (*response.CreateProductImageUploadResponse, error)
 	mustEmbedUnimplementedCatalogServer()
 }

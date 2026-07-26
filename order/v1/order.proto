@@ -10,7 +10,6 @@ import "order/v1/response/order_response.proto";
 option go_package = "github.com/arm-1234/protos/order/v1;v1";
 
 service Order {
-  // PlaceOrder: caller submits line items; server prices and totals the order.
   rpc PlaceOrder (order.v1.request.PlaceOrderRequest) returns (order.v1.response.PlaceOrderResponse) {
     option (google.api.http) = {
       post: "/v1/orders"
@@ -24,14 +23,12 @@ service Order {
     };
   }
 
-  // ListMyOrders returns the authenticated shopper's own orders.
   rpc ListMyOrders (order.v1.request.ListMyOrdersRequest) returns (order.v1.response.ListMyOrdersResponse) {
     option (google.api.http) = {
       get: "/v1/orders"
     };
   }
 
-  // ListMerchantOrders is the merchant's incoming-orders view.
   rpc ListMerchantOrders (order.v1.request.ListMerchantOrdersRequest) returns (order.v1.response.ListMerchantOrdersResponse) {
     option (google.api.http) = {
       get: "/v1/merchants/{merchant_id}/orders"

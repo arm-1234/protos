@@ -23,19 +23,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// MerchantInfo is the full merchant record.
 type MerchantInfo struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	MerchantId  string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Name        string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Phone       string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
-	StoreName   string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl     string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address     string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
-	UpiVpa      string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	Status      enums.MerchantStatus   `protobuf:"varint,9,opt,name=status,proto3,enum=merchant.v1.types.enums.MerchantStatus" json:"status,omitempty"`
-	// Store gelocation; 0/0 means "not set" (geofence checks are then skipped).
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId        string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Name              string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Phone             string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
+	StoreName         string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description       string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl           string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address           string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
+	UpiVpa            string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Status            enums.MerchantStatus   `protobuf:"varint,9,opt,name=status,proto3,enum=merchant.v1.types.enums.MerchantStatus" json:"status,omitempty"`
 	Latitude          float64                `protobuf:"fixed64,10,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude         float64                `protobuf:"fixed64,11,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	CreatedAt         *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
@@ -173,8 +171,6 @@ func (x *MerchantInfo) GetMaxOrderDistanceM() float64 {
 	return 0
 }
 
-// MerchantVpa is one UPI VPA belonging to a merchant. A merchant may hold
-// several (Paytm, GPay, PhonePe, …); exactly one is the primary.
 type MerchantVpa struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	VpaId         string                 `protobuf:"bytes,1,opt,name=vpa_id,json=vpaId,proto3" json:"vpa_id,omitempty"`
@@ -251,7 +247,6 @@ func (x *MerchantVpa) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-// StoreSummary is the public store view returned when a QR/VPA is resolved.
 type StoreSummary struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	MerchantId        string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`

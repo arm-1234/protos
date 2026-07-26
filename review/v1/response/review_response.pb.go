@@ -83,10 +83,9 @@ func (x *UpsertReviewResponse) GetProductRatingCount() int64 {
 }
 
 type GetMyReviewResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// review is unset if the caller has not reviewed this product.
-	Review        *types.ReviewInfo `protobuf:"bytes,1,opt,name=review,proto3" json:"review,omitempty"`
-	HasReviewed   bool              `protobuf:"varint,2,opt,name=has_reviewed,json=hasReviewed,proto3" json:"has_reviewed,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Review        *types.ReviewInfo      `protobuf:"bytes,1,opt,name=review,proto3" json:"review,omitempty"`
+	HasReviewed   bool                   `protobuf:"varint,2,opt,name=has_reviewed,json=hasReviewed,proto3" json:"has_reviewed,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

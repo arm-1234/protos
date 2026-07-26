@@ -7,8 +7,6 @@ import "validate/validate.proto";
 
 option go_package = "github.com/arm-1234/protos/review/v1/request;request";
 
-// UpsertReviewRequest creates or updates the caller's review for a product.
-// user_id is taken from the authenticated caller.
 message UpsertReviewRequest {
   string product_id = 1 [
     (google.api.field_behavior) = REQUIRED,

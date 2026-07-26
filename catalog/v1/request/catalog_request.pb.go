@@ -25,15 +25,14 @@ const (
 )
 
 type CreateProductRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// merchant_id is taken from the authenticated caller; ignored if sent.
-	Name           string  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Description    string  `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	ImageUrl       string  `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	Price          float64 `protobuf:"fixed64,4,opt,name=price,proto3" json:"price,omitempty"`
-	Currency       string  `protobuf:"bytes,5,opt,name=currency,proto3" json:"currency,omitempty"`
-	TrackInventory bool    `protobuf:"varint,6,opt,name=track_inventory,json=trackInventory,proto3" json:"track_inventory,omitempty"`
-	StockQuantity  int64   `protobuf:"varint,7,opt,name=stock_quantity,json=stockQuantity,proto3" json:"stock_quantity,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Name           string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description    string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	ImageUrl       string                 `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Price          float64                `protobuf:"fixed64,4,opt,name=price,proto3" json:"price,omitempty"`
+	Currency       string                 `protobuf:"bytes,5,opt,name=currency,proto3" json:"currency,omitempty"`
+	TrackInventory bool                   `protobuf:"varint,6,opt,name=track_inventory,json=trackInventory,proto3" json:"track_inventory,omitempty"`
+	StockQuantity  int64                  `protobuf:"varint,7,opt,name=stock_quantity,json=stockQuantity,proto3" json:"stock_quantity,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -117,7 +116,6 @@ func (x *CreateProductRequest) GetStockQuantity() int64 {
 	return 0
 }
 
-// ProductDraft is one product in a bulk create.
 type ProductDraft struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -194,7 +192,6 @@ func (x *ProductDraft) GetCurrency() string {
 	return ""
 }
 
-// BatchCreateProductsRequest creates many products for the caller's merchant.
 type BatchCreateProductsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Products      []*ProductDraft        `protobuf:"bytes,1,rep,name=products,proto3" json:"products,omitempty"`
@@ -564,9 +561,8 @@ func (x *ListProductsRequest) GetPageSize() int64 {
 }
 
 type CreateProductImageUploadRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// MIME type of the image to upload, e.g. "image/jpeg".
-	ContentType   string `protobuf:"bytes,1,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ContentType   string                 `protobuf:"bytes,1,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

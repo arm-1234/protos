@@ -8,8 +8,6 @@ option go_package = "github.com/arm-1234/protos/payment/v1/response;response";
 
 message InitiatePaymentResponse {
   payment.v1.types.PaymentInfo payment = 1;
-  // Neutral checkout parameters the client hands to the provider's checkout.
-  // Provider-specific ids are mapped into these by the server-side adapter.
   string provider = 2;
   string provider_ref = 3;
   string provider_key = 4;

@@ -39,6 +39,7 @@ const (
 	ErrorReason_IDENTITY_OTP_EXPIRED         ErrorReason = 8
 	ErrorReason_IDENTITY_OTP_RATE_LIMITED    ErrorReason = 9
 	ErrorReason_IDENTITY_OTP_DELIVERY_FAILED ErrorReason = 10
+	ErrorReason_IDENTITY_WRONG_APP           ErrorReason = 11
 )
 
 // Enum value maps for ErrorReason.
@@ -55,6 +56,7 @@ var (
 		8:  "IDENTITY_OTP_EXPIRED",
 		9:  "IDENTITY_OTP_RATE_LIMITED",
 		10: "IDENTITY_OTP_DELIVERY_FAILED",
+		11: "IDENTITY_WRONG_APP",
 	}
 	ErrorReason_value = map[string]int32{
 		"IDENTITY_UNSPECIFIED":         0,
@@ -68,6 +70,7 @@ var (
 		"IDENTITY_OTP_EXPIRED":         8,
 		"IDENTITY_OTP_RATE_LIMITED":    9,
 		"IDENTITY_OTP_DELIVERY_FAILED": 10,
+		"IDENTITY_WRONG_APP":           11,
 	}
 )
 
@@ -102,7 +105,7 @@ var File_identity_v1_identity_proto protoreflect.FileDescriptor
 
 const file_identity_v1_identity_proto_rawDesc = "" +
 	"\n" +
-	"\x1aidentity/v1/identity.proto\x12\videntity.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a*identity/v1/request/identity_request.proto\x1a,identity/v1/response/identity_response.proto*\x8f\x03\n" +
+	"\x1aidentity/v1/identity.proto\x12\videntity.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a*identity/v1/request/identity_request.proto\x1a,identity/v1/response/identity_response.proto*\xad\x03\n" +
 	"\vErrorReason\x12\x1e\n" +
 	"\x14IDENTITY_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12\x18\n" +
 	"\x0eUSER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1d\n" +
@@ -115,7 +118,8 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\x14IDENTITY_OTP_EXPIRED\x10\b\x1a\x04\xa8E\x9a\x03\x12#\n" +
 	"\x19IDENTITY_OTP_RATE_LIMITED\x10\t\x1a\x04\xa8E\xad\x03\x12&\n" +
 	"\x1cIDENTITY_OTP_DELIVERY_FAILED\x10\n" +
-	"\x1a\x04\xa8E\xf6\x03\x1a\x04\xa0E\xf4\x032\xa4\n" +
+	"\x1a\x04\xa8E\xf6\x03\x12\x1c\n" +
+	"\x12IDENTITY_WRONG_APP\x10\v\x1a\x04\xa8E\x93\x03\x1a\x04\xa0E\xf4\x032\xa4\n" +
 	"\n" +
 	"\bIdentity\x12\x80\x01\n" +
 	"\fRegisterUser\x12(.identity.v1.request.RegisterUserRequest\x1a\".identity.v1.response.AuthResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/auth/users:register\x12\x98\x01\n" +

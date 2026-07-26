@@ -36,30 +36,16 @@ const (
 // IdentityClient is the client API for Identity service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-//
-// Identity owns users (normal + merchant) and issues auth tokens. It is the
-// single place partner/IdP identities are mapped to local users.
 type IdentityClient interface {
-	// RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(ctx context.Context, in *request.RegisterUserRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
-	// RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(ctx context.Context, in *request.RegisterMerchantRequest, opts ...grpc.CallOption) (*response.RegisterMerchantResponse, error)
-	// LoginWithPhone issues a token for an existing user given phone + password.
 	LoginWithPhone(ctx context.Context, in *request.LoginWithPhoneRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
-	// SetPassword sets or changes a user's password. First-time set (for legacy
-	// accounts) omits current_password; a change requires it.
 	SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
-	// UpdateProfile edits the authenticated caller's own profile fields.
 	UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
-	// AuthenticateWithProvider maps a partner/IdP identity to a local user
-	// (creating it on first sight) and returns a token.
 	AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
-	// GetMe returns the authenticated caller's user record.
 	GetMe(ctx context.Context, in *request.GetMeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error)
-	// RequestOtp delivers a one-time code to the caller's identifier.
 	RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
-	// VerifyOtp exchanges a valid code for an auth token, creating the user if new.
 	VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 }
 
@@ -174,30 +160,16 @@ func (c *identityClient) VerifyOtp(ctx context.Context, in *request.VerifyOtpReq
 // IdentityServer is the server API for Identity service.
 // All implementations must embed UnimplementedIdentityServer
 // for forward compatibility.
-//
-// Identity owns users (normal + merchant) and issues auth tokens. It is the
-// single place partner/IdP identities are mapped to local users.
 type IdentityServer interface {
-	// RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
-	// RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
-	// LoginWithPhone issues a token for an existing user given phone + password.
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
-	// SetPassword sets or changes a user's password. First-time set (for legacy
-	// accounts) omits current_password; a change requires it.
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
-	// UpdateProfile edits the authenticated caller's own profile fields.
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
-	// AuthenticateWithProvider maps a partner/IdP identity to a local user
-	// (creating it on first sight) and returns a token.
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
-	// GetMe returns the authenticated caller's user record.
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
-	// RequestOtp delivers a one-time code to the caller's identifier.
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
-	// VerifyOtp exchanges a valid code for an auth token, creating the user if new.
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
 	mustEmbedUnimplementedIdentityServer()
 }

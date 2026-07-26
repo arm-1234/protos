@@ -26,11 +26,8 @@ const OperationReviewListReviews = "/review.v1.Review/ListReviews"
 const OperationReviewUpsertReview = "/review.v1.Review/UpsertReview"
 
 type ReviewHTTPServer interface {
-	// GetMyReview GetMyReview returns the caller's existing review for a product, if any.
 	GetMyReview(context.Context, *request.GetMyReviewRequest) (*response.GetMyReviewResponse, error)
 	ListReviews(context.Context, *request.ListReviewsRequest) (*response.ListReviewsResponse, error)
-	// UpsertReview UpsertReview creates or updates the caller's review for a product.
-	// Idempotent per (product, user): re-scanning + re-rating updates in place.
 	UpsertReview(context.Context, *request.UpsertReviewRequest) (*response.UpsertReviewResponse, error)
 }
 
@@ -111,11 +108,8 @@ func _Review_ListReviews0_HTTP_Handler(srv ReviewHTTPServer) func(ctx http.Conte
 }
 
 type ReviewHTTPClient interface {
-	// GetMyReview GetMyReview returns the caller's existing review for a product, if any.
 	GetMyReview(ctx context.Context, req *request.GetMyReviewRequest, opts ...http.CallOption) (rsp *response.GetMyReviewResponse, err error)
 	ListReviews(ctx context.Context, req *request.ListReviewsRequest, opts ...http.CallOption) (rsp *response.ListReviewsResponse, err error)
-	// UpsertReview UpsertReview creates or updates the caller's review for a product.
-	// Idempotent per (product, user): re-scanning + re-rating updates in place.
 	UpsertReview(ctx context.Context, req *request.UpsertReviewRequest, opts ...http.CallOption) (rsp *response.UpsertReviewResponse, err error)
 }
 
@@ -127,7 +121,6 @@ func NewReviewHTTPClient(client *http.Client) ReviewHTTPClient {
 	return &ReviewHTTPClientImpl{client}
 }
 
-// GetMyReview GetMyReview returns the caller's existing review for a product, if any.
 func (c *ReviewHTTPClientImpl) GetMyReview(ctx context.Context, in *request.GetMyReviewRequest, opts ...http.CallOption) (*response.GetMyReviewResponse, error) {
 	var out response.GetMyReviewResponse
 	pattern := "/v1/products/{product_id}/reviews/me"
@@ -154,8 +147,6 @@ func (c *ReviewHTTPClientImpl) ListReviews(ctx context.Context, in *request.List
 	return &out, nil
 }
 
-// UpsertReview UpsertReview creates or updates the caller's review for a product.
-// Idempotent per (product, user): re-scanning + re-rating updates in place.
 func (c *ReviewHTTPClientImpl) UpsertReview(ctx context.Context, in *request.UpsertReviewRequest, opts ...http.CallOption) (*response.UpsertReviewResponse, error) {
 	var out response.UpsertReviewResponse
 	pattern := "/v1/products/{product_id}/reviews"

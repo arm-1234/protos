@@ -16,13 +16,10 @@ message RegisterUserRequest {
   string password = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
 }
 
-// RegisterMerchantRequest creates a merchant user AND their store in one call.
 message RegisterMerchantRequest {
-  // owner (user) fields
   string name = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
   string phone = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
   string email = 3 [(validate.rules).string = {ignore_empty: true, email: true}];
-  // store fields
   string store_name = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
   string description = 5;
   string logo_url = 6;
@@ -31,7 +28,6 @@ message RegisterMerchantRequest {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string.pattern = "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
   ];
-  // Fixed shop location (recommended; needed for geofenced ordering).
   double latitude = 9 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 10 [(validate.rules).double = {gte: -180, lte: 180}];
   string password = 11 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
@@ -40,13 +36,12 @@ message RegisterMerchantRequest {
 message LoginWithPhoneRequest {
   string phone = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
   string password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 128}];
+  identity.v1.types.enums.UserType expected_user_type = 3;
 }
 
 message SetPasswordRequest {
   string phone = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 15}];
   string new_password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
-  // Optional current password: required to change an existing password; omitted
-  // when an account with no password sets one for the first time.
   string current_password = 3;
 }
 
@@ -55,12 +50,9 @@ message UpdateProfileRequest {
   string email = 2 [(validate.rules).string = {ignore_empty: true, email: true}];
 }
 
-// AuthenticateWithProviderRequest is the future integration seam: given a
-// partner/IdP identity, find-or-create the matching local user and issue a token.
 message AuthenticateWithProviderRequest {
   string provider = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
   string external_id = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
-  // Defaults to USER when unspecified.
   identity.v1.types.enums.UserType user_type = 3;
   string name = 4;
   string phone = 5;
@@ -74,16 +66,10 @@ message RegisterPushTokenRequest {
   string platform = 2;
 }
 
-// RequestOtpRequest asks for a one-time code. The channel selects the delivery
-// transport, so adding SMS later needs no new RPC.
 message RequestOtpRequest {
-  // Destination for the code: an email address today, a phone number for SMS.
   string identifier = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 3, max_len: 320}];
-  // Defaults to EMAIL when unspecified.
   identity.v1.types.enums.OtpChannel channel = 2;
-  // Set when the code is for a brand-new account, so verify can name the user.
   string name = 3 [(validate.rules).string = {ignore_empty: true, max_len: 255}];
-  // Defaults to USER when unspecified.
   identity.v1.types.enums.UserType user_type = 4;
 }
 
@@ -91,4 +77,5 @@ message VerifyOtpRequest {
   string identifier = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 3, max_len: 320}];
   string code = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 4, max_len: 10}];
   identity.v1.types.enums.OtpChannel channel = 3;
+  identity.v1.types.enums.UserType expected_user_type = 4;
 }

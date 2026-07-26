@@ -33,26 +33,15 @@ const OperationIdentityUpdateProfile = "/identity.v1.Identity/UpdateProfile"
 const OperationIdentityVerifyOtp = "/identity.v1.Identity/VerifyOtp"
 
 type IdentityHTTPServer interface {
-	// AuthenticateWithProvider AuthenticateWithProvider maps a partner/IdP identity to a local user
-	// (creating it on first sight) and returns a token.
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
-	// GetMe GetMe returns the authenticated caller's user record.
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
-	// LoginWithPhone LoginWithPhone issues a token for an existing user given phone + password.
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
-	// RegisterMerchant RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
-	// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
-	// RequestOtp RequestOtp delivers a one-time code to the caller's identifier.
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
-	// SetPassword SetPassword sets or changes a user's password. First-time set (for legacy
-	// accounts) omits current_password; a change requires it.
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
-	// UpdateProfile UpdateProfile edits the authenticated caller's own profile fields.
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
-	// VerifyOtp VerifyOtp exchanges a valid code for an auth token, creating the user if new.
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
 }
 
@@ -288,26 +277,15 @@ func _Identity_VerifyOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Con
 }
 
 type IdentityHTTPClient interface {
-	// AuthenticateWithProvider AuthenticateWithProvider maps a partner/IdP identity to a local user
-	// (creating it on first sight) and returns a token.
 	AuthenticateWithProvider(ctx context.Context, req *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
-	// GetMe GetMe returns the authenticated caller's user record.
 	GetMe(ctx context.Context, req *request.GetMeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
-	// LoginWithPhone LoginWithPhone issues a token for an existing user given phone + password.
 	LoginWithPhone(ctx context.Context, req *request.LoginWithPhoneRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
-	// RegisterMerchant RegisterMerchant creates a merchant user + their store and returns a token.
 	RegisterMerchant(ctx context.Context, req *request.RegisterMerchantRequest, opts ...http.CallOption) (rsp *response.RegisterMerchantResponse, err error)
 	RegisterPushToken(ctx context.Context, req *request.RegisterPushTokenRequest, opts ...http.CallOption) (rsp *response.RegisterPushTokenResponse, err error)
-	// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(ctx context.Context, req *request.RegisterUserRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
-	// RequestOtp RequestOtp delivers a one-time code to the caller's identifier.
 	RequestOtp(ctx context.Context, req *request.RequestOtpRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
-	// SetPassword SetPassword sets or changes a user's password. First-time set (for legacy
-	// accounts) omits current_password; a change requires it.
 	SetPassword(ctx context.Context, req *request.SetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
-	// UpdateProfile UpdateProfile edits the authenticated caller's own profile fields.
 	UpdateProfile(ctx context.Context, req *request.UpdateProfileRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
-	// VerifyOtp VerifyOtp exchanges a valid code for an auth token, creating the user if new.
 	VerifyOtp(ctx context.Context, req *request.VerifyOtpRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 }
 
@@ -319,8 +297,6 @@ func NewIdentityHTTPClient(client *http.Client) IdentityHTTPClient {
 	return &IdentityHTTPClientImpl{client}
 }
 
-// AuthenticateWithProvider AuthenticateWithProvider maps a partner/IdP identity to a local user
-// (creating it on first sight) and returns a token.
 func (c *IdentityHTTPClientImpl) AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
 	var out response.AuthResponse
 	pattern := "/v1/auth/external"
@@ -334,7 +310,6 @@ func (c *IdentityHTTPClientImpl) AuthenticateWithProvider(ctx context.Context, i
 	return &out, nil
 }
 
-// GetMe GetMe returns the authenticated caller's user record.
 func (c *IdentityHTTPClientImpl) GetMe(ctx context.Context, in *request.GetMeRequest, opts ...http.CallOption) (*response.GetMeResponse, error) {
 	var out response.GetMeResponse
 	pattern := "/v1/auth/me"
@@ -348,7 +323,6 @@ func (c *IdentityHTTPClientImpl) GetMe(ctx context.Context, in *request.GetMeReq
 	return &out, nil
 }
 
-// LoginWithPhone LoginWithPhone issues a token for an existing user given phone + password.
 func (c *IdentityHTTPClientImpl) LoginWithPhone(ctx context.Context, in *request.LoginWithPhoneRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
 	var out response.AuthResponse
 	pattern := "/v1/auth/login"
@@ -362,7 +336,6 @@ func (c *IdentityHTTPClientImpl) LoginWithPhone(ctx context.Context, in *request
 	return &out, nil
 }
 
-// RegisterMerchant RegisterMerchant creates a merchant user + their store and returns a token.
 func (c *IdentityHTTPClientImpl) RegisterMerchant(ctx context.Context, in *request.RegisterMerchantRequest, opts ...http.CallOption) (*response.RegisterMerchantResponse, error) {
 	var out response.RegisterMerchantResponse
 	pattern := "/v1/auth/merchants:register"
@@ -389,7 +362,6 @@ func (c *IdentityHTTPClientImpl) RegisterPushToken(ctx context.Context, in *requ
 	return &out, nil
 }
 
-// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 func (c *IdentityHTTPClientImpl) RegisterUser(ctx context.Context, in *request.RegisterUserRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
 	var out response.AuthResponse
 	pattern := "/v1/auth/users:register"
@@ -403,7 +375,6 @@ func (c *IdentityHTTPClientImpl) RegisterUser(ctx context.Context, in *request.R
 	return &out, nil
 }
 
-// RequestOtp RequestOtp delivers a one-time code to the caller's identifier.
 func (c *IdentityHTTPClientImpl) RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...http.CallOption) (*response.RequestOtpResponse, error) {
 	var out response.RequestOtpResponse
 	pattern := "/v1/auth/otp:request"
@@ -417,8 +388,6 @@ func (c *IdentityHTTPClientImpl) RequestOtp(ctx context.Context, in *request.Req
 	return &out, nil
 }
 
-// SetPassword SetPassword sets or changes a user's password. First-time set (for legacy
-// accounts) omits current_password; a change requires it.
 func (c *IdentityHTTPClientImpl) SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
 	var out response.AuthResponse
 	pattern := "/v1/auth/password:set"
@@ -432,7 +401,6 @@ func (c *IdentityHTTPClientImpl) SetPassword(ctx context.Context, in *request.Se
 	return &out, nil
 }
 
-// UpdateProfile UpdateProfile edits the authenticated caller's own profile fields.
 func (c *IdentityHTTPClientImpl) UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...http.CallOption) (*response.GetMeResponse, error) {
 	var out response.GetMeResponse
 	pattern := "/v1/auth/me"
@@ -446,7 +414,6 @@ func (c *IdentityHTTPClientImpl) UpdateProfile(ctx context.Context, in *request.
 	return &out, nil
 }
 
-// VerifyOtp VerifyOtp exchanges a valid code for an auth token, creating the user if new.
 func (c *IdentityHTTPClientImpl) VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
 	var out response.AuthResponse
 	pattern := "/v1/auth/otp:verify"

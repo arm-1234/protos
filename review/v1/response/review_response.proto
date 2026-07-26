@@ -13,7 +13,6 @@ message UpsertReviewResponse {
 }
 
 message GetMyReviewResponse {
-  // review is unset if the caller has not reviewed this product.
   review.v1.types.ReviewInfo review = 1;
   bool has_reviewed = 2;
 }

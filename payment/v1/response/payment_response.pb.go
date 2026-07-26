@@ -23,14 +23,12 @@ const (
 )
 
 type InitiatePaymentResponse struct {
-	state   protoimpl.MessageState `protogen:"open.v1"`
-	Payment *types.PaymentInfo     `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
-	// Neutral checkout parameters the client hands to the provider's checkout.
-	// Provider-specific ids are mapped into these by the server-side adapter.
-	Provider      string `protobuf:"bytes,2,opt,name=provider,proto3" json:"provider,omitempty"`
-	ProviderRef   string `protobuf:"bytes,3,opt,name=provider_ref,json=providerRef,proto3" json:"provider_ref,omitempty"`
-	ProviderKey   string `protobuf:"bytes,4,opt,name=provider_key,json=providerKey,proto3" json:"provider_key,omitempty"`
-	AmountMinor   int64  `protobuf:"varint,5,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Payment       *types.PaymentInfo     `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	Provider      string                 `protobuf:"bytes,2,opt,name=provider,proto3" json:"provider,omitempty"`
+	ProviderRef   string                 `protobuf:"bytes,3,opt,name=provider_ref,json=providerRef,proto3" json:"provider_ref,omitempty"`
+	ProviderKey   string                 `protobuf:"bytes,4,opt,name=provider_key,json=providerKey,proto3" json:"provider_key,omitempty"`
+	AmountMinor   int64                  `protobuf:"varint,5,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

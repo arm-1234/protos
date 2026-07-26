@@ -16,7 +16,6 @@ message ProductInfo {
   double price = 6;
   string currency = 7;
   catalog.v1.types.enums.ProductStatus status = 8;
-  // Denormalized rating aggregates, maintained on every review upsert.
   double rating_avg = 9;
   int64 rating_count = 10;
   google.protobuf.Timestamp created_at = 11;

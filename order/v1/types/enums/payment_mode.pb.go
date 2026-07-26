@@ -25,8 +25,8 @@ type PaymentMode int32
 
 const (
 	PaymentMode_PAYMENT_MODE_UNSPECIFIED PaymentMode = 0
-	PaymentMode_PAYMENT_MODE_ON_PLATFORM PaymentMode = 1 // pay through our website
-	PaymentMode_PAYMENT_MODE_DIRECT      PaymentMode = 2 // pay the merchant directly (UPI, cash)
+	PaymentMode_PAYMENT_MODE_ON_PLATFORM PaymentMode = 1
+	PaymentMode_PAYMENT_MODE_DIRECT      PaymentMode = 2
 )
 
 // Enum value maps for PaymentMode.

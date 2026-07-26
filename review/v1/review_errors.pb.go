@@ -59,7 +59,6 @@ func ErrorReviewUnauthenticated(format string, args ...interface{}) *errors.Erro
 	return errors.New(401, ErrorReason_REVIEW_UNAUTHENTICATED.String(), fmt.Sprintf(format, args...))
 }
 
-// Caller has not purchased the product they are trying to review.
 func IsReviewPurchaseRequired(err error) bool {
 	if err == nil {
 		return false
@@ -68,7 +67,6 @@ func IsReviewPurchaseRequired(err error) bool {
 	return e.Reason == ErrorReason_REVIEW_PURCHASE_REQUIRED.String() && e.Code == 403
 }
 
-// Caller has not purchased the product they are trying to review.
 func ErrorReviewPurchaseRequired(format string, args ...interface{}) *errors.Error {
 	return errors.New(403, ErrorReason_REVIEW_PURCHASE_REQUIRED.String(), fmt.Sprintf(format, args...))
 }

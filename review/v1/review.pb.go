@@ -32,7 +32,6 @@ const (
 	ErrorReason_REVIEW_PRODUCT_NOT_FOUND ErrorReason = 1
 	ErrorReason_REVIEW_INVALID_REQUEST   ErrorReason = 2
 	ErrorReason_REVIEW_UNAUTHENTICATED   ErrorReason = 3
-	// Caller has not purchased the product they are trying to review.
 	ErrorReason_REVIEW_PURCHASE_REQUIRED ErrorReason = 4
 )
 

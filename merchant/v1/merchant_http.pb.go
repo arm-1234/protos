@@ -31,20 +31,12 @@ const OperationMerchantSetPrimaryMerchantVpa = "/merchant.v1.Merchant/SetPrimary
 const OperationMerchantUpdateMerchant = "/merchant.v1.Merchant/UpdateMerchant"
 
 type MerchantHTTPServer interface {
-	// AddMerchantVpa AddMerchantVpa attaches another UPI VPA to the merchant (owner only).
 	AddMerchantVpa(context.Context, *request.AddMerchantVpaRequest) (*response.MerchantVpasResponse, error)
 	GetMerchant(context.Context, *request.GetMerchantRequest) (*response.GetMerchantResponse, error)
-	// ListMerchantVpas ListMerchantVpas returns all UPI VPAs a merchant holds (owner only).
 	ListMerchantVpas(context.Context, *request.ListMerchantVpasRequest) (*response.MerchantVpasResponse, error)
-	// OnboardMerchant OnboardMerchant registers a new merchant (their store + UPI VPA).
 	OnboardMerchant(context.Context, *request.OnboardMerchantRequest) (*response.OnboardMerchantResponse, error)
-	// RemoveMerchantVpa RemoveMerchantVpa detaches a VPA (owner only); cannot remove the last one.
 	RemoveMerchantVpa(context.Context, *request.RemoveMerchantVpaRequest) (*response.MerchantVpasResponse, error)
-	// ResolveStoreByVpa ResolveStoreByVpa is the QR-scan entry point: given the UPI VPA parsed
-	// from a Paytm/GPay/PhonePe QR, return the merchant's store. Resolves by
-	// any of the merchant's VPAs.
 	ResolveStoreByVpa(context.Context, *request.ResolveStoreByVpaRequest) (*response.ResolveStoreByVpaResponse, error)
-	// SetPrimaryMerchantVpa SetPrimaryMerchantVpa promotes a VPA to primary (owner only).
 	SetPrimaryMerchantVpa(context.Context, *request.SetPrimaryMerchantVpaRequest) (*response.MerchantVpasResponse, error)
 	UpdateMerchant(context.Context, *request.UpdateMerchantRequest) (*response.UpdateMerchantResponse, error)
 }
@@ -244,20 +236,12 @@ func _Merchant_SetPrimaryMerchantVpa0_HTTP_Handler(srv MerchantHTTPServer) func(
 }
 
 type MerchantHTTPClient interface {
-	// AddMerchantVpa AddMerchantVpa attaches another UPI VPA to the merchant (owner only).
 	AddMerchantVpa(ctx context.Context, req *request.AddMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
 	GetMerchant(ctx context.Context, req *request.GetMerchantRequest, opts ...http.CallOption) (rsp *response.GetMerchantResponse, err error)
-	// ListMerchantVpas ListMerchantVpas returns all UPI VPAs a merchant holds (owner only).
 	ListMerchantVpas(ctx context.Context, req *request.ListMerchantVpasRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
-	// OnboardMerchant OnboardMerchant registers a new merchant (their store + UPI VPA).
 	OnboardMerchant(ctx context.Context, req *request.OnboardMerchantRequest, opts ...http.CallOption) (rsp *response.OnboardMerchantResponse, err error)
-	// RemoveMerchantVpa RemoveMerchantVpa detaches a VPA (owner only); cannot remove the last one.
 	RemoveMerchantVpa(ctx context.Context, req *request.RemoveMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
-	// ResolveStoreByVpa ResolveStoreByVpa is the QR-scan entry point: given the UPI VPA parsed
-	// from a Paytm/GPay/PhonePe QR, return the merchant's store. Resolves by
-	// any of the merchant's VPAs.
 	ResolveStoreByVpa(ctx context.Context, req *request.ResolveStoreByVpaRequest, opts ...http.CallOption) (rsp *response.ResolveStoreByVpaResponse, err error)
-	// SetPrimaryMerchantVpa SetPrimaryMerchantVpa promotes a VPA to primary (owner only).
 	SetPrimaryMerchantVpa(ctx context.Context, req *request.SetPrimaryMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
 	UpdateMerchant(ctx context.Context, req *request.UpdateMerchantRequest, opts ...http.CallOption) (rsp *response.UpdateMerchantResponse, err error)
 }
@@ -270,7 +254,6 @@ func NewMerchantHTTPClient(client *http.Client) MerchantHTTPClient {
 	return &MerchantHTTPClientImpl{client}
 }
 
-// AddMerchantVpa AddMerchantVpa attaches another UPI VPA to the merchant (owner only).
 func (c *MerchantHTTPClientImpl) AddMerchantVpa(ctx context.Context, in *request.AddMerchantVpaRequest, opts ...http.CallOption) (*response.MerchantVpasResponse, error) {
 	var out response.MerchantVpasResponse
 	pattern := "/v1/merchants/{merchant_id}/vpas"
@@ -297,7 +280,6 @@ func (c *MerchantHTTPClientImpl) GetMerchant(ctx context.Context, in *request.Ge
 	return &out, nil
 }
 
-// ListMerchantVpas ListMerchantVpas returns all UPI VPAs a merchant holds (owner only).
 func (c *MerchantHTTPClientImpl) ListMerchantVpas(ctx context.Context, in *request.ListMerchantVpasRequest, opts ...http.CallOption) (*response.MerchantVpasResponse, error) {
 	var out response.MerchantVpasResponse
 	pattern := "/v1/merchants/{merchant_id}/vpas"
@@ -311,7 +293,6 @@ func (c *MerchantHTTPClientImpl) ListMerchantVpas(ctx context.Context, in *reque
 	return &out, nil
 }
 
-// OnboardMerchant OnboardMerchant registers a new merchant (their store + UPI VPA).
 func (c *MerchantHTTPClientImpl) OnboardMerchant(ctx context.Context, in *request.OnboardMerchantRequest, opts ...http.CallOption) (*response.OnboardMerchantResponse, error) {
 	var out response.OnboardMerchantResponse
 	pattern := "/v1/merchants"
@@ -325,7 +306,6 @@ func (c *MerchantHTTPClientImpl) OnboardMerchant(ctx context.Context, in *reques
 	return &out, nil
 }
 
-// RemoveMerchantVpa RemoveMerchantVpa detaches a VPA (owner only); cannot remove the last one.
 func (c *MerchantHTTPClientImpl) RemoveMerchantVpa(ctx context.Context, in *request.RemoveMerchantVpaRequest, opts ...http.CallOption) (*response.MerchantVpasResponse, error) {
 	var out response.MerchantVpasResponse
 	pattern := "/v1/merchants/{merchant_id}/vpas/{vpa_id}"
@@ -339,9 +319,6 @@ func (c *MerchantHTTPClientImpl) RemoveMerchantVpa(ctx context.Context, in *requ
 	return &out, nil
 }
 
-// ResolveStoreByVpa ResolveStoreByVpa is the QR-scan entry point: given the UPI VPA parsed
-// from a Paytm/GPay/PhonePe QR, return the merchant's store. Resolves by
-// any of the merchant's VPAs.
 func (c *MerchantHTTPClientImpl) ResolveStoreByVpa(ctx context.Context, in *request.ResolveStoreByVpaRequest, opts ...http.CallOption) (*response.ResolveStoreByVpaResponse, error) {
 	var out response.ResolveStoreByVpaResponse
 	pattern := "/v1/stores:resolve"
@@ -355,7 +332,6 @@ func (c *MerchantHTTPClientImpl) ResolveStoreByVpa(ctx context.Context, in *requ
 	return &out, nil
 }
 
-// SetPrimaryMerchantVpa SetPrimaryMerchantVpa promotes a VPA to primary (owner only).
 func (c *MerchantHTTPClientImpl) SetPrimaryMerchantVpa(ctx context.Context, in *request.SetPrimaryMerchantVpaRequest, opts ...http.CallOption) (*response.MerchantVpasResponse, error) {
 	var out response.MerchantVpasResponse
 	pattern := "/v1/merchants/{merchant_id}/vpas/{vpa_id}"

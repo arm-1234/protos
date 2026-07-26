@@ -17,7 +17,6 @@ service Catalog {
     };
   }
 
-  // BatchCreateProducts adds many products at once for the caller's merchant.
   rpc BatchCreateProducts (catalog.v1.request.BatchCreateProductsRequest) returns (catalog.v1.response.BatchCreateProductsResponse) {
     option (google.api.http) = {
       post: "/v1/products:batchCreate"
@@ -51,14 +50,12 @@ service Catalog {
     };
   }
 
-  // ListProducts returns a merchant's products with filtering + sorting.
   rpc ListProducts (catalog.v1.request.ListProductsRequest) returns (catalog.v1.response.ListProductsResponse) {
     option (google.api.http) = {
       get: "/v1/merchants/{merchant_id}/products"
     };
   }
 
-  // CreateProductImageUpload returns a presigned URL for direct image upload.
   rpc CreateProductImageUpload (catalog.v1.request.CreateProductImageUploadRequest) returns (catalog.v1.response.CreateProductImageUploadResponse) {
     option (google.api.http) = {
       post: "/v1/products/image-uploads"

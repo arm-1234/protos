@@ -30,10 +30,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReviewClient interface {
-	// UpsertReview creates or updates the caller's review for a product.
-	// Idempotent per (product, user): re-scanning + re-rating updates in place.
 	UpsertReview(ctx context.Context, in *request.UpsertReviewRequest, opts ...grpc.CallOption) (*response.UpsertReviewResponse, error)
-	// GetMyReview returns the caller's existing review for a product, if any.
 	GetMyReview(ctx context.Context, in *request.GetMyReviewRequest, opts ...grpc.CallOption) (*response.GetMyReviewResponse, error)
 	ListReviews(ctx context.Context, in *request.ListReviewsRequest, opts ...grpc.CallOption) (*response.ListReviewsResponse, error)
 }
@@ -80,10 +77,7 @@ func (c *reviewClient) ListReviews(ctx context.Context, in *request.ListReviewsR
 // All implementations must embed UnimplementedReviewServer
 // for forward compatibility.
 type ReviewServer interface {
-	// UpsertReview creates or updates the caller's review for a product.
-	// Idempotent per (product, user): re-scanning + re-rating updates in place.
 	UpsertReview(context.Context, *request.UpsertReviewRequest) (*response.UpsertReviewResponse, error)
-	// GetMyReview returns the caller's existing review for a product, if any.
 	GetMyReview(context.Context, *request.GetMyReviewRequest) (*response.GetMyReviewResponse, error)
 	ListReviews(context.Context, *request.ListReviewsRequest) (*response.ListReviewsResponse, error)
 	mustEmbedUnimplementedReviewServer()

@@ -32,12 +32,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderClient interface {
-	// PlaceOrder: caller submits line items; server prices and totals the order.
 	PlaceOrder(ctx context.Context, in *request.PlaceOrderRequest, opts ...grpc.CallOption) (*response.PlaceOrderResponse, error)
 	GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...grpc.CallOption) (*response.GetOrderResponse, error)
-	// ListMyOrders returns the authenticated shopper's own orders.
 	ListMyOrders(ctx context.Context, in *request.ListMyOrdersRequest, opts ...grpc.CallOption) (*response.ListMyOrdersResponse, error)
-	// ListMerchantOrders is the merchant's incoming-orders view.
 	ListMerchantOrders(ctx context.Context, in *request.ListMerchantOrdersRequest, opts ...grpc.CallOption) (*response.ListMerchantOrdersResponse, error)
 	UpdateOrderStatus(ctx context.Context, in *request.UpdateOrderStatusRequest, opts ...grpc.CallOption) (*response.UpdateOrderStatusResponse, error)
 }
@@ -104,12 +101,9 @@ func (c *orderClient) UpdateOrderStatus(ctx context.Context, in *request.UpdateO
 // All implementations must embed UnimplementedOrderServer
 // for forward compatibility.
 type OrderServer interface {
-	// PlaceOrder: caller submits line items; server prices and totals the order.
 	PlaceOrder(context.Context, *request.PlaceOrderRequest) (*response.PlaceOrderResponse, error)
 	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
-	// ListMyOrders returns the authenticated shopper's own orders.
 	ListMyOrders(context.Context, *request.ListMyOrdersRequest) (*response.ListMyOrdersResponse, error)
-	// ListMerchantOrders is the merchant's incoming-orders view.
 	ListMerchantOrders(context.Context, *request.ListMerchantOrdersRequest) (*response.ListMerchantOrdersResponse, error)
 	UpdateOrderStatus(context.Context, *request.UpdateOrderStatusRequest) (*response.UpdateOrderStatusResponse, error)
 	mustEmbedUnimplementedOrderServer()

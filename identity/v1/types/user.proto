@@ -13,10 +13,7 @@ message UserInfo {
   string name = 3;
   string phone = 4;
   string email = 5;
-  // Set only for merchant users: the store they own.
   string merchant_id = 6;
-  // Identity source: "local" for self-registered users, or a partner/IdP name
-  // (e.g. "paytm", "google") for federated identities.
   string provider = 7;
   string external_id = 8;
   google.protobuf.Timestamp created_at = 9;

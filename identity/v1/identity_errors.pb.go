@@ -142,3 +142,15 @@ func IsIdentityOtpDeliveryFailed(err error) bool {
 func ErrorIdentityOtpDeliveryFailed(format string, args ...interface{}) *errors.Error {
 	return errors.New(502, ErrorReason_IDENTITY_OTP_DELIVERY_FAILED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsIdentityWrongApp(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_WRONG_APP.String() && e.Code == 403
+}
+
+func ErrorIdentityWrongApp(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, ErrorReason_IDENTITY_WRONG_APP.String(), fmt.Sprintf(format, args...))
+}

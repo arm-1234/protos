@@ -31,14 +31,11 @@ const OperationCatalogSetInventory = "/catalog.v1.Catalog/SetInventory"
 const OperationCatalogUpdateProduct = "/catalog.v1.Catalog/UpdateProduct"
 
 type CatalogHTTPServer interface {
-	// BatchCreateProducts BatchCreateProducts adds many products at once for the caller's merchant.
 	BatchCreateProducts(context.Context, *request.BatchCreateProductsRequest) (*response.BatchCreateProductsResponse, error)
 	CreateProduct(context.Context, *request.CreateProductRequest) (*response.CreateProductResponse, error)
-	// CreateProductImageUpload CreateProductImageUpload returns a presigned URL for direct image upload.
 	CreateProductImageUpload(context.Context, *request.CreateProductImageUploadRequest) (*response.CreateProductImageUploadResponse, error)
 	DeleteProduct(context.Context, *request.DeleteProductRequest) (*response.DeleteProductResponse, error)
 	GetProduct(context.Context, *request.GetProductRequest) (*response.GetProductResponse, error)
-	// ListProducts ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(context.Context, *request.ListProductsRequest) (*response.ListProductsResponse, error)
 	SetInventory(context.Context, *request.SetInventoryRequest) (*response.SetInventoryResponse, error)
 	UpdateProduct(context.Context, *request.UpdateProductRequest) (*response.UpdateProductResponse, error)
@@ -239,14 +236,11 @@ func _Catalog_CreateProductImageUpload0_HTTP_Handler(srv CatalogHTTPServer) func
 }
 
 type CatalogHTTPClient interface {
-	// BatchCreateProducts BatchCreateProducts adds many products at once for the caller's merchant.
 	BatchCreateProducts(ctx context.Context, req *request.BatchCreateProductsRequest, opts ...http.CallOption) (rsp *response.BatchCreateProductsResponse, err error)
 	CreateProduct(ctx context.Context, req *request.CreateProductRequest, opts ...http.CallOption) (rsp *response.CreateProductResponse, err error)
-	// CreateProductImageUpload CreateProductImageUpload returns a presigned URL for direct image upload.
 	CreateProductImageUpload(ctx context.Context, req *request.CreateProductImageUploadRequest, opts ...http.CallOption) (rsp *response.CreateProductImageUploadResponse, err error)
 	DeleteProduct(ctx context.Context, req *request.DeleteProductRequest, opts ...http.CallOption) (rsp *response.DeleteProductResponse, err error)
 	GetProduct(ctx context.Context, req *request.GetProductRequest, opts ...http.CallOption) (rsp *response.GetProductResponse, err error)
-	// ListProducts ListProducts returns a merchant's products with filtering + sorting.
 	ListProducts(ctx context.Context, req *request.ListProductsRequest, opts ...http.CallOption) (rsp *response.ListProductsResponse, err error)
 	SetInventory(ctx context.Context, req *request.SetInventoryRequest, opts ...http.CallOption) (rsp *response.SetInventoryResponse, err error)
 	UpdateProduct(ctx context.Context, req *request.UpdateProductRequest, opts ...http.CallOption) (rsp *response.UpdateProductResponse, err error)
@@ -260,7 +254,6 @@ func NewCatalogHTTPClient(client *http.Client) CatalogHTTPClient {
 	return &CatalogHTTPClientImpl{client}
 }
 
-// BatchCreateProducts BatchCreateProducts adds many products at once for the caller's merchant.
 func (c *CatalogHTTPClientImpl) BatchCreateProducts(ctx context.Context, in *request.BatchCreateProductsRequest, opts ...http.CallOption) (*response.BatchCreateProductsResponse, error) {
 	var out response.BatchCreateProductsResponse
 	pattern := "/v1/products:batchCreate"
@@ -287,7 +280,6 @@ func (c *CatalogHTTPClientImpl) CreateProduct(ctx context.Context, in *request.C
 	return &out, nil
 }
 
-// CreateProductImageUpload CreateProductImageUpload returns a presigned URL for direct image upload.
 func (c *CatalogHTTPClientImpl) CreateProductImageUpload(ctx context.Context, in *request.CreateProductImageUploadRequest, opts ...http.CallOption) (*response.CreateProductImageUploadResponse, error) {
 	var out response.CreateProductImageUploadResponse
 	pattern := "/v1/products/image-uploads"
@@ -327,7 +319,6 @@ func (c *CatalogHTTPClientImpl) GetProduct(ctx context.Context, in *request.GetP
 	return &out, nil
 }
 
-// ListProducts ListProducts returns a merchant's products with filtering + sorting.
 func (c *CatalogHTTPClientImpl) ListProducts(ctx context.Context, in *request.ListProductsRequest, opts ...http.CallOption) (*response.ListProductsResponse, error) {
 	var out response.ListProductsResponse
 	pattern := "/v1/merchants/{merchant_id}/products"

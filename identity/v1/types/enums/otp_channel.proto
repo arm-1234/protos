@@ -4,8 +4,6 @@ package identity.v1.types.enums;
 
 option go_package = "github.com/arm-1234/protos/identity/v1/types/enums;enums";
 
-// OtpChannel selects how a one-time code reaches the user. Add a value here to
-// support a new transport; the RPCs stay unchanged.
 enum OtpChannel {
   OTP_CHANNEL_UNSPECIFIED = 0;
   OTP_CHANNEL_EMAIL = 1;

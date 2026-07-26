@@ -15,7 +15,6 @@ message OrderLineItem {
   int32 quantity = 2 [(validate.rules).int32.gte = 1];
 }
 
-// PlaceOrderRequest: user_id is taken from the authenticated caller.
 message PlaceOrderRequest {
   string merchant_id = 1 [
     (google.api.field_behavior) = REQUIRED,
@@ -25,7 +24,6 @@ message PlaceOrderRequest {
   order.v1.types.enums.PaymentMode payment_mode = 3 [
     (validate.rules).enum = {defined_only: true, not_in: [0]}
   ];
-  // Caller's current location, used for the proximity (geofence) check.
   double user_latitude = 4 [(validate.rules).double = {gte: -90, lte: 90}];
   double user_longitude = 5 [(validate.rules).double = {gte: -180, lte: 180}];
   payment.v1.types.enums.PayoutMode payout_mode = 6;
@@ -43,7 +41,7 @@ message ListMyOrdersRequest {
 
 message ListMerchantOrdersRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
-  order.v1.types.enums.OrderStatus status = 2; // optional filter
+  order.v1.types.enums.OrderStatus status = 2;
   int64 page_number = 3;
   int64 page_size = 4;
 }

@@ -11,7 +11,7 @@ message ReviewInfo {
   string product_id = 2;
   string user_id = 3;
   string merchant_id = 4;
-  int32 rating = 5; // 1..5
+  int32 rating = 5;
   string comment = 6;
   google.protobuf.Timestamp created_at = 7;
   google.protobuf.Timestamp updated_at = 8;

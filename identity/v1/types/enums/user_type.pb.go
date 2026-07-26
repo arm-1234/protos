@@ -25,8 +25,8 @@ type UserType int32
 
 const (
 	UserType_USER_TYPE_UNSPECIFIED UserType = 0
-	UserType_USER_TYPE_USER        UserType = 1 // normal shopper
-	UserType_USER_TYPE_MERCHANT    UserType = 2 // store owner
+	UserType_USER_TYPE_USER        UserType = 1
+	UserType_USER_TYPE_MERCHANT    UserType = 2
 )
 
 // Enum value maps for UserType.

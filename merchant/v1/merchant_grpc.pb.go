@@ -35,21 +35,13 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MerchantClient interface {
-	// OnboardMerchant registers a new merchant (their store + UPI VPA).
 	OnboardMerchant(ctx context.Context, in *request.OnboardMerchantRequest, opts ...grpc.CallOption) (*response.OnboardMerchantResponse, error)
 	GetMerchant(ctx context.Context, in *request.GetMerchantRequest, opts ...grpc.CallOption) (*response.GetMerchantResponse, error)
 	UpdateMerchant(ctx context.Context, in *request.UpdateMerchantRequest, opts ...grpc.CallOption) (*response.UpdateMerchantResponse, error)
-	// ResolveStoreByVpa is the QR-scan entry point: given the UPI VPA parsed
-	// from a Paytm/GPay/PhonePe QR, return the merchant's store. Resolves by
-	// any of the merchant's VPAs.
 	ResolveStoreByVpa(ctx context.Context, in *request.ResolveStoreByVpaRequest, opts ...grpc.CallOption) (*response.ResolveStoreByVpaResponse, error)
-	// ListMerchantVpas returns all UPI VPAs a merchant holds (owner only).
 	ListMerchantVpas(ctx context.Context, in *request.ListMerchantVpasRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
-	// AddMerchantVpa attaches another UPI VPA to the merchant (owner only).
 	AddMerchantVpa(ctx context.Context, in *request.AddMerchantVpaRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
-	// RemoveMerchantVpa detaches a VPA (owner only); cannot remove the last one.
 	RemoveMerchantVpa(ctx context.Context, in *request.RemoveMerchantVpaRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
-	// SetPrimaryMerchantVpa promotes a VPA to primary (owner only).
 	SetPrimaryMerchantVpa(ctx context.Context, in *request.SetPrimaryMerchantVpaRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
 }
 
@@ -145,21 +137,13 @@ func (c *merchantClient) SetPrimaryMerchantVpa(ctx context.Context, in *request.
 // All implementations must embed UnimplementedMerchantServer
 // for forward compatibility.
 type MerchantServer interface {
-	// OnboardMerchant registers a new merchant (their store + UPI VPA).
 	OnboardMerchant(context.Context, *request.OnboardMerchantRequest) (*response.OnboardMerchantResponse, error)
 	GetMerchant(context.Context, *request.GetMerchantRequest) (*response.GetMerchantResponse, error)
 	UpdateMerchant(context.Context, *request.UpdateMerchantRequest) (*response.UpdateMerchantResponse, error)
-	// ResolveStoreByVpa is the QR-scan entry point: given the UPI VPA parsed
-	// from a Paytm/GPay/PhonePe QR, return the merchant's store. Resolves by
-	// any of the merchant's VPAs.
 	ResolveStoreByVpa(context.Context, *request.ResolveStoreByVpaRequest) (*response.ResolveStoreByVpaResponse, error)
-	// ListMerchantVpas returns all UPI VPAs a merchant holds (owner only).
 	ListMerchantVpas(context.Context, *request.ListMerchantVpasRequest) (*response.MerchantVpasResponse, error)
-	// AddMerchantVpa attaches another UPI VPA to the merchant (owner only).
 	AddMerchantVpa(context.Context, *request.AddMerchantVpaRequest) (*response.MerchantVpasResponse, error)
-	// RemoveMerchantVpa detaches a VPA (owner only); cannot remove the last one.
 	RemoveMerchantVpa(context.Context, *request.RemoveMerchantVpaRequest) (*response.MerchantVpasResponse, error)
-	// SetPrimaryMerchantVpa promotes a VPA to primary (owner only).
 	SetPrimaryMerchantVpa(context.Context, *request.SetPrimaryMerchantVpaRequest) (*response.MerchantVpasResponse, error)
 	mustEmbedUnimplementedMerchantServer()
 }

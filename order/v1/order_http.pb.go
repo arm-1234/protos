@@ -29,11 +29,8 @@ const OperationOrderUpdateOrderStatus = "/order.v1.Order/UpdateOrderStatus"
 
 type OrderHTTPServer interface {
 	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
-	// ListMerchantOrders ListMerchantOrders is the merchant's incoming-orders view.
 	ListMerchantOrders(context.Context, *request.ListMerchantOrdersRequest) (*response.ListMerchantOrdersResponse, error)
-	// ListMyOrders ListMyOrders returns the authenticated shopper's own orders.
 	ListMyOrders(context.Context, *request.ListMyOrdersRequest) (*response.ListMyOrdersResponse, error)
-	// PlaceOrder PlaceOrder: caller submits line items; server prices and totals the order.
 	PlaceOrder(context.Context, *request.PlaceOrderRequest) (*response.PlaceOrderResponse, error)
 	UpdateOrderStatus(context.Context, *request.UpdateOrderStatusRequest) (*response.UpdateOrderStatusResponse, error)
 }
@@ -159,11 +156,8 @@ func _Order_UpdateOrderStatus0_HTTP_Handler(srv OrderHTTPServer) func(ctx http.C
 
 type OrderHTTPClient interface {
 	GetOrder(ctx context.Context, req *request.GetOrderRequest, opts ...http.CallOption) (rsp *response.GetOrderResponse, err error)
-	// ListMerchantOrders ListMerchantOrders is the merchant's incoming-orders view.
 	ListMerchantOrders(ctx context.Context, req *request.ListMerchantOrdersRequest, opts ...http.CallOption) (rsp *response.ListMerchantOrdersResponse, err error)
-	// ListMyOrders ListMyOrders returns the authenticated shopper's own orders.
 	ListMyOrders(ctx context.Context, req *request.ListMyOrdersRequest, opts ...http.CallOption) (rsp *response.ListMyOrdersResponse, err error)
-	// PlaceOrder PlaceOrder: caller submits line items; server prices and totals the order.
 	PlaceOrder(ctx context.Context, req *request.PlaceOrderRequest, opts ...http.CallOption) (rsp *response.PlaceOrderResponse, err error)
 	UpdateOrderStatus(ctx context.Context, req *request.UpdateOrderStatusRequest, opts ...http.CallOption) (rsp *response.UpdateOrderStatusResponse, err error)
 }
@@ -189,7 +183,6 @@ func (c *OrderHTTPClientImpl) GetOrder(ctx context.Context, in *request.GetOrder
 	return &out, nil
 }
 
-// ListMerchantOrders ListMerchantOrders is the merchant's incoming-orders view.
 func (c *OrderHTTPClientImpl) ListMerchantOrders(ctx context.Context, in *request.ListMerchantOrdersRequest, opts ...http.CallOption) (*response.ListMerchantOrdersResponse, error) {
 	var out response.ListMerchantOrdersResponse
 	pattern := "/v1/merchants/{merchant_id}/orders"
@@ -203,7 +196,6 @@ func (c *OrderHTTPClientImpl) ListMerchantOrders(ctx context.Context, in *reques
 	return &out, nil
 }
 
-// ListMyOrders ListMyOrders returns the authenticated shopper's own orders.
 func (c *OrderHTTPClientImpl) ListMyOrders(ctx context.Context, in *request.ListMyOrdersRequest, opts ...http.CallOption) (*response.ListMyOrdersResponse, error) {
 	var out response.ListMyOrdersResponse
 	pattern := "/v1/orders"
@@ -217,7 +209,6 @@ func (c *OrderHTTPClientImpl) ListMyOrders(ctx context.Context, in *request.List
 	return &out, nil
 }
 
-// PlaceOrder PlaceOrder: caller submits line items; server prices and totals the order.
 func (c *OrderHTTPClientImpl) PlaceOrder(ctx context.Context, in *request.PlaceOrderRequest, opts ...http.CallOption) (*response.PlaceOrderResponse, error) {
 	var out response.PlaceOrderResponse
 	pattern := "/v1/orders"

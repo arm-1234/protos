@@ -537,6 +537,8 @@ func (m *LoginWithPhoneRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for ExpectedUserType
+
 	if len(errors) > 0 {
 		return LoginWithPhoneRequestMultiError(errors)
 	}
@@ -1437,6 +1439,8 @@ func (m *VerifyOtpRequest) validate(all bool) error {
 	}
 
 	// no validation rules for Channel
+
+	// no validation rules for ExpectedUserType
 
 	if len(errors) > 0 {
 		return VerifyOtpRequestMultiError(errors)

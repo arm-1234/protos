@@ -7,7 +7,6 @@ import "identity/v1/types/user.proto";
 
 option go_package = "github.com/arm-1234/protos/identity/v1/response;response";
 
-// AuthResponse is returned by every auth entry point that issues a token.
 message AuthResponse {
   string token = 1;
   google.protobuf.Timestamp expires_at = 2;
@@ -32,6 +31,5 @@ message RegisterPushTokenResponse {
 message RequestOtpResponse {
   bool sent = 1;
   google.protobuf.Timestamp expires_at = 2;
-  // Seconds the caller must wait before requesting another code.
   int32 retry_after_seconds = 3;
 }

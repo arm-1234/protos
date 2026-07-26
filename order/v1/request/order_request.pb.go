@@ -77,20 +77,15 @@ func (x *OrderLineItem) GetQuantity() int32 {
 	return 0
 }
 
-// PlaceOrderRequest: user_id is taken from the authenticated caller.
 type PlaceOrderRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	MerchantId  string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Items       []*OrderLineItem       `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
-	PaymentMode enums.PaymentMode      `protobuf:"varint,3,opt,name=payment_mode,json=paymentMode,proto3,enum=order.v1.types.enums.PaymentMode" json:"payment_mode,omitempty"`
-	// Caller's current location, used for the proximity (geofence) check.
-	UserLatitude  float64           `protobuf:"fixed64,4,opt,name=user_latitude,json=userLatitude,proto3" json:"user_latitude,omitempty"`
-	UserLongitude float64           `protobuf:"fixed64,5,opt,name=user_longitude,json=userLongitude,proto3" json:"user_longitude,omitempty"`
-	PayoutMode    enums1.PayoutMode `protobuf:"varint,6,opt,name=payout_mode,json=payoutMode,proto3,enum=payment.v1.types.enums.PayoutMode" json:"payout_mode,omitempty"`
-	// Client-generated key that makes retries safe: replaying a request with the
-	// same key returns the order already placed instead of creating a second one.
-	// Optional, so older clients keep working.
-	IdempotencyKey string `protobuf:"bytes,7,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId     string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Items          []*OrderLineItem       `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	PaymentMode    enums.PaymentMode      `protobuf:"varint,3,opt,name=payment_mode,json=paymentMode,proto3,enum=order.v1.types.enums.PaymentMode" json:"payment_mode,omitempty"`
+	UserLatitude   float64                `protobuf:"fixed64,4,opt,name=user_latitude,json=userLatitude,proto3" json:"user_latitude,omitempty"`
+	UserLongitude  float64                `protobuf:"fixed64,5,opt,name=user_longitude,json=userLongitude,proto3" json:"user_longitude,omitempty"`
+	PayoutMode     enums1.PayoutMode      `protobuf:"varint,6,opt,name=payout_mode,json=payoutMode,proto3,enum=payment.v1.types.enums.PayoutMode" json:"payout_mode,omitempty"`
+	IdempotencyKey string                 `protobuf:"bytes,7,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -273,7 +268,7 @@ func (x *ListMyOrdersRequest) GetPageSize() int64 {
 type ListMerchantOrdersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Status        enums.OrderStatus      `protobuf:"varint,2,opt,name=status,proto3,enum=order.v1.types.enums.OrderStatus" json:"status,omitempty"` // optional filter
+	Status        enums.OrderStatus      `protobuf:"varint,2,opt,name=status,proto3,enum=order.v1.types.enums.OrderStatus" json:"status,omitempty"`
 	PageNumber    int64                  `protobuf:"varint,3,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
 	PageSize      int64                  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields

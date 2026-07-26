@@ -9,10 +9,7 @@ import "identity/v1/response/identity_response.proto";
 
 option go_package = "github.com/arm-1234/protos/identity/v1;v1";
 
-// Identity owns users (normal + merchant) and issues auth tokens. It is the
-// single place partner/IdP identities are mapped to local users.
 service Identity {
-  // RegisterUser creates a normal shopper account and returns a token.
   rpc RegisterUser (identity.v1.request.RegisterUserRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/users:register"
@@ -20,7 +17,6 @@ service Identity {
     };
   }
 
-  // RegisterMerchant creates a merchant user + their store and returns a token.
   rpc RegisterMerchant (identity.v1.request.RegisterMerchantRequest) returns (identity.v1.response.RegisterMerchantResponse) {
     option (google.api.http) = {
       post: "/v1/auth/merchants:register"
@@ -28,7 +24,6 @@ service Identity {
     };
   }
 
-  // LoginWithPhone issues a token for an existing user given phone + password.
   rpc LoginWithPhone (identity.v1.request.LoginWithPhoneRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/login"
@@ -36,8 +31,6 @@ service Identity {
     };
   }
 
-  // SetPassword sets or changes a user's password. First-time set (for legacy
-  // accounts) omits current_password; a change requires it.
   rpc SetPassword (identity.v1.request.SetPasswordRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/password:set"
@@ -45,7 +38,6 @@ service Identity {
     };
   }
 
-  // UpdateProfile edits the authenticated caller's own profile fields.
   rpc UpdateProfile (identity.v1.request.UpdateProfileRequest) returns (identity.v1.response.GetMeResponse) {
     option (google.api.http) = {
       patch: "/v1/auth/me"
@@ -53,8 +45,6 @@ service Identity {
     };
   }
 
-  // AuthenticateWithProvider maps a partner/IdP identity to a local user
-  // (creating it on first sight) and returns a token.
   rpc AuthenticateWithProvider (identity.v1.request.AuthenticateWithProviderRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/external"
@@ -62,7 +52,6 @@ service Identity {
     };
   }
 
-  // GetMe returns the authenticated caller's user record.
   rpc GetMe (identity.v1.request.GetMeRequest) returns (identity.v1.response.GetMeResponse) {
     option (google.api.http) = {
       get: "/v1/auth/me"
@@ -76,7 +65,6 @@ service Identity {
     };
   }
 
-  // RequestOtp delivers a one-time code to the caller's identifier.
   rpc RequestOtp (identity.v1.request.RequestOtpRequest) returns (identity.v1.response.RequestOtpResponse) {
     option (google.api.http) = {
       post: "/v1/auth/otp:request"
@@ -84,7 +72,6 @@ service Identity {
     };
   }
 
-  // VerifyOtp exchanges a valid code for an auth token, creating the user if new.
   rpc VerifyOtp (identity.v1.request.VerifyOtpRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/otp:verify"
@@ -106,4 +93,5 @@ enum ErrorReason {
   IDENTITY_OTP_EXPIRED = 8 [(errors.code) = 410];
   IDENTITY_OTP_RATE_LIMITED = 9 [(errors.code) = 429];
   IDENTITY_OTP_DELIVERY_FAILED = 10 [(errors.code) = 502];
+  IDENTITY_WRONG_APP = 11 [(errors.code) = 403];
 }

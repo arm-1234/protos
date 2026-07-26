@@ -22,7 +22,6 @@ message ResolveStoreByVpaResponse {
   merchant.v1.types.StoreSummary store = 1;
 }
 
-// The merchant's full VPA set (primary first).
 message MerchantVpasResponse {
   repeated merchant.v1.types.MerchantVpa vpas = 1;
 }

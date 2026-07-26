@@ -24,16 +24,15 @@ const (
 )
 
 type ProductInfo struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	ProductId   string                 `protobuf:"bytes,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	MerchantId  string                 `protobuf:"bytes,2,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Name        string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Description string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	ImageUrl    string                 `protobuf:"bytes,5,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	Price       float64                `protobuf:"fixed64,6,opt,name=price,proto3" json:"price,omitempty"`
-	Currency    string                 `protobuf:"bytes,7,opt,name=currency,proto3" json:"currency,omitempty"`
-	Status      enums.ProductStatus    `protobuf:"varint,8,opt,name=status,proto3,enum=catalog.v1.types.enums.ProductStatus" json:"status,omitempty"`
-	// Denormalized rating aggregates, maintained on every review upsert.
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ProductId      string                 `protobuf:"bytes,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	MerchantId     string                 `protobuf:"bytes,2,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Name           string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Description    string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	ImageUrl       string                 `protobuf:"bytes,5,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Price          float64                `protobuf:"fixed64,6,opt,name=price,proto3" json:"price,omitempty"`
+	Currency       string                 `protobuf:"bytes,7,opt,name=currency,proto3" json:"currency,omitempty"`
+	Status         enums.ProductStatus    `protobuf:"varint,8,opt,name=status,proto3,enum=catalog.v1.types.enums.ProductStatus" json:"status,omitempty"`
 	RatingAvg      float64                `protobuf:"fixed64,9,opt,name=rating_avg,json=ratingAvg,proto3" json:"rating_avg,omitempty"`
 	RatingCount    int64                  `protobuf:"varint,10,opt,name=rating_count,json=ratingCount,proto3" json:"rating_count,omitempty"`
 	CreatedAt      *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`

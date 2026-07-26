@@ -92,23 +92,19 @@ func (x *RegisterUserRequest) GetPassword() string {
 	return ""
 }
 
-// RegisterMerchantRequest creates a merchant user AND their store in one call.
 type RegisterMerchantRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// owner (user) fields
-	Name  string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phone string `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	// store fields
-	StoreName   string `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl     string `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address     string `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
-	UpiVpa      string `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	// Fixed shop location (recommended; needed for geofenced ordering).
-	Latitude      float64 `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude     float64 `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Password      string  `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phone         string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	StoreName     string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl       string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address       string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
+	UpiVpa        string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Latitude      float64                `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64                `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Password      string                 `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -221,11 +217,12 @@ func (x *RegisterMerchantRequest) GetPassword() string {
 }
 
 type LoginWithPhoneRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Phone         string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Phone            string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	Password         string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	ExpectedUserType enums.UserType         `protobuf:"varint,3,opt,name=expected_user_type,json=expectedUserType,proto3,enum=identity.v1.types.enums.UserType" json:"expected_user_type,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *LoginWithPhoneRequest) Reset() {
@@ -272,13 +269,18 @@ func (x *LoginWithPhoneRequest) GetPassword() string {
 	return ""
 }
 
+func (x *LoginWithPhoneRequest) GetExpectedUserType() enums.UserType {
+	if x != nil {
+		return x.ExpectedUserType
+	}
+	return enums.UserType(0)
+}
+
 type SetPasswordRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	Phone       string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
-	NewPassword string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
-	// Optional current password: required to change an existing password; omitted
-	// when an account with no password sets one for the first time.
-	CurrentPassword string `protobuf:"bytes,3,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Phone           string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	NewPassword     string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	CurrentPassword string                 `protobuf:"bytes,3,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -386,17 +388,14 @@ func (x *UpdateProfileRequest) GetEmail() string {
 	return ""
 }
 
-// AuthenticateWithProviderRequest is the future integration seam: given a
-// partner/IdP identity, find-or-create the matching local user and issue a token.
 type AuthenticateWithProviderRequest struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	Provider   string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
-	ExternalId string                 `protobuf:"bytes,2,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
-	// Defaults to USER when unspecified.
-	UserType      enums.UserType `protobuf:"varint,3,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
-	Name          string         `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Phone         string         `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email         string         `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Provider      string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	ExternalId    string                 `protobuf:"bytes,2,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
+	UserType      enums.UserType         `protobuf:"varint,3,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
+	Name          string                 `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	Phone         string                 `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -561,18 +560,12 @@ func (x *RegisterPushTokenRequest) GetPlatform() string {
 	return ""
 }
 
-// RequestOtpRequest asks for a one-time code. The channel selects the delivery
-// transport, so adding SMS later needs no new RPC.
 type RequestOtpRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Destination for the code: an email address today, a phone number for SMS.
-	Identifier string `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
-	// Defaults to EMAIL when unspecified.
-	Channel enums.OtpChannel `protobuf:"varint,2,opt,name=channel,proto3,enum=identity.v1.types.enums.OtpChannel" json:"channel,omitempty"`
-	// Set when the code is for a brand-new account, so verify can name the user.
-	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	// Defaults to USER when unspecified.
-	UserType      enums.UserType `protobuf:"varint,4,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	Channel       enums.OtpChannel       `protobuf:"varint,2,opt,name=channel,proto3,enum=identity.v1.types.enums.OtpChannel" json:"channel,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	UserType      enums.UserType         `protobuf:"varint,4,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -636,12 +629,13 @@ func (x *RequestOtpRequest) GetUserType() enums.UserType {
 }
 
 type VerifyOtpRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
-	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
-	Channel       enums.OtpChannel       `protobuf:"varint,3,opt,name=channel,proto3,enum=identity.v1.types.enums.OtpChannel" json:"channel,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Identifier       string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	Code             string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	Channel          enums.OtpChannel       `protobuf:"varint,3,opt,name=channel,proto3,enum=identity.v1.types.enums.OtpChannel" json:"channel,omitempty"`
+	ExpectedUserType enums.UserType         `protobuf:"varint,4,opt,name=expected_user_type,json=expectedUserType,proto3,enum=identity.v1.types.enums.UserType" json:"expected_user_type,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *VerifyOtpRequest) Reset() {
@@ -695,6 +689,13 @@ func (x *VerifyOtpRequest) GetChannel() enums.OtpChannel {
 	return enums.OtpChannel(0)
 }
 
+func (x *VerifyOtpRequest) GetExpectedUserType() enums.UserType {
+	if x != nil {
+		return x.ExpectedUserType
+	}
+	return enums.UserType(0)
+}
+
 var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
 
 const file_identity_v1_request_identity_request_proto_rawDesc = "" +
@@ -720,10 +721,11 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\blatitude\x18\t \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\blatitude\x125\n" +
 	"\tlongitude\x18\n" +
 	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude\x12*\n" +
-	"\bpassword\x18\v \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"h\n" +
+	"\bpassword\x18\v \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"\xb9\x01\n" +
 	"\x15LoginWithPhoneRequest\x12#\n" +
 	"\x05phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12*\n" +
-	"\bpassword\x18\x02 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\bpassword\"\x97\x01\n" +
+	"\bpassword\x18\x02 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\bpassword\x12O\n" +
+	"\x12expected_user_type\x18\x03 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\x10expectedUserType\"\x97\x01\n" +
 	"\x12SetPasswordRequest\x12#\n" +
 	"\x05phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x121\n" +
 	"\fnew_password\x18\x02 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\vnewPassword\x12)\n" +
@@ -750,14 +752,15 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"identifier\x12=\n" +
 	"\achannel\x18\x02 \x01(\x0e2#.identity.v1.types.enums.OtpChannelR\achannel\x12\x1f\n" +
 	"\x04name\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xff\x01\xd0\x01\x01R\x04name\x12>\n" +
-	"\tuser_type\x18\x04 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\buserType\"\xa4\x01\n" +
+	"\tuser_type\x18\x04 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\buserType\"\xf5\x01\n" +
 	"\x10VerifyOtpRequest\x12.\n" +
 	"\n" +
 	"identifier\x18\x01 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x03\x18\xc0\x02R\n" +
 	"identifier\x12!\n" +
 	"\x04code\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\n" +
 	"R\x04code\x12=\n" +
-	"\achannel\x18\x03 \x01(\x0e2#.identity.v1.types.enums.OtpChannelR\achannelB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
+	"\achannel\x18\x03 \x01(\x0e2#.identity.v1.types.enums.OtpChannelR\achannel\x12O\n" +
+	"\x12expected_user_type\x18\x04 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\x10expectedUserTypeB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
 
 var (
 	file_identity_v1_request_identity_request_proto_rawDescOnce sync.Once
@@ -787,15 +790,17 @@ var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(enums.OtpChannel)(0),                   // 11: identity.v1.types.enums.OtpChannel
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	10, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	11, // 1: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	10, // 2: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	11, // 3: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	4,  // [4:4] is the sub-list for method output_type
-	4,  // [4:4] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	10, // 0: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	10, // 1: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	11, // 2: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	10, // 3: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	11, // 4: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	10, // 5: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	6,  // [6:6] is the sub-list for method output_type
+	6,  // [6:6] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_identity_v1_request_identity_request_proto_init() }

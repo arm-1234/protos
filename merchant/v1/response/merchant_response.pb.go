@@ -198,7 +198,6 @@ func (x *ResolveStoreByVpaResponse) GetStore() *types.StoreSummary {
 	return nil
 }
 
-// The merchant's full VPA set (primary first).
 type MerchantVpasResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Vpas          []*types.MerchantVpa   `protobuf:"bytes,1,rep,name=vpas,proto3" json:"vpas,omitempty"`

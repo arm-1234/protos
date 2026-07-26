@@ -41,10 +41,8 @@ message ListProductsResponse {
 }
 
 message CreateProductImageUploadResponse {
-  // Presigned URL the client uploads the image bytes to (via HTTP PUT).
   string upload_url = 1;
   string method = 2;
-  // Object key + the public URL to store on the product afterwards.
   string image_key = 3;
   string image_url = 4;
   google.protobuf.Timestamp expires_at = 5;

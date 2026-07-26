@@ -23,7 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// AuthResponse is returned by every auth entry point that issues a token.
 type AuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
@@ -241,11 +240,10 @@ func (x *RegisterPushTokenResponse) GetOk() bool {
 }
 
 type RequestOtpResponse struct {
-	state     protoimpl.MessageState `protogen:"open.v1"`
-	Sent      bool                   `protobuf:"varint,1,opt,name=sent,proto3" json:"sent,omitempty"`
-	ExpiresAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
-	// Seconds the caller must wait before requesting another code.
-	RetryAfterSeconds int32 `protobuf:"varint,3,opt,name=retry_after_seconds,json=retryAfterSeconds,proto3" json:"retry_after_seconds,omitempty"`
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Sent              bool                   `protobuf:"varint,1,opt,name=sent,proto3" json:"sent,omitempty"`
+	ExpiresAt         *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	RetryAfterSeconds int32                  `protobuf:"varint,3,opt,name=retry_after_seconds,json=retryAfterSeconds,proto3" json:"retry_after_seconds,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
