@@ -4,6 +4,7 @@ package identity.v1.request;
 
 import "google/api/field_behavior.proto";
 import "validate/validate.proto";
+import "identity/v1/types/enums/otp_channel.proto";
 import "identity/v1/types/enums/user_type.proto";
 
 option go_package = "github.com/arm-1234/protos/identity/v1/request;request";
@@ -71,4 +72,23 @@ message GetMeRequest {}
 message RegisterPushTokenRequest {
   string token = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
   string platform = 2;
+}
+
+// RequestOtpRequest asks for a one-time code. The channel selects the delivery
+// transport, so adding SMS later needs no new RPC.
+message RequestOtpRequest {
+  // Destination for the code: an email address today, a phone number for SMS.
+  string identifier = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 3, max_len: 320}];
+  // Defaults to EMAIL when unspecified.
+  identity.v1.types.enums.OtpChannel channel = 2;
+  // Set when the code is for a brand-new account, so verify can name the user.
+  string name = 3 [(validate.rules).string = {ignore_empty: true, max_len: 255}];
+  // Defaults to USER when unspecified.
+  identity.v1.types.enums.UserType user_type = 4;
+}
+
+message VerifyOtpRequest {
+  string identifier = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 3, max_len: 320}];
+  string code = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 4, max_len: 10}];
+  identity.v1.types.enums.OtpChannel channel = 3;
 }

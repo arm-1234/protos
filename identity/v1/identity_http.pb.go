@@ -27,8 +27,10 @@ const OperationIdentityLoginWithPhone = "/identity.v1.Identity/LoginWithPhone"
 const OperationIdentityRegisterMerchant = "/identity.v1.Identity/RegisterMerchant"
 const OperationIdentityRegisterPushToken = "/identity.v1.Identity/RegisterPushToken"
 const OperationIdentityRegisterUser = "/identity.v1.Identity/RegisterUser"
+const OperationIdentityRequestOtp = "/identity.v1.Identity/RequestOtp"
 const OperationIdentitySetPassword = "/identity.v1.Identity/SetPassword"
 const OperationIdentityUpdateProfile = "/identity.v1.Identity/UpdateProfile"
+const OperationIdentityVerifyOtp = "/identity.v1.Identity/VerifyOtp"
 
 type IdentityHTTPServer interface {
 	// AuthenticateWithProvider AuthenticateWithProvider maps a partner/IdP identity to a local user
@@ -43,11 +45,15 @@ type IdentityHTTPServer interface {
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
+	// RequestOtp RequestOtp delivers a one-time code to the caller's identifier.
+	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
 	// SetPassword SetPassword sets or changes a user's password. First-time set (for legacy
 	// accounts) omits current_password; a change requires it.
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	// UpdateProfile UpdateProfile edits the authenticated caller's own profile fields.
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
+	// VerifyOtp VerifyOtp exchanges a valid code for an auth token, creating the user if new.
+	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
 }
 
 func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
@@ -60,6 +66,8 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.POST("/v1/auth/external", _Identity_AuthenticateWithProvider0_HTTP_Handler(srv))
 	r.GET("/v1/auth/me", _Identity_GetMe0_HTTP_Handler(srv))
 	r.POST("/v1/push/register", _Identity_RegisterPushToken0_HTTP_Handler(srv))
+	r.POST("/v1/auth/otp:request", _Identity_RequestOtp0_HTTP_Handler(srv))
+	r.POST("/v1/auth/otp:verify", _Identity_VerifyOtp0_HTTP_Handler(srv))
 }
 
 func _Identity_RegisterUser0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
@@ -235,6 +243,50 @@ func _Identity_RegisterPushToken0_HTTP_Handler(srv IdentityHTTPServer) func(ctx 
 	}
 }
 
+func _Identity_RequestOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RequestOtpRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityRequestOtp)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RequestOtp(ctx, req.(*request.RequestOtpRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RequestOtpResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Identity_VerifyOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.VerifyOtpRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityVerifyOtp)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.VerifyOtp(ctx, req.(*request.VerifyOtpRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.AuthResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type IdentityHTTPClient interface {
 	// AuthenticateWithProvider AuthenticateWithProvider maps a partner/IdP identity to a local user
 	// (creating it on first sight) and returns a token.
@@ -248,11 +300,15 @@ type IdentityHTTPClient interface {
 	RegisterPushToken(ctx context.Context, req *request.RegisterPushTokenRequest, opts ...http.CallOption) (rsp *response.RegisterPushTokenResponse, err error)
 	// RegisterUser RegisterUser creates a normal shopper account and returns a token.
 	RegisterUser(ctx context.Context, req *request.RegisterUserRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
+	// RequestOtp RequestOtp delivers a one-time code to the caller's identifier.
+	RequestOtp(ctx context.Context, req *request.RequestOtpRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
 	// SetPassword SetPassword sets or changes a user's password. First-time set (for legacy
 	// accounts) omits current_password; a change requires it.
 	SetPassword(ctx context.Context, req *request.SetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	// UpdateProfile UpdateProfile edits the authenticated caller's own profile fields.
 	UpdateProfile(ctx context.Context, req *request.UpdateProfileRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
+	// VerifyOtp VerifyOtp exchanges a valid code for an auth token, creating the user if new.
+	VerifyOtp(ctx context.Context, req *request.VerifyOtpRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 }
 
 type IdentityHTTPClientImpl struct {
@@ -347,6 +403,20 @@ func (c *IdentityHTTPClientImpl) RegisterUser(ctx context.Context, in *request.R
 	return &out, nil
 }
 
+// RequestOtp RequestOtp delivers a one-time code to the caller's identifier.
+func (c *IdentityHTTPClientImpl) RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...http.CallOption) (*response.RequestOtpResponse, error) {
+	var out response.RequestOtpResponse
+	pattern := "/v1/auth/otp:request"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityRequestOtp))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 // SetPassword SetPassword sets or changes a user's password. First-time set (for legacy
 // accounts) omits current_password; a change requires it.
 func (c *IdentityHTTPClientImpl) SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
@@ -370,6 +440,20 @@ func (c *IdentityHTTPClientImpl) UpdateProfile(ctx context.Context, in *request.
 	opts = append(opts, http.Operation(OperationIdentityUpdateProfile))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// VerifyOtp VerifyOtp exchanges a valid code for an auth token, creating the user if new.
+func (c *IdentityHTTPClientImpl) VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
+	var out response.AuthResponse
+	pattern := "/v1/auth/otp:verify"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityVerifyOtp))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

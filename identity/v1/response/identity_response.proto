@@ -28,3 +28,10 @@ message GetMeResponse {
 message RegisterPushTokenResponse {
   bool ok = 1;
 }
+
+message RequestOtpResponse {
+  bool sent = 1;
+  google.protobuf.Timestamp expires_at = 2;
+  // Seconds the caller must wait before requesting another code.
+  int32 retry_after_seconds = 3;
+}

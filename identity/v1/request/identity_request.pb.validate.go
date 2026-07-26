@@ -1259,3 +1259,259 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RegisterPushTokenRequestValidationError{}
+
+// Validate checks the field values on RequestOtpRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *RequestOtpRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RequestOtpRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RequestOtpRequestMultiError, or nil if none found.
+func (m *RequestOtpRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RequestOtpRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetIdentifier()); l < 3 || l > 320 {
+		err := RequestOtpRequestValidationError{
+			field:  "Identifier",
+			reason: "value length must be between 3 and 320 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Channel
+
+	if m.GetName() != "" {
+
+		if utf8.RuneCountInString(m.GetName()) > 255 {
+			err := RequestOtpRequestValidationError{
+				field:  "Name",
+				reason: "value length must be at most 255 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	// no validation rules for UserType
+
+	if len(errors) > 0 {
+		return RequestOtpRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RequestOtpRequestMultiError is an error wrapping multiple validation errors
+// returned by RequestOtpRequest.ValidateAll() if the designated constraints
+// aren't met.
+type RequestOtpRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RequestOtpRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RequestOtpRequestMultiError) AllErrors() []error { return m }
+
+// RequestOtpRequestValidationError is the validation error returned by
+// RequestOtpRequest.Validate if the designated constraints aren't met.
+type RequestOtpRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RequestOtpRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RequestOtpRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RequestOtpRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RequestOtpRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RequestOtpRequestValidationError) ErrorName() string {
+	return "RequestOtpRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RequestOtpRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRequestOtpRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RequestOtpRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RequestOtpRequestValidationError{}
+
+// Validate checks the field values on VerifyOtpRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *VerifyOtpRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyOtpRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyOtpRequestMultiError, or nil if none found.
+func (m *VerifyOtpRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyOtpRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetIdentifier()); l < 3 || l > 320 {
+		err := VerifyOtpRequestValidationError{
+			field:  "Identifier",
+			reason: "value length must be between 3 and 320 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetCode()); l < 4 || l > 10 {
+		err := VerifyOtpRequestValidationError{
+			field:  "Code",
+			reason: "value length must be between 4 and 10 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Channel
+
+	if len(errors) > 0 {
+		return VerifyOtpRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyOtpRequestMultiError is an error wrapping multiple validation errors
+// returned by VerifyOtpRequest.ValidateAll() if the designated constraints
+// aren't met.
+type VerifyOtpRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyOtpRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyOtpRequestMultiError) AllErrors() []error { return m }
+
+// VerifyOtpRequestValidationError is the validation error returned by
+// VerifyOtpRequest.Validate if the designated constraints aren't met.
+type VerifyOtpRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyOtpRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyOtpRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyOtpRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyOtpRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyOtpRequestValidationError) ErrorName() string { return "VerifyOtpRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e VerifyOtpRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyOtpRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyOtpRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyOtpRequestValidationError{}

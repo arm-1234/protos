@@ -29,6 +29,8 @@ const (
 	Identity_AuthenticateWithProvider_FullMethodName = "/identity.v1.Identity/AuthenticateWithProvider"
 	Identity_GetMe_FullMethodName                    = "/identity.v1.Identity/GetMe"
 	Identity_RegisterPushToken_FullMethodName        = "/identity.v1.Identity/RegisterPushToken"
+	Identity_RequestOtp_FullMethodName               = "/identity.v1.Identity/RequestOtp"
+	Identity_VerifyOtp_FullMethodName                = "/identity.v1.Identity/VerifyOtp"
 )
 
 // IdentityClient is the client API for Identity service.
@@ -55,6 +57,10 @@ type IdentityClient interface {
 	// GetMe returns the authenticated caller's user record.
 	GetMe(ctx context.Context, in *request.GetMeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error)
+	// RequestOtp delivers a one-time code to the caller's identifier.
+	RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
+	// VerifyOtp exchanges a valid code for an auth token, creating the user if new.
+	VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 }
 
 type identityClient struct {
@@ -145,6 +151,26 @@ func (c *identityClient) RegisterPushToken(ctx context.Context, in *request.Regi
 	return out, nil
 }
 
+func (c *identityClient) RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RequestOtpResponse)
+	err := c.cc.Invoke(ctx, Identity_RequestOtp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.AuthResponse)
+	err := c.cc.Invoke(ctx, Identity_VerifyOtp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentityServer is the server API for Identity service.
 // All implementations must embed UnimplementedIdentityServer
 // for forward compatibility.
@@ -169,6 +195,10 @@ type IdentityServer interface {
 	// GetMe returns the authenticated caller's user record.
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
+	// RequestOtp delivers a one-time code to the caller's identifier.
+	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
+	// VerifyOtp exchanges a valid code for an auth token, creating the user if new.
+	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
 	mustEmbedUnimplementedIdentityServer()
 }
 
@@ -202,6 +232,12 @@ func (UnimplementedIdentityServer) GetMe(context.Context, *request.GetMeRequest)
 }
 func (UnimplementedIdentityServer) RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RegisterPushToken not implemented")
+}
+func (UnimplementedIdentityServer) RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RequestOtp not implemented")
+}
+func (UnimplementedIdentityServer) VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method VerifyOtp not implemented")
 }
 func (UnimplementedIdentityServer) mustEmbedUnimplementedIdentityServer() {}
 func (UnimplementedIdentityServer) testEmbeddedByValue()                  {}
@@ -368,6 +404,42 @@ func _Identity_RegisterPushToken_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identity_RequestOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RequestOtpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).RequestOtp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_RequestOtp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).RequestOtp(ctx, req.(*request.RequestOtpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_VerifyOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.VerifyOtpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).VerifyOtp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_VerifyOtp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).VerifyOtp(ctx, req.(*request.VerifyOtpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Identity_ServiceDesc is the grpc.ServiceDesc for Identity service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -406,6 +478,14 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegisterPushToken",
 			Handler:    _Identity_RegisterPushToken_Handler,
+		},
+		{
+			MethodName: "RequestOtp",
+			Handler:    _Identity_RequestOtp_Handler,
+		},
+		{
+			MethodName: "VerifyOtp",
+			Handler:    _Identity_VerifyOtp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

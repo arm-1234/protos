@@ -94,3 +94,51 @@ func IsIdentityPasswordRequired(err error) bool {
 func ErrorIdentityPasswordRequired(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_IDENTITY_PASSWORD_REQUIRED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsIdentityOtpInvalid(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_OTP_INVALID.String() && e.Code == 401
+}
+
+func ErrorIdentityOtpInvalid(format string, args ...interface{}) *errors.Error {
+	return errors.New(401, ErrorReason_IDENTITY_OTP_INVALID.String(), fmt.Sprintf(format, args...))
+}
+
+func IsIdentityOtpExpired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_OTP_EXPIRED.String() && e.Code == 410
+}
+
+func ErrorIdentityOtpExpired(format string, args ...interface{}) *errors.Error {
+	return errors.New(410, ErrorReason_IDENTITY_OTP_EXPIRED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsIdentityOtpRateLimited(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_OTP_RATE_LIMITED.String() && e.Code == 429
+}
+
+func ErrorIdentityOtpRateLimited(format string, args ...interface{}) *errors.Error {
+	return errors.New(429, ErrorReason_IDENTITY_OTP_RATE_LIMITED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsIdentityOtpDeliveryFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_OTP_DELIVERY_FAILED.String() && e.Code == 502
+}
+
+func ErrorIdentityOtpDeliveryFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(502, ErrorReason_IDENTITY_OTP_DELIVERY_FAILED.String(), fmt.Sprintf(format, args...))
+}

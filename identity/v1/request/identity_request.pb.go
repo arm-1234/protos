@@ -561,11 +561,145 @@ func (x *RegisterPushTokenRequest) GetPlatform() string {
 	return ""
 }
 
+// RequestOtpRequest asks for a one-time code. The channel selects the delivery
+// transport, so adding SMS later needs no new RPC.
+type RequestOtpRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Destination for the code: an email address today, a phone number for SMS.
+	Identifier string `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	// Defaults to EMAIL when unspecified.
+	Channel enums.OtpChannel `protobuf:"varint,2,opt,name=channel,proto3,enum=identity.v1.types.enums.OtpChannel" json:"channel,omitempty"`
+	// Set when the code is for a brand-new account, so verify can name the user.
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	// Defaults to USER when unspecified.
+	UserType      enums.UserType `protobuf:"varint,4,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RequestOtpRequest) Reset() {
+	*x = RequestOtpRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestOtpRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestOtpRequest) ProtoMessage() {}
+
+func (x *RequestOtpRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestOtpRequest.ProtoReflect.Descriptor instead.
+func (*RequestOtpRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *RequestOtpRequest) GetIdentifier() string {
+	if x != nil {
+		return x.Identifier
+	}
+	return ""
+}
+
+func (x *RequestOtpRequest) GetChannel() enums.OtpChannel {
+	if x != nil {
+		return x.Channel
+	}
+	return enums.OtpChannel(0)
+}
+
+func (x *RequestOtpRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RequestOtpRequest) GetUserType() enums.UserType {
+	if x != nil {
+		return x.UserType
+	}
+	return enums.UserType(0)
+}
+
+type VerifyOtpRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	Channel       enums.OtpChannel       `protobuf:"varint,3,opt,name=channel,proto3,enum=identity.v1.types.enums.OtpChannel" json:"channel,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *VerifyOtpRequest) Reset() {
+	*x = VerifyOtpRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerifyOtpRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyOtpRequest) ProtoMessage() {}
+
+func (x *VerifyOtpRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyOtpRequest.ProtoReflect.Descriptor instead.
+func (*VerifyOtpRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *VerifyOtpRequest) GetIdentifier() string {
+	if x != nil {
+		return x.Identifier
+	}
+	return ""
+}
+
+func (x *VerifyOtpRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *VerifyOtpRequest) GetChannel() enums.OtpChannel {
+	if x != nil {
+		return x.Channel
+	}
+	return enums.OtpChannel(0)
+}
+
 var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
 
 const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\n" +
-	"*identity/v1/request/identity_request.proto\x12\x13identity.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a'identity/v1/types/enums/user_type.proto\"\xa9\x01\n" +
+	"*identity/v1/request/identity_request.proto\x12\x13identity.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a)identity/v1/types/enums/otp_channel.proto\x1a'identity/v1/types/enums/user_type.proto\"\xa9\x01\n" +
 	"\x13RegisterUserRequest\x12\x1f\n" +
 	"\x04name\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x04name\x12#\n" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12 \n" +
@@ -609,7 +743,21 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\fGetMeRequest\"Y\n" +
 	"\x18RegisterPushTokenRequest\x12!\n" +
 	"\x05token\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x05token\x12\x1a\n" +
-	"\bplatform\x18\x02 \x01(\tR\bplatformB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
+	"\bplatform\x18\x02 \x01(\tR\bplatform\"\xe3\x01\n" +
+	"\x11RequestOtpRequest\x12.\n" +
+	"\n" +
+	"identifier\x18\x01 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x03\x18\xc0\x02R\n" +
+	"identifier\x12=\n" +
+	"\achannel\x18\x02 \x01(\x0e2#.identity.v1.types.enums.OtpChannelR\achannel\x12\x1f\n" +
+	"\x04name\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xff\x01\xd0\x01\x01R\x04name\x12>\n" +
+	"\tuser_type\x18\x04 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\buserType\"\xa4\x01\n" +
+	"\x10VerifyOtpRequest\x12.\n" +
+	"\n" +
+	"identifier\x18\x01 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x03\x18\xc0\x02R\n" +
+	"identifier\x12!\n" +
+	"\x04code\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\n" +
+	"R\x04code\x12=\n" +
+	"\achannel\x18\x03 \x01(\x0e2#.identity.v1.types.enums.OtpChannelR\achannelB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
 
 var (
 	file_identity_v1_request_identity_request_proto_rawDescOnce sync.Once
@@ -623,7 +771,7 @@ func file_identity_v1_request_identity_request_proto_rawDescGZIP() []byte {
 	return file_identity_v1_request_identity_request_proto_rawDescData
 }
 
-var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),             // 0: identity.v1.request.RegisterUserRequest
 	(*RegisterMerchantRequest)(nil),         // 1: identity.v1.request.RegisterMerchantRequest
@@ -633,15 +781,21 @@ var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*AuthenticateWithProviderRequest)(nil), // 5: identity.v1.request.AuthenticateWithProviderRequest
 	(*GetMeRequest)(nil),                    // 6: identity.v1.request.GetMeRequest
 	(*RegisterPushTokenRequest)(nil),        // 7: identity.v1.request.RegisterPushTokenRequest
-	(enums.UserType)(0),                     // 8: identity.v1.types.enums.UserType
+	(*RequestOtpRequest)(nil),               // 8: identity.v1.request.RequestOtpRequest
+	(*VerifyOtpRequest)(nil),                // 9: identity.v1.request.VerifyOtpRequest
+	(enums.UserType)(0),                     // 10: identity.v1.types.enums.UserType
+	(enums.OtpChannel)(0),                   // 11: identity.v1.types.enums.OtpChannel
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	8, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	10, // 0: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	11, // 1: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	10, // 2: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	11, // 3: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	4,  // [4:4] is the sub-list for method output_type
+	4,  // [4:4] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_identity_v1_request_identity_request_proto_init() }
@@ -655,7 +809,7 @@ func file_identity_v1_request_identity_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_request_identity_request_proto_rawDesc), len(file_identity_v1_request_identity_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -240,6 +240,67 @@ func (x *RegisterPushTokenResponse) GetOk() bool {
 	return false
 }
 
+type RequestOtpResponse struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Sent      bool                   `protobuf:"varint,1,opt,name=sent,proto3" json:"sent,omitempty"`
+	ExpiresAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	// Seconds the caller must wait before requesting another code.
+	RetryAfterSeconds int32 `protobuf:"varint,3,opt,name=retry_after_seconds,json=retryAfterSeconds,proto3" json:"retry_after_seconds,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *RequestOtpResponse) Reset() {
+	*x = RequestOtpResponse{}
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestOtpResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestOtpResponse) ProtoMessage() {}
+
+func (x *RequestOtpResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestOtpResponse.ProtoReflect.Descriptor instead.
+func (*RequestOtpResponse) Descriptor() ([]byte, []int) {
+	return file_identity_v1_response_identity_response_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *RequestOtpResponse) GetSent() bool {
+	if x != nil {
+		return x.Sent
+	}
+	return false
+}
+
+func (x *RequestOtpResponse) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+func (x *RequestOtpResponse) GetRetryAfterSeconds() int32 {
+	if x != nil {
+		return x.RetryAfterSeconds
+	}
+	return 0
+}
+
 var File_identity_v1_response_identity_response_proto protoreflect.FileDescriptor
 
 const file_identity_v1_response_identity_response_proto_rawDesc = "" +
@@ -260,7 +321,12 @@ const file_identity_v1_response_identity_response_proto_rawDesc = "" +
 	"\rGetMeResponse\x12/\n" +
 	"\x04user\x18\x01 \x01(\v2\x1b.identity.v1.types.UserInfoR\x04user\"+\n" +
 	"\x19RegisterPushTokenResponse\x12\x0e\n" +
-	"\x02ok\x18\x01 \x01(\bR\x02okB:Z8github.com/arm-1234/protos/identity/v1/response;responseb\x06proto3"
+	"\x02ok\x18\x01 \x01(\bR\x02ok\"\x93\x01\n" +
+	"\x12RequestOtpResponse\x12\x12\n" +
+	"\x04sent\x18\x01 \x01(\bR\x04sent\x129\n" +
+	"\n" +
+	"expires_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12.\n" +
+	"\x13retry_after_seconds\x18\x03 \x01(\x05R\x11retryAfterSecondsB:Z8github.com/arm-1234/protos/identity/v1/response;responseb\x06proto3"
 
 var (
 	file_identity_v1_response_identity_response_proto_rawDescOnce sync.Once
@@ -274,26 +340,28 @@ func file_identity_v1_response_identity_response_proto_rawDescGZIP() []byte {
 	return file_identity_v1_response_identity_response_proto_rawDescData
 }
 
-var file_identity_v1_response_identity_response_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_identity_v1_response_identity_response_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_identity_v1_response_identity_response_proto_goTypes = []any{
 	(*AuthResponse)(nil),              // 0: identity.v1.response.AuthResponse
 	(*RegisterMerchantResponse)(nil),  // 1: identity.v1.response.RegisterMerchantResponse
 	(*GetMeResponse)(nil),             // 2: identity.v1.response.GetMeResponse
 	(*RegisterPushTokenResponse)(nil), // 3: identity.v1.response.RegisterPushTokenResponse
-	(*timestamppb.Timestamp)(nil),     // 4: google.protobuf.Timestamp
-	(*types.UserInfo)(nil),            // 5: identity.v1.types.UserInfo
+	(*RequestOtpResponse)(nil),        // 4: identity.v1.response.RequestOtpResponse
+	(*timestamppb.Timestamp)(nil),     // 5: google.protobuf.Timestamp
+	(*types.UserInfo)(nil),            // 6: identity.v1.types.UserInfo
 }
 var file_identity_v1_response_identity_response_proto_depIdxs = []int32{
-	4, // 0: identity.v1.response.AuthResponse.expires_at:type_name -> google.protobuf.Timestamp
-	5, // 1: identity.v1.response.AuthResponse.user:type_name -> identity.v1.types.UserInfo
-	4, // 2: identity.v1.response.RegisterMerchantResponse.expires_at:type_name -> google.protobuf.Timestamp
-	5, // 3: identity.v1.response.RegisterMerchantResponse.user:type_name -> identity.v1.types.UserInfo
-	5, // 4: identity.v1.response.GetMeResponse.user:type_name -> identity.v1.types.UserInfo
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	5, // 0: identity.v1.response.AuthResponse.expires_at:type_name -> google.protobuf.Timestamp
+	6, // 1: identity.v1.response.AuthResponse.user:type_name -> identity.v1.types.UserInfo
+	5, // 2: identity.v1.response.RegisterMerchantResponse.expires_at:type_name -> google.protobuf.Timestamp
+	6, // 3: identity.v1.response.RegisterMerchantResponse.user:type_name -> identity.v1.types.UserInfo
+	6, // 4: identity.v1.response.GetMeResponse.user:type_name -> identity.v1.types.UserInfo
+	5, // 5: identity.v1.response.RequestOtpResponse.expires_at:type_name -> google.protobuf.Timestamp
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_identity_v1_response_identity_response_proto_init() }
@@ -307,7 +375,7 @@ func file_identity_v1_response_identity_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_response_identity_response_proto_rawDesc), len(file_identity_v1_response_identity_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

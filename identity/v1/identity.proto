@@ -75,6 +75,22 @@ service Identity {
       body: "*"
     };
   }
+
+  // RequestOtp delivers a one-time code to the caller's identifier.
+  rpc RequestOtp (identity.v1.request.RequestOtpRequest) returns (identity.v1.response.RequestOtpResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/otp:request"
+      body: "*"
+    };
+  }
+
+  // VerifyOtp exchanges a valid code for an auth token, creating the user if new.
+  rpc VerifyOtp (identity.v1.request.VerifyOtpRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/otp:verify"
+      body: "*"
+    };
+  }
 }
 
 enum ErrorReason {
@@ -86,4 +102,8 @@ enum ErrorReason {
   IDENTITY_UNAUTHENTICATED = 4 [(errors.code) = 401];
   IDENTITY_INVALID_CREDENTIALS = 5 [(errors.code) = 401];
   IDENTITY_PASSWORD_REQUIRED = 6 [(errors.code) = 409];
+  IDENTITY_OTP_INVALID = 7 [(errors.code) = 401];
+  IDENTITY_OTP_EXPIRED = 8 [(errors.code) = 410];
+  IDENTITY_OTP_RATE_LIMITED = 9 [(errors.code) = 429];
+  IDENTITY_OTP_DELIVERY_FAILED = 10 [(errors.code) = 502];
 }

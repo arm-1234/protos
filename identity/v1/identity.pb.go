@@ -35,18 +35,26 @@ const (
 	ErrorReason_IDENTITY_UNAUTHENTICATED     ErrorReason = 4
 	ErrorReason_IDENTITY_INVALID_CREDENTIALS ErrorReason = 5
 	ErrorReason_IDENTITY_PASSWORD_REQUIRED   ErrorReason = 6
+	ErrorReason_IDENTITY_OTP_INVALID         ErrorReason = 7
+	ErrorReason_IDENTITY_OTP_EXPIRED         ErrorReason = 8
+	ErrorReason_IDENTITY_OTP_RATE_LIMITED    ErrorReason = 9
+	ErrorReason_IDENTITY_OTP_DELIVERY_FAILED ErrorReason = 10
 )
 
 // Enum value maps for ErrorReason.
 var (
 	ErrorReason_name = map[int32]string{
-		0: "IDENTITY_UNSPECIFIED",
-		1: "USER_NOT_FOUND",
-		2: "USER_ALREADY_EXISTS",
-		3: "IDENTITY_INVALID_REQUEST",
-		4: "IDENTITY_UNAUTHENTICATED",
-		5: "IDENTITY_INVALID_CREDENTIALS",
-		6: "IDENTITY_PASSWORD_REQUIRED",
+		0:  "IDENTITY_UNSPECIFIED",
+		1:  "USER_NOT_FOUND",
+		2:  "USER_ALREADY_EXISTS",
+		3:  "IDENTITY_INVALID_REQUEST",
+		4:  "IDENTITY_UNAUTHENTICATED",
+		5:  "IDENTITY_INVALID_CREDENTIALS",
+		6:  "IDENTITY_PASSWORD_REQUIRED",
+		7:  "IDENTITY_OTP_INVALID",
+		8:  "IDENTITY_OTP_EXPIRED",
+		9:  "IDENTITY_OTP_RATE_LIMITED",
+		10: "IDENTITY_OTP_DELIVERY_FAILED",
 	}
 	ErrorReason_value = map[string]int32{
 		"IDENTITY_UNSPECIFIED":         0,
@@ -56,6 +64,10 @@ var (
 		"IDENTITY_UNAUTHENTICATED":     4,
 		"IDENTITY_INVALID_CREDENTIALS": 5,
 		"IDENTITY_PASSWORD_REQUIRED":   6,
+		"IDENTITY_OTP_INVALID":         7,
+		"IDENTITY_OTP_EXPIRED":         8,
+		"IDENTITY_OTP_RATE_LIMITED":    9,
+		"IDENTITY_OTP_DELIVERY_FAILED": 10,
 	}
 )
 
@@ -90,7 +102,7 @@ var File_identity_v1_identity_proto protoreflect.FileDescriptor
 
 const file_identity_v1_identity_proto_rawDesc = "" +
 	"\n" +
-	"\x1aidentity/v1/identity.proto\x12\videntity.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a*identity/v1/request/identity_request.proto\x1a,identity/v1/response/identity_response.proto*\x82\x02\n" +
+	"\x1aidentity/v1/identity.proto\x12\videntity.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a*identity/v1/request/identity_request.proto\x1a,identity/v1/response/identity_response.proto*\x8f\x03\n" +
 	"\vErrorReason\x12\x1e\n" +
 	"\x14IDENTITY_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12\x18\n" +
 	"\x0eUSER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1d\n" +
@@ -98,7 +110,13 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\x18IDENTITY_INVALID_REQUEST\x10\x03\x1a\x04\xa8E\x90\x03\x12\"\n" +
 	"\x18IDENTITY_UNAUTHENTICATED\x10\x04\x1a\x04\xa8E\x91\x03\x12&\n" +
 	"\x1cIDENTITY_INVALID_CREDENTIALS\x10\x05\x1a\x04\xa8E\x91\x03\x12$\n" +
-	"\x1aIDENTITY_PASSWORD_REQUIRED\x10\x06\x1a\x04\xa8E\x99\x03\x1a\x04\xa0E\xf4\x032\xab\b\n" +
+	"\x1aIDENTITY_PASSWORD_REQUIRED\x10\x06\x1a\x04\xa8E\x99\x03\x12\x1e\n" +
+	"\x14IDENTITY_OTP_INVALID\x10\a\x1a\x04\xa8E\x91\x03\x12\x1e\n" +
+	"\x14IDENTITY_OTP_EXPIRED\x10\b\x1a\x04\xa8E\x9a\x03\x12#\n" +
+	"\x19IDENTITY_OTP_RATE_LIMITED\x10\t\x1a\x04\xa8E\xad\x03\x12&\n" +
+	"\x1cIDENTITY_OTP_DELIVERY_FAILED\x10\n" +
+	"\x1a\x04\xa8E\xf6\x03\x1a\x04\xa0E\xf4\x032\xa4\n" +
+	"\n" +
 	"\bIdentity\x12\x80\x01\n" +
 	"\fRegisterUser\x12(.identity.v1.request.RegisterUserRequest\x1a\".identity.v1.response.AuthResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/auth/users:register\x12\x98\x01\n" +
 	"\x10RegisterMerchant\x12,.identity.v1.request.RegisterMerchantRequest\x1a..identity.v1.response.RegisterMerchantResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/auth/merchants:register\x12{\n" +
@@ -107,7 +125,10 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\rUpdateProfile\x12).identity.v1.request.UpdateProfileRequest\x1a#.identity.v1.response.GetMeResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*2\v/v1/auth/me\x12\x92\x01\n" +
 	"\x18AuthenticateWithProvider\x124.identity.v1.request.AuthenticateWithProviderRequest\x1a\".identity.v1.response.AuthResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/auth/external\x12d\n" +
 	"\x05GetMe\x12!.identity.v1.request.GetMeRequest\x1a#.identity.v1.response.GetMeResponse\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/v1/auth/me\x12\x91\x01\n" +
-	"\x11RegisterPushToken\x12-.identity.v1.request.RegisterPushTokenRequest\x1a/.identity.v1.response.RegisterPushTokenResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/push/registerB+Z)github.com/arm-1234/protos/identity/v1;v1b\x06proto3"
+	"\x11RegisterPushToken\x12-.identity.v1.request.RegisterPushTokenRequest\x1a/.identity.v1.response.RegisterPushTokenResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/push/register\x12\x7f\n" +
+	"\n" +
+	"RequestOtp\x12&.identity.v1.request.RequestOtpRequest\x1a(.identity.v1.response.RequestOtpResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/auth/otp:request\x12v\n" +
+	"\tVerifyOtp\x12%.identity.v1.request.VerifyOtpRequest\x1a\".identity.v1.response.AuthResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/v1/auth/otp:verifyB+Z)github.com/arm-1234/protos/identity/v1;v1b\x06proto3"
 
 var (
 	file_identity_v1_identity_proto_rawDescOnce sync.Once
@@ -132,10 +153,13 @@ var file_identity_v1_identity_proto_goTypes = []any{
 	(*request.AuthenticateWithProviderRequest)(nil), // 6: identity.v1.request.AuthenticateWithProviderRequest
 	(*request.GetMeRequest)(nil),                    // 7: identity.v1.request.GetMeRequest
 	(*request.RegisterPushTokenRequest)(nil),        // 8: identity.v1.request.RegisterPushTokenRequest
-	(*response.AuthResponse)(nil),                   // 9: identity.v1.response.AuthResponse
-	(*response.RegisterMerchantResponse)(nil),       // 10: identity.v1.response.RegisterMerchantResponse
-	(*response.GetMeResponse)(nil),                  // 11: identity.v1.response.GetMeResponse
-	(*response.RegisterPushTokenResponse)(nil),      // 12: identity.v1.response.RegisterPushTokenResponse
+	(*request.RequestOtpRequest)(nil),               // 9: identity.v1.request.RequestOtpRequest
+	(*request.VerifyOtpRequest)(nil),                // 10: identity.v1.request.VerifyOtpRequest
+	(*response.AuthResponse)(nil),                   // 11: identity.v1.response.AuthResponse
+	(*response.RegisterMerchantResponse)(nil),       // 12: identity.v1.response.RegisterMerchantResponse
+	(*response.GetMeResponse)(nil),                  // 13: identity.v1.response.GetMeResponse
+	(*response.RegisterPushTokenResponse)(nil),      // 14: identity.v1.response.RegisterPushTokenResponse
+	(*response.RequestOtpResponse)(nil),             // 15: identity.v1.response.RequestOtpResponse
 }
 var file_identity_v1_identity_proto_depIdxs = []int32{
 	1,  // 0: identity.v1.Identity.RegisterUser:input_type -> identity.v1.request.RegisterUserRequest
@@ -146,16 +170,20 @@ var file_identity_v1_identity_proto_depIdxs = []int32{
 	6,  // 5: identity.v1.Identity.AuthenticateWithProvider:input_type -> identity.v1.request.AuthenticateWithProviderRequest
 	7,  // 6: identity.v1.Identity.GetMe:input_type -> identity.v1.request.GetMeRequest
 	8,  // 7: identity.v1.Identity.RegisterPushToken:input_type -> identity.v1.request.RegisterPushTokenRequest
-	9,  // 8: identity.v1.Identity.RegisterUser:output_type -> identity.v1.response.AuthResponse
-	10, // 9: identity.v1.Identity.RegisterMerchant:output_type -> identity.v1.response.RegisterMerchantResponse
-	9,  // 10: identity.v1.Identity.LoginWithPhone:output_type -> identity.v1.response.AuthResponse
-	9,  // 11: identity.v1.Identity.SetPassword:output_type -> identity.v1.response.AuthResponse
-	11, // 12: identity.v1.Identity.UpdateProfile:output_type -> identity.v1.response.GetMeResponse
-	9,  // 13: identity.v1.Identity.AuthenticateWithProvider:output_type -> identity.v1.response.AuthResponse
-	11, // 14: identity.v1.Identity.GetMe:output_type -> identity.v1.response.GetMeResponse
-	12, // 15: identity.v1.Identity.RegisterPushToken:output_type -> identity.v1.response.RegisterPushTokenResponse
-	8,  // [8:16] is the sub-list for method output_type
-	0,  // [0:8] is the sub-list for method input_type
+	9,  // 8: identity.v1.Identity.RequestOtp:input_type -> identity.v1.request.RequestOtpRequest
+	10, // 9: identity.v1.Identity.VerifyOtp:input_type -> identity.v1.request.VerifyOtpRequest
+	11, // 10: identity.v1.Identity.RegisterUser:output_type -> identity.v1.response.AuthResponse
+	12, // 11: identity.v1.Identity.RegisterMerchant:output_type -> identity.v1.response.RegisterMerchantResponse
+	11, // 12: identity.v1.Identity.LoginWithPhone:output_type -> identity.v1.response.AuthResponse
+	11, // 13: identity.v1.Identity.SetPassword:output_type -> identity.v1.response.AuthResponse
+	13, // 14: identity.v1.Identity.UpdateProfile:output_type -> identity.v1.response.GetMeResponse
+	11, // 15: identity.v1.Identity.AuthenticateWithProvider:output_type -> identity.v1.response.AuthResponse
+	13, // 16: identity.v1.Identity.GetMe:output_type -> identity.v1.response.GetMeResponse
+	14, // 17: identity.v1.Identity.RegisterPushToken:output_type -> identity.v1.response.RegisterPushTokenResponse
+	15, // 18: identity.v1.Identity.RequestOtp:output_type -> identity.v1.response.RequestOtpResponse
+	11, // 19: identity.v1.Identity.VerifyOtp:output_type -> identity.v1.response.AuthResponse
+	10, // [10:20] is the sub-list for method output_type
+	0,  // [0:10] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
