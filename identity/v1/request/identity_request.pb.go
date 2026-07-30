@@ -696,6 +696,102 @@ func (x *VerifyOtpRequest) GetExpectedUserType() enums.UserType {
 	return enums.UserType(0)
 }
 
+type RequestPhoneChangeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	NewPhone      string                 `protobuf:"bytes,1,opt,name=new_phone,json=newPhone,proto3" json:"new_phone,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RequestPhoneChangeRequest) Reset() {
+	*x = RequestPhoneChangeRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestPhoneChangeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestPhoneChangeRequest) ProtoMessage() {}
+
+func (x *RequestPhoneChangeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestPhoneChangeRequest.ProtoReflect.Descriptor instead.
+func (*RequestPhoneChangeRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *RequestPhoneChangeRequest) GetNewPhone() string {
+	if x != nil {
+		return x.NewPhone
+	}
+	return ""
+}
+
+type ConfirmPhoneChangeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	NewPhone      string                 `protobuf:"bytes,1,opt,name=new_phone,json=newPhone,proto3" json:"new_phone,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConfirmPhoneChangeRequest) Reset() {
+	*x = ConfirmPhoneChangeRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConfirmPhoneChangeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConfirmPhoneChangeRequest) ProtoMessage() {}
+
+func (x *ConfirmPhoneChangeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConfirmPhoneChangeRequest.ProtoReflect.Descriptor instead.
+func (*ConfirmPhoneChangeRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ConfirmPhoneChangeRequest) GetNewPhone() string {
+	if x != nil {
+		return x.NewPhone
+	}
+	return ""
+}
+
+func (x *ConfirmPhoneChangeRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
 var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
 
 const file_identity_v1_request_identity_request_proto_rawDesc = "" +
@@ -760,7 +856,13 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\x04code\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\n" +
 	"R\x04code\x12=\n" +
 	"\achannel\x18\x03 \x01(\x0e2#.identity.v1.types.enums.OtpChannelR\achannel\x12O\n" +
-	"\x12expected_user_type\x18\x04 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\x10expectedUserTypeB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
+	"\x12expected_user_type\x18\x04 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\x10expectedUserType\"G\n" +
+	"\x19RequestPhoneChangeRequest\x12*\n" +
+	"\tnew_phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14R\bnewPhone\"j\n" +
+	"\x19ConfirmPhoneChangeRequest\x12*\n" +
+	"\tnew_phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14R\bnewPhone\x12!\n" +
+	"\x04code\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\n" +
+	"R\x04codeB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
 
 var (
 	file_identity_v1_request_identity_request_proto_rawDescOnce sync.Once
@@ -774,7 +876,7 @@ func file_identity_v1_request_identity_request_proto_rawDescGZIP() []byte {
 	return file_identity_v1_request_identity_request_proto_rawDescData
 }
 
-var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),             // 0: identity.v1.request.RegisterUserRequest
 	(*RegisterMerchantRequest)(nil),         // 1: identity.v1.request.RegisterMerchantRequest
@@ -786,16 +888,18 @@ var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterPushTokenRequest)(nil),        // 7: identity.v1.request.RegisterPushTokenRequest
 	(*RequestOtpRequest)(nil),               // 8: identity.v1.request.RequestOtpRequest
 	(*VerifyOtpRequest)(nil),                // 9: identity.v1.request.VerifyOtpRequest
-	(enums.UserType)(0),                     // 10: identity.v1.types.enums.UserType
-	(enums.OtpChannel)(0),                   // 11: identity.v1.types.enums.OtpChannel
+	(*RequestPhoneChangeRequest)(nil),       // 10: identity.v1.request.RequestPhoneChangeRequest
+	(*ConfirmPhoneChangeRequest)(nil),       // 11: identity.v1.request.ConfirmPhoneChangeRequest
+	(enums.UserType)(0),                     // 12: identity.v1.types.enums.UserType
+	(enums.OtpChannel)(0),                   // 13: identity.v1.types.enums.OtpChannel
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	10, // 0: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
-	10, // 1: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	11, // 2: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	10, // 3: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	11, // 4: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	10, // 5: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	12, // 0: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	12, // 1: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	13, // 2: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	12, // 3: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	13, // 4: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	12, // 5: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
 	6,  // [6:6] is the sub-list for method output_type
 	6,  // [6:6] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
@@ -814,7 +918,7 @@ func file_identity_v1_request_identity_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_request_identity_request_proto_rawDesc), len(file_identity_v1_request_identity_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

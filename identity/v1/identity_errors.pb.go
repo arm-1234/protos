@@ -154,3 +154,15 @@ func IsIdentityWrongApp(err error) bool {
 func ErrorIdentityWrongApp(format string, args ...interface{}) *errors.Error {
 	return errors.New(403, ErrorReason_IDENTITY_WRONG_APP.String(), fmt.Sprintf(format, args...))
 }
+
+func IsIdentityPhoneTaken(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_PHONE_TAKEN.String() && e.Code == 409
+}
+
+func ErrorIdentityPhoneTaken(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_IDENTITY_PHONE_TAKEN.String(), fmt.Sprintf(format, args...))
+}

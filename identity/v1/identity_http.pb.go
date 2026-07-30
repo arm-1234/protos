@@ -22,24 +22,28 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationIdentityAuthenticateWithProvider = "/identity.v1.Identity/AuthenticateWithProvider"
+const OperationIdentityConfirmPhoneChange = "/identity.v1.Identity/ConfirmPhoneChange"
 const OperationIdentityGetMe = "/identity.v1.Identity/GetMe"
 const OperationIdentityLoginWithPhone = "/identity.v1.Identity/LoginWithPhone"
 const OperationIdentityRegisterMerchant = "/identity.v1.Identity/RegisterMerchant"
 const OperationIdentityRegisterPushToken = "/identity.v1.Identity/RegisterPushToken"
 const OperationIdentityRegisterUser = "/identity.v1.Identity/RegisterUser"
 const OperationIdentityRequestOtp = "/identity.v1.Identity/RequestOtp"
+const OperationIdentityRequestPhoneChange = "/identity.v1.Identity/RequestPhoneChange"
 const OperationIdentitySetPassword = "/identity.v1.Identity/SetPassword"
 const OperationIdentityUpdateProfile = "/identity.v1.Identity/UpdateProfile"
 const OperationIdentityVerifyOtp = "/identity.v1.Identity/VerifyOtp"
 
 type IdentityHTTPServer interface {
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
+	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
+	RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error)
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
@@ -57,6 +61,8 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.POST("/v1/push/register", _Identity_RegisterPushToken0_HTTP_Handler(srv))
 	r.POST("/v1/auth/otp:request", _Identity_RequestOtp0_HTTP_Handler(srv))
 	r.POST("/v1/auth/otp:verify", _Identity_VerifyOtp0_HTTP_Handler(srv))
+	r.POST("/v1/me/phone:request", _Identity_RequestPhoneChange0_HTTP_Handler(srv))
+	r.POST("/v1/me/phone:confirm", _Identity_ConfirmPhoneChange0_HTTP_Handler(srv))
 }
 
 func _Identity_RegisterUser0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
@@ -276,14 +282,60 @@ func _Identity_VerifyOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Con
 	}
 }
 
+func _Identity_RequestPhoneChange0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RequestPhoneChangeRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityRequestPhoneChange)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RequestPhoneChange(ctx, req.(*request.RequestPhoneChangeRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RequestOtpResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Identity_ConfirmPhoneChange0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ConfirmPhoneChangeRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityConfirmPhoneChange)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ConfirmPhoneChange(ctx, req.(*request.ConfirmPhoneChangeRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetMeResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type IdentityHTTPClient interface {
 	AuthenticateWithProvider(ctx context.Context, req *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
+	ConfirmPhoneChange(ctx context.Context, req *request.ConfirmPhoneChangeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
 	GetMe(ctx context.Context, req *request.GetMeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
 	LoginWithPhone(ctx context.Context, req *request.LoginWithPhoneRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	RegisterMerchant(ctx context.Context, req *request.RegisterMerchantRequest, opts ...http.CallOption) (rsp *response.RegisterMerchantResponse, err error)
 	RegisterPushToken(ctx context.Context, req *request.RegisterPushTokenRequest, opts ...http.CallOption) (rsp *response.RegisterPushTokenResponse, err error)
 	RegisterUser(ctx context.Context, req *request.RegisterUserRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	RequestOtp(ctx context.Context, req *request.RequestOtpRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
+	RequestPhoneChange(ctx context.Context, req *request.RequestPhoneChangeRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
 	SetPassword(ctx context.Context, req *request.SetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	UpdateProfile(ctx context.Context, req *request.UpdateProfileRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
 	VerifyOtp(ctx context.Context, req *request.VerifyOtpRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
@@ -302,6 +354,19 @@ func (c *IdentityHTTPClientImpl) AuthenticateWithProvider(ctx context.Context, i
 	pattern := "/v1/auth/external"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationIdentityAuthenticateWithProvider))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *IdentityHTTPClientImpl) ConfirmPhoneChange(ctx context.Context, in *request.ConfirmPhoneChangeRequest, opts ...http.CallOption) (*response.GetMeResponse, error) {
+	var out response.GetMeResponse
+	pattern := "/v1/me/phone:confirm"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityConfirmPhoneChange))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -380,6 +445,19 @@ func (c *IdentityHTTPClientImpl) RequestOtp(ctx context.Context, in *request.Req
 	pattern := "/v1/auth/otp:request"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationIdentityRequestOtp))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *IdentityHTTPClientImpl) RequestPhoneChange(ctx context.Context, in *request.RequestPhoneChangeRequest, opts ...http.CallOption) (*response.RequestOtpResponse, error) {
+	var out response.RequestOtpResponse
+	pattern := "/v1/me/phone:request"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityRequestPhoneChange))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

@@ -31,6 +31,8 @@ const (
 	Identity_RegisterPushToken_FullMethodName        = "/identity.v1.Identity/RegisterPushToken"
 	Identity_RequestOtp_FullMethodName               = "/identity.v1.Identity/RequestOtp"
 	Identity_VerifyOtp_FullMethodName                = "/identity.v1.Identity/VerifyOtp"
+	Identity_RequestPhoneChange_FullMethodName       = "/identity.v1.Identity/RequestPhoneChange"
+	Identity_ConfirmPhoneChange_FullMethodName       = "/identity.v1.Identity/ConfirmPhoneChange"
 )
 
 // IdentityClient is the client API for Identity service.
@@ -47,6 +49,8 @@ type IdentityClient interface {
 	RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error)
 	RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
 	VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
+	RequestPhoneChange(ctx context.Context, in *request.RequestPhoneChangeRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
+	ConfirmPhoneChange(ctx context.Context, in *request.ConfirmPhoneChangeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 }
 
 type identityClient struct {
@@ -157,6 +161,26 @@ func (c *identityClient) VerifyOtp(ctx context.Context, in *request.VerifyOtpReq
 	return out, nil
 }
 
+func (c *identityClient) RequestPhoneChange(ctx context.Context, in *request.RequestPhoneChangeRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RequestOtpResponse)
+	err := c.cc.Invoke(ctx, Identity_RequestPhoneChange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) ConfirmPhoneChange(ctx context.Context, in *request.ConfirmPhoneChangeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetMeResponse)
+	err := c.cc.Invoke(ctx, Identity_ConfirmPhoneChange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentityServer is the server API for Identity service.
 // All implementations must embed UnimplementedIdentityServer
 // for forward compatibility.
@@ -171,6 +195,8 @@ type IdentityServer interface {
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
+	RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error)
+	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
 	mustEmbedUnimplementedIdentityServer()
 }
 
@@ -210,6 +236,12 @@ func (UnimplementedIdentityServer) RequestOtp(context.Context, *request.RequestO
 }
 func (UnimplementedIdentityServer) VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method VerifyOtp not implemented")
+}
+func (UnimplementedIdentityServer) RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RequestPhoneChange not implemented")
+}
+func (UnimplementedIdentityServer) ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ConfirmPhoneChange not implemented")
 }
 func (UnimplementedIdentityServer) mustEmbedUnimplementedIdentityServer() {}
 func (UnimplementedIdentityServer) testEmbeddedByValue()                  {}
@@ -412,6 +444,42 @@ func _Identity_VerifyOtp_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identity_RequestPhoneChange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RequestPhoneChangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).RequestPhoneChange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_RequestPhoneChange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).RequestPhoneChange(ctx, req.(*request.RequestPhoneChangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_ConfirmPhoneChange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ConfirmPhoneChangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).ConfirmPhoneChange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_ConfirmPhoneChange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).ConfirmPhoneChange(ctx, req.(*request.ConfirmPhoneChangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Identity_ServiceDesc is the grpc.ServiceDesc for Identity service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -458,6 +526,14 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyOtp",
 			Handler:    _Identity_VerifyOtp_Handler,
+		},
+		{
+			MethodName: "RequestPhoneChange",
+			Handler:    _Identity_RequestPhoneChange_Handler,
+		},
+		{
+			MethodName: "ConfirmPhoneChange",
+			Handler:    _Identity_ConfirmPhoneChange_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

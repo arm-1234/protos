@@ -1519,3 +1519,240 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = VerifyOtpRequestValidationError{}
+
+// Validate checks the field values on RequestPhoneChangeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestPhoneChangeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RequestPhoneChangeRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RequestPhoneChangeRequestMultiError, or nil if none found.
+func (m *RequestPhoneChangeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RequestPhoneChangeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetNewPhone()); l < 6 || l > 20 {
+		err := RequestPhoneChangeRequestValidationError{
+			field:  "NewPhone",
+			reason: "value length must be between 6 and 20 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RequestPhoneChangeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RequestPhoneChangeRequestMultiError is an error wrapping multiple validation
+// errors returned by RequestPhoneChangeRequest.ValidateAll() if the
+// designated constraints aren't met.
+type RequestPhoneChangeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RequestPhoneChangeRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RequestPhoneChangeRequestMultiError) AllErrors() []error { return m }
+
+// RequestPhoneChangeRequestValidationError is the validation error returned by
+// RequestPhoneChangeRequest.Validate if the designated constraints aren't met.
+type RequestPhoneChangeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RequestPhoneChangeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RequestPhoneChangeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RequestPhoneChangeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RequestPhoneChangeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RequestPhoneChangeRequestValidationError) ErrorName() string {
+	return "RequestPhoneChangeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RequestPhoneChangeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRequestPhoneChangeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RequestPhoneChangeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RequestPhoneChangeRequestValidationError{}
+
+// Validate checks the field values on ConfirmPhoneChangeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ConfirmPhoneChangeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ConfirmPhoneChangeRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ConfirmPhoneChangeRequestMultiError, or nil if none found.
+func (m *ConfirmPhoneChangeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ConfirmPhoneChangeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetNewPhone()); l < 6 || l > 20 {
+		err := ConfirmPhoneChangeRequestValidationError{
+			field:  "NewPhone",
+			reason: "value length must be between 6 and 20 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetCode()); l < 4 || l > 10 {
+		err := ConfirmPhoneChangeRequestValidationError{
+			field:  "Code",
+			reason: "value length must be between 4 and 10 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ConfirmPhoneChangeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ConfirmPhoneChangeRequestMultiError is an error wrapping multiple validation
+// errors returned by ConfirmPhoneChangeRequest.ValidateAll() if the
+// designated constraints aren't met.
+type ConfirmPhoneChangeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ConfirmPhoneChangeRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ConfirmPhoneChangeRequestMultiError) AllErrors() []error { return m }
+
+// ConfirmPhoneChangeRequestValidationError is the validation error returned by
+// ConfirmPhoneChangeRequest.Validate if the designated constraints aren't met.
+type ConfirmPhoneChangeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ConfirmPhoneChangeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ConfirmPhoneChangeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ConfirmPhoneChangeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ConfirmPhoneChangeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ConfirmPhoneChangeRequestValidationError) ErrorName() string {
+	return "ConfirmPhoneChangeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ConfirmPhoneChangeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sConfirmPhoneChangeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ConfirmPhoneChangeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ConfirmPhoneChangeRequestValidationError{}

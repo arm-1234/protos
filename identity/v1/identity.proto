@@ -78,6 +78,20 @@ service Identity {
       body: "*"
     };
   }
+
+  rpc RequestPhoneChange (identity.v1.request.RequestPhoneChangeRequest) returns (identity.v1.response.RequestOtpResponse) {
+    option (google.api.http) = {
+      post: "/v1/me/phone:request"
+      body: "*"
+    };
+  }
+
+  rpc ConfirmPhoneChange (identity.v1.request.ConfirmPhoneChangeRequest) returns (identity.v1.response.GetMeResponse) {
+    option (google.api.http) = {
+      post: "/v1/me/phone:confirm"
+      body: "*"
+    };
+  }
 }
 
 enum ErrorReason {
@@ -94,4 +108,5 @@ enum ErrorReason {
   IDENTITY_OTP_RATE_LIMITED = 9 [(errors.code) = 429];
   IDENTITY_OTP_DELIVERY_FAILED = 10 [(errors.code) = 502];
   IDENTITY_WRONG_APP = 11 [(errors.code) = 403];
+  IDENTITY_PHONE_TAKEN = 12 [(errors.code) = 409];
 }
