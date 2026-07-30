@@ -13,6 +13,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -213,17 +214,110 @@ func (x *GetOrderRequest) GetOrderId() string {
 	return ""
 }
 
+type OrderFilter struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        enums.OrderStatus      `protobuf:"varint,1,opt,name=status,proto3,enum=order.v1.types.enums.OrderStatus" json:"status,omitempty"`
+	PaymentStatus enums.PaymentStatus    `protobuf:"varint,2,opt,name=payment_status,json=paymentStatus,proto3,enum=order.v1.types.enums.PaymentStatus" json:"payment_status,omitempty"`
+	PlacedFrom    *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=placed_from,json=placedFrom,proto3" json:"placed_from,omitempty"`
+	PlacedTo      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=placed_to,json=placedTo,proto3" json:"placed_to,omitempty"`
+	MinAmount     float64                `protobuf:"fixed64,5,opt,name=min_amount,json=minAmount,proto3" json:"min_amount,omitempty"`
+	MaxAmount     float64                `protobuf:"fixed64,6,opt,name=max_amount,json=maxAmount,proto3" json:"max_amount,omitempty"`
+	SortBy        enums.OrderSortBy      `protobuf:"varint,7,opt,name=sort_by,json=sortBy,proto3,enum=order.v1.types.enums.OrderSortBy" json:"sort_by,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderFilter) Reset() {
+	*x = OrderFilter{}
+	mi := &file_order_v1_request_order_request_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderFilter) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderFilter) ProtoMessage() {}
+
+func (x *OrderFilter) ProtoReflect() protoreflect.Message {
+	mi := &file_order_v1_request_order_request_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderFilter.ProtoReflect.Descriptor instead.
+func (*OrderFilter) Descriptor() ([]byte, []int) {
+	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *OrderFilter) GetStatus() enums.OrderStatus {
+	if x != nil {
+		return x.Status
+	}
+	return enums.OrderStatus(0)
+}
+
+func (x *OrderFilter) GetPaymentStatus() enums.PaymentStatus {
+	if x != nil {
+		return x.PaymentStatus
+	}
+	return enums.PaymentStatus(0)
+}
+
+func (x *OrderFilter) GetPlacedFrom() *timestamppb.Timestamp {
+	if x != nil {
+		return x.PlacedFrom
+	}
+	return nil
+}
+
+func (x *OrderFilter) GetPlacedTo() *timestamppb.Timestamp {
+	if x != nil {
+		return x.PlacedTo
+	}
+	return nil
+}
+
+func (x *OrderFilter) GetMinAmount() float64 {
+	if x != nil {
+		return x.MinAmount
+	}
+	return 0
+}
+
+func (x *OrderFilter) GetMaxAmount() float64 {
+	if x != nil {
+		return x.MaxAmount
+	}
+	return 0
+}
+
+func (x *OrderFilter) GetSortBy() enums.OrderSortBy {
+	if x != nil {
+		return x.SortBy
+	}
+	return enums.OrderSortBy(0)
+}
+
 type ListMyOrdersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PageNumber    int64                  `protobuf:"varint,1,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
 	PageSize      int64                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Filter        *OrderFilter           `protobuf:"bytes,3,opt,name=filter,proto3" json:"filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ListMyOrdersRequest) Reset() {
 	*x = ListMyOrdersRequest{}
-	mi := &file_order_v1_request_order_request_proto_msgTypes[3]
+	mi := &file_order_v1_request_order_request_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -235,7 +329,7 @@ func (x *ListMyOrdersRequest) String() string {
 func (*ListMyOrdersRequest) ProtoMessage() {}
 
 func (x *ListMyOrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_order_v1_request_order_request_proto_msgTypes[3]
+	mi := &file_order_v1_request_order_request_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -248,7 +342,7 @@ func (x *ListMyOrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMyOrdersRequest.ProtoReflect.Descriptor instead.
 func (*ListMyOrdersRequest) Descriptor() ([]byte, []int) {
-	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{3}
+	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ListMyOrdersRequest) GetPageNumber() int64 {
@@ -265,19 +359,27 @@ func (x *ListMyOrdersRequest) GetPageSize() int64 {
 	return 0
 }
 
+func (x *ListMyOrdersRequest) GetFilter() *OrderFilter {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
 type ListMerchantOrdersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
 	Status        enums.OrderStatus      `protobuf:"varint,2,opt,name=status,proto3,enum=order.v1.types.enums.OrderStatus" json:"status,omitempty"`
 	PageNumber    int64                  `protobuf:"varint,3,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
 	PageSize      int64                  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Filter        *OrderFilter           `protobuf:"bytes,5,opt,name=filter,proto3" json:"filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ListMerchantOrdersRequest) Reset() {
 	*x = ListMerchantOrdersRequest{}
-	mi := &file_order_v1_request_order_request_proto_msgTypes[4]
+	mi := &file_order_v1_request_order_request_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -289,7 +391,7 @@ func (x *ListMerchantOrdersRequest) String() string {
 func (*ListMerchantOrdersRequest) ProtoMessage() {}
 
 func (x *ListMerchantOrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_order_v1_request_order_request_proto_msgTypes[4]
+	mi := &file_order_v1_request_order_request_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -302,7 +404,7 @@ func (x *ListMerchantOrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMerchantOrdersRequest.ProtoReflect.Descriptor instead.
 func (*ListMerchantOrdersRequest) Descriptor() ([]byte, []int) {
-	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{4}
+	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListMerchantOrdersRequest) GetMerchantId() string {
@@ -333,6 +435,13 @@ func (x *ListMerchantOrdersRequest) GetPageSize() int64 {
 	return 0
 }
 
+func (x *ListMerchantOrdersRequest) GetFilter() *OrderFilter {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
 type UpdateOrderStatusRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
@@ -343,7 +452,7 @@ type UpdateOrderStatusRequest struct {
 
 func (x *UpdateOrderStatusRequest) Reset() {
 	*x = UpdateOrderStatusRequest{}
-	mi := &file_order_v1_request_order_request_proto_msgTypes[5]
+	mi := &file_order_v1_request_order_request_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -355,7 +464,7 @@ func (x *UpdateOrderStatusRequest) String() string {
 func (*UpdateOrderStatusRequest) ProtoMessage() {}
 
 func (x *UpdateOrderStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_order_v1_request_order_request_proto_msgTypes[5]
+	mi := &file_order_v1_request_order_request_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -368,7 +477,7 @@ func (x *UpdateOrderStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrderStatusRequest.ProtoReflect.Descriptor instead.
 func (*UpdateOrderStatusRequest) Descriptor() ([]byte, []int) {
-	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{5}
+	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdateOrderStatusRequest) GetOrderId() string {
@@ -389,7 +498,7 @@ var File_order_v1_request_order_request_proto protoreflect.FileDescriptor
 
 const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"\n" +
-	"$order/v1/request/order_request.proto\x12\x10order.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a'order/v1/types/enums/order_status.proto\x1a'order/v1/types/enums/payment_mode.proto\x1a#payment/v1/types/enums/payout.proto\"\\\n" +
+	"$order/v1/request/order_request.proto\x12\x10order.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'order/v1/types/enums/order_status.proto\x1a(order/v1/types/enums/order_sort_by.proto\x1a'order/v1/types/enums/payment_mode.proto\x1a#payment/v1/types/enums/payout.proto\"\\\n" +
 	"\rOrderLineItem\x12&\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tproductId\x12#\n" +
@@ -406,18 +515,31 @@ const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"payoutMode\x120\n" +
 	"\x0fidempotency_key\x18\a \x01(\tB\a\xfaB\x04r\x02\x18@R\x0eidempotencyKey\"5\n" +
 	"\x0fGetOrderRequest\x12\"\n" +
-	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\"S\n" +
+	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\"\xa4\x03\n" +
+	"\vOrderFilter\x129\n" +
+	"\x06status\x18\x01 \x01(\x0e2!.order.v1.types.enums.OrderStatusR\x06status\x12J\n" +
+	"\x0epayment_status\x18\x02 \x01(\x0e2#.order.v1.types.enums.PaymentStatusR\rpaymentStatus\x12;\n" +
+	"\vplaced_from\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"placedFrom\x127\n" +
+	"\tplaced_to\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\bplacedTo\x12-\n" +
+	"\n" +
+	"min_amount\x18\x05 \x01(\x01B\x0e\xfaB\v\x12\t)\x00\x00\x00\x00\x00\x00\x00\x00R\tminAmount\x12-\n" +
+	"\n" +
+	"max_amount\x18\x06 \x01(\x01B\x0e\xfaB\v\x12\t)\x00\x00\x00\x00\x00\x00\x00\x00R\tmaxAmount\x12:\n" +
+	"\asort_by\x18\a \x01(\x0e2!.order.v1.types.enums.OrderSortByR\x06sortBy\"\x8a\x01\n" +
 	"\x13ListMyOrdersRequest\x12\x1f\n" +
 	"\vpage_number\x18\x01 \x01(\x03R\n" +
 	"pageNumber\x12\x1b\n" +
-	"\tpage_size\x18\x02 \x01(\x03R\bpageSize\"\xbe\x01\n" +
+	"\tpage_size\x18\x02 \x01(\x03R\bpageSize\x125\n" +
+	"\x06filter\x18\x03 \x01(\v2\x1d.order.v1.request.OrderFilterR\x06filter\"\xf5\x01\n" +
 	"\x19ListMerchantOrdersRequest\x12(\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
 	"merchantId\x129\n" +
 	"\x06status\x18\x02 \x01(\x0e2!.order.v1.types.enums.OrderStatusR\x06status\x12\x1f\n" +
 	"\vpage_number\x18\x03 \x01(\x03R\n" +
 	"pageNumber\x12\x1b\n" +
-	"\tpage_size\x18\x04 \x01(\x03R\bpageSize\"\x89\x01\n" +
+	"\tpage_size\x18\x04 \x01(\x03R\bpageSize\x125\n" +
+	"\x06filter\x18\x05 \x01(\v2\x1d.order.v1.request.OrderFilterR\x06filter\"\x89\x01\n" +
 	"\x18UpdateOrderStatusRequest\x12\"\n" +
 	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\x12I\n" +
 	"\x06status\x18\x02 \x01(\x0e2!.order.v1.types.enums.OrderStatusB\x0e\xe2A\x01\x02\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06statusB5Z3github.com/arm-1234/protos/order/v1/request;requestb\x06proto3"
@@ -434,29 +556,40 @@ func file_order_v1_request_order_request_proto_rawDescGZIP() []byte {
 	return file_order_v1_request_order_request_proto_rawDescData
 }
 
-var file_order_v1_request_order_request_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_order_v1_request_order_request_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_order_v1_request_order_request_proto_goTypes = []any{
 	(*OrderLineItem)(nil),             // 0: order.v1.request.OrderLineItem
 	(*PlaceOrderRequest)(nil),         // 1: order.v1.request.PlaceOrderRequest
 	(*GetOrderRequest)(nil),           // 2: order.v1.request.GetOrderRequest
-	(*ListMyOrdersRequest)(nil),       // 3: order.v1.request.ListMyOrdersRequest
-	(*ListMerchantOrdersRequest)(nil), // 4: order.v1.request.ListMerchantOrdersRequest
-	(*UpdateOrderStatusRequest)(nil),  // 5: order.v1.request.UpdateOrderStatusRequest
-	(enums.PaymentMode)(0),            // 6: order.v1.types.enums.PaymentMode
-	(enums1.PayoutMode)(0),            // 7: payment.v1.types.enums.PayoutMode
-	(enums.OrderStatus)(0),            // 8: order.v1.types.enums.OrderStatus
+	(*OrderFilter)(nil),               // 3: order.v1.request.OrderFilter
+	(*ListMyOrdersRequest)(nil),       // 4: order.v1.request.ListMyOrdersRequest
+	(*ListMerchantOrdersRequest)(nil), // 5: order.v1.request.ListMerchantOrdersRequest
+	(*UpdateOrderStatusRequest)(nil),  // 6: order.v1.request.UpdateOrderStatusRequest
+	(enums.PaymentMode)(0),            // 7: order.v1.types.enums.PaymentMode
+	(enums1.PayoutMode)(0),            // 8: payment.v1.types.enums.PayoutMode
+	(enums.OrderStatus)(0),            // 9: order.v1.types.enums.OrderStatus
+	(enums.PaymentStatus)(0),          // 10: order.v1.types.enums.PaymentStatus
+	(*timestamppb.Timestamp)(nil),     // 11: google.protobuf.Timestamp
+	(enums.OrderSortBy)(0),            // 12: order.v1.types.enums.OrderSortBy
 }
 var file_order_v1_request_order_request_proto_depIdxs = []int32{
-	0, // 0: order.v1.request.PlaceOrderRequest.items:type_name -> order.v1.request.OrderLineItem
-	6, // 1: order.v1.request.PlaceOrderRequest.payment_mode:type_name -> order.v1.types.enums.PaymentMode
-	7, // 2: order.v1.request.PlaceOrderRequest.payout_mode:type_name -> payment.v1.types.enums.PayoutMode
-	8, // 3: order.v1.request.ListMerchantOrdersRequest.status:type_name -> order.v1.types.enums.OrderStatus
-	8, // 4: order.v1.request.UpdateOrderStatusRequest.status:type_name -> order.v1.types.enums.OrderStatus
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	0,  // 0: order.v1.request.PlaceOrderRequest.items:type_name -> order.v1.request.OrderLineItem
+	7,  // 1: order.v1.request.PlaceOrderRequest.payment_mode:type_name -> order.v1.types.enums.PaymentMode
+	8,  // 2: order.v1.request.PlaceOrderRequest.payout_mode:type_name -> payment.v1.types.enums.PayoutMode
+	9,  // 3: order.v1.request.OrderFilter.status:type_name -> order.v1.types.enums.OrderStatus
+	10, // 4: order.v1.request.OrderFilter.payment_status:type_name -> order.v1.types.enums.PaymentStatus
+	11, // 5: order.v1.request.OrderFilter.placed_from:type_name -> google.protobuf.Timestamp
+	11, // 6: order.v1.request.OrderFilter.placed_to:type_name -> google.protobuf.Timestamp
+	12, // 7: order.v1.request.OrderFilter.sort_by:type_name -> order.v1.types.enums.OrderSortBy
+	3,  // 8: order.v1.request.ListMyOrdersRequest.filter:type_name -> order.v1.request.OrderFilter
+	9,  // 9: order.v1.request.ListMerchantOrdersRequest.status:type_name -> order.v1.types.enums.OrderStatus
+	3,  // 10: order.v1.request.ListMerchantOrdersRequest.filter:type_name -> order.v1.request.OrderFilter
+	9,  // 11: order.v1.request.UpdateOrderStatusRequest.status:type_name -> order.v1.types.enums.OrderStatus
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_order_v1_request_order_request_proto_init() }
@@ -470,7 +603,7 @@ func file_order_v1_request_order_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_v1_request_order_request_proto_rawDesc), len(file_order_v1_request_order_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

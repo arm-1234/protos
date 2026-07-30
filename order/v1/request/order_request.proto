@@ -4,7 +4,9 @@ package order.v1.request;
 
 import "google/api/field_behavior.proto";
 import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
 import "order/v1/types/enums/order_status.proto";
+import "order/v1/types/enums/order_sort_by.proto";
 import "order/v1/types/enums/payment_mode.proto";
 import "payment/v1/types/enums/payout.proto";
 
@@ -34,9 +36,20 @@ message GetOrderRequest {
   string order_id = 1 [(validate.rules).string.min_len = 1];
 }
 
+message OrderFilter {
+  order.v1.types.enums.OrderStatus status = 1;
+  order.v1.types.enums.PaymentStatus payment_status = 2;
+  google.protobuf.Timestamp placed_from = 3;
+  google.protobuf.Timestamp placed_to = 4;
+  double min_amount = 5 [(validate.rules).double.gte = 0];
+  double max_amount = 6 [(validate.rules).double.gte = 0];
+  order.v1.types.enums.OrderSortBy sort_by = 7;
+}
+
 message ListMyOrdersRequest {
   int64 page_number = 1;
   int64 page_size = 2;
+  OrderFilter filter = 3;
 }
 
 message ListMerchantOrdersRequest {
@@ -44,6 +57,7 @@ message ListMerchantOrdersRequest {
   order.v1.types.enums.OrderStatus status = 2;
   int64 page_number = 3;
   int64 page_size = 4;
+  OrderFilter filter = 5;
 }
 
 message UpdateOrderStatusRequest {

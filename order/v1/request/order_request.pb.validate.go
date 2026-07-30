@@ -495,6 +495,191 @@ var _ interface {
 	ErrorName() string
 } = GetOrderRequestValidationError{}
 
+// Validate checks the field values on OrderFilter with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *OrderFilter) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OrderFilter with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in OrderFilterMultiError, or
+// nil if none found.
+func (m *OrderFilter) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OrderFilter) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	// no validation rules for PaymentStatus
+
+	if all {
+		switch v := interface{}(m.GetPlacedFrom()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OrderFilterValidationError{
+					field:  "PlacedFrom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OrderFilterValidationError{
+					field:  "PlacedFrom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPlacedFrom()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OrderFilterValidationError{
+				field:  "PlacedFrom",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetPlacedTo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OrderFilterValidationError{
+					field:  "PlacedTo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OrderFilterValidationError{
+					field:  "PlacedTo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPlacedTo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OrderFilterValidationError{
+				field:  "PlacedTo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetMinAmount() < 0 {
+		err := OrderFilterValidationError{
+			field:  "MinAmount",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetMaxAmount() < 0 {
+		err := OrderFilterValidationError{
+			field:  "MaxAmount",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for SortBy
+
+	if len(errors) > 0 {
+		return OrderFilterMultiError(errors)
+	}
+
+	return nil
+}
+
+// OrderFilterMultiError is an error wrapping multiple validation errors
+// returned by OrderFilter.ValidateAll() if the designated constraints aren't met.
+type OrderFilterMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OrderFilterMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OrderFilterMultiError) AllErrors() []error { return m }
+
+// OrderFilterValidationError is the validation error returned by
+// OrderFilter.Validate if the designated constraints aren't met.
+type OrderFilterValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OrderFilterValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OrderFilterValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OrderFilterValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OrderFilterValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OrderFilterValidationError) ErrorName() string { return "OrderFilterValidationError" }
+
+// Error satisfies the builtin error interface
+func (e OrderFilterValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOrderFilter.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OrderFilterValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OrderFilterValidationError{}
+
 // Validate checks the field values on ListMyOrdersRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -520,6 +705,35 @@ func (m *ListMyOrdersRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	if all {
+		switch v := interface{}(m.GetFilter()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListMyOrdersRequestValidationError{
+					field:  "Filter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListMyOrdersRequestValidationError{
+					field:  "Filter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFilter()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListMyOrdersRequestValidationError{
+				field:  "Filter",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return ListMyOrdersRequestMultiError(errors)
@@ -639,6 +853,35 @@ func (m *ListMerchantOrdersRequest) validate(all bool) error {
 	// no validation rules for PageNumber
 
 	// no validation rules for PageSize
+
+	if all {
+		switch v := interface{}(m.GetFilter()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListMerchantOrdersRequestValidationError{
+					field:  "Filter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListMerchantOrdersRequestValidationError{
+					field:  "Filter",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFilter()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListMerchantOrdersRequestValidationError{
+				field:  "Filter",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return ListMerchantOrdersRequestMultiError(errors)

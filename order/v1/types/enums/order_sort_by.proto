@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package order.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/order/v1/types/enums;enums";
+
+enum OrderSortBy {
+  ORDER_SORT_BY_UNSPECIFIED = 0;
+  ORDER_SORT_BY_DATE_DESC = 1;
+  ORDER_SORT_BY_DATE_ASC = 2;
+  ORDER_SORT_BY_AMOUNT_DESC = 3;
+  ORDER_SORT_BY_AMOUNT_ASC = 4;
+  ORDER_SORT_BY_STATUS = 5;
+}
