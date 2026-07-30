@@ -247,6 +247,66 @@ func (x *MerchantVpa) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type NearbyStore struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Store         *StoreSummary          `protobuf:"bytes,1,opt,name=store,proto3" json:"store,omitempty"`
+	DistanceM     float64                `protobuf:"fixed64,2,opt,name=distance_m,json=distanceM,proto3" json:"distance_m,omitempty"`
+	InRange       bool                   `protobuf:"varint,3,opt,name=in_range,json=inRange,proto3" json:"in_range,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NearbyStore) Reset() {
+	*x = NearbyStore{}
+	mi := &file_merchant_v1_types_merchant_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NearbyStore) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NearbyStore) ProtoMessage() {}
+
+func (x *NearbyStore) ProtoReflect() protoreflect.Message {
+	mi := &file_merchant_v1_types_merchant_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NearbyStore.ProtoReflect.Descriptor instead.
+func (*NearbyStore) Descriptor() ([]byte, []int) {
+	return file_merchant_v1_types_merchant_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *NearbyStore) GetStore() *StoreSummary {
+	if x != nil {
+		return x.Store
+	}
+	return nil
+}
+
+func (x *NearbyStore) GetDistanceM() float64 {
+	if x != nil {
+		return x.DistanceM
+	}
+	return 0
+}
+
+func (x *NearbyStore) GetInRange() bool {
+	if x != nil {
+		return x.InRange
+	}
+	return false
+}
+
 type StoreSummary struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	MerchantId        string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
@@ -264,7 +324,7 @@ type StoreSummary struct {
 
 func (x *StoreSummary) Reset() {
 	*x = StoreSummary{}
-	mi := &file_merchant_v1_types_merchant_proto_msgTypes[2]
+	mi := &file_merchant_v1_types_merchant_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -276,7 +336,7 @@ func (x *StoreSummary) String() string {
 func (*StoreSummary) ProtoMessage() {}
 
 func (x *StoreSummary) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_types_merchant_proto_msgTypes[2]
+	mi := &file_merchant_v1_types_merchant_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -289,7 +349,7 @@ func (x *StoreSummary) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StoreSummary.ProtoReflect.Descriptor instead.
 func (*StoreSummary) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_types_merchant_proto_rawDescGZIP(), []int{2}
+	return file_merchant_v1_types_merchant_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *StoreSummary) GetMerchantId() string {
@@ -387,7 +447,12 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\n" +
 	"is_primary\x18\x04 \x01(\bR\tisPrimary\x129\n" +
 	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xa9\x02\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"~\n" +
+	"\vNearbyStore\x125\n" +
+	"\x05store\x18\x01 \x01(\v2\x1f.merchant.v1.types.StoreSummaryR\x05store\x12\x1d\n" +
+	"\n" +
+	"distance_m\x18\x02 \x01(\x01R\tdistanceM\x12\x19\n" +
+	"\bin_range\x18\x03 \x01(\bR\ainRange\"\xa9\x02\n" +
 	"\fStoreSummary\x12\x1f\n" +
 	"\vmerchant_id\x18\x01 \x01(\tR\n" +
 	"merchantId\x12\x1d\n" +
@@ -413,24 +478,26 @@ func file_merchant_v1_types_merchant_proto_rawDescGZIP() []byte {
 	return file_merchant_v1_types_merchant_proto_rawDescData
 }
 
-var file_merchant_v1_types_merchant_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_merchant_v1_types_merchant_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_merchant_v1_types_merchant_proto_goTypes = []any{
 	(*MerchantInfo)(nil),          // 0: merchant.v1.types.MerchantInfo
 	(*MerchantVpa)(nil),           // 1: merchant.v1.types.MerchantVpa
-	(*StoreSummary)(nil),          // 2: merchant.v1.types.StoreSummary
-	(enums.MerchantStatus)(0),     // 3: merchant.v1.types.enums.MerchantStatus
-	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(*NearbyStore)(nil),           // 2: merchant.v1.types.NearbyStore
+	(*StoreSummary)(nil),          // 3: merchant.v1.types.StoreSummary
+	(enums.MerchantStatus)(0),     // 4: merchant.v1.types.enums.MerchantStatus
+	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
 }
 var file_merchant_v1_types_merchant_proto_depIdxs = []int32{
-	3, // 0: merchant.v1.types.MerchantInfo.status:type_name -> merchant.v1.types.enums.MerchantStatus
-	4, // 1: merchant.v1.types.MerchantInfo.created_at:type_name -> google.protobuf.Timestamp
-	4, // 2: merchant.v1.types.MerchantInfo.updated_at:type_name -> google.protobuf.Timestamp
-	4, // 3: merchant.v1.types.MerchantVpa.created_at:type_name -> google.protobuf.Timestamp
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	4, // 0: merchant.v1.types.MerchantInfo.status:type_name -> merchant.v1.types.enums.MerchantStatus
+	5, // 1: merchant.v1.types.MerchantInfo.created_at:type_name -> google.protobuf.Timestamp
+	5, // 2: merchant.v1.types.MerchantInfo.updated_at:type_name -> google.protobuf.Timestamp
+	5, // 3: merchant.v1.types.MerchantVpa.created_at:type_name -> google.protobuf.Timestamp
+	3, // 4: merchant.v1.types.NearbyStore.store:type_name -> merchant.v1.types.StoreSummary
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_merchant_v1_types_merchant_proto_init() }
@@ -444,7 +511,7 @@ func file_merchant_v1_types_merchant_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_merchant_v1_types_merchant_proto_rawDesc), len(file_merchant_v1_types_merchant_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

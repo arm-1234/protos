@@ -356,6 +356,138 @@ var _ interface {
 	ErrorName() string
 } = MerchantVpaValidationError{}
 
+// Validate checks the field values on NearbyStore with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *NearbyStore) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on NearbyStore with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in NearbyStoreMultiError, or
+// nil if none found.
+func (m *NearbyStore) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *NearbyStore) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetStore()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, NearbyStoreValidationError{
+					field:  "Store",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, NearbyStoreValidationError{
+					field:  "Store",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStore()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return NearbyStoreValidationError{
+				field:  "Store",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for DistanceM
+
+	// no validation rules for InRange
+
+	if len(errors) > 0 {
+		return NearbyStoreMultiError(errors)
+	}
+
+	return nil
+}
+
+// NearbyStoreMultiError is an error wrapping multiple validation errors
+// returned by NearbyStore.ValidateAll() if the designated constraints aren't met.
+type NearbyStoreMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m NearbyStoreMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m NearbyStoreMultiError) AllErrors() []error { return m }
+
+// NearbyStoreValidationError is the validation error returned by
+// NearbyStore.Validate if the designated constraints aren't met.
+type NearbyStoreValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e NearbyStoreValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e NearbyStoreValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e NearbyStoreValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e NearbyStoreValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e NearbyStoreValidationError) ErrorName() string { return "NearbyStoreValidationError" }
+
+// Error satisfies the builtin error interface
+func (e NearbyStoreValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sNearbyStore.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = NearbyStoreValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = NearbyStoreValidationError{}
+
 // Validate checks the field values on StoreSummary with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

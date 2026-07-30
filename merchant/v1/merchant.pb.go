@@ -90,12 +90,15 @@ const file_merchant_v1_merchant_proto_rawDesc = "" +
 	"\x12MERCHANT_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12!\n" +
 	"\x17MERCHANT_ALREADY_EXISTS\x10\x02\x1a\x04\xa8E\x99\x03\x12\"\n" +
 	"\x18MERCHANT_INVALID_REQUEST\x10\x03\x1a\x04\xa8E\x90\x03\x12\x1c\n" +
-	"\x12MERCHANT_FORBIDDEN\x10\x04\x1a\x04\xa8E\x93\x03\x1a\x04\xa0E\xf4\x032\xc8\t\n" +
+	"\x12MERCHANT_FORBIDDEN\x10\x04\x1a\x04\xa8E\x93\x03\x1a\x04\xa0E\xf4\x032\xc8\n" +
+	"\n" +
 	"\bMerchant\x12\x87\x01\n" +
 	"\x0fOnboardMerchant\x12+.merchant.v1.request.OnboardMerchantRequest\x1a-.merchant.v1.response.OnboardMerchantResponse\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/v1/merchants\x12\x86\x01\n" +
 	"\vGetMerchant\x12'.merchant.v1.request.GetMerchantRequest\x1a).merchant.v1.response.GetMerchantResponse\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/merchants/{merchant_id}\x12\x92\x01\n" +
 	"\x0eUpdateMerchant\x12*.merchant.v1.request.UpdateMerchantRequest\x1a,.merchant.v1.response.UpdateMerchantResponse\"&\x82\xd3\xe4\x93\x02 :\x01*2\x1b/v1/merchants/{merchant_id}\x12\x8f\x01\n" +
-	"\x11ResolveStoreByVpa\x12-.merchant.v1.request.ResolveStoreByVpaRequest\x1a/.merchant.v1.response.ResolveStoreByVpaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/stores:resolve\x12\x96\x01\n" +
+	"\x11ResolveStoreByVpa\x12-.merchant.v1.request.ResolveStoreByVpaRequest\x1a/.merchant.v1.response.ResolveStoreByVpaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/stores:resolve\x12~\n" +
+	"\x0eDiscoverStores\x12*.merchant.v1.request.DiscoverStoresRequest\x1a,.merchant.v1.response.DiscoverStoresResponse\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
+	"/v1/stores\x12\x96\x01\n" +
 	"\x10ListMerchantVpas\x12,.merchant.v1.request.ListMerchantVpasRequest\x1a*.merchant.v1.response.MerchantVpasResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /v1/merchants/{merchant_id}/vpas\x12\x95\x01\n" +
 	"\x0eAddMerchantVpa\x12*.merchant.v1.request.AddMerchantVpaRequest\x1a*.merchant.v1.response.MerchantVpasResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /v1/merchants/{merchant_id}/vpas\x12\xa1\x01\n" +
 	"\x11RemoveMerchantVpa\x12-.merchant.v1.request.RemoveMerchantVpaRequest\x1a*.merchant.v1.response.MerchantVpasResponse\"1\x82\xd3\xe4\x93\x02+*)/v1/merchants/{merchant_id}/vpas/{vpa_id}\x12\xac\x01\n" +
@@ -120,35 +123,39 @@ var file_merchant_v1_merchant_proto_goTypes = []any{
 	(*request.GetMerchantRequest)(nil),           // 2: merchant.v1.request.GetMerchantRequest
 	(*request.UpdateMerchantRequest)(nil),        // 3: merchant.v1.request.UpdateMerchantRequest
 	(*request.ResolveStoreByVpaRequest)(nil),     // 4: merchant.v1.request.ResolveStoreByVpaRequest
-	(*request.ListMerchantVpasRequest)(nil),      // 5: merchant.v1.request.ListMerchantVpasRequest
-	(*request.AddMerchantVpaRequest)(nil),        // 6: merchant.v1.request.AddMerchantVpaRequest
-	(*request.RemoveMerchantVpaRequest)(nil),     // 7: merchant.v1.request.RemoveMerchantVpaRequest
-	(*request.SetPrimaryMerchantVpaRequest)(nil), // 8: merchant.v1.request.SetPrimaryMerchantVpaRequest
-	(*response.OnboardMerchantResponse)(nil),     // 9: merchant.v1.response.OnboardMerchantResponse
-	(*response.GetMerchantResponse)(nil),         // 10: merchant.v1.response.GetMerchantResponse
-	(*response.UpdateMerchantResponse)(nil),      // 11: merchant.v1.response.UpdateMerchantResponse
-	(*response.ResolveStoreByVpaResponse)(nil),   // 12: merchant.v1.response.ResolveStoreByVpaResponse
-	(*response.MerchantVpasResponse)(nil),        // 13: merchant.v1.response.MerchantVpasResponse
+	(*request.DiscoverStoresRequest)(nil),        // 5: merchant.v1.request.DiscoverStoresRequest
+	(*request.ListMerchantVpasRequest)(nil),      // 6: merchant.v1.request.ListMerchantVpasRequest
+	(*request.AddMerchantVpaRequest)(nil),        // 7: merchant.v1.request.AddMerchantVpaRequest
+	(*request.RemoveMerchantVpaRequest)(nil),     // 8: merchant.v1.request.RemoveMerchantVpaRequest
+	(*request.SetPrimaryMerchantVpaRequest)(nil), // 9: merchant.v1.request.SetPrimaryMerchantVpaRequest
+	(*response.OnboardMerchantResponse)(nil),     // 10: merchant.v1.response.OnboardMerchantResponse
+	(*response.GetMerchantResponse)(nil),         // 11: merchant.v1.response.GetMerchantResponse
+	(*response.UpdateMerchantResponse)(nil),      // 12: merchant.v1.response.UpdateMerchantResponse
+	(*response.ResolveStoreByVpaResponse)(nil),   // 13: merchant.v1.response.ResolveStoreByVpaResponse
+	(*response.DiscoverStoresResponse)(nil),      // 14: merchant.v1.response.DiscoverStoresResponse
+	(*response.MerchantVpasResponse)(nil),        // 15: merchant.v1.response.MerchantVpasResponse
 }
 var file_merchant_v1_merchant_proto_depIdxs = []int32{
 	1,  // 0: merchant.v1.Merchant.OnboardMerchant:input_type -> merchant.v1.request.OnboardMerchantRequest
 	2,  // 1: merchant.v1.Merchant.GetMerchant:input_type -> merchant.v1.request.GetMerchantRequest
 	3,  // 2: merchant.v1.Merchant.UpdateMerchant:input_type -> merchant.v1.request.UpdateMerchantRequest
 	4,  // 3: merchant.v1.Merchant.ResolveStoreByVpa:input_type -> merchant.v1.request.ResolveStoreByVpaRequest
-	5,  // 4: merchant.v1.Merchant.ListMerchantVpas:input_type -> merchant.v1.request.ListMerchantVpasRequest
-	6,  // 5: merchant.v1.Merchant.AddMerchantVpa:input_type -> merchant.v1.request.AddMerchantVpaRequest
-	7,  // 6: merchant.v1.Merchant.RemoveMerchantVpa:input_type -> merchant.v1.request.RemoveMerchantVpaRequest
-	8,  // 7: merchant.v1.Merchant.SetPrimaryMerchantVpa:input_type -> merchant.v1.request.SetPrimaryMerchantVpaRequest
-	9,  // 8: merchant.v1.Merchant.OnboardMerchant:output_type -> merchant.v1.response.OnboardMerchantResponse
-	10, // 9: merchant.v1.Merchant.GetMerchant:output_type -> merchant.v1.response.GetMerchantResponse
-	11, // 10: merchant.v1.Merchant.UpdateMerchant:output_type -> merchant.v1.response.UpdateMerchantResponse
-	12, // 11: merchant.v1.Merchant.ResolveStoreByVpa:output_type -> merchant.v1.response.ResolveStoreByVpaResponse
-	13, // 12: merchant.v1.Merchant.ListMerchantVpas:output_type -> merchant.v1.response.MerchantVpasResponse
-	13, // 13: merchant.v1.Merchant.AddMerchantVpa:output_type -> merchant.v1.response.MerchantVpasResponse
-	13, // 14: merchant.v1.Merchant.RemoveMerchantVpa:output_type -> merchant.v1.response.MerchantVpasResponse
-	13, // 15: merchant.v1.Merchant.SetPrimaryMerchantVpa:output_type -> merchant.v1.response.MerchantVpasResponse
-	8,  // [8:16] is the sub-list for method output_type
-	0,  // [0:8] is the sub-list for method input_type
+	5,  // 4: merchant.v1.Merchant.DiscoverStores:input_type -> merchant.v1.request.DiscoverStoresRequest
+	6,  // 5: merchant.v1.Merchant.ListMerchantVpas:input_type -> merchant.v1.request.ListMerchantVpasRequest
+	7,  // 6: merchant.v1.Merchant.AddMerchantVpa:input_type -> merchant.v1.request.AddMerchantVpaRequest
+	8,  // 7: merchant.v1.Merchant.RemoveMerchantVpa:input_type -> merchant.v1.request.RemoveMerchantVpaRequest
+	9,  // 8: merchant.v1.Merchant.SetPrimaryMerchantVpa:input_type -> merchant.v1.request.SetPrimaryMerchantVpaRequest
+	10, // 9: merchant.v1.Merchant.OnboardMerchant:output_type -> merchant.v1.response.OnboardMerchantResponse
+	11, // 10: merchant.v1.Merchant.GetMerchant:output_type -> merchant.v1.response.GetMerchantResponse
+	12, // 11: merchant.v1.Merchant.UpdateMerchant:output_type -> merchant.v1.response.UpdateMerchantResponse
+	13, // 12: merchant.v1.Merchant.ResolveStoreByVpa:output_type -> merchant.v1.response.ResolveStoreByVpaResponse
+	14, // 13: merchant.v1.Merchant.DiscoverStores:output_type -> merchant.v1.response.DiscoverStoresResponse
+	15, // 14: merchant.v1.Merchant.ListMerchantVpas:output_type -> merchant.v1.response.MerchantVpasResponse
+	15, // 15: merchant.v1.Merchant.AddMerchantVpa:output_type -> merchant.v1.response.MerchantVpasResponse
+	15, // 16: merchant.v1.Merchant.RemoveMerchantVpa:output_type -> merchant.v1.response.MerchantVpasResponse
+	15, // 17: merchant.v1.Merchant.SetPrimaryMerchantVpa:output_type -> merchant.v1.response.MerchantVpasResponse
+	9,  // [9:18] is the sub-list for method output_type
+	0,  // [0:9] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

@@ -25,3 +25,9 @@ message ResolveStoreByVpaResponse {
 message MerchantVpasResponse {
   repeated merchant.v1.types.MerchantVpa vpas = 1;
 }
+
+message DiscoverStoresResponse {
+  repeated merchant.v1.types.NearbyStore stores = 1;
+  int32 total = 2;
+  double radius_m = 3;
+}

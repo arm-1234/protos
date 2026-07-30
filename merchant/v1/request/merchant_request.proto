@@ -78,3 +78,12 @@ message SetPrimaryMerchantVpaRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
   string vpa_id = 2 [(validate.rules).string.min_len = 1];
 }
+
+message DiscoverStoresRequest {
+  double latitude = 1;
+  double longitude = 2;
+  double radius_m = 3 [(validate.rules).double = {gte: 0, lte: 100000}];
+  string query = 4 [(validate.rules).string = {ignore_empty: true, max_len: 128}];
+  int32 page_size = 5 [(validate.rules).int32 = {gte: 0, lte: 100}];
+  int32 page = 6 [(validate.rules).int32.gte = 0];
+}

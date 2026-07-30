@@ -36,6 +36,12 @@ service Merchant {
     };
   }
 
+  rpc DiscoverStores (merchant.v1.request.DiscoverStoresRequest) returns (merchant.v1.response.DiscoverStoresResponse) {
+    option (google.api.http) = {
+      get: "/v1/stores"
+    };
+  }
+
   rpc ListMerchantVpas (merchant.v1.request.ListMerchantVpasRequest) returns (merchant.v1.response.MerchantVpasResponse) {
     option (google.api.http) = {
       get: "/v1/merchants/{merchant_id}/vpas"

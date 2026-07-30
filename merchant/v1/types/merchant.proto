@@ -32,6 +32,12 @@ message MerchantVpa {
   google.protobuf.Timestamp created_at = 5;
 }
 
+message NearbyStore {
+  StoreSummary store = 1;
+  double distance_m = 2;
+  bool in_range = 3;
+}
+
 message StoreSummary {
   string merchant_id = 1;
   string store_name = 2;

@@ -25,6 +25,7 @@ const (
 	Merchant_GetMerchant_FullMethodName           = "/merchant.v1.Merchant/GetMerchant"
 	Merchant_UpdateMerchant_FullMethodName        = "/merchant.v1.Merchant/UpdateMerchant"
 	Merchant_ResolveStoreByVpa_FullMethodName     = "/merchant.v1.Merchant/ResolveStoreByVpa"
+	Merchant_DiscoverStores_FullMethodName        = "/merchant.v1.Merchant/DiscoverStores"
 	Merchant_ListMerchantVpas_FullMethodName      = "/merchant.v1.Merchant/ListMerchantVpas"
 	Merchant_AddMerchantVpa_FullMethodName        = "/merchant.v1.Merchant/AddMerchantVpa"
 	Merchant_RemoveMerchantVpa_FullMethodName     = "/merchant.v1.Merchant/RemoveMerchantVpa"
@@ -39,6 +40,7 @@ type MerchantClient interface {
 	GetMerchant(ctx context.Context, in *request.GetMerchantRequest, opts ...grpc.CallOption) (*response.GetMerchantResponse, error)
 	UpdateMerchant(ctx context.Context, in *request.UpdateMerchantRequest, opts ...grpc.CallOption) (*response.UpdateMerchantResponse, error)
 	ResolveStoreByVpa(ctx context.Context, in *request.ResolveStoreByVpaRequest, opts ...grpc.CallOption) (*response.ResolveStoreByVpaResponse, error)
+	DiscoverStores(ctx context.Context, in *request.DiscoverStoresRequest, opts ...grpc.CallOption) (*response.DiscoverStoresResponse, error)
 	ListMerchantVpas(ctx context.Context, in *request.ListMerchantVpasRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
 	AddMerchantVpa(ctx context.Context, in *request.AddMerchantVpaRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
 	RemoveMerchantVpa(ctx context.Context, in *request.RemoveMerchantVpaRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error)
@@ -93,6 +95,16 @@ func (c *merchantClient) ResolveStoreByVpa(ctx context.Context, in *request.Reso
 	return out, nil
 }
 
+func (c *merchantClient) DiscoverStores(ctx context.Context, in *request.DiscoverStoresRequest, opts ...grpc.CallOption) (*response.DiscoverStoresResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.DiscoverStoresResponse)
+	err := c.cc.Invoke(ctx, Merchant_DiscoverStores_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *merchantClient) ListMerchantVpas(ctx context.Context, in *request.ListMerchantVpasRequest, opts ...grpc.CallOption) (*response.MerchantVpasResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.MerchantVpasResponse)
@@ -141,6 +153,7 @@ type MerchantServer interface {
 	GetMerchant(context.Context, *request.GetMerchantRequest) (*response.GetMerchantResponse, error)
 	UpdateMerchant(context.Context, *request.UpdateMerchantRequest) (*response.UpdateMerchantResponse, error)
 	ResolveStoreByVpa(context.Context, *request.ResolveStoreByVpaRequest) (*response.ResolveStoreByVpaResponse, error)
+	DiscoverStores(context.Context, *request.DiscoverStoresRequest) (*response.DiscoverStoresResponse, error)
 	ListMerchantVpas(context.Context, *request.ListMerchantVpasRequest) (*response.MerchantVpasResponse, error)
 	AddMerchantVpa(context.Context, *request.AddMerchantVpaRequest) (*response.MerchantVpasResponse, error)
 	RemoveMerchantVpa(context.Context, *request.RemoveMerchantVpaRequest) (*response.MerchantVpasResponse, error)
@@ -166,6 +179,9 @@ func (UnimplementedMerchantServer) UpdateMerchant(context.Context, *request.Upda
 }
 func (UnimplementedMerchantServer) ResolveStoreByVpa(context.Context, *request.ResolveStoreByVpaRequest) (*response.ResolveStoreByVpaResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ResolveStoreByVpa not implemented")
+}
+func (UnimplementedMerchantServer) DiscoverStores(context.Context, *request.DiscoverStoresRequest) (*response.DiscoverStoresResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DiscoverStores not implemented")
 }
 func (UnimplementedMerchantServer) ListMerchantVpas(context.Context, *request.ListMerchantVpasRequest) (*response.MerchantVpasResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListMerchantVpas not implemented")
@@ -272,6 +288,24 @@ func _Merchant_ResolveStoreByVpa_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Merchant_DiscoverStores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DiscoverStoresRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MerchantServer).DiscoverStores(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Merchant_DiscoverStores_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MerchantServer).DiscoverStores(ctx, req.(*request.DiscoverStoresRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Merchant_ListMerchantVpas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.ListMerchantVpasRequest)
 	if err := dec(in); err != nil {
@@ -366,6 +400,10 @@ var Merchant_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ResolveStoreByVpa",
 			Handler:    _Merchant_ResolveStoreByVpa_Handler,
+		},
+		{
+			MethodName: "DiscoverStores",
+			Handler:    _Merchant_DiscoverStores_Handler,
 		},
 		{
 			MethodName: "ListMerchantVpas",

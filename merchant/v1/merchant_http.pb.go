@@ -22,6 +22,7 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationMerchantAddMerchantVpa = "/merchant.v1.Merchant/AddMerchantVpa"
+const OperationMerchantDiscoverStores = "/merchant.v1.Merchant/DiscoverStores"
 const OperationMerchantGetMerchant = "/merchant.v1.Merchant/GetMerchant"
 const OperationMerchantListMerchantVpas = "/merchant.v1.Merchant/ListMerchantVpas"
 const OperationMerchantOnboardMerchant = "/merchant.v1.Merchant/OnboardMerchant"
@@ -32,6 +33,7 @@ const OperationMerchantUpdateMerchant = "/merchant.v1.Merchant/UpdateMerchant"
 
 type MerchantHTTPServer interface {
 	AddMerchantVpa(context.Context, *request.AddMerchantVpaRequest) (*response.MerchantVpasResponse, error)
+	DiscoverStores(context.Context, *request.DiscoverStoresRequest) (*response.DiscoverStoresResponse, error)
 	GetMerchant(context.Context, *request.GetMerchantRequest) (*response.GetMerchantResponse, error)
 	ListMerchantVpas(context.Context, *request.ListMerchantVpasRequest) (*response.MerchantVpasResponse, error)
 	OnboardMerchant(context.Context, *request.OnboardMerchantRequest) (*response.OnboardMerchantResponse, error)
@@ -47,6 +49,7 @@ func RegisterMerchantHTTPServer(s *http.Server, srv MerchantHTTPServer) {
 	r.GET("/v1/merchants/{merchant_id}", _Merchant_GetMerchant0_HTTP_Handler(srv))
 	r.PATCH("/v1/merchants/{merchant_id}", _Merchant_UpdateMerchant0_HTTP_Handler(srv))
 	r.GET("/v1/stores:resolve", _Merchant_ResolveStoreByVpa0_HTTP_Handler(srv))
+	r.GET("/v1/stores", _Merchant_DiscoverStores0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}/vpas", _Merchant_ListMerchantVpas0_HTTP_Handler(srv))
 	r.POST("/v1/merchants/{merchant_id}/vpas", _Merchant_AddMerchantVpa0_HTTP_Handler(srv))
 	r.DELETE("/v1/merchants/{merchant_id}/vpas/{vpa_id}", _Merchant_RemoveMerchantVpa0_HTTP_Handler(srv))
@@ -137,6 +140,25 @@ func _Merchant_ResolveStoreByVpa0_HTTP_Handler(srv MerchantHTTPServer) func(ctx 
 			return err
 		}
 		reply := out.(*response.ResolveStoreByVpaResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Merchant_DiscoverStores0_HTTP_Handler(srv MerchantHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.DiscoverStoresRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationMerchantDiscoverStores)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DiscoverStores(ctx, req.(*request.DiscoverStoresRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.DiscoverStoresResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -237,6 +259,7 @@ func _Merchant_SetPrimaryMerchantVpa0_HTTP_Handler(srv MerchantHTTPServer) func(
 
 type MerchantHTTPClient interface {
 	AddMerchantVpa(ctx context.Context, req *request.AddMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
+	DiscoverStores(ctx context.Context, req *request.DiscoverStoresRequest, opts ...http.CallOption) (rsp *response.DiscoverStoresResponse, err error)
 	GetMerchant(ctx context.Context, req *request.GetMerchantRequest, opts ...http.CallOption) (rsp *response.GetMerchantResponse, err error)
 	ListMerchantVpas(ctx context.Context, req *request.ListMerchantVpasRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
 	OnboardMerchant(ctx context.Context, req *request.OnboardMerchantRequest, opts ...http.CallOption) (rsp *response.OnboardMerchantResponse, err error)
@@ -261,6 +284,19 @@ func (c *MerchantHTTPClientImpl) AddMerchantVpa(ctx context.Context, in *request
 	opts = append(opts, http.Operation(OperationMerchantAddMerchantVpa))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *MerchantHTTPClientImpl) DiscoverStores(ctx context.Context, in *request.DiscoverStoresRequest, opts ...http.CallOption) (*response.DiscoverStoresResponse, error) {
+	var out response.DiscoverStoresResponse
+	pattern := "/v1/stores"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationMerchantDiscoverStores))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

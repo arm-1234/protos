@@ -551,6 +551,90 @@ func (x *SetPrimaryMerchantVpaRequest) GetVpaId() string {
 	return ""
 }
 
+type DiscoverStoresRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Latitude      float64                `protobuf:"fixed64,1,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64                `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	RadiusM       float64                `protobuf:"fixed64,3,opt,name=radius_m,json=radiusM,proto3" json:"radius_m,omitempty"`
+	Query         string                 `protobuf:"bytes,4,opt,name=query,proto3" json:"query,omitempty"`
+	PageSize      int32                  `protobuf:"varint,5,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Page          int32                  `protobuf:"varint,6,opt,name=page,proto3" json:"page,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DiscoverStoresRequest) Reset() {
+	*x = DiscoverStoresRequest{}
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DiscoverStoresRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DiscoverStoresRequest) ProtoMessage() {}
+
+func (x *DiscoverStoresRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DiscoverStoresRequest.ProtoReflect.Descriptor instead.
+func (*DiscoverStoresRequest) Descriptor() ([]byte, []int) {
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DiscoverStoresRequest) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *DiscoverStoresRequest) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
+func (x *DiscoverStoresRequest) GetRadiusM() float64 {
+	if x != nil {
+		return x.RadiusM
+	}
+	return 0
+}
+
+func (x *DiscoverStoresRequest) GetQuery() string {
+	if x != nil {
+		return x.Query
+	}
+	return ""
+}
+
+func (x *DiscoverStoresRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *DiscoverStoresRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
 var File_merchant_v1_request_merchant_request_proto protoreflect.FileDescriptor
 
 const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
@@ -604,7 +688,14 @@ const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	"\x1cSetPrimaryMerchantVpaRequest\x12(\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
 	"merchantId\x12\x1e\n" +
-	"\x06vpa_id\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x05vpaIdB8Z6github.com/arm-1234/protos/merchant/v1/request;requestb\x06proto3"
+	"\x06vpa_id\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x05vpaId\"\xed\x01\n" +
+	"\x15DiscoverStoresRequest\x12\x1a\n" +
+	"\blatitude\x18\x01 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x02 \x01(\x01R\tlongitude\x122\n" +
+	"\bradius_m\x18\x03 \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00j\xf8@)\x00\x00\x00\x00\x00\x00\x00\x00R\aradiusM\x12!\n" +
+	"\x05query\x18\x04 \x01(\tB\v\xfaB\br\x06\x18\x80\x01\xd0\x01\x01R\x05query\x12&\n" +
+	"\tpage_size\x18\x05 \x01(\x05B\t\xfaB\x06\x1a\x04\x18d(\x00R\bpageSize\x12\x1b\n" +
+	"\x04page\x18\x06 \x01(\x05B\a\xfaB\x04\x1a\x02(\x00R\x04pageB8Z6github.com/arm-1234/protos/merchant/v1/request;requestb\x06proto3"
 
 var (
 	file_merchant_v1_request_merchant_request_proto_rawDescOnce sync.Once
@@ -618,7 +709,7 @@ func file_merchant_v1_request_merchant_request_proto_rawDescGZIP() []byte {
 	return file_merchant_v1_request_merchant_request_proto_rawDescData
 }
 
-var file_merchant_v1_request_merchant_request_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_merchant_v1_request_merchant_request_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_merchant_v1_request_merchant_request_proto_goTypes = []any{
 	(*OnboardMerchantRequest)(nil),       // 0: merchant.v1.request.OnboardMerchantRequest
 	(*GetMerchantRequest)(nil),           // 1: merchant.v1.request.GetMerchantRequest
@@ -628,6 +719,7 @@ var file_merchant_v1_request_merchant_request_proto_goTypes = []any{
 	(*AddMerchantVpaRequest)(nil),        // 5: merchant.v1.request.AddMerchantVpaRequest
 	(*RemoveMerchantVpaRequest)(nil),     // 6: merchant.v1.request.RemoveMerchantVpaRequest
 	(*SetPrimaryMerchantVpaRequest)(nil), // 7: merchant.v1.request.SetPrimaryMerchantVpaRequest
+	(*DiscoverStoresRequest)(nil),        // 8: merchant.v1.request.DiscoverStoresRequest
 }
 var file_merchant_v1_request_merchant_request_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -649,7 +741,7 @@ func file_merchant_v1_request_merchant_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_merchant_v1_request_merchant_request_proto_rawDesc), len(file_merchant_v1_request_merchant_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
