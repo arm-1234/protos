@@ -361,6 +361,17 @@ func (m *RegisterMerchantRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if val := m.GetMaxOrderDistanceM(); val < 0 || val > 100000 {
+		err := RegisterMerchantRequestValidationError{
+			field:  "MaxOrderDistanceM",
+			reason: "value must be inside range [0, 100000]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return RegisterMerchantRequestMultiError(errors)
 	}

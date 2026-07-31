@@ -93,20 +93,21 @@ func (x *RegisterUserRequest) GetPassword() string {
 }
 
 type RegisterMerchantRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phone         string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	StoreName     string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl       string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address       string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
-	UpiVpa        string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	Latitude      float64                `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude     float64                `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Password      string                 `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Name              string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phone             string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email             string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	StoreName         string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description       string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl           string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address           string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
+	UpiVpa            string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Latitude          float64                `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude         float64                `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Password          string                 `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
+	MaxOrderDistanceM float64                `protobuf:"fixed64,12,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *RegisterMerchantRequest) Reset() {
@@ -214,6 +215,13 @@ func (x *RegisterMerchantRequest) GetPassword() string {
 		return x.Password
 	}
 	return ""
+}
+
+func (x *RegisterMerchantRequest) GetMaxOrderDistanceM() float64 {
+	if x != nil {
+		return x.MaxOrderDistanceM
+	}
+	return 0
 }
 
 type LoginWithPhoneRequest struct {
@@ -802,7 +810,7 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12 \n" +
 	"\x05email\x18\x03 \x01(\tB\n" +
 	"\xfaB\ar\x05\xd0\x01\x01`\x01R\x05email\x12*\n" +
-	"\bpassword\x18\x04 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"\xe9\x03\n" +
+	"\bpassword\x18\x04 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"\xb3\x04\n" +
 	"\x17RegisterMerchantRequest\x12\x1f\n" +
 	"\x04name\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x04name\x12#\n" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12 \n" +
@@ -817,7 +825,8 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\blatitude\x18\t \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\blatitude\x125\n" +
 	"\tlongitude\x18\n" +
 	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude\x12*\n" +
-	"\bpassword\x18\v \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\"\xb9\x01\n" +
+	"\bpassword\x18\v \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\bpassword\x12H\n" +
+	"\x14max_order_distance_m\x18\f \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00j\xf8@)\x00\x00\x00\x00\x00\x00\x00\x00R\x11maxOrderDistanceM\"\xb9\x01\n" +
 	"\x15LoginWithPhoneRequest\x12#\n" +
 	"\x05phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12*\n" +
 	"\bpassword\x18\x02 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\bpassword\x12O\n" +
