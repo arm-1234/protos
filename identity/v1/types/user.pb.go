@@ -35,6 +35,7 @@ type UserInfo struct {
 	ExternalId    string                 `protobuf:"bytes,8,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Verified      bool                   `protobuf:"varint,11,opt,name=verified,proto3" json:"verified,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -139,11 +140,18 @@ func (x *UserInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *UserInfo) GetVerified() bool {
+	if x != nil {
+		return x.Verified
+	}
+	return false
+}
+
 var File_identity_v1_types_user_proto protoreflect.FileDescriptor
 
 const file_identity_v1_types_user_proto_rawDesc = "" +
 	"\n" +
-	"\x1cidentity/v1/types/user.proto\x12\x11identity.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'identity/v1/types/enums/user_type.proto\"\xf7\x02\n" +
+	"\x1cidentity/v1/types/user.proto\x12\x11identity.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'identity/v1/types/enums/user_type.proto\"\x93\x03\n" +
 	"\bUserInfo\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12>\n" +
 	"\tuser_type\x18\x02 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\buserType\x12\x12\n" +
@@ -159,7 +167,8 @@ const file_identity_v1_types_user_proto_rawDesc = "" +
 	"created_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
 	"updated_at\x18\n" +
-	" \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB4Z2github.com/arm-1234/protos/identity/v1/types;typesb\x06proto3"
+	" \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12\x1a\n" +
+	"\bverified\x18\v \x01(\bR\bverifiedB4Z2github.com/arm-1234/protos/identity/v1/types;typesb\x06proto3"
 
 var (
 	file_identity_v1_types_user_proto_rawDescOnce sync.Once
