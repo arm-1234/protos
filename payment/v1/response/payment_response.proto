@@ -3,6 +3,7 @@ syntax = "proto3";
 package payment.v1.response;
 
 import "payment/v1/types/payment.proto";
+import "payment/v1/types/wallet.proto";
 
 option go_package = "github.com/arm-1234/protos/payment/v1/response;response";
 
@@ -29,4 +30,45 @@ message RequestInstantPayoutResponse {
 
 message GetPayoutResponse {
   payment.v1.types.PayoutInfo payout = 1;
+}
+
+message GetWalletResponse {
+  payment.v1.types.WalletBalance wallet = 1;
+}
+
+message ListWalletEntriesResponse {
+  repeated payment.v1.types.WalletEntry entries = 1;
+  int64 page_number = 2;
+  int64 page_size = 3;
+  int64 total_pages = 4;
+  int64 total_records = 5;
+}
+
+message AddBankAccountResponse {
+  payment.v1.types.BankAccount bank_account = 1;
+}
+
+message ListBankAccountsResponse {
+  repeated payment.v1.types.BankAccount bank_accounts = 1;
+}
+
+message DeleteBankAccountResponse {
+  bool deleted = 1;
+}
+
+message RequestWithdrawalResponse {
+  payment.v1.types.Withdrawal withdrawal = 1;
+  payment.v1.types.WalletBalance wallet = 2;
+}
+
+message ListWithdrawalsResponse {
+  repeated payment.v1.types.Withdrawal withdrawals = 1;
+  int64 page_number = 2;
+  int64 page_size = 3;
+  int64 total_pages = 4;
+  int64 total_records = 5;
+}
+
+message GetWithdrawalResponse {
+  payment.v1.types.Withdrawal withdrawal = 1;
 }

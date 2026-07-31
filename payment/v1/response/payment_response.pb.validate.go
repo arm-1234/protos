@@ -700,3 +700,1084 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPayoutResponseValidationError{}
+
+// Validate checks the field values on GetWalletResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetWalletResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetWalletResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetWalletResponseMultiError, or nil if none found.
+func (m *GetWalletResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetWalletResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWallet()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetWalletResponseValidationError{
+					field:  "Wallet",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetWalletResponseValidationError{
+					field:  "Wallet",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWallet()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetWalletResponseValidationError{
+				field:  "Wallet",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetWalletResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetWalletResponseMultiError is an error wrapping multiple validation errors
+// returned by GetWalletResponse.ValidateAll() if the designated constraints
+// aren't met.
+type GetWalletResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetWalletResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetWalletResponseMultiError) AllErrors() []error { return m }
+
+// GetWalletResponseValidationError is the validation error returned by
+// GetWalletResponse.Validate if the designated constraints aren't met.
+type GetWalletResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetWalletResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetWalletResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetWalletResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetWalletResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetWalletResponseValidationError) ErrorName() string {
+	return "GetWalletResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetWalletResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetWalletResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetWalletResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetWalletResponseValidationError{}
+
+// Validate checks the field values on ListWalletEntriesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListWalletEntriesResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListWalletEntriesResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListWalletEntriesResponseMultiError, or nil if none found.
+func (m *ListWalletEntriesResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListWalletEntriesResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetEntries() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListWalletEntriesResponseValidationError{
+						field:  fmt.Sprintf("Entries[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListWalletEntriesResponseValidationError{
+						field:  fmt.Sprintf("Entries[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListWalletEntriesResponseValidationError{
+					field:  fmt.Sprintf("Entries[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for PageNumber
+
+	// no validation rules for PageSize
+
+	// no validation rules for TotalPages
+
+	// no validation rules for TotalRecords
+
+	if len(errors) > 0 {
+		return ListWalletEntriesResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListWalletEntriesResponseMultiError is an error wrapping multiple validation
+// errors returned by ListWalletEntriesResponse.ValidateAll() if the
+// designated constraints aren't met.
+type ListWalletEntriesResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListWalletEntriesResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListWalletEntriesResponseMultiError) AllErrors() []error { return m }
+
+// ListWalletEntriesResponseValidationError is the validation error returned by
+// ListWalletEntriesResponse.Validate if the designated constraints aren't met.
+type ListWalletEntriesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListWalletEntriesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListWalletEntriesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListWalletEntriesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListWalletEntriesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListWalletEntriesResponseValidationError) ErrorName() string {
+	return "ListWalletEntriesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListWalletEntriesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListWalletEntriesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListWalletEntriesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListWalletEntriesResponseValidationError{}
+
+// Validate checks the field values on AddBankAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddBankAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddBankAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddBankAccountResponseMultiError, or nil if none found.
+func (m *AddBankAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddBankAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetBankAccount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddBankAccountResponseValidationError{
+					field:  "BankAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddBankAccountResponseValidationError{
+					field:  "BankAccount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBankAccount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddBankAccountResponseValidationError{
+				field:  "BankAccount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AddBankAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddBankAccountResponseMultiError is an error wrapping multiple validation
+// errors returned by AddBankAccountResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AddBankAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddBankAccountResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddBankAccountResponseMultiError) AllErrors() []error { return m }
+
+// AddBankAccountResponseValidationError is the validation error returned by
+// AddBankAccountResponse.Validate if the designated constraints aren't met.
+type AddBankAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddBankAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddBankAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddBankAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddBankAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddBankAccountResponseValidationError) ErrorName() string {
+	return "AddBankAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddBankAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddBankAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddBankAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddBankAccountResponseValidationError{}
+
+// Validate checks the field values on ListBankAccountsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListBankAccountsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListBankAccountsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListBankAccountsResponseMultiError, or nil if none found.
+func (m *ListBankAccountsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListBankAccountsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetBankAccounts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListBankAccountsResponseValidationError{
+						field:  fmt.Sprintf("BankAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListBankAccountsResponseValidationError{
+						field:  fmt.Sprintf("BankAccounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListBankAccountsResponseValidationError{
+					field:  fmt.Sprintf("BankAccounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListBankAccountsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListBankAccountsResponseMultiError is an error wrapping multiple validation
+// errors returned by ListBankAccountsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ListBankAccountsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListBankAccountsResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListBankAccountsResponseMultiError) AllErrors() []error { return m }
+
+// ListBankAccountsResponseValidationError is the validation error returned by
+// ListBankAccountsResponse.Validate if the designated constraints aren't met.
+type ListBankAccountsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListBankAccountsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListBankAccountsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListBankAccountsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListBankAccountsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListBankAccountsResponseValidationError) ErrorName() string {
+	return "ListBankAccountsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListBankAccountsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListBankAccountsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListBankAccountsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListBankAccountsResponseValidationError{}
+
+// Validate checks the field values on DeleteBankAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteBankAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteBankAccountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteBankAccountResponseMultiError, or nil if none found.
+func (m *DeleteBankAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteBankAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Deleted
+
+	if len(errors) > 0 {
+		return DeleteBankAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteBankAccountResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteBankAccountResponse.ValidateAll() if the
+// designated constraints aren't met.
+type DeleteBankAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteBankAccountResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteBankAccountResponseMultiError) AllErrors() []error { return m }
+
+// DeleteBankAccountResponseValidationError is the validation error returned by
+// DeleteBankAccountResponse.Validate if the designated constraints aren't met.
+type DeleteBankAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteBankAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteBankAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteBankAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteBankAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteBankAccountResponseValidationError) ErrorName() string {
+	return "DeleteBankAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteBankAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteBankAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteBankAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteBankAccountResponseValidationError{}
+
+// Validate checks the field values on RequestWithdrawalResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestWithdrawalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RequestWithdrawalResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RequestWithdrawalResponseMultiError, or nil if none found.
+func (m *RequestWithdrawalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RequestWithdrawalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWithdrawal()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RequestWithdrawalResponseValidationError{
+					field:  "Withdrawal",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RequestWithdrawalResponseValidationError{
+					field:  "Withdrawal",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWithdrawal()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RequestWithdrawalResponseValidationError{
+				field:  "Withdrawal",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetWallet()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RequestWithdrawalResponseValidationError{
+					field:  "Wallet",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RequestWithdrawalResponseValidationError{
+					field:  "Wallet",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWallet()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RequestWithdrawalResponseValidationError{
+				field:  "Wallet",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RequestWithdrawalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RequestWithdrawalResponseMultiError is an error wrapping multiple validation
+// errors returned by RequestWithdrawalResponse.ValidateAll() if the
+// designated constraints aren't met.
+type RequestWithdrawalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RequestWithdrawalResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RequestWithdrawalResponseMultiError) AllErrors() []error { return m }
+
+// RequestWithdrawalResponseValidationError is the validation error returned by
+// RequestWithdrawalResponse.Validate if the designated constraints aren't met.
+type RequestWithdrawalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RequestWithdrawalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RequestWithdrawalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RequestWithdrawalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RequestWithdrawalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RequestWithdrawalResponseValidationError) ErrorName() string {
+	return "RequestWithdrawalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RequestWithdrawalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRequestWithdrawalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RequestWithdrawalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RequestWithdrawalResponseValidationError{}
+
+// Validate checks the field values on ListWithdrawalsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListWithdrawalsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListWithdrawalsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListWithdrawalsResponseMultiError, or nil if none found.
+func (m *ListWithdrawalsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListWithdrawalsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetWithdrawals() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListWithdrawalsResponseValidationError{
+						field:  fmt.Sprintf("Withdrawals[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListWithdrawalsResponseValidationError{
+						field:  fmt.Sprintf("Withdrawals[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListWithdrawalsResponseValidationError{
+					field:  fmt.Sprintf("Withdrawals[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for PageNumber
+
+	// no validation rules for PageSize
+
+	// no validation rules for TotalPages
+
+	// no validation rules for TotalRecords
+
+	if len(errors) > 0 {
+		return ListWithdrawalsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListWithdrawalsResponseMultiError is an error wrapping multiple validation
+// errors returned by ListWithdrawalsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ListWithdrawalsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListWithdrawalsResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListWithdrawalsResponseMultiError) AllErrors() []error { return m }
+
+// ListWithdrawalsResponseValidationError is the validation error returned by
+// ListWithdrawalsResponse.Validate if the designated constraints aren't met.
+type ListWithdrawalsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListWithdrawalsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListWithdrawalsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListWithdrawalsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListWithdrawalsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListWithdrawalsResponseValidationError) ErrorName() string {
+	return "ListWithdrawalsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListWithdrawalsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListWithdrawalsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListWithdrawalsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListWithdrawalsResponseValidationError{}
+
+// Validate checks the field values on GetWithdrawalResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetWithdrawalResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetWithdrawalResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetWithdrawalResponseMultiError, or nil if none found.
+func (m *GetWithdrawalResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetWithdrawalResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWithdrawal()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetWithdrawalResponseValidationError{
+					field:  "Withdrawal",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetWithdrawalResponseValidationError{
+					field:  "Withdrawal",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWithdrawal()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetWithdrawalResponseValidationError{
+				field:  "Withdrawal",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetWithdrawalResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetWithdrawalResponseMultiError is an error wrapping multiple validation
+// errors returned by GetWithdrawalResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetWithdrawalResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetWithdrawalResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetWithdrawalResponseMultiError) AllErrors() []error { return m }
+
+// GetWithdrawalResponseValidationError is the validation error returned by
+// GetWithdrawalResponse.Validate if the designated constraints aren't met.
+type GetWithdrawalResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetWithdrawalResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetWithdrawalResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetWithdrawalResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetWithdrawalResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetWithdrawalResponseValidationError) ErrorName() string {
+	return "GetWithdrawalResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetWithdrawalResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetWithdrawalResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetWithdrawalResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetWithdrawalResponseValidationError{}

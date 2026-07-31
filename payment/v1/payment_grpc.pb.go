@@ -26,6 +26,14 @@ const (
 	Payment_GetPaymentStatus_FullMethodName     = "/payment.v1.Payment/GetPaymentStatus"
 	Payment_RequestInstantPayout_FullMethodName = "/payment.v1.Payment/RequestInstantPayout"
 	Payment_GetPayout_FullMethodName            = "/payment.v1.Payment/GetPayout"
+	Payment_GetWallet_FullMethodName            = "/payment.v1.Payment/GetWallet"
+	Payment_ListWalletEntries_FullMethodName    = "/payment.v1.Payment/ListWalletEntries"
+	Payment_AddBankAccount_FullMethodName       = "/payment.v1.Payment/AddBankAccount"
+	Payment_ListBankAccounts_FullMethodName     = "/payment.v1.Payment/ListBankAccounts"
+	Payment_DeleteBankAccount_FullMethodName    = "/payment.v1.Payment/DeleteBankAccount"
+	Payment_RequestWithdrawal_FullMethodName    = "/payment.v1.Payment/RequestWithdrawal"
+	Payment_ListWithdrawals_FullMethodName      = "/payment.v1.Payment/ListWithdrawals"
+	Payment_GetWithdrawal_FullMethodName        = "/payment.v1.Payment/GetWithdrawal"
 )
 
 // PaymentClient is the client API for Payment service.
@@ -37,6 +45,14 @@ type PaymentClient interface {
 	GetPaymentStatus(ctx context.Context, in *request.GetPaymentStatusRequest, opts ...grpc.CallOption) (*response.GetPaymentStatusResponse, error)
 	RequestInstantPayout(ctx context.Context, in *request.RequestInstantPayoutRequest, opts ...grpc.CallOption) (*response.RequestInstantPayoutResponse, error)
 	GetPayout(ctx context.Context, in *request.GetPayoutRequest, opts ...grpc.CallOption) (*response.GetPayoutResponse, error)
+	GetWallet(ctx context.Context, in *request.GetWalletRequest, opts ...grpc.CallOption) (*response.GetWalletResponse, error)
+	ListWalletEntries(ctx context.Context, in *request.ListWalletEntriesRequest, opts ...grpc.CallOption) (*response.ListWalletEntriesResponse, error)
+	AddBankAccount(ctx context.Context, in *request.AddBankAccountRequest, opts ...grpc.CallOption) (*response.AddBankAccountResponse, error)
+	ListBankAccounts(ctx context.Context, in *request.ListBankAccountsRequest, opts ...grpc.CallOption) (*response.ListBankAccountsResponse, error)
+	DeleteBankAccount(ctx context.Context, in *request.DeleteBankAccountRequest, opts ...grpc.CallOption) (*response.DeleteBankAccountResponse, error)
+	RequestWithdrawal(ctx context.Context, in *request.RequestWithdrawalRequest, opts ...grpc.CallOption) (*response.RequestWithdrawalResponse, error)
+	ListWithdrawals(ctx context.Context, in *request.ListWithdrawalsRequest, opts ...grpc.CallOption) (*response.ListWithdrawalsResponse, error)
+	GetWithdrawal(ctx context.Context, in *request.GetWithdrawalRequest, opts ...grpc.CallOption) (*response.GetWithdrawalResponse, error)
 }
 
 type paymentClient struct {
@@ -97,6 +113,86 @@ func (c *paymentClient) GetPayout(ctx context.Context, in *request.GetPayoutRequ
 	return out, nil
 }
 
+func (c *paymentClient) GetWallet(ctx context.Context, in *request.GetWalletRequest, opts ...grpc.CallOption) (*response.GetWalletResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetWalletResponse)
+	err := c.cc.Invoke(ctx, Payment_GetWallet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) ListWalletEntries(ctx context.Context, in *request.ListWalletEntriesRequest, opts ...grpc.CallOption) (*response.ListWalletEntriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListWalletEntriesResponse)
+	err := c.cc.Invoke(ctx, Payment_ListWalletEntries_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) AddBankAccount(ctx context.Context, in *request.AddBankAccountRequest, opts ...grpc.CallOption) (*response.AddBankAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.AddBankAccountResponse)
+	err := c.cc.Invoke(ctx, Payment_AddBankAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) ListBankAccounts(ctx context.Context, in *request.ListBankAccountsRequest, opts ...grpc.CallOption) (*response.ListBankAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListBankAccountsResponse)
+	err := c.cc.Invoke(ctx, Payment_ListBankAccounts_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) DeleteBankAccount(ctx context.Context, in *request.DeleteBankAccountRequest, opts ...grpc.CallOption) (*response.DeleteBankAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.DeleteBankAccountResponse)
+	err := c.cc.Invoke(ctx, Payment_DeleteBankAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) RequestWithdrawal(ctx context.Context, in *request.RequestWithdrawalRequest, opts ...grpc.CallOption) (*response.RequestWithdrawalResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RequestWithdrawalResponse)
+	err := c.cc.Invoke(ctx, Payment_RequestWithdrawal_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) ListWithdrawals(ctx context.Context, in *request.ListWithdrawalsRequest, opts ...grpc.CallOption) (*response.ListWithdrawalsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, Payment_ListWithdrawals_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentClient) GetWithdrawal(ctx context.Context, in *request.GetWithdrawalRequest, opts ...grpc.CallOption) (*response.GetWithdrawalResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetWithdrawalResponse)
+	err := c.cc.Invoke(ctx, Payment_GetWithdrawal_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServer is the server API for Payment service.
 // All implementations must embed UnimplementedPaymentServer
 // for forward compatibility.
@@ -106,6 +202,14 @@ type PaymentServer interface {
 	GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error)
 	RequestInstantPayout(context.Context, *request.RequestInstantPayoutRequest) (*response.RequestInstantPayoutResponse, error)
 	GetPayout(context.Context, *request.GetPayoutRequest) (*response.GetPayoutResponse, error)
+	GetWallet(context.Context, *request.GetWalletRequest) (*response.GetWalletResponse, error)
+	ListWalletEntries(context.Context, *request.ListWalletEntriesRequest) (*response.ListWalletEntriesResponse, error)
+	AddBankAccount(context.Context, *request.AddBankAccountRequest) (*response.AddBankAccountResponse, error)
+	ListBankAccounts(context.Context, *request.ListBankAccountsRequest) (*response.ListBankAccountsResponse, error)
+	DeleteBankAccount(context.Context, *request.DeleteBankAccountRequest) (*response.DeleteBankAccountResponse, error)
+	RequestWithdrawal(context.Context, *request.RequestWithdrawalRequest) (*response.RequestWithdrawalResponse, error)
+	ListWithdrawals(context.Context, *request.ListWithdrawalsRequest) (*response.ListWithdrawalsResponse, error)
+	GetWithdrawal(context.Context, *request.GetWithdrawalRequest) (*response.GetWithdrawalResponse, error)
 	mustEmbedUnimplementedPaymentServer()
 }
 
@@ -130,6 +234,30 @@ func (UnimplementedPaymentServer) RequestInstantPayout(context.Context, *request
 }
 func (UnimplementedPaymentServer) GetPayout(context.Context, *request.GetPayoutRequest) (*response.GetPayoutResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPayout not implemented")
+}
+func (UnimplementedPaymentServer) GetWallet(context.Context, *request.GetWalletRequest) (*response.GetWalletResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWallet not implemented")
+}
+func (UnimplementedPaymentServer) ListWalletEntries(context.Context, *request.ListWalletEntriesRequest) (*response.ListWalletEntriesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListWalletEntries not implemented")
+}
+func (UnimplementedPaymentServer) AddBankAccount(context.Context, *request.AddBankAccountRequest) (*response.AddBankAccountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBankAccount not implemented")
+}
+func (UnimplementedPaymentServer) ListBankAccounts(context.Context, *request.ListBankAccountsRequest) (*response.ListBankAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListBankAccounts not implemented")
+}
+func (UnimplementedPaymentServer) DeleteBankAccount(context.Context, *request.DeleteBankAccountRequest) (*response.DeleteBankAccountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBankAccount not implemented")
+}
+func (UnimplementedPaymentServer) RequestWithdrawal(context.Context, *request.RequestWithdrawalRequest) (*response.RequestWithdrawalResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RequestWithdrawal not implemented")
+}
+func (UnimplementedPaymentServer) ListWithdrawals(context.Context, *request.ListWithdrawalsRequest) (*response.ListWithdrawalsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListWithdrawals not implemented")
+}
+func (UnimplementedPaymentServer) GetWithdrawal(context.Context, *request.GetWithdrawalRequest) (*response.GetWithdrawalResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWithdrawal not implemented")
 }
 func (UnimplementedPaymentServer) mustEmbedUnimplementedPaymentServer() {}
 func (UnimplementedPaymentServer) testEmbeddedByValue()                 {}
@@ -242,6 +370,150 @@ func _Payment_GetPayout_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Payment_GetWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).GetWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_GetWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).GetWallet(ctx, req.(*request.GetWalletRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_ListWalletEntries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListWalletEntriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).ListWalletEntries(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_ListWalletEntries_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).ListWalletEntries(ctx, req.(*request.ListWalletEntriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_AddBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.AddBankAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).AddBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_AddBankAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).AddBankAccount(ctx, req.(*request.AddBankAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_ListBankAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListBankAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).ListBankAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_ListBankAccounts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).ListBankAccounts(ctx, req.(*request.ListBankAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_DeleteBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DeleteBankAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).DeleteBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_DeleteBankAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).DeleteBankAccount(ctx, req.(*request.DeleteBankAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_RequestWithdrawal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RequestWithdrawalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).RequestWithdrawal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_RequestWithdrawal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).RequestWithdrawal(ctx, req.(*request.RequestWithdrawalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_ListWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListWithdrawalsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).ListWithdrawals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_ListWithdrawals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).ListWithdrawals(ctx, req.(*request.ListWithdrawalsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payment_GetWithdrawal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetWithdrawalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServer).GetWithdrawal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Payment_GetWithdrawal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServer).GetWithdrawal(ctx, req.(*request.GetWithdrawalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Payment_ServiceDesc is the grpc.ServiceDesc for Payment service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -268,6 +540,38 @@ var Payment_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPayout",
 			Handler:    _Payment_GetPayout_Handler,
+		},
+		{
+			MethodName: "GetWallet",
+			Handler:    _Payment_GetWallet_Handler,
+		},
+		{
+			MethodName: "ListWalletEntries",
+			Handler:    _Payment_ListWalletEntries_Handler,
+		},
+		{
+			MethodName: "AddBankAccount",
+			Handler:    _Payment_AddBankAccount_Handler,
+		},
+		{
+			MethodName: "ListBankAccounts",
+			Handler:    _Payment_ListBankAccounts_Handler,
+		},
+		{
+			MethodName: "DeleteBankAccount",
+			Handler:    _Payment_DeleteBankAccount_Handler,
+		},
+		{
+			MethodName: "RequestWithdrawal",
+			Handler:    _Payment_RequestWithdrawal_Handler,
+		},
+		{
+			MethodName: "ListWithdrawals",
+			Handler:    _Payment_ListWithdrawals_Handler,
+		},
+		{
+			MethodName: "GetWithdrawal",
+			Handler:    _Payment_GetWithdrawal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

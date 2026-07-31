@@ -28,37 +28,52 @@ const (
 type ErrorReason int32
 
 const (
-	ErrorReason_PAYMENT_UNSPECIFIED         ErrorReason = 0
-	ErrorReason_PAYMENT_ORDER_NOT_FOUND     ErrorReason = 1
-	ErrorReason_PAYMENT_NOT_FOUND           ErrorReason = 2
-	ErrorReason_PAYMENT_INVALID_REQUEST     ErrorReason = 3
-	ErrorReason_PAYMENT_GATEWAY_ERROR       ErrorReason = 4
-	ErrorReason_PAYMENT_VERIFICATION_FAILED ErrorReason = 5
-	ErrorReason_PAYMENT_PAYOUT_NOT_FOUND    ErrorReason = 6
-	ErrorReason_PAYMENT_PAYOUT_NOT_ALLOWED  ErrorReason = 7
+	ErrorReason_PAYMENT_UNSPECIFIED            ErrorReason = 0
+	ErrorReason_PAYMENT_ORDER_NOT_FOUND        ErrorReason = 1
+	ErrorReason_PAYMENT_NOT_FOUND              ErrorReason = 2
+	ErrorReason_PAYMENT_INVALID_REQUEST        ErrorReason = 3
+	ErrorReason_PAYMENT_GATEWAY_ERROR          ErrorReason = 4
+	ErrorReason_PAYMENT_VERIFICATION_FAILED    ErrorReason = 5
+	ErrorReason_PAYMENT_PAYOUT_NOT_FOUND       ErrorReason = 6
+	ErrorReason_PAYMENT_PAYOUT_NOT_ALLOWED     ErrorReason = 7
+	ErrorReason_PAYMENT_WALLET_NOT_FOUND       ErrorReason = 8
+	ErrorReason_PAYMENT_INSUFFICIENT_BALANCE   ErrorReason = 9
+	ErrorReason_PAYMENT_BANK_ACCOUNT_NOT_FOUND ErrorReason = 10
+	ErrorReason_PAYMENT_WITHDRAWAL_NOT_FOUND   ErrorReason = 11
+	ErrorReason_PAYMENT_WITHDRAWAL_NOT_ALLOWED ErrorReason = 12
 )
 
 // Enum value maps for ErrorReason.
 var (
 	ErrorReason_name = map[int32]string{
-		0: "PAYMENT_UNSPECIFIED",
-		1: "PAYMENT_ORDER_NOT_FOUND",
-		2: "PAYMENT_NOT_FOUND",
-		3: "PAYMENT_INVALID_REQUEST",
-		4: "PAYMENT_GATEWAY_ERROR",
-		5: "PAYMENT_VERIFICATION_FAILED",
-		6: "PAYMENT_PAYOUT_NOT_FOUND",
-		7: "PAYMENT_PAYOUT_NOT_ALLOWED",
+		0:  "PAYMENT_UNSPECIFIED",
+		1:  "PAYMENT_ORDER_NOT_FOUND",
+		2:  "PAYMENT_NOT_FOUND",
+		3:  "PAYMENT_INVALID_REQUEST",
+		4:  "PAYMENT_GATEWAY_ERROR",
+		5:  "PAYMENT_VERIFICATION_FAILED",
+		6:  "PAYMENT_PAYOUT_NOT_FOUND",
+		7:  "PAYMENT_PAYOUT_NOT_ALLOWED",
+		8:  "PAYMENT_WALLET_NOT_FOUND",
+		9:  "PAYMENT_INSUFFICIENT_BALANCE",
+		10: "PAYMENT_BANK_ACCOUNT_NOT_FOUND",
+		11: "PAYMENT_WITHDRAWAL_NOT_FOUND",
+		12: "PAYMENT_WITHDRAWAL_NOT_ALLOWED",
 	}
 	ErrorReason_value = map[string]int32{
-		"PAYMENT_UNSPECIFIED":         0,
-		"PAYMENT_ORDER_NOT_FOUND":     1,
-		"PAYMENT_NOT_FOUND":           2,
-		"PAYMENT_INVALID_REQUEST":     3,
-		"PAYMENT_GATEWAY_ERROR":       4,
-		"PAYMENT_VERIFICATION_FAILED": 5,
-		"PAYMENT_PAYOUT_NOT_FOUND":    6,
-		"PAYMENT_PAYOUT_NOT_ALLOWED":  7,
+		"PAYMENT_UNSPECIFIED":            0,
+		"PAYMENT_ORDER_NOT_FOUND":        1,
+		"PAYMENT_NOT_FOUND":              2,
+		"PAYMENT_INVALID_REQUEST":        3,
+		"PAYMENT_GATEWAY_ERROR":          4,
+		"PAYMENT_VERIFICATION_FAILED":    5,
+		"PAYMENT_PAYOUT_NOT_FOUND":       6,
+		"PAYMENT_PAYOUT_NOT_ALLOWED":     7,
+		"PAYMENT_WALLET_NOT_FOUND":       8,
+		"PAYMENT_INSUFFICIENT_BALANCE":   9,
+		"PAYMENT_BANK_ACCOUNT_NOT_FOUND": 10,
+		"PAYMENT_WITHDRAWAL_NOT_FOUND":   11,
+		"PAYMENT_WITHDRAWAL_NOT_ALLOWED": 12,
 	}
 )
 
@@ -94,7 +109,7 @@ var File_payment_v1_payment_proto protoreflect.FileDescriptor
 const file_payment_v1_payment_proto_rawDesc = "" +
 	"\n" +
 	"\x18payment/v1/payment.proto\x12\n" +
-	"payment.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(payment/v1/request/payment_request.proto\x1a*payment/v1/response/payment_response.proto*\xa7\x02\n" +
+	"payment.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(payment/v1/request/payment_request.proto\x1a*payment/v1/response/payment_response.proto*\xef\x03\n" +
 	"\vErrorReason\x12\x1d\n" +
 	"\x13PAYMENT_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12!\n" +
 	"\x17PAYMENT_ORDER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1b\n" +
@@ -103,13 +118,28 @@ const file_payment_v1_payment_proto_rawDesc = "" +
 	"\x15PAYMENT_GATEWAY_ERROR\x10\x04\x1a\x04\xa8E\xf6\x03\x12%\n" +
 	"\x1bPAYMENT_VERIFICATION_FAILED\x10\x05\x1a\x04\xa8E\x90\x03\x12\"\n" +
 	"\x18PAYMENT_PAYOUT_NOT_FOUND\x10\x06\x1a\x04\xa8E\x94\x03\x12$\n" +
-	"\x1aPAYMENT_PAYOUT_NOT_ALLOWED\x10\a\x1a\x04\xa8E\x99\x03\x1a\x04\xa0E\xf4\x032\x9e\x06\n" +
+	"\x1aPAYMENT_PAYOUT_NOT_ALLOWED\x10\a\x1a\x04\xa8E\x99\x03\x12\"\n" +
+	"\x18PAYMENT_WALLET_NOT_FOUND\x10\b\x1a\x04\xa8E\x94\x03\x12&\n" +
+	"\x1cPAYMENT_INSUFFICIENT_BALANCE\x10\t\x1a\x04\xa8E\x99\x03\x12(\n" +
+	"\x1ePAYMENT_BANK_ACCOUNT_NOT_FOUND\x10\n" +
+	"\x1a\x04\xa8E\x94\x03\x12&\n" +
+	"\x1cPAYMENT_WITHDRAWAL_NOT_FOUND\x10\v\x1a\x04\xa8E\x94\x03\x12(\n" +
+	"\x1ePAYMENT_WITHDRAWAL_NOT_ALLOWED\x10\f\x1a\x04\xa8E\x99\x03\x1a\x04\xa0E\xf4\x032\xa5\x0f\n" +
 	"\aPayment\x12\x96\x01\n" +
 	"\x0fInitiatePayment\x12*.payment.v1.request.InitiatePaymentRequest\x1a,.payment.v1.response.InitiatePaymentResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/v1/orders/{order_id}/payments\x12\xa4\x01\n" +
 	"\rVerifyPayment\x12(.payment.v1.request.VerifyPaymentRequest\x1a*.payment.v1.response.VerifyPaymentResponse\"=\x82\xd3\xe4\x93\x027:\x01*\"2/v1/orders/{order_id}/payments/{payment_id}/verify\x12\xa3\x01\n" +
 	"\x10GetPaymentStatus\x12+.payment.v1.request.GetPaymentStatusRequest\x1a-.payment.v1.response.GetPaymentStatusResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/orders/{order_id}/payments/{payment_id}\x12\xab\x01\n" +
 	"\x14RequestInstantPayout\x12/.payment.v1.request.RequestInstantPayoutRequest\x1a1.payment.v1.response.RequestInstantPayoutResponse\"/\x82\xd3\xe4\x93\x02):\x01*\"$/v1/orders/{order_id}/payout:instant\x12\x7f\n" +
-	"\tGetPayout\x12$.payment.v1.request.GetPayoutRequest\x1a&.payment.v1.response.GetPayoutResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/v1/orders/{order_id}/payoutB*Z(github.com/arm-1234/protos/payment/v1;v1b\x06proto3"
+	"\tGetPayout\x12$.payment.v1.request.GetPayoutRequest\x1a&.payment.v1.response.GetPayoutResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/v1/orders/{order_id}/payout\x12m\n" +
+	"\tGetWallet\x12$.payment.v1.request.GetWalletRequest\x1a&.payment.v1.response.GetWalletResponse\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
+	"/v1/wallet\x12\x8d\x01\n" +
+	"\x11ListWalletEntries\x12,.payment.v1.request.ListWalletEntriesRequest\x1a..payment.v1.response.ListWalletEntriesResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/wallet/entries\x12\x8d\x01\n" +
+	"\x0eAddBankAccount\x12).payment.v1.request.AddBankAccountRequest\x1a+.payment.v1.response.AddBankAccountResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/wallet/bank-accounts\x12\x90\x01\n" +
+	"\x10ListBankAccounts\x12+.payment.v1.request.ListBankAccountsRequest\x1a-.payment.v1.response.ListBankAccountsResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/v1/wallet/bank-accounts\x12\xa5\x01\n" +
+	"\x11DeleteBankAccount\x12,.payment.v1.request.DeleteBankAccountRequest\x1a..payment.v1.response.DeleteBankAccountResponse\"2\x82\xd3\xe4\x93\x02,**/v1/wallet/bank-accounts/{bank_account_id}\x12\x94\x01\n" +
+	"\x11RequestWithdrawal\x12,.payment.v1.request.RequestWithdrawalRequest\x1a..payment.v1.response.RequestWithdrawalResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/v1/wallet/withdrawals\x12\x8b\x01\n" +
+	"\x0fListWithdrawals\x12*.payment.v1.request.ListWithdrawalsRequest\x1a,.payment.v1.response.ListWithdrawalsResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/v1/wallet/withdrawals\x12\x95\x01\n" +
+	"\rGetWithdrawal\x12(.payment.v1.request.GetWithdrawalRequest\x1a*.payment.v1.response.GetWithdrawalResponse\".\x82\xd3\xe4\x93\x02(\x12&/v1/wallet/withdrawals/{withdrawal_id}B*Z(github.com/arm-1234/protos/payment/v1;v1b\x06proto3"
 
 var (
 	file_payment_v1_payment_proto_rawDescOnce sync.Once
@@ -131,11 +161,27 @@ var file_payment_v1_payment_proto_goTypes = []any{
 	(*request.GetPaymentStatusRequest)(nil),       // 3: payment.v1.request.GetPaymentStatusRequest
 	(*request.RequestInstantPayoutRequest)(nil),   // 4: payment.v1.request.RequestInstantPayoutRequest
 	(*request.GetPayoutRequest)(nil),              // 5: payment.v1.request.GetPayoutRequest
-	(*response.InitiatePaymentResponse)(nil),      // 6: payment.v1.response.InitiatePaymentResponse
-	(*response.VerifyPaymentResponse)(nil),        // 7: payment.v1.response.VerifyPaymentResponse
-	(*response.GetPaymentStatusResponse)(nil),     // 8: payment.v1.response.GetPaymentStatusResponse
-	(*response.RequestInstantPayoutResponse)(nil), // 9: payment.v1.response.RequestInstantPayoutResponse
-	(*response.GetPayoutResponse)(nil),            // 10: payment.v1.response.GetPayoutResponse
+	(*request.GetWalletRequest)(nil),              // 6: payment.v1.request.GetWalletRequest
+	(*request.ListWalletEntriesRequest)(nil),      // 7: payment.v1.request.ListWalletEntriesRequest
+	(*request.AddBankAccountRequest)(nil),         // 8: payment.v1.request.AddBankAccountRequest
+	(*request.ListBankAccountsRequest)(nil),       // 9: payment.v1.request.ListBankAccountsRequest
+	(*request.DeleteBankAccountRequest)(nil),      // 10: payment.v1.request.DeleteBankAccountRequest
+	(*request.RequestWithdrawalRequest)(nil),      // 11: payment.v1.request.RequestWithdrawalRequest
+	(*request.ListWithdrawalsRequest)(nil),        // 12: payment.v1.request.ListWithdrawalsRequest
+	(*request.GetWithdrawalRequest)(nil),          // 13: payment.v1.request.GetWithdrawalRequest
+	(*response.InitiatePaymentResponse)(nil),      // 14: payment.v1.response.InitiatePaymentResponse
+	(*response.VerifyPaymentResponse)(nil),        // 15: payment.v1.response.VerifyPaymentResponse
+	(*response.GetPaymentStatusResponse)(nil),     // 16: payment.v1.response.GetPaymentStatusResponse
+	(*response.RequestInstantPayoutResponse)(nil), // 17: payment.v1.response.RequestInstantPayoutResponse
+	(*response.GetPayoutResponse)(nil),            // 18: payment.v1.response.GetPayoutResponse
+	(*response.GetWalletResponse)(nil),            // 19: payment.v1.response.GetWalletResponse
+	(*response.ListWalletEntriesResponse)(nil),    // 20: payment.v1.response.ListWalletEntriesResponse
+	(*response.AddBankAccountResponse)(nil),       // 21: payment.v1.response.AddBankAccountResponse
+	(*response.ListBankAccountsResponse)(nil),     // 22: payment.v1.response.ListBankAccountsResponse
+	(*response.DeleteBankAccountResponse)(nil),    // 23: payment.v1.response.DeleteBankAccountResponse
+	(*response.RequestWithdrawalResponse)(nil),    // 24: payment.v1.response.RequestWithdrawalResponse
+	(*response.ListWithdrawalsResponse)(nil),      // 25: payment.v1.response.ListWithdrawalsResponse
+	(*response.GetWithdrawalResponse)(nil),        // 26: payment.v1.response.GetWithdrawalResponse
 }
 var file_payment_v1_payment_proto_depIdxs = []int32{
 	1,  // 0: payment.v1.Payment.InitiatePayment:input_type -> payment.v1.request.InitiatePaymentRequest
@@ -143,13 +189,29 @@ var file_payment_v1_payment_proto_depIdxs = []int32{
 	3,  // 2: payment.v1.Payment.GetPaymentStatus:input_type -> payment.v1.request.GetPaymentStatusRequest
 	4,  // 3: payment.v1.Payment.RequestInstantPayout:input_type -> payment.v1.request.RequestInstantPayoutRequest
 	5,  // 4: payment.v1.Payment.GetPayout:input_type -> payment.v1.request.GetPayoutRequest
-	6,  // 5: payment.v1.Payment.InitiatePayment:output_type -> payment.v1.response.InitiatePaymentResponse
-	7,  // 6: payment.v1.Payment.VerifyPayment:output_type -> payment.v1.response.VerifyPaymentResponse
-	8,  // 7: payment.v1.Payment.GetPaymentStatus:output_type -> payment.v1.response.GetPaymentStatusResponse
-	9,  // 8: payment.v1.Payment.RequestInstantPayout:output_type -> payment.v1.response.RequestInstantPayoutResponse
-	10, // 9: payment.v1.Payment.GetPayout:output_type -> payment.v1.response.GetPayoutResponse
-	5,  // [5:10] is the sub-list for method output_type
-	0,  // [0:5] is the sub-list for method input_type
+	6,  // 5: payment.v1.Payment.GetWallet:input_type -> payment.v1.request.GetWalletRequest
+	7,  // 6: payment.v1.Payment.ListWalletEntries:input_type -> payment.v1.request.ListWalletEntriesRequest
+	8,  // 7: payment.v1.Payment.AddBankAccount:input_type -> payment.v1.request.AddBankAccountRequest
+	9,  // 8: payment.v1.Payment.ListBankAccounts:input_type -> payment.v1.request.ListBankAccountsRequest
+	10, // 9: payment.v1.Payment.DeleteBankAccount:input_type -> payment.v1.request.DeleteBankAccountRequest
+	11, // 10: payment.v1.Payment.RequestWithdrawal:input_type -> payment.v1.request.RequestWithdrawalRequest
+	12, // 11: payment.v1.Payment.ListWithdrawals:input_type -> payment.v1.request.ListWithdrawalsRequest
+	13, // 12: payment.v1.Payment.GetWithdrawal:input_type -> payment.v1.request.GetWithdrawalRequest
+	14, // 13: payment.v1.Payment.InitiatePayment:output_type -> payment.v1.response.InitiatePaymentResponse
+	15, // 14: payment.v1.Payment.VerifyPayment:output_type -> payment.v1.response.VerifyPaymentResponse
+	16, // 15: payment.v1.Payment.GetPaymentStatus:output_type -> payment.v1.response.GetPaymentStatusResponse
+	17, // 16: payment.v1.Payment.RequestInstantPayout:output_type -> payment.v1.response.RequestInstantPayoutResponse
+	18, // 17: payment.v1.Payment.GetPayout:output_type -> payment.v1.response.GetPayoutResponse
+	19, // 18: payment.v1.Payment.GetWallet:output_type -> payment.v1.response.GetWalletResponse
+	20, // 19: payment.v1.Payment.ListWalletEntries:output_type -> payment.v1.response.ListWalletEntriesResponse
+	21, // 20: payment.v1.Payment.AddBankAccount:output_type -> payment.v1.response.AddBankAccountResponse
+	22, // 21: payment.v1.Payment.ListBankAccounts:output_type -> payment.v1.response.ListBankAccountsResponse
+	23, // 22: payment.v1.Payment.DeleteBankAccount:output_type -> payment.v1.response.DeleteBankAccountResponse
+	24, // 23: payment.v1.Payment.RequestWithdrawal:output_type -> payment.v1.response.RequestWithdrawalResponse
+	25, // 24: payment.v1.Payment.ListWithdrawals:output_type -> payment.v1.response.ListWithdrawalsResponse
+	26, // 25: payment.v1.Payment.GetWithdrawal:output_type -> payment.v1.response.GetWithdrawalResponse
+	13, // [13:26] is the sub-list for method output_type
+	0,  // [0:13] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

@@ -42,6 +42,56 @@ service Payment {
       get: "/v1/orders/{order_id}/payout"
     };
   }
+
+  rpc GetWallet (payment.v1.request.GetWalletRequest) returns (payment.v1.response.GetWalletResponse) {
+    option (google.api.http) = {
+      get: "/v1/wallet"
+    };
+  }
+
+  rpc ListWalletEntries (payment.v1.request.ListWalletEntriesRequest) returns (payment.v1.response.ListWalletEntriesResponse) {
+    option (google.api.http) = {
+      get: "/v1/wallet/entries"
+    };
+  }
+
+  rpc AddBankAccount (payment.v1.request.AddBankAccountRequest) returns (payment.v1.response.AddBankAccountResponse) {
+    option (google.api.http) = {
+      post: "/v1/wallet/bank-accounts"
+      body: "*"
+    };
+  }
+
+  rpc ListBankAccounts (payment.v1.request.ListBankAccountsRequest) returns (payment.v1.response.ListBankAccountsResponse) {
+    option (google.api.http) = {
+      get: "/v1/wallet/bank-accounts"
+    };
+  }
+
+  rpc DeleteBankAccount (payment.v1.request.DeleteBankAccountRequest) returns (payment.v1.response.DeleteBankAccountResponse) {
+    option (google.api.http) = {
+      delete: "/v1/wallet/bank-accounts/{bank_account_id}"
+    };
+  }
+
+  rpc RequestWithdrawal (payment.v1.request.RequestWithdrawalRequest) returns (payment.v1.response.RequestWithdrawalResponse) {
+    option (google.api.http) = {
+      post: "/v1/wallet/withdrawals"
+      body: "*"
+    };
+  }
+
+  rpc ListWithdrawals (payment.v1.request.ListWithdrawalsRequest) returns (payment.v1.response.ListWithdrawalsResponse) {
+    option (google.api.http) = {
+      get: "/v1/wallet/withdrawals"
+    };
+  }
+
+  rpc GetWithdrawal (payment.v1.request.GetWithdrawalRequest) returns (payment.v1.response.GetWithdrawalResponse) {
+    option (google.api.http) = {
+      get: "/v1/wallet/withdrawals/{withdrawal_id}"
+    };
+  }
 }
 
 enum ErrorReason {
@@ -54,4 +104,9 @@ enum ErrorReason {
   PAYMENT_VERIFICATION_FAILED = 5 [(errors.code) = 400];
   PAYMENT_PAYOUT_NOT_FOUND = 6 [(errors.code) = 404];
   PAYMENT_PAYOUT_NOT_ALLOWED = 7 [(errors.code) = 409];
+  PAYMENT_WALLET_NOT_FOUND = 8 [(errors.code) = 404];
+  PAYMENT_INSUFFICIENT_BALANCE = 9 [(errors.code) = 409];
+  PAYMENT_BANK_ACCOUNT_NOT_FOUND = 10 [(errors.code) = 404];
+  PAYMENT_WITHDRAWAL_NOT_FOUND = 11 [(errors.code) = 404];
+  PAYMENT_WITHDRAWAL_NOT_ALLOWED = 12 [(errors.code) = 409];
 }

@@ -282,11 +282,435 @@ func (x *GetPayoutResponse) GetPayout() *types.PayoutInfo {
 	return nil
 }
 
+type GetWalletResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Wallet        *types.WalletBalance   `protobuf:"bytes,1,opt,name=wallet,proto3" json:"wallet,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWalletResponse) Reset() {
+	*x = GetWalletResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWalletResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWalletResponse) ProtoMessage() {}
+
+func (x *GetWalletResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWalletResponse.ProtoReflect.Descriptor instead.
+func (*GetWalletResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetWalletResponse) GetWallet() *types.WalletBalance {
+	if x != nil {
+		return x.Wallet
+	}
+	return nil
+}
+
+type ListWalletEntriesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Entries       []*types.WalletEntry   `protobuf:"bytes,1,rep,name=entries,proto3" json:"entries,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	TotalPages    int64                  `protobuf:"varint,4,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`
+	TotalRecords  int64                  `protobuf:"varint,5,opt,name=total_records,json=totalRecords,proto3" json:"total_records,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListWalletEntriesResponse) Reset() {
+	*x = ListWalletEntriesResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListWalletEntriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListWalletEntriesResponse) ProtoMessage() {}
+
+func (x *ListWalletEntriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListWalletEntriesResponse.ProtoReflect.Descriptor instead.
+func (*ListWalletEntriesResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ListWalletEntriesResponse) GetEntries() []*types.WalletEntry {
+	if x != nil {
+		return x.Entries
+	}
+	return nil
+}
+
+func (x *ListWalletEntriesResponse) GetPageNumber() int64 {
+	if x != nil {
+		return x.PageNumber
+	}
+	return 0
+}
+
+func (x *ListWalletEntriesResponse) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ListWalletEntriesResponse) GetTotalPages() int64 {
+	if x != nil {
+		return x.TotalPages
+	}
+	return 0
+}
+
+func (x *ListWalletEntriesResponse) GetTotalRecords() int64 {
+	if x != nil {
+		return x.TotalRecords
+	}
+	return 0
+}
+
+type AddBankAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BankAccount   *types.BankAccount     `protobuf:"bytes,1,opt,name=bank_account,json=bankAccount,proto3" json:"bank_account,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddBankAccountResponse) Reset() {
+	*x = AddBankAccountResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddBankAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddBankAccountResponse) ProtoMessage() {}
+
+func (x *AddBankAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddBankAccountResponse.ProtoReflect.Descriptor instead.
+func (*AddBankAccountResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AddBankAccountResponse) GetBankAccount() *types.BankAccount {
+	if x != nil {
+		return x.BankAccount
+	}
+	return nil
+}
+
+type ListBankAccountsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BankAccounts  []*types.BankAccount   `protobuf:"bytes,1,rep,name=bank_accounts,json=bankAccounts,proto3" json:"bank_accounts,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBankAccountsResponse) Reset() {
+	*x = ListBankAccountsResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBankAccountsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBankAccountsResponse) ProtoMessage() {}
+
+func (x *ListBankAccountsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBankAccountsResponse.ProtoReflect.Descriptor instead.
+func (*ListBankAccountsResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ListBankAccountsResponse) GetBankAccounts() []*types.BankAccount {
+	if x != nil {
+		return x.BankAccounts
+	}
+	return nil
+}
+
+type DeleteBankAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Deleted       bool                   `protobuf:"varint,1,opt,name=deleted,proto3" json:"deleted,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBankAccountResponse) Reset() {
+	*x = DeleteBankAccountResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBankAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBankAccountResponse) ProtoMessage() {}
+
+func (x *DeleteBankAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBankAccountResponse.ProtoReflect.Descriptor instead.
+func (*DeleteBankAccountResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteBankAccountResponse) GetDeleted() bool {
+	if x != nil {
+		return x.Deleted
+	}
+	return false
+}
+
+type RequestWithdrawalResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Withdrawal    *types.Withdrawal      `protobuf:"bytes,1,opt,name=withdrawal,proto3" json:"withdrawal,omitempty"`
+	Wallet        *types.WalletBalance   `protobuf:"bytes,2,opt,name=wallet,proto3" json:"wallet,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RequestWithdrawalResponse) Reset() {
+	*x = RequestWithdrawalResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestWithdrawalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestWithdrawalResponse) ProtoMessage() {}
+
+func (x *RequestWithdrawalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestWithdrawalResponse.ProtoReflect.Descriptor instead.
+func (*RequestWithdrawalResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *RequestWithdrawalResponse) GetWithdrawal() *types.Withdrawal {
+	if x != nil {
+		return x.Withdrawal
+	}
+	return nil
+}
+
+func (x *RequestWithdrawalResponse) GetWallet() *types.WalletBalance {
+	if x != nil {
+		return x.Wallet
+	}
+	return nil
+}
+
+type ListWithdrawalsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Withdrawals   []*types.Withdrawal    `protobuf:"bytes,1,rep,name=withdrawals,proto3" json:"withdrawals,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	TotalPages    int64                  `protobuf:"varint,4,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`
+	TotalRecords  int64                  `protobuf:"varint,5,opt,name=total_records,json=totalRecords,proto3" json:"total_records,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListWithdrawalsResponse) Reset() {
+	*x = ListWithdrawalsResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListWithdrawalsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListWithdrawalsResponse) ProtoMessage() {}
+
+func (x *ListWithdrawalsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListWithdrawalsResponse.ProtoReflect.Descriptor instead.
+func (*ListWithdrawalsResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ListWithdrawalsResponse) GetWithdrawals() []*types.Withdrawal {
+	if x != nil {
+		return x.Withdrawals
+	}
+	return nil
+}
+
+func (x *ListWithdrawalsResponse) GetPageNumber() int64 {
+	if x != nil {
+		return x.PageNumber
+	}
+	return 0
+}
+
+func (x *ListWithdrawalsResponse) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ListWithdrawalsResponse) GetTotalPages() int64 {
+	if x != nil {
+		return x.TotalPages
+	}
+	return 0
+}
+
+func (x *ListWithdrawalsResponse) GetTotalRecords() int64 {
+	if x != nil {
+		return x.TotalRecords
+	}
+	return 0
+}
+
+type GetWithdrawalResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Withdrawal    *types.Withdrawal      `protobuf:"bytes,1,opt,name=withdrawal,proto3" json:"withdrawal,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWithdrawalResponse) Reset() {
+	*x = GetWithdrawalResponse{}
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWithdrawalResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWithdrawalResponse) ProtoMessage() {}
+
+func (x *GetWithdrawalResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_response_payment_response_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWithdrawalResponse.ProtoReflect.Descriptor instead.
+func (*GetWithdrawalResponse) Descriptor() ([]byte, []int) {
+	return file_payment_v1_response_payment_response_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetWithdrawalResponse) GetWithdrawal() *types.Withdrawal {
+	if x != nil {
+		return x.Withdrawal
+	}
+	return nil
+}
+
 var File_payment_v1_response_payment_response_proto protoreflect.FileDescriptor
 
 const file_payment_v1_response_payment_response_proto_rawDesc = "" +
 	"\n" +
-	"*payment/v1/response/payment_response.proto\x12\x13payment.v1.response\x1a\x1epayment/v1/types/payment.proto\"\xd7\x01\n" +
+	"*payment/v1/response/payment_response.proto\x12\x13payment.v1.response\x1a\x1epayment/v1/types/payment.proto\x1a\x1dpayment/v1/types/wallet.proto\"\xd7\x01\n" +
 	"\x17InitiatePaymentResponse\x127\n" +
 	"\apayment\x18\x01 \x01(\v2\x1d.payment.v1.types.PaymentInfoR\apayment\x12\x1a\n" +
 	"\bprovider\x18\x02 \x01(\tR\bprovider\x12!\n" +
@@ -301,7 +725,40 @@ const file_payment_v1_response_payment_response_proto_rawDesc = "" +
 	"\x1cRequestInstantPayoutResponse\x124\n" +
 	"\x06payout\x18\x01 \x01(\v2\x1c.payment.v1.types.PayoutInfoR\x06payout\"I\n" +
 	"\x11GetPayoutResponse\x124\n" +
-	"\x06payout\x18\x01 \x01(\v2\x1c.payment.v1.types.PayoutInfoR\x06payoutB9Z7github.com/arm-1234/protos/payment/v1/response;responseb\x06proto3"
+	"\x06payout\x18\x01 \x01(\v2\x1c.payment.v1.types.PayoutInfoR\x06payout\"L\n" +
+	"\x11GetWalletResponse\x127\n" +
+	"\x06wallet\x18\x01 \x01(\v2\x1f.payment.v1.types.WalletBalanceR\x06wallet\"\xd8\x01\n" +
+	"\x19ListWalletEntriesResponse\x127\n" +
+	"\aentries\x18\x01 \x03(\v2\x1d.payment.v1.types.WalletEntryR\aentries\x12\x1f\n" +
+	"\vpage_number\x18\x02 \x01(\x03R\n" +
+	"pageNumber\x12\x1b\n" +
+	"\tpage_size\x18\x03 \x01(\x03R\bpageSize\x12\x1f\n" +
+	"\vtotal_pages\x18\x04 \x01(\x03R\n" +
+	"totalPages\x12#\n" +
+	"\rtotal_records\x18\x05 \x01(\x03R\ftotalRecords\"Z\n" +
+	"\x16AddBankAccountResponse\x12@\n" +
+	"\fbank_account\x18\x01 \x01(\v2\x1d.payment.v1.types.BankAccountR\vbankAccount\"^\n" +
+	"\x18ListBankAccountsResponse\x12B\n" +
+	"\rbank_accounts\x18\x01 \x03(\v2\x1d.payment.v1.types.BankAccountR\fbankAccounts\"5\n" +
+	"\x19DeleteBankAccountResponse\x12\x18\n" +
+	"\adeleted\x18\x01 \x01(\bR\adeleted\"\x92\x01\n" +
+	"\x19RequestWithdrawalResponse\x12<\n" +
+	"\n" +
+	"withdrawal\x18\x01 \x01(\v2\x1c.payment.v1.types.WithdrawalR\n" +
+	"withdrawal\x127\n" +
+	"\x06wallet\x18\x02 \x01(\v2\x1f.payment.v1.types.WalletBalanceR\x06wallet\"\xdd\x01\n" +
+	"\x17ListWithdrawalsResponse\x12>\n" +
+	"\vwithdrawals\x18\x01 \x03(\v2\x1c.payment.v1.types.WithdrawalR\vwithdrawals\x12\x1f\n" +
+	"\vpage_number\x18\x02 \x01(\x03R\n" +
+	"pageNumber\x12\x1b\n" +
+	"\tpage_size\x18\x03 \x01(\x03R\bpageSize\x12\x1f\n" +
+	"\vtotal_pages\x18\x04 \x01(\x03R\n" +
+	"totalPages\x12#\n" +
+	"\rtotal_records\x18\x05 \x01(\x03R\ftotalRecords\"U\n" +
+	"\x15GetWithdrawalResponse\x12<\n" +
+	"\n" +
+	"withdrawal\x18\x01 \x01(\v2\x1c.payment.v1.types.WithdrawalR\n" +
+	"withdrawalB9Z7github.com/arm-1234/protos/payment/v1/response;responseb\x06proto3"
 
 var (
 	file_payment_v1_response_payment_response_proto_rawDescOnce sync.Once
@@ -315,27 +772,47 @@ func file_payment_v1_response_payment_response_proto_rawDescGZIP() []byte {
 	return file_payment_v1_response_payment_response_proto_rawDescData
 }
 
-var file_payment_v1_response_payment_response_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_payment_v1_response_payment_response_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_payment_v1_response_payment_response_proto_goTypes = []any{
 	(*InitiatePaymentResponse)(nil),      // 0: payment.v1.response.InitiatePaymentResponse
 	(*VerifyPaymentResponse)(nil),        // 1: payment.v1.response.VerifyPaymentResponse
 	(*GetPaymentStatusResponse)(nil),     // 2: payment.v1.response.GetPaymentStatusResponse
 	(*RequestInstantPayoutResponse)(nil), // 3: payment.v1.response.RequestInstantPayoutResponse
 	(*GetPayoutResponse)(nil),            // 4: payment.v1.response.GetPayoutResponse
-	(*types.PaymentInfo)(nil),            // 5: payment.v1.types.PaymentInfo
-	(*types.PayoutInfo)(nil),             // 6: payment.v1.types.PayoutInfo
+	(*GetWalletResponse)(nil),            // 5: payment.v1.response.GetWalletResponse
+	(*ListWalletEntriesResponse)(nil),    // 6: payment.v1.response.ListWalletEntriesResponse
+	(*AddBankAccountResponse)(nil),       // 7: payment.v1.response.AddBankAccountResponse
+	(*ListBankAccountsResponse)(nil),     // 8: payment.v1.response.ListBankAccountsResponse
+	(*DeleteBankAccountResponse)(nil),    // 9: payment.v1.response.DeleteBankAccountResponse
+	(*RequestWithdrawalResponse)(nil),    // 10: payment.v1.response.RequestWithdrawalResponse
+	(*ListWithdrawalsResponse)(nil),      // 11: payment.v1.response.ListWithdrawalsResponse
+	(*GetWithdrawalResponse)(nil),        // 12: payment.v1.response.GetWithdrawalResponse
+	(*types.PaymentInfo)(nil),            // 13: payment.v1.types.PaymentInfo
+	(*types.PayoutInfo)(nil),             // 14: payment.v1.types.PayoutInfo
+	(*types.WalletBalance)(nil),          // 15: payment.v1.types.WalletBalance
+	(*types.WalletEntry)(nil),            // 16: payment.v1.types.WalletEntry
+	(*types.BankAccount)(nil),            // 17: payment.v1.types.BankAccount
+	(*types.Withdrawal)(nil),             // 18: payment.v1.types.Withdrawal
 }
 var file_payment_v1_response_payment_response_proto_depIdxs = []int32{
-	5, // 0: payment.v1.response.InitiatePaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
-	5, // 1: payment.v1.response.VerifyPaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
-	5, // 2: payment.v1.response.GetPaymentStatusResponse.payment:type_name -> payment.v1.types.PaymentInfo
-	6, // 3: payment.v1.response.RequestInstantPayoutResponse.payout:type_name -> payment.v1.types.PayoutInfo
-	6, // 4: payment.v1.response.GetPayoutResponse.payout:type_name -> payment.v1.types.PayoutInfo
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	13, // 0: payment.v1.response.InitiatePaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
+	13, // 1: payment.v1.response.VerifyPaymentResponse.payment:type_name -> payment.v1.types.PaymentInfo
+	13, // 2: payment.v1.response.GetPaymentStatusResponse.payment:type_name -> payment.v1.types.PaymentInfo
+	14, // 3: payment.v1.response.RequestInstantPayoutResponse.payout:type_name -> payment.v1.types.PayoutInfo
+	14, // 4: payment.v1.response.GetPayoutResponse.payout:type_name -> payment.v1.types.PayoutInfo
+	15, // 5: payment.v1.response.GetWalletResponse.wallet:type_name -> payment.v1.types.WalletBalance
+	16, // 6: payment.v1.response.ListWalletEntriesResponse.entries:type_name -> payment.v1.types.WalletEntry
+	17, // 7: payment.v1.response.AddBankAccountResponse.bank_account:type_name -> payment.v1.types.BankAccount
+	17, // 8: payment.v1.response.ListBankAccountsResponse.bank_accounts:type_name -> payment.v1.types.BankAccount
+	18, // 9: payment.v1.response.RequestWithdrawalResponse.withdrawal:type_name -> payment.v1.types.Withdrawal
+	15, // 10: payment.v1.response.RequestWithdrawalResponse.wallet:type_name -> payment.v1.types.WalletBalance
+	18, // 11: payment.v1.response.ListWithdrawalsResponse.withdrawals:type_name -> payment.v1.types.Withdrawal
+	18, // 12: payment.v1.response.GetWithdrawalResponse.withdrawal:type_name -> payment.v1.types.Withdrawal
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_payment_v1_response_payment_response_proto_init() }
@@ -349,7 +826,7 @@ func file_payment_v1_response_payment_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_payment_v1_response_payment_response_proto_rawDesc), len(file_payment_v1_response_payment_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

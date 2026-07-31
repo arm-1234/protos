@@ -106,3 +106,63 @@ func IsPaymentPayoutNotAllowed(err error) bool {
 func ErrorPaymentPayoutNotAllowed(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_PAYMENT_PAYOUT_NOT_ALLOWED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsPaymentWalletNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_WALLET_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorPaymentWalletNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_PAYMENT_WALLET_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentInsufficientBalance(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_INSUFFICIENT_BALANCE.String() && e.Code == 409
+}
+
+func ErrorPaymentInsufficientBalance(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_PAYMENT_INSUFFICIENT_BALANCE.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentBankAccountNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_BANK_ACCOUNT_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorPaymentBankAccountNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_PAYMENT_BANK_ACCOUNT_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentWithdrawalNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_WITHDRAWAL_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorPaymentWithdrawalNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_PAYMENT_WITHDRAWAL_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentWithdrawalNotAllowed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_WITHDRAWAL_NOT_ALLOWED.String() && e.Code == 409
+}
+
+func ErrorPaymentWithdrawalNotAllowed(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_PAYMENT_WITHDRAWAL_NOT_ALLOWED.String(), fmt.Sprintf(format, args...))
+}

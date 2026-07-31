@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package payment.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/payment/v1/types/enums;enums";
+
+// Who owns a wallet. Adding an owner type must not require new tables or RPCs.
+enum WalletOwnerType {
+  WALLET_OWNER_TYPE_UNSPECIFIED = 0;
+  WALLET_OWNER_TYPE_MERCHANT = 1;
+  WALLET_OWNER_TYPE_USER = 2;
+  // Internal account collecting platform fees; never withdrawable via the API.
+  WALLET_OWNER_TYPE_PLATFORM = 3;
+}
+
+// Why an entry was posted. The reason is what makes a statement readable, so it
+// is stored per entry rather than derived from the reference type.
+enum WalletEntryReason {
+  WALLET_ENTRY_REASON_UNSPECIFIED = 0;
+  WALLET_ENTRY_REASON_ORDER_SALE = 1;
+  WALLET_ENTRY_REASON_PLATFORM_FEE = 2;
+  WALLET_ENTRY_REASON_WITHDRAWAL = 3;
+  WALLET_ENTRY_REASON_WITHDRAWAL_REVERSAL = 4;
+  WALLET_ENTRY_REASON_REFUND = 5;
+  WALLET_ENTRY_REASON_ADJUSTMENT = 6;
+}
+
+// Funds credited by a sale are not withdrawable until the payout clears, so a
+// balance has to distinguish the two.
+enum WalletBalanceState {
+  WALLET_BALANCE_STATE_UNSPECIFIED = 0;
+  WALLET_BALANCE_STATE_PENDING = 1;
+  WALLET_BALANCE_STATE_AVAILABLE = 2;
+}
+
+enum WithdrawalStatus {
+  WITHDRAWAL_STATUS_UNSPECIFIED = 0;
+  WITHDRAWAL_STATUS_REQUESTED = 1;
+  WITHDRAWAL_STATUS_PROCESSING = 2;
+  WITHDRAWAL_STATUS_PAID = 3;
+  WITHDRAWAL_STATUS_FAILED = 4;
+}
+
+enum BankAccountKind {
+  BANK_ACCOUNT_KIND_UNSPECIFIED = 0;
+  BANK_ACCOUNT_KIND_SAVINGS = 1;
+  BANK_ACCOUNT_KIND_CURRENT = 2;
+  BANK_ACCOUNT_KIND_VPA = 3;
+}

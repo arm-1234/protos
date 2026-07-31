@@ -21,17 +21,33 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationPaymentAddBankAccount = "/payment.v1.Payment/AddBankAccount"
+const OperationPaymentDeleteBankAccount = "/payment.v1.Payment/DeleteBankAccount"
 const OperationPaymentGetPaymentStatus = "/payment.v1.Payment/GetPaymentStatus"
 const OperationPaymentGetPayout = "/payment.v1.Payment/GetPayout"
+const OperationPaymentGetWallet = "/payment.v1.Payment/GetWallet"
+const OperationPaymentGetWithdrawal = "/payment.v1.Payment/GetWithdrawal"
 const OperationPaymentInitiatePayment = "/payment.v1.Payment/InitiatePayment"
+const OperationPaymentListBankAccounts = "/payment.v1.Payment/ListBankAccounts"
+const OperationPaymentListWalletEntries = "/payment.v1.Payment/ListWalletEntries"
+const OperationPaymentListWithdrawals = "/payment.v1.Payment/ListWithdrawals"
 const OperationPaymentRequestInstantPayout = "/payment.v1.Payment/RequestInstantPayout"
+const OperationPaymentRequestWithdrawal = "/payment.v1.Payment/RequestWithdrawal"
 const OperationPaymentVerifyPayment = "/payment.v1.Payment/VerifyPayment"
 
 type PaymentHTTPServer interface {
+	AddBankAccount(context.Context, *request.AddBankAccountRequest) (*response.AddBankAccountResponse, error)
+	DeleteBankAccount(context.Context, *request.DeleteBankAccountRequest) (*response.DeleteBankAccountResponse, error)
 	GetPaymentStatus(context.Context, *request.GetPaymentStatusRequest) (*response.GetPaymentStatusResponse, error)
 	GetPayout(context.Context, *request.GetPayoutRequest) (*response.GetPayoutResponse, error)
+	GetWallet(context.Context, *request.GetWalletRequest) (*response.GetWalletResponse, error)
+	GetWithdrawal(context.Context, *request.GetWithdrawalRequest) (*response.GetWithdrawalResponse, error)
 	InitiatePayment(context.Context, *request.InitiatePaymentRequest) (*response.InitiatePaymentResponse, error)
+	ListBankAccounts(context.Context, *request.ListBankAccountsRequest) (*response.ListBankAccountsResponse, error)
+	ListWalletEntries(context.Context, *request.ListWalletEntriesRequest) (*response.ListWalletEntriesResponse, error)
+	ListWithdrawals(context.Context, *request.ListWithdrawalsRequest) (*response.ListWithdrawalsResponse, error)
 	RequestInstantPayout(context.Context, *request.RequestInstantPayoutRequest) (*response.RequestInstantPayoutResponse, error)
+	RequestWithdrawal(context.Context, *request.RequestWithdrawalRequest) (*response.RequestWithdrawalResponse, error)
 	VerifyPayment(context.Context, *request.VerifyPaymentRequest) (*response.VerifyPaymentResponse, error)
 }
 
@@ -42,6 +58,14 @@ func RegisterPaymentHTTPServer(s *http.Server, srv PaymentHTTPServer) {
 	r.GET("/v1/orders/{order_id}/payments/{payment_id}", _Payment_GetPaymentStatus0_HTTP_Handler(srv))
 	r.POST("/v1/orders/{order_id}/payout:instant", _Payment_RequestInstantPayout0_HTTP_Handler(srv))
 	r.GET("/v1/orders/{order_id}/payout", _Payment_GetPayout0_HTTP_Handler(srv))
+	r.GET("/v1/wallet", _Payment_GetWallet0_HTTP_Handler(srv))
+	r.GET("/v1/wallet/entries", _Payment_ListWalletEntries0_HTTP_Handler(srv))
+	r.POST("/v1/wallet/bank-accounts", _Payment_AddBankAccount0_HTTP_Handler(srv))
+	r.GET("/v1/wallet/bank-accounts", _Payment_ListBankAccounts0_HTTP_Handler(srv))
+	r.DELETE("/v1/wallet/bank-accounts/{bank_account_id}", _Payment_DeleteBankAccount0_HTTP_Handler(srv))
+	r.POST("/v1/wallet/withdrawals", _Payment_RequestWithdrawal0_HTTP_Handler(srv))
+	r.GET("/v1/wallet/withdrawals", _Payment_ListWithdrawals0_HTTP_Handler(srv))
+	r.GET("/v1/wallet/withdrawals/{withdrawal_id}", _Payment_GetWithdrawal0_HTTP_Handler(srv))
 }
 
 func _Payment_InitiatePayment0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
@@ -163,11 +187,183 @@ func _Payment_GetPayout0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Conte
 	}
 }
 
+func _Payment_GetWallet0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetWalletRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentGetWallet)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetWallet(ctx, req.(*request.GetWalletRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetWalletResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_ListWalletEntries0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListWalletEntriesRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentListWalletEntries)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListWalletEntries(ctx, req.(*request.ListWalletEntriesRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListWalletEntriesResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_AddBankAccount0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.AddBankAccountRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentAddBankAccount)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.AddBankAccount(ctx, req.(*request.AddBankAccountRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.AddBankAccountResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_ListBankAccounts0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListBankAccountsRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentListBankAccounts)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListBankAccounts(ctx, req.(*request.ListBankAccountsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListBankAccountsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_DeleteBankAccount0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.DeleteBankAccountRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentDeleteBankAccount)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteBankAccount(ctx, req.(*request.DeleteBankAccountRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.DeleteBankAccountResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_RequestWithdrawal0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RequestWithdrawalRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentRequestWithdrawal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RequestWithdrawal(ctx, req.(*request.RequestWithdrawalRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RequestWithdrawalResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_ListWithdrawals0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListWithdrawalsRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentListWithdrawals)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListWithdrawals(ctx, req.(*request.ListWithdrawalsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListWithdrawalsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Payment_GetWithdrawal0_HTTP_Handler(srv PaymentHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetWithdrawalRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPaymentGetWithdrawal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetWithdrawal(ctx, req.(*request.GetWithdrawalRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetWithdrawalResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type PaymentHTTPClient interface {
+	AddBankAccount(ctx context.Context, req *request.AddBankAccountRequest, opts ...http.CallOption) (rsp *response.AddBankAccountResponse, err error)
+	DeleteBankAccount(ctx context.Context, req *request.DeleteBankAccountRequest, opts ...http.CallOption) (rsp *response.DeleteBankAccountResponse, err error)
 	GetPaymentStatus(ctx context.Context, req *request.GetPaymentStatusRequest, opts ...http.CallOption) (rsp *response.GetPaymentStatusResponse, err error)
 	GetPayout(ctx context.Context, req *request.GetPayoutRequest, opts ...http.CallOption) (rsp *response.GetPayoutResponse, err error)
+	GetWallet(ctx context.Context, req *request.GetWalletRequest, opts ...http.CallOption) (rsp *response.GetWalletResponse, err error)
+	GetWithdrawal(ctx context.Context, req *request.GetWithdrawalRequest, opts ...http.CallOption) (rsp *response.GetWithdrawalResponse, err error)
 	InitiatePayment(ctx context.Context, req *request.InitiatePaymentRequest, opts ...http.CallOption) (rsp *response.InitiatePaymentResponse, err error)
+	ListBankAccounts(ctx context.Context, req *request.ListBankAccountsRequest, opts ...http.CallOption) (rsp *response.ListBankAccountsResponse, err error)
+	ListWalletEntries(ctx context.Context, req *request.ListWalletEntriesRequest, opts ...http.CallOption) (rsp *response.ListWalletEntriesResponse, err error)
+	ListWithdrawals(ctx context.Context, req *request.ListWithdrawalsRequest, opts ...http.CallOption) (rsp *response.ListWithdrawalsResponse, err error)
 	RequestInstantPayout(ctx context.Context, req *request.RequestInstantPayoutRequest, opts ...http.CallOption) (rsp *response.RequestInstantPayoutResponse, err error)
+	RequestWithdrawal(ctx context.Context, req *request.RequestWithdrawalRequest, opts ...http.CallOption) (rsp *response.RequestWithdrawalResponse, err error)
 	VerifyPayment(ctx context.Context, req *request.VerifyPaymentRequest, opts ...http.CallOption) (rsp *response.VerifyPaymentResponse, err error)
 }
 
@@ -177,6 +373,32 @@ type PaymentHTTPClientImpl struct {
 
 func NewPaymentHTTPClient(client *http.Client) PaymentHTTPClient {
 	return &PaymentHTTPClientImpl{client}
+}
+
+func (c *PaymentHTTPClientImpl) AddBankAccount(ctx context.Context, in *request.AddBankAccountRequest, opts ...http.CallOption) (*response.AddBankAccountResponse, error) {
+	var out response.AddBankAccountResponse
+	pattern := "/v1/wallet/bank-accounts"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationPaymentAddBankAccount))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *PaymentHTTPClientImpl) DeleteBankAccount(ctx context.Context, in *request.DeleteBankAccountRequest, opts ...http.CallOption) (*response.DeleteBankAccountResponse, error) {
+	var out response.DeleteBankAccountResponse
+	pattern := "/v1/wallet/bank-accounts/{bank_account_id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentDeleteBankAccount))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 func (c *PaymentHTTPClientImpl) GetPaymentStatus(ctx context.Context, in *request.GetPaymentStatusRequest, opts ...http.CallOption) (*response.GetPaymentStatusResponse, error) {
@@ -205,6 +427,32 @@ func (c *PaymentHTTPClientImpl) GetPayout(ctx context.Context, in *request.GetPa
 	return &out, nil
 }
 
+func (c *PaymentHTTPClientImpl) GetWallet(ctx context.Context, in *request.GetWalletRequest, opts ...http.CallOption) (*response.GetWalletResponse, error) {
+	var out response.GetWalletResponse
+	pattern := "/v1/wallet"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentGetWallet))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *PaymentHTTPClientImpl) GetWithdrawal(ctx context.Context, in *request.GetWithdrawalRequest, opts ...http.CallOption) (*response.GetWithdrawalResponse, error) {
+	var out response.GetWithdrawalResponse
+	pattern := "/v1/wallet/withdrawals/{withdrawal_id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentGetWithdrawal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *PaymentHTTPClientImpl) InitiatePayment(ctx context.Context, in *request.InitiatePaymentRequest, opts ...http.CallOption) (*response.InitiatePaymentResponse, error) {
 	var out response.InitiatePaymentResponse
 	pattern := "/v1/orders/{order_id}/payments"
@@ -218,11 +466,63 @@ func (c *PaymentHTTPClientImpl) InitiatePayment(ctx context.Context, in *request
 	return &out, nil
 }
 
+func (c *PaymentHTTPClientImpl) ListBankAccounts(ctx context.Context, in *request.ListBankAccountsRequest, opts ...http.CallOption) (*response.ListBankAccountsResponse, error) {
+	var out response.ListBankAccountsResponse
+	pattern := "/v1/wallet/bank-accounts"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentListBankAccounts))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *PaymentHTTPClientImpl) ListWalletEntries(ctx context.Context, in *request.ListWalletEntriesRequest, opts ...http.CallOption) (*response.ListWalletEntriesResponse, error) {
+	var out response.ListWalletEntriesResponse
+	pattern := "/v1/wallet/entries"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentListWalletEntries))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *PaymentHTTPClientImpl) ListWithdrawals(ctx context.Context, in *request.ListWithdrawalsRequest, opts ...http.CallOption) (*response.ListWithdrawalsResponse, error) {
+	var out response.ListWithdrawalsResponse
+	pattern := "/v1/wallet/withdrawals"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPaymentListWithdrawals))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *PaymentHTTPClientImpl) RequestInstantPayout(ctx context.Context, in *request.RequestInstantPayoutRequest, opts ...http.CallOption) (*response.RequestInstantPayoutResponse, error) {
 	var out response.RequestInstantPayoutResponse
 	pattern := "/v1/orders/{order_id}/payout:instant"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPaymentRequestInstantPayout))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *PaymentHTTPClientImpl) RequestWithdrawal(ctx context.Context, in *request.RequestWithdrawalRequest, opts ...http.CallOption) (*response.RequestWithdrawalResponse, error) {
+	var out response.RequestWithdrawalResponse
+	pattern := "/v1/wallet/withdrawals"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationPaymentRequestWithdrawal))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

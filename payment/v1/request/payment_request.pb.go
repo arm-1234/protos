@@ -7,6 +7,7 @@
 package request
 
 import (
+	enums "github.com/arm-1234/protos/payment/v1/types/enums"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -275,11 +276,439 @@ func (x *GetPayoutRequest) GetOrderId() string {
 	return ""
 }
 
+type GetWalletRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Omitted means "my merchant wallet", resolved from the caller's token.
+	MerchantId    string `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWalletRequest) Reset() {
+	*x = GetWalletRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWalletRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWalletRequest) ProtoMessage() {}
+
+func (x *GetWalletRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWalletRequest.ProtoReflect.Descriptor instead.
+func (*GetWalletRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetWalletRequest) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
+}
+
+type ListWalletEntriesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListWalletEntriesRequest) Reset() {
+	*x = ListWalletEntriesRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListWalletEntriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListWalletEntriesRequest) ProtoMessage() {}
+
+func (x *ListWalletEntriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListWalletEntriesRequest.ProtoReflect.Descriptor instead.
+func (*ListWalletEntriesRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ListWalletEntriesRequest) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
+}
+
+func (x *ListWalletEntriesRequest) GetPageNumber() int64 {
+	if x != nil {
+		return x.PageNumber
+	}
+	return 0
+}
+
+func (x *ListWalletEntriesRequest) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type AddBankAccountRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	BeneficiaryName string                 `protobuf:"bytes,1,opt,name=beneficiary_name,json=beneficiaryName,proto3" json:"beneficiary_name,omitempty"`
+	// Either account_number + ifsc, or vpa. Checked in the usecase, since
+	// validate cannot express "one of two groups".
+	AccountNumber string                `protobuf:"bytes,2,opt,name=account_number,json=accountNumber,proto3" json:"account_number,omitempty"`
+	Ifsc          string                `protobuf:"bytes,3,opt,name=ifsc,proto3" json:"ifsc,omitempty"`
+	Vpa           string                `protobuf:"bytes,4,opt,name=vpa,proto3" json:"vpa,omitempty"`
+	Kind          enums.BankAccountKind `protobuf:"varint,5,opt,name=kind,proto3,enum=payment.v1.types.enums.BankAccountKind" json:"kind,omitempty"`
+	MakePrimary   bool                  `protobuf:"varint,6,opt,name=make_primary,json=makePrimary,proto3" json:"make_primary,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddBankAccountRequest) Reset() {
+	*x = AddBankAccountRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddBankAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddBankAccountRequest) ProtoMessage() {}
+
+func (x *AddBankAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddBankAccountRequest.ProtoReflect.Descriptor instead.
+func (*AddBankAccountRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AddBankAccountRequest) GetBeneficiaryName() string {
+	if x != nil {
+		return x.BeneficiaryName
+	}
+	return ""
+}
+
+func (x *AddBankAccountRequest) GetAccountNumber() string {
+	if x != nil {
+		return x.AccountNumber
+	}
+	return ""
+}
+
+func (x *AddBankAccountRequest) GetIfsc() string {
+	if x != nil {
+		return x.Ifsc
+	}
+	return ""
+}
+
+func (x *AddBankAccountRequest) GetVpa() string {
+	if x != nil {
+		return x.Vpa
+	}
+	return ""
+}
+
+func (x *AddBankAccountRequest) GetKind() enums.BankAccountKind {
+	if x != nil {
+		return x.Kind
+	}
+	return enums.BankAccountKind(0)
+}
+
+func (x *AddBankAccountRequest) GetMakePrimary() bool {
+	if x != nil {
+		return x.MakePrimary
+	}
+	return false
+}
+
+type ListBankAccountsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBankAccountsRequest) Reset() {
+	*x = ListBankAccountsRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBankAccountsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBankAccountsRequest) ProtoMessage() {}
+
+func (x *ListBankAccountsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBankAccountsRequest.ProtoReflect.Descriptor instead.
+func (*ListBankAccountsRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{8}
+}
+
+type DeleteBankAccountRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BankAccountId string                 `protobuf:"bytes,1,opt,name=bank_account_id,json=bankAccountId,proto3" json:"bank_account_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBankAccountRequest) Reset() {
+	*x = DeleteBankAccountRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBankAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBankAccountRequest) ProtoMessage() {}
+
+func (x *DeleteBankAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBankAccountRequest.ProtoReflect.Descriptor instead.
+func (*DeleteBankAccountRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteBankAccountRequest) GetBankAccountId() string {
+	if x != nil {
+		return x.BankAccountId
+	}
+	return ""
+}
+
+type RequestWithdrawalRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AmountMinor   int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	BankAccountId string                 `protobuf:"bytes,2,opt,name=bank_account_id,json=bankAccountId,proto3" json:"bank_account_id,omitempty"`
+	// Caller-supplied key so a retried tap cannot withdraw twice.
+	IdempotencyKey string `protobuf:"bytes,3,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *RequestWithdrawalRequest) Reset() {
+	*x = RequestWithdrawalRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestWithdrawalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestWithdrawalRequest) ProtoMessage() {}
+
+func (x *RequestWithdrawalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestWithdrawalRequest.ProtoReflect.Descriptor instead.
+func (*RequestWithdrawalRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *RequestWithdrawalRequest) GetAmountMinor() int64 {
+	if x != nil {
+		return x.AmountMinor
+	}
+	return 0
+}
+
+func (x *RequestWithdrawalRequest) GetBankAccountId() string {
+	if x != nil {
+		return x.BankAccountId
+	}
+	return ""
+}
+
+func (x *RequestWithdrawalRequest) GetIdempotencyKey() string {
+	if x != nil {
+		return x.IdempotencyKey
+	}
+	return ""
+}
+
+type ListWithdrawalsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PageNumber    int64                  `protobuf:"varint,1,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListWithdrawalsRequest) Reset() {
+	*x = ListWithdrawalsRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListWithdrawalsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListWithdrawalsRequest) ProtoMessage() {}
+
+func (x *ListWithdrawalsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListWithdrawalsRequest.ProtoReflect.Descriptor instead.
+func (*ListWithdrawalsRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ListWithdrawalsRequest) GetPageNumber() int64 {
+	if x != nil {
+		return x.PageNumber
+	}
+	return 0
+}
+
+func (x *ListWithdrawalsRequest) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type GetWithdrawalRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WithdrawalId  string                 `protobuf:"bytes,1,opt,name=withdrawal_id,json=withdrawalId,proto3" json:"withdrawal_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWithdrawalRequest) Reset() {
+	*x = GetWithdrawalRequest{}
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWithdrawalRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWithdrawalRequest) ProtoMessage() {}
+
+func (x *GetWithdrawalRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_v1_request_payment_request_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWithdrawalRequest.ProtoReflect.Descriptor instead.
+func (*GetWithdrawalRequest) Descriptor() ([]byte, []int) {
+	return file_payment_v1_request_payment_request_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetWithdrawalRequest) GetWithdrawalId() string {
+	if x != nil {
+		return x.WithdrawalId
+	}
+	return ""
+}
+
 var File_payment_v1_request_payment_request_proto protoreflect.FileDescriptor
 
 const file_payment_v1_request_payment_request_proto_rawDesc = "" +
 	"\n" +
-	"(payment/v1/request/payment_request.proto\x12\x12payment.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\"@\n" +
+	"(payment/v1/request/payment_request.proto\x12\x12payment.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a#payment/v1/types/enums/wallet.proto\"@\n" +
 	"\x16InitiatePaymentRequest\x12&\n" +
 	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\"\xcb\x01\n" +
 	"\x14VerifyPaymentRequest\x12\"\n" +
@@ -295,7 +724,36 @@ const file_payment_v1_request_payment_request_proto_rawDesc = "" +
 	"\x1bRequestInstantPayoutRequest\x12\"\n" +
 	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\"6\n" +
 	"\x10GetPayoutRequest\x12\"\n" +
-	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderIdB7Z5github.com/arm-1234/protos/payment/v1/request;requestb\x06proto3"
+	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\"3\n" +
+	"\x10GetWalletRequest\x12\x1f\n" +
+	"\vmerchant_id\x18\x01 \x01(\tR\n" +
+	"merchantId\"\x84\x01\n" +
+	"\x18ListWalletEntriesRequest\x12\x1f\n" +
+	"\vmerchant_id\x18\x01 \x01(\tR\n" +
+	"merchantId\x12\x1f\n" +
+	"\vpage_number\x18\x02 \x01(\x03R\n" +
+	"pageNumber\x12&\n" +
+	"\tpage_size\x18\x03 \x01(\x03B\t\xfaB\x06\"\x04\x18d(\x00R\bpageSize\"\x96\x02\n" +
+	"\x15AddBankAccountRequest\x124\n" +
+	"\x10beneficiary_name\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x18xR\x0fbeneficiaryName\x12.\n" +
+	"\x0eaccount_number\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x18\"R\raccountNumber\x12\x1b\n" +
+	"\x04ifsc\x18\x03 \x01(\tB\a\xfaB\x04r\x02\x18\vR\x04ifsc\x12\x1a\n" +
+	"\x03vpa\x18\x04 \x01(\tB\b\xfaB\x05r\x03\x18\xc0\x02R\x03vpa\x12;\n" +
+	"\x04kind\x18\x05 \x01(\x0e2'.payment.v1.types.enums.BankAccountKindR\x04kind\x12!\n" +
+	"\fmake_primary\x18\x06 \x01(\bR\vmakePrimary\"\x19\n" +
+	"\x17ListBankAccountsRequest\"K\n" +
+	"\x18DeleteBankAccountRequest\x12/\n" +
+	"\x0fbank_account_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rbankAccountId\"\xab\x01\n" +
+	"\x18RequestWithdrawalRequest\x12*\n" +
+	"\famount_minor\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\vamountMinor\x12/\n" +
+	"\x0fbank_account_id\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rbankAccountId\x122\n" +
+	"\x0fidempotency_key\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\b\x18@R\x0eidempotencyKey\"a\n" +
+	"\x16ListWithdrawalsRequest\x12\x1f\n" +
+	"\vpage_number\x18\x01 \x01(\x03R\n" +
+	"pageNumber\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x03B\t\xfaB\x06\"\x04\x18d(\x00R\bpageSize\"D\n" +
+	"\x14GetWithdrawalRequest\x12,\n" +
+	"\rwithdrawal_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\fwithdrawalIdB7Z5github.com/arm-1234/protos/payment/v1/request;requestb\x06proto3"
 
 var (
 	file_payment_v1_request_payment_request_proto_rawDescOnce sync.Once
@@ -309,20 +767,30 @@ func file_payment_v1_request_payment_request_proto_rawDescGZIP() []byte {
 	return file_payment_v1_request_payment_request_proto_rawDescData
 }
 
-var file_payment_v1_request_payment_request_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_payment_v1_request_payment_request_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_payment_v1_request_payment_request_proto_goTypes = []any{
 	(*InitiatePaymentRequest)(nil),      // 0: payment.v1.request.InitiatePaymentRequest
 	(*VerifyPaymentRequest)(nil),        // 1: payment.v1.request.VerifyPaymentRequest
 	(*GetPaymentStatusRequest)(nil),     // 2: payment.v1.request.GetPaymentStatusRequest
 	(*RequestInstantPayoutRequest)(nil), // 3: payment.v1.request.RequestInstantPayoutRequest
 	(*GetPayoutRequest)(nil),            // 4: payment.v1.request.GetPayoutRequest
+	(*GetWalletRequest)(nil),            // 5: payment.v1.request.GetWalletRequest
+	(*ListWalletEntriesRequest)(nil),    // 6: payment.v1.request.ListWalletEntriesRequest
+	(*AddBankAccountRequest)(nil),       // 7: payment.v1.request.AddBankAccountRequest
+	(*ListBankAccountsRequest)(nil),     // 8: payment.v1.request.ListBankAccountsRequest
+	(*DeleteBankAccountRequest)(nil),    // 9: payment.v1.request.DeleteBankAccountRequest
+	(*RequestWithdrawalRequest)(nil),    // 10: payment.v1.request.RequestWithdrawalRequest
+	(*ListWithdrawalsRequest)(nil),      // 11: payment.v1.request.ListWithdrawalsRequest
+	(*GetWithdrawalRequest)(nil),        // 12: payment.v1.request.GetWithdrawalRequest
+	(enums.BankAccountKind)(0),          // 13: payment.v1.types.enums.BankAccountKind
 }
 var file_payment_v1_request_payment_request_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	13, // 0: payment.v1.request.AddBankAccountRequest.kind:type_name -> payment.v1.types.enums.BankAccountKind
+	1,  // [1:1] is the sub-list for method output_type
+	1,  // [1:1] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_payment_v1_request_payment_request_proto_init() }
@@ -336,7 +804,7 @@ func file_payment_v1_request_payment_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_payment_v1_request_payment_request_proto_rawDesc), len(file_payment_v1_request_payment_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
