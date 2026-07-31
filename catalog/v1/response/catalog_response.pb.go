@@ -296,14 +296,18 @@ func (x *SetInventoryResponse) GetProduct() *types.ProductInfo {
 }
 
 type ListProductsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Products      []*types.ProductInfo   `protobuf:"bytes,1,rep,name=products,proto3" json:"products,omitempty"`
-	PageNumber    int64                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize      int64                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	TotalPages    int64                  `protobuf:"varint,4,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`
-	TotalRecords  int64                  `protobuf:"varint,5,opt,name=total_records,json=totalRecords,proto3" json:"total_records,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state        protoimpl.MessageState `protogen:"open.v1"`
+	Products     []*types.ProductInfo   `protobuf:"bytes,1,rep,name=products,proto3" json:"products,omitempty"`
+	PageNumber   int64                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize     int64                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	TotalPages   int64                  `protobuf:"varint,4,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`
+	TotalRecords int64                  `protobuf:"varint,5,opt,name=total_records,json=totalRecords,proto3" json:"total_records,omitempty"`
+	// Cheapest and dearest in the store, ignoring the price filter, so a slider
+	// can show a stable range. Set only when include_price_bounds is requested.
+	MinPriceAvailable float64 `protobuf:"fixed64,6,opt,name=min_price_available,json=minPriceAvailable,proto3" json:"min_price_available,omitempty"`
+	MaxPriceAvailable float64 `protobuf:"fixed64,7,opt,name=max_price_available,json=maxPriceAvailable,proto3" json:"max_price_available,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *ListProductsResponse) Reset() {
@@ -367,6 +371,20 @@ func (x *ListProductsResponse) GetTotalPages() int64 {
 func (x *ListProductsResponse) GetTotalRecords() int64 {
 	if x != nil {
 		return x.TotalRecords
+	}
+	return 0
+}
+
+func (x *ListProductsResponse) GetMinPriceAvailable() float64 {
+	if x != nil {
+		return x.MinPriceAvailable
+	}
+	return 0
+}
+
+func (x *ListProductsResponse) GetMaxPriceAvailable() float64 {
+	if x != nil {
+		return x.MaxPriceAvailable
 	}
 	return 0
 }
@@ -464,7 +482,7 @@ const file_catalog_v1_response_catalog_response_proto_rawDesc = "" +
 	"\x15DeleteProductResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"O\n" +
 	"\x14SetInventoryResponse\x127\n" +
-	"\aproduct\x18\x01 \x01(\v2\x1d.catalog.v1.types.ProductInfoR\aproduct\"\xd5\x01\n" +
+	"\aproduct\x18\x01 \x01(\v2\x1d.catalog.v1.types.ProductInfoR\aproduct\"\xb5\x02\n" +
 	"\x14ListProductsResponse\x129\n" +
 	"\bproducts\x18\x01 \x03(\v2\x1d.catalog.v1.types.ProductInfoR\bproducts\x12\x1f\n" +
 	"\vpage_number\x18\x02 \x01(\x03R\n" +
@@ -472,7 +490,9 @@ const file_catalog_v1_response_catalog_response_proto_rawDesc = "" +
 	"\tpage_size\x18\x03 \x01(\x03R\bpageSize\x12\x1f\n" +
 	"\vtotal_pages\x18\x04 \x01(\x03R\n" +
 	"totalPages\x12#\n" +
-	"\rtotal_records\x18\x05 \x01(\x03R\ftotalRecords\"\xce\x01\n" +
+	"\rtotal_records\x18\x05 \x01(\x03R\ftotalRecords\x12.\n" +
+	"\x13min_price_available\x18\x06 \x01(\x01R\x11minPriceAvailable\x12.\n" +
+	"\x13max_price_available\x18\a \x01(\x01R\x11maxPriceAvailable\"\xce\x01\n" +
 	" CreateProductImageUploadResponse\x12\x1d\n" +
 	"\n" +
 	"upload_url\x18\x01 \x01(\tR\tuploadUrl\x12\x16\n" +

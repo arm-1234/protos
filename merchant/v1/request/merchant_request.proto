@@ -23,10 +23,11 @@ message OnboardMerchantRequest {
   string description = 4;
   string logo_url = 5;
   string address = 6;
-  string upi_vpa = 7 [
-    (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string.pattern = "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
-  ];
+  // Optional: blank means the backend generates a store address.
+  string upi_vpa = 7 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
+  }];
   double latitude = 8 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 9 [(validate.rules).double = {gte: -180, lte: 180}];
   double max_order_distance_m = 10 [(validate.rules).double = {gte: 0, lte: 100000}];

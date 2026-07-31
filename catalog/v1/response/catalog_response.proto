@@ -38,6 +38,10 @@ message ListProductsResponse {
   int64 page_size = 3;
   int64 total_pages = 4;
   int64 total_records = 5;
+  // Cheapest and dearest in the store, ignoring the price filter, so a slider
+  // can show a stable range. Set only when include_price_bounds is requested.
+  double min_price_available = 6;
+  double max_price_available = 7;
 }
 
 message CreateProductImageUploadResponse {

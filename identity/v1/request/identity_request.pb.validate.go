@@ -317,15 +317,19 @@ func (m *RegisterMerchantRequest) validate(all bool) error {
 
 	// no validation rules for Address
 
-	if !_RegisterMerchantRequest_UpiVpa_Pattern.MatchString(m.GetUpiVpa()) {
-		err := RegisterMerchantRequestValidationError{
-			field:  "UpiVpa",
-			reason: "value does not match regex pattern \"^[a-zA-Z0-9.\\\\-_]{2,256}@[a-zA-Z]{2,64}$\"",
+	if m.GetUpiVpa() != "" {
+
+		if !_RegisterMerchantRequest_UpiVpa_Pattern.MatchString(m.GetUpiVpa()) {
+			err := RegisterMerchantRequestValidationError{
+				field:  "UpiVpa",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9.\\\\-_]{2,256}@[a-zA-Z]{2,64}$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
+
 	}
 
 	if val := m.GetLatitude(); val < -90 || val > 90 {

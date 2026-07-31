@@ -24,10 +24,11 @@ message RegisterMerchantRequest {
   string description = 5;
   string logo_url = 6;
   string address = 7;
-  string upi_vpa = 8 [
-    (google.api.field_behavior) = REQUIRED,
-    (validate.rules).string.pattern = "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
-  ];
+  // Optional: blank means the backend generates a store address.
+  string upi_vpa = 8 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
+  }];
   double latitude = 9 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 10 [(validate.rules).double = {gte: -180, lte: 180}];
   string password = 11 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];

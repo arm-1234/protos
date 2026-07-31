@@ -866,6 +866,10 @@ func (m *ListProductsResponse) validate(all bool) error {
 
 	// no validation rules for TotalRecords
 
+	// no validation rules for MinPriceAvailable
+
+	// no validation rules for MaxPriceAvailable
+
 	if len(errors) > 0 {
 		return ListProductsResponseMultiError(errors)
 	}

@@ -1043,6 +1043,23 @@ func (m *ListProductsRequest) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	if m.GetQuery() != "" {
+
+		if utf8.RuneCountInString(m.GetQuery()) > 128 {
+			err := ListProductsRequestValidationError{
+				field:  "Query",
+				reason: "value length must be at most 128 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	// no validation rules for IncludePriceBounds
+
 	if len(errors) > 0 {
 		return ListProductsRequestMultiError(errors)
 	}

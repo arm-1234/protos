@@ -24,17 +24,18 @@ const (
 )
 
 type OnboardMerchantRequest struct {
-	state             protoimpl.MessageState `protogen:"open.v1"`
-	Name              string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phone             string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	StoreName         string                 `protobuf:"bytes,3,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description       string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl           string                 `protobuf:"bytes,5,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address           string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
-	UpiVpa            string                 `protobuf:"bytes,7,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	Latitude          float64                `protobuf:"fixed64,8,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude         float64                `protobuf:"fixed64,9,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	MaxOrderDistanceM float64                `protobuf:"fixed64,10,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	Name        string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phone       string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	StoreName   string                 `protobuf:"bytes,3,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl     string                 `protobuf:"bytes,5,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address     string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
+	// Optional: blank means the backend generates a store address.
+	UpiVpa            string  `protobuf:"bytes,7,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Latitude          float64 `protobuf:"fixed64,8,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude         float64 `protobuf:"fixed64,9,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	MaxOrderDistanceM float64 `protobuf:"fixed64,10,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -692,7 +693,7 @@ var File_merchant_v1_request_merchant_request_proto protoreflect.FileDescriptor
 
 const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	"\n" +
-	"*merchant/v1/request/merchant_request.proto\x12\x13merchant.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\"\xe4\x03\n" +
+	"*merchant/v1/request/merchant_request.proto\x12\x13merchant.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\"\xe3\x03\n" +
 	"\x16OnboardMerchantRequest\x12\x1f\n" +
 	"\x04name\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x04name\x12#\n" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12*\n" +
@@ -700,8 +701,8 @@ const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	"store_name\x18\x03 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\tstoreName\x12 \n" +
 	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x19\n" +
 	"\blogo_url\x18\x05 \x01(\tR\alogoUrl\x12\x18\n" +
-	"\aaddress\x18\x06 \x01(\tR\aaddress\x12K\n" +
-	"\aupi_vpa\x18\a \x01(\tB2\xe2A\x01\x02\xfaB+r)2'^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$R\x06upiVpa\x123\n" +
+	"\aaddress\x18\x06 \x01(\tR\aaddress\x12J\n" +
+	"\aupi_vpa\x18\a \x01(\tB1\xfaB.r,2'^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$\xd0\x01\x01R\x06upiVpa\x123\n" +
 	"\blatitude\x18\b \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\blatitude\x125\n" +
 	"\tlongitude\x18\t \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude\x12H\n" +
 	"\x14max_order_distance_m\x18\n" +

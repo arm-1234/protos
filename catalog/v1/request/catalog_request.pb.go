@@ -477,15 +477,18 @@ func (x *SetInventoryRequest) GetStockQuantity() int64 {
 }
 
 type ListProductsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	SortBy        enums.ProductSortBy    `protobuf:"varint,2,opt,name=sort_by,json=sortBy,proto3,enum=catalog.v1.types.enums.ProductSortBy" json:"sort_by,omitempty"`
-	MinPrice      float64                `protobuf:"fixed64,3,opt,name=min_price,json=minPrice,proto3" json:"min_price,omitempty"`
-	MaxPrice      float64                `protobuf:"fixed64,4,opt,name=max_price,json=maxPrice,proto3" json:"max_price,omitempty"`
-	PageNumber    int64                  `protobuf:"varint,5,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize      int64                  `protobuf:"varint,6,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	SortBy     enums.ProductSortBy    `protobuf:"varint,2,opt,name=sort_by,json=sortBy,proto3,enum=catalog.v1.types.enums.ProductSortBy" json:"sort_by,omitempty"`
+	MinPrice   float64                `protobuf:"fixed64,3,opt,name=min_price,json=minPrice,proto3" json:"min_price,omitempty"`
+	MaxPrice   float64                `protobuf:"fixed64,4,opt,name=max_price,json=maxPrice,proto3" json:"max_price,omitempty"`
+	PageNumber int64                  `protobuf:"varint,5,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize   int64                  `protobuf:"varint,6,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Query      string                 `protobuf:"bytes,7,opt,name=query,proto3" json:"query,omitempty"`
+	// Bounds for the price slider, so the client doesn't guess the range.
+	IncludePriceBounds bool `protobuf:"varint,8,opt,name=include_price_bounds,json=includePriceBounds,proto3" json:"include_price_bounds,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *ListProductsRequest) Reset() {
@@ -558,6 +561,20 @@ func (x *ListProductsRequest) GetPageSize() int64 {
 		return x.PageSize
 	}
 	return 0
+}
+
+func (x *ListProductsRequest) GetQuery() string {
+	if x != nil {
+		return x.Query
+	}
+	return ""
+}
+
+func (x *ListProductsRequest) GetIncludePriceBounds() bool {
+	if x != nil {
+		return x.IncludePriceBounds
+	}
+	return false
 }
 
 type CreateProductImageUploadRequest struct {
@@ -648,7 +665,7 @@ const file_catalog_v1_request_catalog_request_proto_rawDesc = "" +
 	"\n" +
 	"_availableB\x12\n" +
 	"\x10_track_inventoryB\x11\n" +
-	"\x0f_stock_quantity\"\x97\x02\n" +
+	"\x0f_stock_quantity\"\xec\x02\n" +
 	"\x13ListProductsRequest\x12(\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
 	"merchantId\x12>\n" +
@@ -657,7 +674,9 @@ const file_catalog_v1_request_catalog_request_proto_rawDesc = "" +
 	"\tmax_price\x18\x04 \x01(\x01B\x0e\xfaB\v\x12\t)\x00\x00\x00\x00\x00\x00\x00\x00R\bmaxPrice\x12\x1f\n" +
 	"\vpage_number\x18\x05 \x01(\x03R\n" +
 	"pageNumber\x12\x1b\n" +
-	"\tpage_size\x18\x06 \x01(\x03R\bpageSize\"Q\n" +
+	"\tpage_size\x18\x06 \x01(\x03R\bpageSize\x12!\n" +
+	"\x05query\x18\a \x01(\tB\v\xfaB\br\x06\x18\x80\x01\xd0\x01\x01R\x05query\x120\n" +
+	"\x14include_price_bounds\x18\b \x01(\bR\x12includePriceBounds\"Q\n" +
 	"\x1fCreateProductImageUploadRequest\x12.\n" +
 	"\fcontent_type\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x03R\vcontentTypeB7Z5github.com/arm-1234/protos/catalog/v1/request;requestb\x06proto3"
 
