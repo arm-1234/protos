@@ -103,12 +103,12 @@ const file_merchant_v1_merchant_proto_rawDesc = "" +
 	"\x12MERCHANT_FORBIDDEN\x10\x04\x1a\x04\xa8E\x93\x03\x12(\n" +
 	"\x1eMERCHANT_VERIFICATION_REQUIRED\x10\x05\x1a\x04\xa8E\xac\x03\x12!\n" +
 	"\x17MERCHANT_EMAIL_REQUIRED\x10\x06\x1a\x04\xa8E\xac\x03\x12\x1f\n" +
-	"\x15MERCHANT_INVALID_CODE\x10\a\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x032\x83\f\n" +
+	"\x15MERCHANT_INVALID_CODE\x10\a\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x032\xfd\v\n" +
 	"\bMerchant\x12\x87\x01\n" +
 	"\x0fOnboardMerchant\x12+.merchant.v1.request.OnboardMerchantRequest\x1a-.merchant.v1.response.OnboardMerchantResponse\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/v1/merchants\x12\x86\x01\n" +
 	"\vGetMerchant\x12'.merchant.v1.request.GetMerchantRequest\x1a).merchant.v1.response.GetMerchantResponse\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/merchants/{merchant_id}\x12\x92\x01\n" +
-	"\x0eUpdateMerchant\x12*.merchant.v1.request.UpdateMerchantRequest\x1a,.merchant.v1.response.UpdateMerchantResponse\"&\x82\xd3\xe4\x93\x02 :\x01*2\x1b/v1/merchants/{merchant_id}\x12\xb8\x01\n" +
-	"\x15RequestStoreUpdateOtp\x121.merchant.v1.request.RequestStoreUpdateOtpRequest\x1a3.merchant.v1.response.RequestStoreUpdateOtpResponse\"7\x82\xd3\xe4\x93\x021:\x01*\",/v1/merchants/{merchant_id}:requestUpdateOtp\x12\x8f\x01\n" +
+	"\x0eUpdateMerchant\x12*.merchant.v1.request.UpdateMerchantRequest\x1a,.merchant.v1.response.UpdateMerchantResponse\"&\x82\xd3\xe4\x93\x02 :\x01*2\x1b/v1/merchants/{merchant_id}\x12\xb2\x01\n" +
+	"\x15RequestStoreUpdateOtp\x121.merchant.v1.request.RequestStoreUpdateOtpRequest\x1a3.merchant.v1.response.RequestStoreUpdateOtpResponse\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/v1/merchants/{merchant_id}/update-otp\x12\x8f\x01\n" +
 	"\x11ResolveStoreByVpa\x12-.merchant.v1.request.ResolveStoreByVpaRequest\x1a/.merchant.v1.response.ResolveStoreByVpaResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/stores:resolve\x12~\n" +
 	"\x0eDiscoverStores\x12*.merchant.v1.request.DiscoverStoresRequest\x1a,.merchant.v1.response.DiscoverStoresResponse\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
 	"/v1/stores\x12\x96\x01\n" +

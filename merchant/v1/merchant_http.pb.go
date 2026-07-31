@@ -50,7 +50,7 @@ func RegisterMerchantHTTPServer(s *http.Server, srv MerchantHTTPServer) {
 	r.POST("/v1/merchants", _Merchant_OnboardMerchant0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}", _Merchant_GetMerchant0_HTTP_Handler(srv))
 	r.PATCH("/v1/merchants/{merchant_id}", _Merchant_UpdateMerchant0_HTTP_Handler(srv))
-	r.POST("/v1/merchants/{merchant_id}:requestUpdateOtp", _Merchant_RequestStoreUpdateOtp0_HTTP_Handler(srv))
+	r.POST("/v1/merchants/{merchant_id}/update-otp", _Merchant_RequestStoreUpdateOtp0_HTTP_Handler(srv))
 	r.GET("/v1/stores:resolve", _Merchant_ResolveStoreByVpa0_HTTP_Handler(srv))
 	r.GET("/v1/stores", _Merchant_DiscoverStores0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}/vpas", _Merchant_ListMerchantVpas0_HTTP_Handler(srv))
@@ -386,7 +386,7 @@ func (c *MerchantHTTPClientImpl) RemoveMerchantVpa(ctx context.Context, in *requ
 
 func (c *MerchantHTTPClientImpl) RequestStoreUpdateOtp(ctx context.Context, in *request.RequestStoreUpdateOtpRequest, opts ...http.CallOption) (*response.RequestStoreUpdateOtpResponse, error) {
 	var out response.RequestStoreUpdateOtpResponse
-	pattern := "/v1/merchants/{merchant_id}:requestUpdateOtp"
+	pattern := "/v1/merchants/{merchant_id}/update-otp"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationMerchantRequestStoreUpdateOtp))
 	opts = append(opts, http.PathTemplate(pattern))

@@ -32,7 +32,7 @@ service Merchant {
 
   rpc RequestStoreUpdateOtp (merchant.v1.request.RequestStoreUpdateOtpRequest) returns (merchant.v1.response.RequestStoreUpdateOtpResponse) {
     option (google.api.http) = {
-      post: "/v1/merchants/{merchant_id}:requestUpdateOtp"
+      post: "/v1/merchants/{merchant_id}/update-otp"
       body: "*"
     };
   }
