@@ -26,6 +26,13 @@ message MerchantVpasResponse {
   repeated merchant.v1.types.MerchantVpa vpas = 1;
 }
 
+message RequestStoreUpdateOtpResponse {
+  bool sent = 1;
+  // Masked address the code went to, so the merchant knows where to look.
+  string sent_to = 2;
+  int32 retry_after_seconds = 3;
+}
+
 message DiscoverStoresResponse {
   repeated merchant.v1.types.NearbyStore stores = 1;
   int32 total = 2;

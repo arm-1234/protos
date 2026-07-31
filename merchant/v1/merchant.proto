@@ -30,6 +30,13 @@ service Merchant {
     };
   }
 
+  rpc RequestStoreUpdateOtp (merchant.v1.request.RequestStoreUpdateOtpRequest) returns (merchant.v1.response.RequestStoreUpdateOtpResponse) {
+    option (google.api.http) = {
+      post: "/v1/merchants/{merchant_id}:requestUpdateOtp"
+      body: "*"
+    };
+  }
+
   rpc ResolveStoreByVpa (merchant.v1.request.ResolveStoreByVpaRequest) returns (merchant.v1.response.ResolveStoreByVpaResponse) {
     option (google.api.http) = {
       get: "/v1/stores:resolve"
@@ -76,4 +83,8 @@ enum ErrorReason {
   MERCHANT_ALREADY_EXISTS = 2 [(errors.code) = 409];
   MERCHANT_INVALID_REQUEST = 3 [(errors.code) = 400];
   MERCHANT_FORBIDDEN = 4 [(errors.code) = 403];
+  // Location or radius changed but no valid code was supplied.
+  MERCHANT_VERIFICATION_REQUIRED = 5 [(errors.code) = 428];
+  MERCHANT_EMAIL_REQUIRED = 6 [(errors.code) = 428];
+  MERCHANT_INVALID_CODE = 7 [(errors.code) = 400];
 }

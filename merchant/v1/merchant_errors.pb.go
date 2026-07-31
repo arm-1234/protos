@@ -70,3 +70,41 @@ func IsMerchantForbidden(err error) bool {
 func ErrorMerchantForbidden(format string, args ...interface{}) *errors.Error {
 	return errors.New(403, ErrorReason_MERCHANT_FORBIDDEN.String(), fmt.Sprintf(format, args...))
 }
+
+// Location or radius changed but no valid code was supplied.
+func IsMerchantVerificationRequired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_MERCHANT_VERIFICATION_REQUIRED.String() && e.Code == 428
+}
+
+// Location or radius changed but no valid code was supplied.
+func ErrorMerchantVerificationRequired(format string, args ...interface{}) *errors.Error {
+	return errors.New(428, ErrorReason_MERCHANT_VERIFICATION_REQUIRED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsMerchantEmailRequired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_MERCHANT_EMAIL_REQUIRED.String() && e.Code == 428
+}
+
+func ErrorMerchantEmailRequired(format string, args ...interface{}) *errors.Error {
+	return errors.New(428, ErrorReason_MERCHANT_EMAIL_REQUIRED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsMerchantInvalidCode(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_MERCHANT_INVALID_CODE.String() && e.Code == 400
+}
+
+func ErrorMerchantInvalidCode(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_MERCHANT_INVALID_CODE.String(), fmt.Sprintf(format, args...))
+}

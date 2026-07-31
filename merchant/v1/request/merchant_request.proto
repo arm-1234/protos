@@ -46,6 +46,12 @@ message UpdateMerchantRequest {
   double latitude = 8 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 9 [(validate.rules).double = {gte: -180, lte: 180}];
   optional double max_order_distance_m = 10 [(validate.rules).double = {gte: 0, lte: 100000}];
+  // Emailed code, required only when location or order radius changes.
+  string code = 11 [(validate.rules).string = {ignore_empty: true, min_len: 4, max_len: 10}];
+}
+
+message RequestStoreUpdateOtpRequest {
+  string merchant_id = 1 [(validate.rules).string.min_len = 1];
 }
 
 message ResolveStoreByVpaRequest {

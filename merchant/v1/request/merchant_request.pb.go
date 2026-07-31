@@ -194,8 +194,10 @@ type UpdateMerchantRequest struct {
 	Latitude          float64                `protobuf:"fixed64,8,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude         float64                `protobuf:"fixed64,9,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	MaxOrderDistanceM *float64               `protobuf:"fixed64,10,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3,oneof" json:"max_order_distance_m,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	// Emailed code, required only when location or order radius changes.
+	Code          string `protobuf:"bytes,11,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateMerchantRequest) Reset() {
@@ -291,6 +293,57 @@ func (x *UpdateMerchantRequest) GetMaxOrderDistanceM() float64 {
 	return 0
 }
 
+func (x *UpdateMerchantRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+type RequestStoreUpdateOtpRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RequestStoreUpdateOtpRequest) Reset() {
+	*x = RequestStoreUpdateOtpRequest{}
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RequestStoreUpdateOtpRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RequestStoreUpdateOtpRequest) ProtoMessage() {}
+
+func (x *RequestStoreUpdateOtpRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RequestStoreUpdateOtpRequest.ProtoReflect.Descriptor instead.
+func (*RequestStoreUpdateOtpRequest) Descriptor() ([]byte, []int) {
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RequestStoreUpdateOtpRequest) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
+}
+
 type ResolveStoreByVpaRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Vpa           string                 `protobuf:"bytes,1,opt,name=vpa,proto3" json:"vpa,omitempty"`
@@ -300,7 +353,7 @@ type ResolveStoreByVpaRequest struct {
 
 func (x *ResolveStoreByVpaRequest) Reset() {
 	*x = ResolveStoreByVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[3]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -312,7 +365,7 @@ func (x *ResolveStoreByVpaRequest) String() string {
 func (*ResolveStoreByVpaRequest) ProtoMessage() {}
 
 func (x *ResolveStoreByVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[3]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -325,7 +378,7 @@ func (x *ResolveStoreByVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResolveStoreByVpaRequest.ProtoReflect.Descriptor instead.
 func (*ResolveStoreByVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{3}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ResolveStoreByVpaRequest) GetVpa() string {
@@ -344,7 +397,7 @@ type ListMerchantVpasRequest struct {
 
 func (x *ListMerchantVpasRequest) Reset() {
 	*x = ListMerchantVpasRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -356,7 +409,7 @@ func (x *ListMerchantVpasRequest) String() string {
 func (*ListMerchantVpasRequest) ProtoMessage() {}
 
 func (x *ListMerchantVpasRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -369,7 +422,7 @@ func (x *ListMerchantVpasRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMerchantVpasRequest.ProtoReflect.Descriptor instead.
 func (*ListMerchantVpasRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{4}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListMerchantVpasRequest) GetMerchantId() string {
@@ -391,7 +444,7 @@ type AddMerchantVpaRequest struct {
 
 func (x *AddMerchantVpaRequest) Reset() {
 	*x = AddMerchantVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -403,7 +456,7 @@ func (x *AddMerchantVpaRequest) String() string {
 func (*AddMerchantVpaRequest) ProtoMessage() {}
 
 func (x *AddMerchantVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -416,7 +469,7 @@ func (x *AddMerchantVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddMerchantVpaRequest.ProtoReflect.Descriptor instead.
 func (*AddMerchantVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{5}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *AddMerchantVpaRequest) GetMerchantId() string {
@@ -457,7 +510,7 @@ type RemoveMerchantVpaRequest struct {
 
 func (x *RemoveMerchantVpaRequest) Reset() {
 	*x = RemoveMerchantVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -469,7 +522,7 @@ func (x *RemoveMerchantVpaRequest) String() string {
 func (*RemoveMerchantVpaRequest) ProtoMessage() {}
 
 func (x *RemoveMerchantVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -482,7 +535,7 @@ func (x *RemoveMerchantVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveMerchantVpaRequest.ProtoReflect.Descriptor instead.
 func (*RemoveMerchantVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{6}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *RemoveMerchantVpaRequest) GetMerchantId() string {
@@ -509,7 +562,7 @@ type SetPrimaryMerchantVpaRequest struct {
 
 func (x *SetPrimaryMerchantVpaRequest) Reset() {
 	*x = SetPrimaryMerchantVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -521,7 +574,7 @@ func (x *SetPrimaryMerchantVpaRequest) String() string {
 func (*SetPrimaryMerchantVpaRequest) ProtoMessage() {}
 
 func (x *SetPrimaryMerchantVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -534,7 +587,7 @@ func (x *SetPrimaryMerchantVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetPrimaryMerchantVpaRequest.ProtoReflect.Descriptor instead.
 func (*SetPrimaryMerchantVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{7}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *SetPrimaryMerchantVpaRequest) GetMerchantId() string {
@@ -565,7 +618,7 @@ type DiscoverStoresRequest struct {
 
 func (x *DiscoverStoresRequest) Reset() {
 	*x = DiscoverStoresRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -577,7 +630,7 @@ func (x *DiscoverStoresRequest) String() string {
 func (*DiscoverStoresRequest) ProtoMessage() {}
 
 func (x *DiscoverStoresRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -590,7 +643,7 @@ func (x *DiscoverStoresRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoverStoresRequest.ProtoReflect.Descriptor instead.
 func (*DiscoverStoresRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{8}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DiscoverStoresRequest) GetLatitude() float64 {
@@ -655,7 +708,7 @@ const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00j\xf8@)\x00\x00\x00\x00\x00\x00\x00\x00R\x11maxOrderDistanceM\">\n" +
 	"\x12GetMerchantRequest\x12(\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
-	"merchantId\"\x9f\x03\n" +
+	"merchantId\"\xc1\x03\n" +
 	"\x15UpdateMerchantRequest\x12(\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
 	"merchantId\x12\x12\n" +
@@ -668,8 +721,13 @@ const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	"\blatitude\x18\b \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80V@)\x00\x00\x00\x00\x00\x80V\xc0R\blatitude\x125\n" +
 	"\tlongitude\x18\t \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00\x80f@)\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude\x12M\n" +
 	"\x14max_order_distance_m\x18\n" +
-	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00j\xf8@)\x00\x00\x00\x00\x00\x00\x00\x00H\x00R\x11maxOrderDistanceM\x88\x01\x01B\x17\n" +
-	"\x15_max_order_distance_m\"9\n" +
+	" \x01(\x01B\x17\xfaB\x14\x12\x12\x19\x00\x00\x00\x00\x00j\xf8@)\x00\x00\x00\x00\x00\x00\x00\x00H\x00R\x11maxOrderDistanceM\x88\x01\x01\x12 \n" +
+	"\x04code\x18\v \x01(\tB\f\xfaB\tr\a\x10\x04\x18\n" +
+	"\xd0\x01\x01R\x04codeB\x17\n" +
+	"\x15_max_order_distance_m\"H\n" +
+	"\x1cRequestStoreUpdateOtpRequest\x12(\n" +
+	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
+	"merchantId\"9\n" +
 	"\x18ResolveStoreByVpaRequest\x12\x1d\n" +
 	"\x03vpa\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x03R\x03vpa\"C\n" +
 	"\x17ListMerchantVpasRequest\x12(\n" +
@@ -709,17 +767,18 @@ func file_merchant_v1_request_merchant_request_proto_rawDescGZIP() []byte {
 	return file_merchant_v1_request_merchant_request_proto_rawDescData
 }
 
-var file_merchant_v1_request_merchant_request_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_merchant_v1_request_merchant_request_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_merchant_v1_request_merchant_request_proto_goTypes = []any{
 	(*OnboardMerchantRequest)(nil),       // 0: merchant.v1.request.OnboardMerchantRequest
 	(*GetMerchantRequest)(nil),           // 1: merchant.v1.request.GetMerchantRequest
 	(*UpdateMerchantRequest)(nil),        // 2: merchant.v1.request.UpdateMerchantRequest
-	(*ResolveStoreByVpaRequest)(nil),     // 3: merchant.v1.request.ResolveStoreByVpaRequest
-	(*ListMerchantVpasRequest)(nil),      // 4: merchant.v1.request.ListMerchantVpasRequest
-	(*AddMerchantVpaRequest)(nil),        // 5: merchant.v1.request.AddMerchantVpaRequest
-	(*RemoveMerchantVpaRequest)(nil),     // 6: merchant.v1.request.RemoveMerchantVpaRequest
-	(*SetPrimaryMerchantVpaRequest)(nil), // 7: merchant.v1.request.SetPrimaryMerchantVpaRequest
-	(*DiscoverStoresRequest)(nil),        // 8: merchant.v1.request.DiscoverStoresRequest
+	(*RequestStoreUpdateOtpRequest)(nil), // 3: merchant.v1.request.RequestStoreUpdateOtpRequest
+	(*ResolveStoreByVpaRequest)(nil),     // 4: merchant.v1.request.ResolveStoreByVpaRequest
+	(*ListMerchantVpasRequest)(nil),      // 5: merchant.v1.request.ListMerchantVpasRequest
+	(*AddMerchantVpaRequest)(nil),        // 6: merchant.v1.request.AddMerchantVpaRequest
+	(*RemoveMerchantVpaRequest)(nil),     // 7: merchant.v1.request.RemoveMerchantVpaRequest
+	(*SetPrimaryMerchantVpaRequest)(nil), // 8: merchant.v1.request.SetPrimaryMerchantVpaRequest
+	(*DiscoverStoresRequest)(nil),        // 9: merchant.v1.request.DiscoverStoresRequest
 }
 var file_merchant_v1_request_merchant_request_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -741,7 +800,7 @@ func file_merchant_v1_request_merchant_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_merchant_v1_request_merchant_request_proto_rawDesc), len(file_merchant_v1_request_merchant_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

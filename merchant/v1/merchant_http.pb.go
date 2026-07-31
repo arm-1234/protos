@@ -27,6 +27,7 @@ const OperationMerchantGetMerchant = "/merchant.v1.Merchant/GetMerchant"
 const OperationMerchantListMerchantVpas = "/merchant.v1.Merchant/ListMerchantVpas"
 const OperationMerchantOnboardMerchant = "/merchant.v1.Merchant/OnboardMerchant"
 const OperationMerchantRemoveMerchantVpa = "/merchant.v1.Merchant/RemoveMerchantVpa"
+const OperationMerchantRequestStoreUpdateOtp = "/merchant.v1.Merchant/RequestStoreUpdateOtp"
 const OperationMerchantResolveStoreByVpa = "/merchant.v1.Merchant/ResolveStoreByVpa"
 const OperationMerchantSetPrimaryMerchantVpa = "/merchant.v1.Merchant/SetPrimaryMerchantVpa"
 const OperationMerchantUpdateMerchant = "/merchant.v1.Merchant/UpdateMerchant"
@@ -38,6 +39,7 @@ type MerchantHTTPServer interface {
 	ListMerchantVpas(context.Context, *request.ListMerchantVpasRequest) (*response.MerchantVpasResponse, error)
 	OnboardMerchant(context.Context, *request.OnboardMerchantRequest) (*response.OnboardMerchantResponse, error)
 	RemoveMerchantVpa(context.Context, *request.RemoveMerchantVpaRequest) (*response.MerchantVpasResponse, error)
+	RequestStoreUpdateOtp(context.Context, *request.RequestStoreUpdateOtpRequest) (*response.RequestStoreUpdateOtpResponse, error)
 	ResolveStoreByVpa(context.Context, *request.ResolveStoreByVpaRequest) (*response.ResolveStoreByVpaResponse, error)
 	SetPrimaryMerchantVpa(context.Context, *request.SetPrimaryMerchantVpaRequest) (*response.MerchantVpasResponse, error)
 	UpdateMerchant(context.Context, *request.UpdateMerchantRequest) (*response.UpdateMerchantResponse, error)
@@ -48,6 +50,7 @@ func RegisterMerchantHTTPServer(s *http.Server, srv MerchantHTTPServer) {
 	r.POST("/v1/merchants", _Merchant_OnboardMerchant0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}", _Merchant_GetMerchant0_HTTP_Handler(srv))
 	r.PATCH("/v1/merchants/{merchant_id}", _Merchant_UpdateMerchant0_HTTP_Handler(srv))
+	r.POST("/v1/merchants/{merchant_id}:requestUpdateOtp", _Merchant_RequestStoreUpdateOtp0_HTTP_Handler(srv))
 	r.GET("/v1/stores:resolve", _Merchant_ResolveStoreByVpa0_HTTP_Handler(srv))
 	r.GET("/v1/stores", _Merchant_DiscoverStores0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}/vpas", _Merchant_ListMerchantVpas0_HTTP_Handler(srv))
@@ -121,6 +124,31 @@ func _Merchant_UpdateMerchant0_HTTP_Handler(srv MerchantHTTPServer) func(ctx htt
 			return err
 		}
 		reply := out.(*response.UpdateMerchantResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Merchant_RequestStoreUpdateOtp0_HTTP_Handler(srv MerchantHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RequestStoreUpdateOtpRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationMerchantRequestStoreUpdateOtp)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RequestStoreUpdateOtp(ctx, req.(*request.RequestStoreUpdateOtpRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RequestStoreUpdateOtpResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -264,6 +292,7 @@ type MerchantHTTPClient interface {
 	ListMerchantVpas(ctx context.Context, req *request.ListMerchantVpasRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
 	OnboardMerchant(ctx context.Context, req *request.OnboardMerchantRequest, opts ...http.CallOption) (rsp *response.OnboardMerchantResponse, err error)
 	RemoveMerchantVpa(ctx context.Context, req *request.RemoveMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
+	RequestStoreUpdateOtp(ctx context.Context, req *request.RequestStoreUpdateOtpRequest, opts ...http.CallOption) (rsp *response.RequestStoreUpdateOtpResponse, err error)
 	ResolveStoreByVpa(ctx context.Context, req *request.ResolveStoreByVpaRequest, opts ...http.CallOption) (rsp *response.ResolveStoreByVpaResponse, err error)
 	SetPrimaryMerchantVpa(ctx context.Context, req *request.SetPrimaryMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
 	UpdateMerchant(ctx context.Context, req *request.UpdateMerchantRequest, opts ...http.CallOption) (rsp *response.UpdateMerchantResponse, err error)
@@ -349,6 +378,19 @@ func (c *MerchantHTTPClientImpl) RemoveMerchantVpa(ctx context.Context, in *requ
 	opts = append(opts, http.Operation(OperationMerchantRemoveMerchantVpa))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *MerchantHTTPClientImpl) RequestStoreUpdateOtp(ctx context.Context, in *request.RequestStoreUpdateOtpRequest, opts ...http.CallOption) (*response.RequestStoreUpdateOtpResponse, error) {
+	var out response.RequestStoreUpdateOtpResponse
+	pattern := "/v1/merchants/{merchant_id}:requestUpdateOtp"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationMerchantRequestStoreUpdateOtp))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
