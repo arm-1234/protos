@@ -494,6 +494,122 @@ func (x *UpdateOrderStatusRequest) GetStatus() enums.OrderStatus {
 	return enums.OrderStatus(0)
 }
 
+// Cancels outright when no money has moved, and asks the merchant to approve
+// when the order was paid online. The server decides which, so a client cannot
+// force a refund by picking the wrong call.
+type CancelOrderRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	Reason        string                 `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelOrderRequest) Reset() {
+	*x = CancelOrderRequest{}
+	mi := &file_order_v1_request_order_request_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelOrderRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelOrderRequest) ProtoMessage() {}
+
+func (x *CancelOrderRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_order_v1_request_order_request_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelOrderRequest.ProtoReflect.Descriptor instead.
+func (*CancelOrderRequest) Descriptor() ([]byte, []int) {
+	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CancelOrderRequest) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+func (x *CancelOrderRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type RespondToCancellationRequest struct {
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	OrderId string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	Approve bool                   `protobuf:"varint,2,opt,name=approve,proto3" json:"approve,omitempty"`
+	// Shown to the shopper when declining.
+	RejectionReason string `protobuf:"bytes,3,opt,name=rejection_reason,json=rejectionReason,proto3" json:"rejection_reason,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *RespondToCancellationRequest) Reset() {
+	*x = RespondToCancellationRequest{}
+	mi := &file_order_v1_request_order_request_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RespondToCancellationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespondToCancellationRequest) ProtoMessage() {}
+
+func (x *RespondToCancellationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_order_v1_request_order_request_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespondToCancellationRequest.ProtoReflect.Descriptor instead.
+func (*RespondToCancellationRequest) Descriptor() ([]byte, []int) {
+	return file_order_v1_request_order_request_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *RespondToCancellationRequest) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+func (x *RespondToCancellationRequest) GetApprove() bool {
+	if x != nil {
+		return x.Approve
+	}
+	return false
+}
+
+func (x *RespondToCancellationRequest) GetRejectionReason() string {
+	if x != nil {
+		return x.RejectionReason
+	}
+	return ""
+}
+
 var File_order_v1_request_order_request_proto protoreflect.FileDescriptor
 
 const file_order_v1_request_order_request_proto_rawDesc = "" +
@@ -542,7 +658,14 @@ const file_order_v1_request_order_request_proto_rawDesc = "" +
 	"\x06filter\x18\x05 \x01(\v2\x1d.order.v1.request.OrderFilterR\x06filter\"\x89\x01\n" +
 	"\x18UpdateOrderStatusRequest\x12\"\n" +
 	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\x12I\n" +
-	"\x06status\x18\x02 \x01(\x0e2!.order.v1.types.enums.OrderStatusB\x0e\xe2A\x01\x02\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06statusB5Z3github.com/arm-1234/protos/order/v1/request;requestb\x06proto3"
+	"\x06status\x18\x02 \x01(\x0e2!.order.v1.types.enums.OrderStatusB\x0e\xe2A\x01\x02\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06status\"Z\n" +
+	"\x12CancelOrderRequest\x12\"\n" +
+	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\x12 \n" +
+	"\x06reason\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x18\x98\x02R\x06reason\"\x91\x01\n" +
+	"\x1cRespondToCancellationRequest\x12\"\n" +
+	"\border_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\aorderId\x12\x18\n" +
+	"\aapprove\x18\x02 \x01(\bR\aapprove\x123\n" +
+	"\x10rejection_reason\x18\x03 \x01(\tB\b\xfaB\x05r\x03\x18\x98\x02R\x0frejectionReasonB5Z3github.com/arm-1234/protos/order/v1/request;requestb\x06proto3"
 
 var (
 	file_order_v1_request_order_request_proto_rawDescOnce sync.Once
@@ -556,35 +679,37 @@ func file_order_v1_request_order_request_proto_rawDescGZIP() []byte {
 	return file_order_v1_request_order_request_proto_rawDescData
 }
 
-var file_order_v1_request_order_request_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_order_v1_request_order_request_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_order_v1_request_order_request_proto_goTypes = []any{
-	(*OrderLineItem)(nil),             // 0: order.v1.request.OrderLineItem
-	(*PlaceOrderRequest)(nil),         // 1: order.v1.request.PlaceOrderRequest
-	(*GetOrderRequest)(nil),           // 2: order.v1.request.GetOrderRequest
-	(*OrderFilter)(nil),               // 3: order.v1.request.OrderFilter
-	(*ListMyOrdersRequest)(nil),       // 4: order.v1.request.ListMyOrdersRequest
-	(*ListMerchantOrdersRequest)(nil), // 5: order.v1.request.ListMerchantOrdersRequest
-	(*UpdateOrderStatusRequest)(nil),  // 6: order.v1.request.UpdateOrderStatusRequest
-	(enums.PaymentMode)(0),            // 7: order.v1.types.enums.PaymentMode
-	(enums1.PayoutMode)(0),            // 8: payment.v1.types.enums.PayoutMode
-	(enums.OrderStatus)(0),            // 9: order.v1.types.enums.OrderStatus
-	(enums.PaymentStatus)(0),          // 10: order.v1.types.enums.PaymentStatus
-	(*timestamppb.Timestamp)(nil),     // 11: google.protobuf.Timestamp
-	(enums.OrderSortBy)(0),            // 12: order.v1.types.enums.OrderSortBy
+	(*OrderLineItem)(nil),                // 0: order.v1.request.OrderLineItem
+	(*PlaceOrderRequest)(nil),            // 1: order.v1.request.PlaceOrderRequest
+	(*GetOrderRequest)(nil),              // 2: order.v1.request.GetOrderRequest
+	(*OrderFilter)(nil),                  // 3: order.v1.request.OrderFilter
+	(*ListMyOrdersRequest)(nil),          // 4: order.v1.request.ListMyOrdersRequest
+	(*ListMerchantOrdersRequest)(nil),    // 5: order.v1.request.ListMerchantOrdersRequest
+	(*UpdateOrderStatusRequest)(nil),     // 6: order.v1.request.UpdateOrderStatusRequest
+	(*CancelOrderRequest)(nil),           // 7: order.v1.request.CancelOrderRequest
+	(*RespondToCancellationRequest)(nil), // 8: order.v1.request.RespondToCancellationRequest
+	(enums.PaymentMode)(0),               // 9: order.v1.types.enums.PaymentMode
+	(enums1.PayoutMode)(0),               // 10: payment.v1.types.enums.PayoutMode
+	(enums.OrderStatus)(0),               // 11: order.v1.types.enums.OrderStatus
+	(enums.PaymentStatus)(0),             // 12: order.v1.types.enums.PaymentStatus
+	(*timestamppb.Timestamp)(nil),        // 13: google.protobuf.Timestamp
+	(enums.OrderSortBy)(0),               // 14: order.v1.types.enums.OrderSortBy
 }
 var file_order_v1_request_order_request_proto_depIdxs = []int32{
 	0,  // 0: order.v1.request.PlaceOrderRequest.items:type_name -> order.v1.request.OrderLineItem
-	7,  // 1: order.v1.request.PlaceOrderRequest.payment_mode:type_name -> order.v1.types.enums.PaymentMode
-	8,  // 2: order.v1.request.PlaceOrderRequest.payout_mode:type_name -> payment.v1.types.enums.PayoutMode
-	9,  // 3: order.v1.request.OrderFilter.status:type_name -> order.v1.types.enums.OrderStatus
-	10, // 4: order.v1.request.OrderFilter.payment_status:type_name -> order.v1.types.enums.PaymentStatus
-	11, // 5: order.v1.request.OrderFilter.placed_from:type_name -> google.protobuf.Timestamp
-	11, // 6: order.v1.request.OrderFilter.placed_to:type_name -> google.protobuf.Timestamp
-	12, // 7: order.v1.request.OrderFilter.sort_by:type_name -> order.v1.types.enums.OrderSortBy
+	9,  // 1: order.v1.request.PlaceOrderRequest.payment_mode:type_name -> order.v1.types.enums.PaymentMode
+	10, // 2: order.v1.request.PlaceOrderRequest.payout_mode:type_name -> payment.v1.types.enums.PayoutMode
+	11, // 3: order.v1.request.OrderFilter.status:type_name -> order.v1.types.enums.OrderStatus
+	12, // 4: order.v1.request.OrderFilter.payment_status:type_name -> order.v1.types.enums.PaymentStatus
+	13, // 5: order.v1.request.OrderFilter.placed_from:type_name -> google.protobuf.Timestamp
+	13, // 6: order.v1.request.OrderFilter.placed_to:type_name -> google.protobuf.Timestamp
+	14, // 7: order.v1.request.OrderFilter.sort_by:type_name -> order.v1.types.enums.OrderSortBy
 	3,  // 8: order.v1.request.ListMyOrdersRequest.filter:type_name -> order.v1.request.OrderFilter
-	9,  // 9: order.v1.request.ListMerchantOrdersRequest.status:type_name -> order.v1.types.enums.OrderStatus
+	11, // 9: order.v1.request.ListMerchantOrdersRequest.status:type_name -> order.v1.types.enums.OrderStatus
 	3,  // 10: order.v1.request.ListMerchantOrdersRequest.filter:type_name -> order.v1.request.OrderFilter
-	9,  // 11: order.v1.request.UpdateOrderStatusRequest.status:type_name -> order.v1.types.enums.OrderStatus
+	11, // 11: order.v1.request.UpdateOrderStatusRequest.status:type_name -> order.v1.types.enums.OrderStatus
 	12, // [12:12] is the sub-list for method output_type
 	12, // [12:12] is the sub-list for method input_type
 	12, // [12:12] is the sub-list for extension type_name
@@ -603,7 +728,7 @@ func file_order_v1_request_order_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_v1_request_order_request_proto_rawDesc), len(file_order_v1_request_order_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

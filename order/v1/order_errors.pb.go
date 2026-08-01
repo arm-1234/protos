@@ -94,3 +94,39 @@ func IsOrderTooFar(err error) bool {
 func ErrorOrderTooFar(format string, args ...interface{}) *errors.Error {
 	return errors.New(403, ErrorReason_ORDER_TOO_FAR.String(), fmt.Sprintf(format, args...))
 }
+
+func IsOrderNotCancellable(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_ORDER_NOT_CANCELLABLE.String() && e.Code == 409
+}
+
+func ErrorOrderNotCancellable(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_ORDER_NOT_CANCELLABLE.String(), fmt.Sprintf(format, args...))
+}
+
+func IsOrderNoCancellationPending(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_ORDER_NO_CANCELLATION_PENDING.String() && e.Code == 409
+}
+
+func ErrorOrderNoCancellationPending(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_ORDER_NO_CANCELLATION_PENDING.String(), fmt.Sprintf(format, args...))
+}
+
+func IsOrderRefundFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_ORDER_REFUND_FAILED.String() && e.Code == 502
+}
+
+func ErrorOrderRefundFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(502, ErrorReason_ORDER_REFUND_FAILED.String(), fmt.Sprintf(format, args...))
+}

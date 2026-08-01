@@ -35,6 +35,9 @@ const (
 	ErrorReason_ORDER_FORBIDDEN                 ErrorReason = 4
 	ErrorReason_ORDER_INVALID_STATUS_TRANSITION ErrorReason = 5
 	ErrorReason_ORDER_TOO_FAR                   ErrorReason = 6
+	ErrorReason_ORDER_NOT_CANCELLABLE           ErrorReason = 7
+	ErrorReason_ORDER_NO_CANCELLATION_PENDING   ErrorReason = 8
+	ErrorReason_ORDER_REFUND_FAILED             ErrorReason = 9
 )
 
 // Enum value maps for ErrorReason.
@@ -47,6 +50,9 @@ var (
 		4: "ORDER_FORBIDDEN",
 		5: "ORDER_INVALID_STATUS_TRANSITION",
 		6: "ORDER_TOO_FAR",
+		7: "ORDER_NOT_CANCELLABLE",
+		8: "ORDER_NO_CANCELLATION_PENDING",
+		9: "ORDER_REFUND_FAILED",
 	}
 	ErrorReason_value = map[string]int32{
 		"ORDER_UNSPECIFIED":               0,
@@ -56,6 +62,9 @@ var (
 		"ORDER_FORBIDDEN":                 4,
 		"ORDER_INVALID_STATUS_TRANSITION": 5,
 		"ORDER_TOO_FAR":                   6,
+		"ORDER_NOT_CANCELLABLE":           7,
+		"ORDER_NO_CANCELLATION_PENDING":   8,
+		"ORDER_REFUND_FAILED":             9,
 	}
 )
 
@@ -90,7 +99,7 @@ var File_order_v1_order_proto protoreflect.FileDescriptor
 
 const file_order_v1_order_proto_rawDesc = "" +
 	"\n" +
-	"\x14order/v1/order.proto\x12\border.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a$order/v1/request/order_request.proto\x1a&order/v1/response/order_response.proto*\xee\x01\n" +
+	"\x14order/v1/order.proto\x12\border.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a$order/v1/request/order_request.proto\x1a&order/v1/response/order_response.proto*\xd7\x02\n" +
 	"\vErrorReason\x12\x1b\n" +
 	"\x11ORDER_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12\x19\n" +
 	"\x0fORDER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1f\n" +
@@ -98,7 +107,10 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"\x17ORDER_PRODUCT_NOT_FOUND\x10\x03\x1a\x04\xa8E\x94\x03\x12\x19\n" +
 	"\x0fORDER_FORBIDDEN\x10\x04\x1a\x04\xa8E\x93\x03\x12)\n" +
 	"\x1fORDER_INVALID_STATUS_TRANSITION\x10\x05\x1a\x04\xa8E\x99\x03\x12\x17\n" +
-	"\rORDER_TOO_FAR\x10\x06\x1a\x04\xa8E\x93\x03\x1a\x04\xa0E\xf4\x032\x97\x05\n" +
+	"\rORDER_TOO_FAR\x10\x06\x1a\x04\xa8E\x93\x03\x12\x1f\n" +
+	"\x15ORDER_NOT_CANCELLABLE\x10\a\x1a\x04\xa8E\x99\x03\x12'\n" +
+	"\x1dORDER_NO_CANCELLATION_PENDING\x10\b\x1a\x04\xa8E\x99\x03\x12\x1d\n" +
+	"\x13ORDER_REFUND_FAILED\x10\t\x1a\x04\xa8E\xf6\x03\x1a\x04\xa0E\xf4\x032\xd8\a\n" +
 	"\x05Order\x12o\n" +
 	"\n" +
 	"PlaceOrder\x12#.order.v1.request.PlaceOrderRequest\x1a%.order.v1.response.PlaceOrderResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
@@ -107,7 +119,9 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"\fListMyOrders\x12%.order.v1.request.ListMyOrdersRequest\x1a'.order.v1.response.ListMyOrdersResponse\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
 	"/v1/orders\x12\x9c\x01\n" +
 	"\x12ListMerchantOrders\x12+.order.v1.request.ListMerchantOrdersRequest\x1a-.order.v1.response.ListMerchantOrdersResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/v1/merchants/{merchant_id}/orders\x12\x96\x01\n" +
-	"\x11UpdateOrderStatus\x12*.order.v1.request.UpdateOrderStatusRequest\x1a,.order.v1.response.UpdateOrderStatusResponse\"'\x82\xd3\xe4\x93\x02!:\x01*2\x1c/v1/orders/{order_id}/statusB(Z&github.com/arm-1234/protos/order/v1;v1b\x06proto3"
+	"\x11UpdateOrderStatus\x12*.order.v1.request.UpdateOrderStatusRequest\x1a,.order.v1.response.UpdateOrderStatusResponse\"'\x82\xd3\xe4\x93\x02!:\x01*2\x1c/v1/orders/{order_id}/status\x12\x8a\x01\n" +
+	"\vCancelOrder\x12$.order.v1.request.CancelOrderRequest\x1a&.order.v1.response.CancelOrderResponse\"-\x82\xd3\xe4\x93\x02':\x01*\"\"/v1/orders/{order_id}/cancellation\x12\xb1\x01\n" +
+	"\x15RespondToCancellation\x12..order.v1.request.RespondToCancellationRequest\x1a0.order.v1.response.RespondToCancellationResponse\"6\x82\xd3\xe4\x93\x020:\x01*\"+/v1/orders/{order_id}/cancellation/responseB(Z&github.com/arm-1234/protos/order/v1;v1b\x06proto3"
 
 var (
 	file_order_v1_order_proto_rawDescOnce sync.Once
@@ -123,17 +137,21 @@ func file_order_v1_order_proto_rawDescGZIP() []byte {
 
 var file_order_v1_order_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_order_v1_order_proto_goTypes = []any{
-	(ErrorReason)(0),                            // 0: order.v1.ErrorReason
-	(*request.PlaceOrderRequest)(nil),           // 1: order.v1.request.PlaceOrderRequest
-	(*request.GetOrderRequest)(nil),             // 2: order.v1.request.GetOrderRequest
-	(*request.ListMyOrdersRequest)(nil),         // 3: order.v1.request.ListMyOrdersRequest
-	(*request.ListMerchantOrdersRequest)(nil),   // 4: order.v1.request.ListMerchantOrdersRequest
-	(*request.UpdateOrderStatusRequest)(nil),    // 5: order.v1.request.UpdateOrderStatusRequest
-	(*response.PlaceOrderResponse)(nil),         // 6: order.v1.response.PlaceOrderResponse
-	(*response.GetOrderResponse)(nil),           // 7: order.v1.response.GetOrderResponse
-	(*response.ListMyOrdersResponse)(nil),       // 8: order.v1.response.ListMyOrdersResponse
-	(*response.ListMerchantOrdersResponse)(nil), // 9: order.v1.response.ListMerchantOrdersResponse
-	(*response.UpdateOrderStatusResponse)(nil),  // 10: order.v1.response.UpdateOrderStatusResponse
+	(ErrorReason)(0),                               // 0: order.v1.ErrorReason
+	(*request.PlaceOrderRequest)(nil),              // 1: order.v1.request.PlaceOrderRequest
+	(*request.GetOrderRequest)(nil),                // 2: order.v1.request.GetOrderRequest
+	(*request.ListMyOrdersRequest)(nil),            // 3: order.v1.request.ListMyOrdersRequest
+	(*request.ListMerchantOrdersRequest)(nil),      // 4: order.v1.request.ListMerchantOrdersRequest
+	(*request.UpdateOrderStatusRequest)(nil),       // 5: order.v1.request.UpdateOrderStatusRequest
+	(*request.CancelOrderRequest)(nil),             // 6: order.v1.request.CancelOrderRequest
+	(*request.RespondToCancellationRequest)(nil),   // 7: order.v1.request.RespondToCancellationRequest
+	(*response.PlaceOrderResponse)(nil),            // 8: order.v1.response.PlaceOrderResponse
+	(*response.GetOrderResponse)(nil),              // 9: order.v1.response.GetOrderResponse
+	(*response.ListMyOrdersResponse)(nil),          // 10: order.v1.response.ListMyOrdersResponse
+	(*response.ListMerchantOrdersResponse)(nil),    // 11: order.v1.response.ListMerchantOrdersResponse
+	(*response.UpdateOrderStatusResponse)(nil),     // 12: order.v1.response.UpdateOrderStatusResponse
+	(*response.CancelOrderResponse)(nil),           // 13: order.v1.response.CancelOrderResponse
+	(*response.RespondToCancellationResponse)(nil), // 14: order.v1.response.RespondToCancellationResponse
 }
 var file_order_v1_order_proto_depIdxs = []int32{
 	1,  // 0: order.v1.Order.PlaceOrder:input_type -> order.v1.request.PlaceOrderRequest
@@ -141,13 +159,17 @@ var file_order_v1_order_proto_depIdxs = []int32{
 	3,  // 2: order.v1.Order.ListMyOrders:input_type -> order.v1.request.ListMyOrdersRequest
 	4,  // 3: order.v1.Order.ListMerchantOrders:input_type -> order.v1.request.ListMerchantOrdersRequest
 	5,  // 4: order.v1.Order.UpdateOrderStatus:input_type -> order.v1.request.UpdateOrderStatusRequest
-	6,  // 5: order.v1.Order.PlaceOrder:output_type -> order.v1.response.PlaceOrderResponse
-	7,  // 6: order.v1.Order.GetOrder:output_type -> order.v1.response.GetOrderResponse
-	8,  // 7: order.v1.Order.ListMyOrders:output_type -> order.v1.response.ListMyOrdersResponse
-	9,  // 8: order.v1.Order.ListMerchantOrders:output_type -> order.v1.response.ListMerchantOrdersResponse
-	10, // 9: order.v1.Order.UpdateOrderStatus:output_type -> order.v1.response.UpdateOrderStatusResponse
-	5,  // [5:10] is the sub-list for method output_type
-	0,  // [0:5] is the sub-list for method input_type
+	6,  // 5: order.v1.Order.CancelOrder:input_type -> order.v1.request.CancelOrderRequest
+	7,  // 6: order.v1.Order.RespondToCancellation:input_type -> order.v1.request.RespondToCancellationRequest
+	8,  // 7: order.v1.Order.PlaceOrder:output_type -> order.v1.response.PlaceOrderResponse
+	9,  // 8: order.v1.Order.GetOrder:output_type -> order.v1.response.GetOrderResponse
+	10, // 9: order.v1.Order.ListMyOrders:output_type -> order.v1.response.ListMyOrdersResponse
+	11, // 10: order.v1.Order.ListMerchantOrders:output_type -> order.v1.response.ListMerchantOrdersResponse
+	12, // 11: order.v1.Order.UpdateOrderStatus:output_type -> order.v1.response.UpdateOrderStatusResponse
+	13, // 12: order.v1.Order.CancelOrder:output_type -> order.v1.response.CancelOrderResponse
+	14, // 13: order.v1.Order.RespondToCancellation:output_type -> order.v1.response.RespondToCancellationResponse
+	7,  // [7:14] is the sub-list for method output_type
+	0,  // [0:7] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

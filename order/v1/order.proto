@@ -41,6 +41,22 @@ service Order {
       body: "*"
     };
   }
+
+  // Subresource paths rather than a {var}:verb custom verb: the router cannot
+  // split a path variable from a literal suffix in the same segment.
+  rpc CancelOrder (order.v1.request.CancelOrderRequest) returns (order.v1.response.CancelOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{order_id}/cancellation"
+      body: "*"
+    };
+  }
+
+  rpc RespondToCancellation (order.v1.request.RespondToCancellationRequest) returns (order.v1.response.RespondToCancellationResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{order_id}/cancellation/response"
+      body: "*"
+    };
+  }
 }
 
 enum ErrorReason {
@@ -52,4 +68,7 @@ enum ErrorReason {
   ORDER_FORBIDDEN = 4 [(errors.code) = 403];
   ORDER_INVALID_STATUS_TRANSITION = 5 [(errors.code) = 409];
   ORDER_TOO_FAR = 6 [(errors.code) = 403];
+  ORDER_NOT_CANCELLABLE = 7 [(errors.code) = 409];
+  ORDER_NO_CANCELLATION_PENDING = 8 [(errors.code) = 409];
+  ORDER_REFUND_FAILED = 9 [(errors.code) = 502];
 }

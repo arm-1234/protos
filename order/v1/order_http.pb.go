@@ -21,17 +21,23 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationOrderCancelOrder = "/order.v1.Order/CancelOrder"
 const OperationOrderGetOrder = "/order.v1.Order/GetOrder"
 const OperationOrderListMerchantOrders = "/order.v1.Order/ListMerchantOrders"
 const OperationOrderListMyOrders = "/order.v1.Order/ListMyOrders"
 const OperationOrderPlaceOrder = "/order.v1.Order/PlaceOrder"
+const OperationOrderRespondToCancellation = "/order.v1.Order/RespondToCancellation"
 const OperationOrderUpdateOrderStatus = "/order.v1.Order/UpdateOrderStatus"
 
 type OrderHTTPServer interface {
+	// CancelOrder Subresource paths rather than a {var}:verb custom verb: the router cannot
+	// split a path variable from a literal suffix in the same segment.
+	CancelOrder(context.Context, *request.CancelOrderRequest) (*response.CancelOrderResponse, error)
 	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
 	ListMerchantOrders(context.Context, *request.ListMerchantOrdersRequest) (*response.ListMerchantOrdersResponse, error)
 	ListMyOrders(context.Context, *request.ListMyOrdersRequest) (*response.ListMyOrdersResponse, error)
 	PlaceOrder(context.Context, *request.PlaceOrderRequest) (*response.PlaceOrderResponse, error)
+	RespondToCancellation(context.Context, *request.RespondToCancellationRequest) (*response.RespondToCancellationResponse, error)
 	UpdateOrderStatus(context.Context, *request.UpdateOrderStatusRequest) (*response.UpdateOrderStatusResponse, error)
 }
 
@@ -42,6 +48,8 @@ func RegisterOrderHTTPServer(s *http.Server, srv OrderHTTPServer) {
 	r.GET("/v1/orders", _Order_ListMyOrders0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}/orders", _Order_ListMerchantOrders0_HTTP_Handler(srv))
 	r.PATCH("/v1/orders/{order_id}/status", _Order_UpdateOrderStatus0_HTTP_Handler(srv))
+	r.POST("/v1/orders/{order_id}/cancellation", _Order_CancelOrder0_HTTP_Handler(srv))
+	r.POST("/v1/orders/{order_id}/cancellation/response", _Order_RespondToCancellation0_HTTP_Handler(srv))
 }
 
 func _Order_PlaceOrder0_HTTP_Handler(srv OrderHTTPServer) func(ctx http.Context) error {
@@ -154,11 +162,65 @@ func _Order_UpdateOrderStatus0_HTTP_Handler(srv OrderHTTPServer) func(ctx http.C
 	}
 }
 
+func _Order_CancelOrder0_HTTP_Handler(srv OrderHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.CancelOrderRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationOrderCancelOrder)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CancelOrder(ctx, req.(*request.CancelOrderRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.CancelOrderResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Order_RespondToCancellation0_HTTP_Handler(srv OrderHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RespondToCancellationRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationOrderRespondToCancellation)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RespondToCancellation(ctx, req.(*request.RespondToCancellationRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RespondToCancellationResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type OrderHTTPClient interface {
+	// CancelOrder Subresource paths rather than a {var}:verb custom verb: the router cannot
+	// split a path variable from a literal suffix in the same segment.
+	CancelOrder(ctx context.Context, req *request.CancelOrderRequest, opts ...http.CallOption) (rsp *response.CancelOrderResponse, err error)
 	GetOrder(ctx context.Context, req *request.GetOrderRequest, opts ...http.CallOption) (rsp *response.GetOrderResponse, err error)
 	ListMerchantOrders(ctx context.Context, req *request.ListMerchantOrdersRequest, opts ...http.CallOption) (rsp *response.ListMerchantOrdersResponse, err error)
 	ListMyOrders(ctx context.Context, req *request.ListMyOrdersRequest, opts ...http.CallOption) (rsp *response.ListMyOrdersResponse, err error)
 	PlaceOrder(ctx context.Context, req *request.PlaceOrderRequest, opts ...http.CallOption) (rsp *response.PlaceOrderResponse, err error)
+	RespondToCancellation(ctx context.Context, req *request.RespondToCancellationRequest, opts ...http.CallOption) (rsp *response.RespondToCancellationResponse, err error)
 	UpdateOrderStatus(ctx context.Context, req *request.UpdateOrderStatusRequest, opts ...http.CallOption) (rsp *response.UpdateOrderStatusResponse, err error)
 }
 
@@ -168,6 +230,21 @@ type OrderHTTPClientImpl struct {
 
 func NewOrderHTTPClient(client *http.Client) OrderHTTPClient {
 	return &OrderHTTPClientImpl{client}
+}
+
+// CancelOrder Subresource paths rather than a {var}:verb custom verb: the router cannot
+// split a path variable from a literal suffix in the same segment.
+func (c *OrderHTTPClientImpl) CancelOrder(ctx context.Context, in *request.CancelOrderRequest, opts ...http.CallOption) (*response.CancelOrderResponse, error) {
+	var out response.CancelOrderResponse
+	pattern := "/v1/orders/{order_id}/cancellation"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationOrderCancelOrder))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 func (c *OrderHTTPClientImpl) GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...http.CallOption) (*response.GetOrderResponse, error) {
@@ -214,6 +291,19 @@ func (c *OrderHTTPClientImpl) PlaceOrder(ctx context.Context, in *request.PlaceO
 	pattern := "/v1/orders"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationOrderPlaceOrder))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *OrderHTTPClientImpl) RespondToCancellation(ctx context.Context, in *request.RespondToCancellationRequest, opts ...http.CallOption) (*response.RespondToCancellationResponse, error) {
+	var out response.RespondToCancellationResponse
+	pattern := "/v1/orders/{order_id}/cancellation/response"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationOrderRespondToCancellation))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

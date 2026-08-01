@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package order.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/order/v1/types/enums;enums";
+
+enum RefundStatus {
+  REFUND_STATUS_UNSPECIFIED = 0;
+  // Cancellation requested, merchant has not answered yet.
+  REFUND_STATUS_PENDING = 1;
+  // Sent to the payment provider; banks can take a few days to post it.
+  REFUND_STATUS_PROCESSING = 2;
+  REFUND_STATUS_COMPLETED = 3;
+  // Merchant declined the cancellation, so no money moves.
+  REFUND_STATUS_REJECTED = 4;
+  REFUND_STATUS_FAILED = 5;
+}
+
+enum CancellationActor {
+  CANCELLATION_ACTOR_UNSPECIFIED = 0;
+  CANCELLATION_ACTOR_SHOPPER = 1;
+  CANCELLATION_ACTOR_MERCHANT = 2;
+}

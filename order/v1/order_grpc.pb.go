@@ -21,11 +21,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Order_PlaceOrder_FullMethodName         = "/order.v1.Order/PlaceOrder"
-	Order_GetOrder_FullMethodName           = "/order.v1.Order/GetOrder"
-	Order_ListMyOrders_FullMethodName       = "/order.v1.Order/ListMyOrders"
-	Order_ListMerchantOrders_FullMethodName = "/order.v1.Order/ListMerchantOrders"
-	Order_UpdateOrderStatus_FullMethodName  = "/order.v1.Order/UpdateOrderStatus"
+	Order_PlaceOrder_FullMethodName            = "/order.v1.Order/PlaceOrder"
+	Order_GetOrder_FullMethodName              = "/order.v1.Order/GetOrder"
+	Order_ListMyOrders_FullMethodName          = "/order.v1.Order/ListMyOrders"
+	Order_ListMerchantOrders_FullMethodName    = "/order.v1.Order/ListMerchantOrders"
+	Order_UpdateOrderStatus_FullMethodName     = "/order.v1.Order/UpdateOrderStatus"
+	Order_CancelOrder_FullMethodName           = "/order.v1.Order/CancelOrder"
+	Order_RespondToCancellation_FullMethodName = "/order.v1.Order/RespondToCancellation"
 )
 
 // OrderClient is the client API for Order service.
@@ -37,6 +39,10 @@ type OrderClient interface {
 	ListMyOrders(ctx context.Context, in *request.ListMyOrdersRequest, opts ...grpc.CallOption) (*response.ListMyOrdersResponse, error)
 	ListMerchantOrders(ctx context.Context, in *request.ListMerchantOrdersRequest, opts ...grpc.CallOption) (*response.ListMerchantOrdersResponse, error)
 	UpdateOrderStatus(ctx context.Context, in *request.UpdateOrderStatusRequest, opts ...grpc.CallOption) (*response.UpdateOrderStatusResponse, error)
+	// Subresource paths rather than a {var}:verb custom verb: the router cannot
+	// split a path variable from a literal suffix in the same segment.
+	CancelOrder(ctx context.Context, in *request.CancelOrderRequest, opts ...grpc.CallOption) (*response.CancelOrderResponse, error)
+	RespondToCancellation(ctx context.Context, in *request.RespondToCancellationRequest, opts ...grpc.CallOption) (*response.RespondToCancellationResponse, error)
 }
 
 type orderClient struct {
@@ -97,6 +103,26 @@ func (c *orderClient) UpdateOrderStatus(ctx context.Context, in *request.UpdateO
 	return out, nil
 }
 
+func (c *orderClient) CancelOrder(ctx context.Context, in *request.CancelOrderRequest, opts ...grpc.CallOption) (*response.CancelOrderResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.CancelOrderResponse)
+	err := c.cc.Invoke(ctx, Order_CancelOrder_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderClient) RespondToCancellation(ctx context.Context, in *request.RespondToCancellationRequest, opts ...grpc.CallOption) (*response.RespondToCancellationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RespondToCancellationResponse)
+	err := c.cc.Invoke(ctx, Order_RespondToCancellation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrderServer is the server API for Order service.
 // All implementations must embed UnimplementedOrderServer
 // for forward compatibility.
@@ -106,6 +132,10 @@ type OrderServer interface {
 	ListMyOrders(context.Context, *request.ListMyOrdersRequest) (*response.ListMyOrdersResponse, error)
 	ListMerchantOrders(context.Context, *request.ListMerchantOrdersRequest) (*response.ListMerchantOrdersResponse, error)
 	UpdateOrderStatus(context.Context, *request.UpdateOrderStatusRequest) (*response.UpdateOrderStatusResponse, error)
+	// Subresource paths rather than a {var}:verb custom verb: the router cannot
+	// split a path variable from a literal suffix in the same segment.
+	CancelOrder(context.Context, *request.CancelOrderRequest) (*response.CancelOrderResponse, error)
+	RespondToCancellation(context.Context, *request.RespondToCancellationRequest) (*response.RespondToCancellationResponse, error)
 	mustEmbedUnimplementedOrderServer()
 }
 
@@ -130,6 +160,12 @@ func (UnimplementedOrderServer) ListMerchantOrders(context.Context, *request.Lis
 }
 func (UnimplementedOrderServer) UpdateOrderStatus(context.Context, *request.UpdateOrderStatusRequest) (*response.UpdateOrderStatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateOrderStatus not implemented")
+}
+func (UnimplementedOrderServer) CancelOrder(context.Context, *request.CancelOrderRequest) (*response.CancelOrderResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CancelOrder not implemented")
+}
+func (UnimplementedOrderServer) RespondToCancellation(context.Context, *request.RespondToCancellationRequest) (*response.RespondToCancellationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RespondToCancellation not implemented")
 }
 func (UnimplementedOrderServer) mustEmbedUnimplementedOrderServer() {}
 func (UnimplementedOrderServer) testEmbeddedByValue()               {}
@@ -242,6 +278,42 @@ func _Order_UpdateOrderStatus_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Order_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CancelOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServer).CancelOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Order_CancelOrder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServer).CancelOrder(ctx, req.(*request.CancelOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Order_RespondToCancellation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RespondToCancellationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServer).RespondToCancellation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Order_RespondToCancellation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServer).RespondToCancellation(ctx, req.(*request.RespondToCancellationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Order_ServiceDesc is the grpc.ServiceDesc for Order service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -268,6 +340,14 @@ var Order_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrderStatus",
 			Handler:    _Order_UpdateOrderStatus_Handler,
+		},
+		{
+			MethodName: "CancelOrder",
+			Handler:    _Order_CancelOrder_Handler,
+		},
+		{
+			MethodName: "RespondToCancellation",
+			Handler:    _Order_RespondToCancellation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

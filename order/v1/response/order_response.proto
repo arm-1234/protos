@@ -33,3 +33,13 @@ message ListMerchantOrdersResponse {
 message UpdateOrderStatusResponse {
   order.v1.types.OrderInfo order = 1;
 }
+
+message CancelOrderResponse {
+  order.v1.types.OrderInfo order = 1;
+  // False when the order was paid online and the merchant has to approve first.
+  bool cancelled = 2;
+}
+
+message RespondToCancellationResponse {
+  order.v1.types.OrderInfo order = 1;
+}

@@ -5,6 +5,7 @@ package order.v1.types;
 import "google/protobuf/timestamp.proto";
 import "order/v1/types/enums/order_status.proto";
 import "order/v1/types/enums/payment_mode.proto";
+import "order/v1/types/enums/refund.proto";
 
 option go_package = "github.com/arm-1234/protos/order/v1/types;types";
 
@@ -30,4 +31,20 @@ message OrderInfo {
   google.protobuf.Timestamp placed_at = 11;
   google.protobuf.Timestamp created_at = 12;
   google.protobuf.Timestamp updated_at = 13;
+  // Set once a cancellation is requested or done; absent on a normal order.
+  Cancellation cancellation = 14;
+}
+
+message Cancellation {
+  order.v1.types.enums.CancellationActor requested_by = 1;
+  string reason = 2;
+  google.protobuf.Timestamp requested_at = 3;
+  // Empty until the merchant answers a request on a paid order.
+  google.protobuf.Timestamp resolved_at = 4;
+  order.v1.types.enums.RefundStatus refund_status = 5;
+  // Minor units, so no float rounding on the amount going back to the shopper.
+  int64 refund_amount_minor = 6;
+  string refund_reference = 7;
+  // Why the merchant declined, shown to the shopper.
+  string rejection_reason = 8;
 }

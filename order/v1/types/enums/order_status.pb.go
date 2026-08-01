@@ -29,6 +29,9 @@ const (
 	OrderStatus_ORDER_STATUS_ACCEPTED    OrderStatus = 2
 	OrderStatus_ORDER_STATUS_FULFILLED   OrderStatus = 3
 	OrderStatus_ORDER_STATUS_CANCELLED   OrderStatus = 4
+	// Shopper asked to cancel an order they already paid for online. The merchant
+	// must approve before the refund runs, so the money is not moved yet.
+	OrderStatus_ORDER_STATUS_CANCEL_REQUESTED OrderStatus = 5
 )
 
 // Enum value maps for OrderStatus.
@@ -39,13 +42,15 @@ var (
 		2: "ORDER_STATUS_ACCEPTED",
 		3: "ORDER_STATUS_FULFILLED",
 		4: "ORDER_STATUS_CANCELLED",
+		5: "ORDER_STATUS_CANCEL_REQUESTED",
 	}
 	OrderStatus_value = map[string]int32{
-		"ORDER_STATUS_UNSPECIFIED": 0,
-		"ORDER_STATUS_PLACED":      1,
-		"ORDER_STATUS_ACCEPTED":    2,
-		"ORDER_STATUS_FULFILLED":   3,
-		"ORDER_STATUS_CANCELLED":   4,
+		"ORDER_STATUS_UNSPECIFIED":      0,
+		"ORDER_STATUS_PLACED":           1,
+		"ORDER_STATUS_ACCEPTED":         2,
+		"ORDER_STATUS_FULFILLED":        3,
+		"ORDER_STATUS_CANCELLED":        4,
+		"ORDER_STATUS_CANCEL_REQUESTED": 5,
 	}
 )
 
@@ -80,13 +85,14 @@ var File_order_v1_types_enums_order_status_proto protoreflect.FileDescriptor
 
 const file_order_v1_types_enums_order_status_proto_rawDesc = "" +
 	"\n" +
-	"'order/v1/types/enums/order_status.proto\x12\x14order.v1.types.enums*\x97\x01\n" +
+	"'order/v1/types/enums/order_status.proto\x12\x14order.v1.types.enums*\xba\x01\n" +
 	"\vOrderStatus\x12\x1c\n" +
 	"\x18ORDER_STATUS_UNSPECIFIED\x10\x00\x12\x17\n" +
 	"\x13ORDER_STATUS_PLACED\x10\x01\x12\x19\n" +
 	"\x15ORDER_STATUS_ACCEPTED\x10\x02\x12\x1a\n" +
 	"\x16ORDER_STATUS_FULFILLED\x10\x03\x12\x1a\n" +
-	"\x16ORDER_STATUS_CANCELLED\x10\x04B7Z5github.com/arm-1234/protos/order/v1/types/enums;enumsb\x06proto3"
+	"\x16ORDER_STATUS_CANCELLED\x10\x04\x12!\n" +
+	"\x1dORDER_STATUS_CANCEL_REQUESTED\x10\x05B7Z5github.com/arm-1234/protos/order/v1/types/enums;enumsb\x06proto3"
 
 var (
 	file_order_v1_types_enums_order_status_proto_rawDescOnce sync.Once

@@ -114,6 +114,8 @@ type OrderInfo struct {
 	PlacedAt      *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=placed_at,json=placedAt,proto3" json:"placed_at,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// Set once a cancellation is requested or done; absent on a normal order.
+	Cancellation  *Cancellation `protobuf:"bytes,14,opt,name=cancellation,proto3" json:"cancellation,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -239,11 +241,121 @@ func (x *OrderInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *OrderInfo) GetCancellation() *Cancellation {
+	if x != nil {
+		return x.Cancellation
+	}
+	return nil
+}
+
+type Cancellation struct {
+	state       protoimpl.MessageState  `protogen:"open.v1"`
+	RequestedBy enums.CancellationActor `protobuf:"varint,1,opt,name=requested_by,json=requestedBy,proto3,enum=order.v1.types.enums.CancellationActor" json:"requested_by,omitempty"`
+	Reason      string                  `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	RequestedAt *timestamppb.Timestamp  `protobuf:"bytes,3,opt,name=requested_at,json=requestedAt,proto3" json:"requested_at,omitempty"`
+	// Empty until the merchant answers a request on a paid order.
+	ResolvedAt   *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=resolved_at,json=resolvedAt,proto3" json:"resolved_at,omitempty"`
+	RefundStatus enums.RefundStatus     `protobuf:"varint,5,opt,name=refund_status,json=refundStatus,proto3,enum=order.v1.types.enums.RefundStatus" json:"refund_status,omitempty"`
+	// Minor units, so no float rounding on the amount going back to the shopper.
+	RefundAmountMinor int64  `protobuf:"varint,6,opt,name=refund_amount_minor,json=refundAmountMinor,proto3" json:"refund_amount_minor,omitempty"`
+	RefundReference   string `protobuf:"bytes,7,opt,name=refund_reference,json=refundReference,proto3" json:"refund_reference,omitempty"`
+	// Why the merchant declined, shown to the shopper.
+	RejectionReason string `protobuf:"bytes,8,opt,name=rejection_reason,json=rejectionReason,proto3" json:"rejection_reason,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *Cancellation) Reset() {
+	*x = Cancellation{}
+	mi := &file_order_v1_types_order_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Cancellation) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Cancellation) ProtoMessage() {}
+
+func (x *Cancellation) ProtoReflect() protoreflect.Message {
+	mi := &file_order_v1_types_order_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Cancellation.ProtoReflect.Descriptor instead.
+func (*Cancellation) Descriptor() ([]byte, []int) {
+	return file_order_v1_types_order_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Cancellation) GetRequestedBy() enums.CancellationActor {
+	if x != nil {
+		return x.RequestedBy
+	}
+	return enums.CancellationActor(0)
+}
+
+func (x *Cancellation) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *Cancellation) GetRequestedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RequestedAt
+	}
+	return nil
+}
+
+func (x *Cancellation) GetResolvedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ResolvedAt
+	}
+	return nil
+}
+
+func (x *Cancellation) GetRefundStatus() enums.RefundStatus {
+	if x != nil {
+		return x.RefundStatus
+	}
+	return enums.RefundStatus(0)
+}
+
+func (x *Cancellation) GetRefundAmountMinor() int64 {
+	if x != nil {
+		return x.RefundAmountMinor
+	}
+	return 0
+}
+
+func (x *Cancellation) GetRefundReference() string {
+	if x != nil {
+		return x.RefundReference
+	}
+	return ""
+}
+
+func (x *Cancellation) GetRejectionReason() string {
+	if x != nil {
+		return x.RejectionReason
+	}
+	return ""
+}
+
 var File_order_v1_types_order_proto protoreflect.FileDescriptor
 
 const file_order_v1_types_order_proto_rawDesc = "" +
 	"\n" +
-	"\x1aorder/v1/types/order.proto\x12\x0eorder.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'order/v1/types/enums/order_status.proto\x1a'order/v1/types/enums/payment_mode.proto\"\xa4\x01\n" +
+	"\x1aorder/v1/types/order.proto\x12\x0eorder.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'order/v1/types/enums/order_status.proto\x1a'order/v1/types/enums/payment_mode.proto\x1a!order/v1/types/enums/refund.proto\"\xa4\x01\n" +
 	"\tOrderItem\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tR\tproductId\x12!\n" +
@@ -251,7 +363,7 @@ const file_order_v1_types_order_proto_rawDesc = "" +
 	"\n" +
 	"unit_price\x18\x03 \x01(\x01R\tunitPrice\x12\x1a\n" +
 	"\bquantity\x18\x04 \x01(\x05R\bquantity\x12\x1a\n" +
-	"\bsubtotal\x18\x05 \x01(\x01R\bsubtotal\"\xe9\x04\n" +
+	"\bsubtotal\x18\x05 \x01(\x01R\bsubtotal\"\xab\x05\n" +
 	"\tOrderInfo\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\tR\aorderId\x12\x1f\n" +
 	"\vmerchant_id\x18\x02 \x01(\tR\n" +
@@ -269,7 +381,18 @@ const file_order_v1_types_order_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB1Z/github.com/arm-1234/protos/order/v1/types;typesb\x06proto3"
+	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12@\n" +
+	"\fcancellation\x18\x0e \x01(\v2\x1c.order.v1.types.CancellationR\fcancellation\"\xbd\x03\n" +
+	"\fCancellation\x12J\n" +
+	"\frequested_by\x18\x01 \x01(\x0e2'.order.v1.types.enums.CancellationActorR\vrequestedBy\x12\x16\n" +
+	"\x06reason\x18\x02 \x01(\tR\x06reason\x12=\n" +
+	"\frequested_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\vrequestedAt\x12;\n" +
+	"\vresolved_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"resolvedAt\x12G\n" +
+	"\rrefund_status\x18\x05 \x01(\x0e2\".order.v1.types.enums.RefundStatusR\frefundStatus\x12.\n" +
+	"\x13refund_amount_minor\x18\x06 \x01(\x03R\x11refundAmountMinor\x12)\n" +
+	"\x10refund_reference\x18\a \x01(\tR\x0frefundReference\x12)\n" +
+	"\x10rejection_reason\x18\b \x01(\tR\x0frejectionReasonB1Z/github.com/arm-1234/protos/order/v1/types;typesb\x06proto3"
 
 var (
 	file_order_v1_types_order_proto_rawDescOnce sync.Once
@@ -283,28 +406,36 @@ func file_order_v1_types_order_proto_rawDescGZIP() []byte {
 	return file_order_v1_types_order_proto_rawDescData
 }
 
-var file_order_v1_types_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_order_v1_types_order_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_order_v1_types_order_proto_goTypes = []any{
 	(*OrderItem)(nil),             // 0: order.v1.types.OrderItem
 	(*OrderInfo)(nil),             // 1: order.v1.types.OrderInfo
-	(enums.OrderStatus)(0),        // 2: order.v1.types.enums.OrderStatus
-	(enums.PaymentMode)(0),        // 3: order.v1.types.enums.PaymentMode
-	(enums.PaymentStatus)(0),      // 4: order.v1.types.enums.PaymentStatus
-	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
+	(*Cancellation)(nil),          // 2: order.v1.types.Cancellation
+	(enums.OrderStatus)(0),        // 3: order.v1.types.enums.OrderStatus
+	(enums.PaymentMode)(0),        // 4: order.v1.types.enums.PaymentMode
+	(enums.PaymentStatus)(0),      // 5: order.v1.types.enums.PaymentStatus
+	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(enums.CancellationActor)(0),  // 7: order.v1.types.enums.CancellationActor
+	(enums.RefundStatus)(0),       // 8: order.v1.types.enums.RefundStatus
 }
 var file_order_v1_types_order_proto_depIdxs = []int32{
-	0, // 0: order.v1.types.OrderInfo.items:type_name -> order.v1.types.OrderItem
-	2, // 1: order.v1.types.OrderInfo.status:type_name -> order.v1.types.enums.OrderStatus
-	3, // 2: order.v1.types.OrderInfo.payment_mode:type_name -> order.v1.types.enums.PaymentMode
-	4, // 3: order.v1.types.OrderInfo.payment_status:type_name -> order.v1.types.enums.PaymentStatus
-	5, // 4: order.v1.types.OrderInfo.placed_at:type_name -> google.protobuf.Timestamp
-	5, // 5: order.v1.types.OrderInfo.created_at:type_name -> google.protobuf.Timestamp
-	5, // 6: order.v1.types.OrderInfo.updated_at:type_name -> google.protobuf.Timestamp
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	0,  // 0: order.v1.types.OrderInfo.items:type_name -> order.v1.types.OrderItem
+	3,  // 1: order.v1.types.OrderInfo.status:type_name -> order.v1.types.enums.OrderStatus
+	4,  // 2: order.v1.types.OrderInfo.payment_mode:type_name -> order.v1.types.enums.PaymentMode
+	5,  // 3: order.v1.types.OrderInfo.payment_status:type_name -> order.v1.types.enums.PaymentStatus
+	6,  // 4: order.v1.types.OrderInfo.placed_at:type_name -> google.protobuf.Timestamp
+	6,  // 5: order.v1.types.OrderInfo.created_at:type_name -> google.protobuf.Timestamp
+	6,  // 6: order.v1.types.OrderInfo.updated_at:type_name -> google.protobuf.Timestamp
+	2,  // 7: order.v1.types.OrderInfo.cancellation:type_name -> order.v1.types.Cancellation
+	7,  // 8: order.v1.types.Cancellation.requested_by:type_name -> order.v1.types.enums.CancellationActor
+	6,  // 9: order.v1.types.Cancellation.requested_at:type_name -> google.protobuf.Timestamp
+	6,  // 10: order.v1.types.Cancellation.resolved_at:type_name -> google.protobuf.Timestamp
+	8,  // 11: order.v1.types.Cancellation.refund_status:type_name -> order.v1.types.enums.RefundStatus
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_order_v1_types_order_proto_init() }
@@ -318,7 +449,7 @@ func file_order_v1_types_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_v1_types_order_proto_rawDesc), len(file_order_v1_types_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

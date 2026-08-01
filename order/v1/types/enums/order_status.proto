@@ -10,4 +10,7 @@ enum OrderStatus {
   ORDER_STATUS_ACCEPTED = 2;
   ORDER_STATUS_FULFILLED = 3;
   ORDER_STATUS_CANCELLED = 4;
+  // Shopper asked to cancel an order they already paid for online. The merchant
+  // must approve before the refund runs, so the money is not moved yet.
+  ORDER_STATUS_CANCEL_REQUESTED = 5;
 }
