@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package merchant.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/merchant/v1/types/enums;enums";
+
+enum Weekday {
+  WEEKDAY_UNSPECIFIED = 0;
+  WEEKDAY_MONDAY = 1;
+  WEEKDAY_TUESDAY = 2;
+  WEEKDAY_WEDNESDAY = 3;
+  WEEKDAY_THURSDAY = 4;
+  WEEKDAY_FRIDAY = 5;
+  WEEKDAY_SATURDAY = 6;
+  WEEKDAY_SUNDAY = 7;
+}

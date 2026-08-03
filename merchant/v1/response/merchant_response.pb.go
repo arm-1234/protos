@@ -198,6 +198,50 @@ func (x *ResolveStoreByVpaResponse) GetStore() *types.StoreSummary {
 	return nil
 }
 
+type StoreHoursResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Merchant      *types.MerchantInfo    `protobuf:"bytes,1,opt,name=merchant,proto3" json:"merchant,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StoreHoursResponse) Reset() {
+	*x = StoreHoursResponse{}
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StoreHoursResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StoreHoursResponse) ProtoMessage() {}
+
+func (x *StoreHoursResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StoreHoursResponse.ProtoReflect.Descriptor instead.
+func (*StoreHoursResponse) Descriptor() ([]byte, []int) {
+	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *StoreHoursResponse) GetMerchant() *types.MerchantInfo {
+	if x != nil {
+		return x.Merchant
+	}
+	return nil
+}
+
 type MerchantVpasResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Vpas          []*types.MerchantVpa   `protobuf:"bytes,1,rep,name=vpas,proto3" json:"vpas,omitempty"`
@@ -207,7 +251,7 @@ type MerchantVpasResponse struct {
 
 func (x *MerchantVpasResponse) Reset() {
 	*x = MerchantVpasResponse{}
-	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[4]
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -219,7 +263,7 @@ func (x *MerchantVpasResponse) String() string {
 func (*MerchantVpasResponse) ProtoMessage() {}
 
 func (x *MerchantVpasResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[4]
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -232,7 +276,7 @@ func (x *MerchantVpasResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MerchantVpasResponse.ProtoReflect.Descriptor instead.
 func (*MerchantVpasResponse) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{4}
+	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *MerchantVpasResponse) GetVpas() []*types.MerchantVpa {
@@ -254,7 +298,7 @@ type RequestStoreUpdateOtpResponse struct {
 
 func (x *RequestStoreUpdateOtpResponse) Reset() {
 	*x = RequestStoreUpdateOtpResponse{}
-	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[5]
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -266,7 +310,7 @@ func (x *RequestStoreUpdateOtpResponse) String() string {
 func (*RequestStoreUpdateOtpResponse) ProtoMessage() {}
 
 func (x *RequestStoreUpdateOtpResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[5]
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -279,7 +323,7 @@ func (x *RequestStoreUpdateOtpResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RequestStoreUpdateOtpResponse.ProtoReflect.Descriptor instead.
 func (*RequestStoreUpdateOtpResponse) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{5}
+	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *RequestStoreUpdateOtpResponse) GetSent() bool {
@@ -314,7 +358,7 @@ type DiscoverStoresResponse struct {
 
 func (x *DiscoverStoresResponse) Reset() {
 	*x = DiscoverStoresResponse{}
-	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[6]
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -326,7 +370,7 @@ func (x *DiscoverStoresResponse) String() string {
 func (*DiscoverStoresResponse) ProtoMessage() {}
 
 func (x *DiscoverStoresResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[6]
+	mi := &file_merchant_v1_response_merchant_response_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -339,7 +383,7 @@ func (x *DiscoverStoresResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoverStoresResponse.ProtoReflect.Descriptor instead.
 func (*DiscoverStoresResponse) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{6}
+	return file_merchant_v1_response_merchant_response_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DiscoverStoresResponse) GetStores() []*types.NearbyStore {
@@ -375,7 +419,9 @@ const file_merchant_v1_response_merchant_response_proto_rawDesc = "" +
 	"\x16UpdateMerchantResponse\x12;\n" +
 	"\bmerchant\x18\x01 \x01(\v2\x1f.merchant.v1.types.MerchantInfoR\bmerchant\"R\n" +
 	"\x19ResolveStoreByVpaResponse\x125\n" +
-	"\x05store\x18\x01 \x01(\v2\x1f.merchant.v1.types.StoreSummaryR\x05store\"J\n" +
+	"\x05store\x18\x01 \x01(\v2\x1f.merchant.v1.types.StoreSummaryR\x05store\"Q\n" +
+	"\x12StoreHoursResponse\x12;\n" +
+	"\bmerchant\x18\x01 \x01(\v2\x1f.merchant.v1.types.MerchantInfoR\bmerchant\"J\n" +
 	"\x14MerchantVpasResponse\x122\n" +
 	"\x04vpas\x18\x01 \x03(\v2\x1e.merchant.v1.types.MerchantVpaR\x04vpas\"|\n" +
 	"\x1dRequestStoreUpdateOtpResponse\x12\x12\n" +
@@ -399,32 +445,34 @@ func file_merchant_v1_response_merchant_response_proto_rawDescGZIP() []byte {
 	return file_merchant_v1_response_merchant_response_proto_rawDescData
 }
 
-var file_merchant_v1_response_merchant_response_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_merchant_v1_response_merchant_response_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_merchant_v1_response_merchant_response_proto_goTypes = []any{
 	(*OnboardMerchantResponse)(nil),       // 0: merchant.v1.response.OnboardMerchantResponse
 	(*GetMerchantResponse)(nil),           // 1: merchant.v1.response.GetMerchantResponse
 	(*UpdateMerchantResponse)(nil),        // 2: merchant.v1.response.UpdateMerchantResponse
 	(*ResolveStoreByVpaResponse)(nil),     // 3: merchant.v1.response.ResolveStoreByVpaResponse
-	(*MerchantVpasResponse)(nil),          // 4: merchant.v1.response.MerchantVpasResponse
-	(*RequestStoreUpdateOtpResponse)(nil), // 5: merchant.v1.response.RequestStoreUpdateOtpResponse
-	(*DiscoverStoresResponse)(nil),        // 6: merchant.v1.response.DiscoverStoresResponse
-	(*types.MerchantInfo)(nil),            // 7: merchant.v1.types.MerchantInfo
-	(*types.StoreSummary)(nil),            // 8: merchant.v1.types.StoreSummary
-	(*types.MerchantVpa)(nil),             // 9: merchant.v1.types.MerchantVpa
-	(*types.NearbyStore)(nil),             // 10: merchant.v1.types.NearbyStore
+	(*StoreHoursResponse)(nil),            // 4: merchant.v1.response.StoreHoursResponse
+	(*MerchantVpasResponse)(nil),          // 5: merchant.v1.response.MerchantVpasResponse
+	(*RequestStoreUpdateOtpResponse)(nil), // 6: merchant.v1.response.RequestStoreUpdateOtpResponse
+	(*DiscoverStoresResponse)(nil),        // 7: merchant.v1.response.DiscoverStoresResponse
+	(*types.MerchantInfo)(nil),            // 8: merchant.v1.types.MerchantInfo
+	(*types.StoreSummary)(nil),            // 9: merchant.v1.types.StoreSummary
+	(*types.MerchantVpa)(nil),             // 10: merchant.v1.types.MerchantVpa
+	(*types.NearbyStore)(nil),             // 11: merchant.v1.types.NearbyStore
 }
 var file_merchant_v1_response_merchant_response_proto_depIdxs = []int32{
-	7,  // 0: merchant.v1.response.OnboardMerchantResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
-	7,  // 1: merchant.v1.response.GetMerchantResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
-	7,  // 2: merchant.v1.response.UpdateMerchantResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
-	8,  // 3: merchant.v1.response.ResolveStoreByVpaResponse.store:type_name -> merchant.v1.types.StoreSummary
-	9,  // 4: merchant.v1.response.MerchantVpasResponse.vpas:type_name -> merchant.v1.types.MerchantVpa
-	10, // 5: merchant.v1.response.DiscoverStoresResponse.stores:type_name -> merchant.v1.types.NearbyStore
-	6,  // [6:6] is the sub-list for method output_type
-	6,  // [6:6] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	8,  // 0: merchant.v1.response.OnboardMerchantResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
+	8,  // 1: merchant.v1.response.GetMerchantResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
+	8,  // 2: merchant.v1.response.UpdateMerchantResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
+	9,  // 3: merchant.v1.response.ResolveStoreByVpaResponse.store:type_name -> merchant.v1.types.StoreSummary
+	8,  // 4: merchant.v1.response.StoreHoursResponse.merchant:type_name -> merchant.v1.types.MerchantInfo
+	10, // 5: merchant.v1.response.MerchantVpasResponse.vpas:type_name -> merchant.v1.types.MerchantVpa
+	11, // 6: merchant.v1.response.DiscoverStoresResponse.stores:type_name -> merchant.v1.types.NearbyStore
+	7,  // [7:7] is the sub-list for method output_type
+	7,  // [7:7] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_merchant_v1_response_merchant_response_proto_init() }
@@ -438,7 +486,7 @@ func file_merchant_v1_response_merchant_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_merchant_v1_response_merchant_response_proto_rawDesc), len(file_merchant_v1_response_merchant_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

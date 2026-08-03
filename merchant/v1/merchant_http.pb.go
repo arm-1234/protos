@@ -30,6 +30,8 @@ const OperationMerchantRemoveMerchantVpa = "/merchant.v1.Merchant/RemoveMerchant
 const OperationMerchantRequestStoreUpdateOtp = "/merchant.v1.Merchant/RequestStoreUpdateOtp"
 const OperationMerchantResolveStoreByVpa = "/merchant.v1.Merchant/ResolveStoreByVpa"
 const OperationMerchantSetPrimaryMerchantVpa = "/merchant.v1.Merchant/SetPrimaryMerchantVpa"
+const OperationMerchantSetStoreHours = "/merchant.v1.Merchant/SetStoreHours"
+const OperationMerchantSetStoreOpen = "/merchant.v1.Merchant/SetStoreOpen"
 const OperationMerchantUpdateMerchant = "/merchant.v1.Merchant/UpdateMerchant"
 
 type MerchantHTTPServer interface {
@@ -42,6 +44,8 @@ type MerchantHTTPServer interface {
 	RequestStoreUpdateOtp(context.Context, *request.RequestStoreUpdateOtpRequest) (*response.RequestStoreUpdateOtpResponse, error)
 	ResolveStoreByVpa(context.Context, *request.ResolveStoreByVpaRequest) (*response.ResolveStoreByVpaResponse, error)
 	SetPrimaryMerchantVpa(context.Context, *request.SetPrimaryMerchantVpaRequest) (*response.MerchantVpasResponse, error)
+	SetStoreHours(context.Context, *request.SetStoreHoursRequest) (*response.StoreHoursResponse, error)
+	SetStoreOpen(context.Context, *request.SetStoreOpenRequest) (*response.StoreHoursResponse, error)
 	UpdateMerchant(context.Context, *request.UpdateMerchantRequest) (*response.UpdateMerchantResponse, error)
 }
 
@@ -51,6 +55,8 @@ func RegisterMerchantHTTPServer(s *http.Server, srv MerchantHTTPServer) {
 	r.GET("/v1/merchants/{merchant_id}", _Merchant_GetMerchant0_HTTP_Handler(srv))
 	r.PATCH("/v1/merchants/{merchant_id}", _Merchant_UpdateMerchant0_HTTP_Handler(srv))
 	r.POST("/v1/merchants/{merchant_id}/update-otp", _Merchant_RequestStoreUpdateOtp0_HTTP_Handler(srv))
+	r.PUT("/v1/merchants/{merchant_id}/hours", _Merchant_SetStoreHours0_HTTP_Handler(srv))
+	r.POST("/v1/merchants/{merchant_id}/open", _Merchant_SetStoreOpen0_HTTP_Handler(srv))
 	r.GET("/v1/stores:resolve", _Merchant_ResolveStoreByVpa0_HTTP_Handler(srv))
 	r.GET("/v1/stores", _Merchant_DiscoverStores0_HTTP_Handler(srv))
 	r.GET("/v1/merchants/{merchant_id}/vpas", _Merchant_ListMerchantVpas0_HTTP_Handler(srv))
@@ -149,6 +155,56 @@ func _Merchant_RequestStoreUpdateOtp0_HTTP_Handler(srv MerchantHTTPServer) func(
 			return err
 		}
 		reply := out.(*response.RequestStoreUpdateOtpResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Merchant_SetStoreHours0_HTTP_Handler(srv MerchantHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.SetStoreHoursRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationMerchantSetStoreHours)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SetStoreHours(ctx, req.(*request.SetStoreHoursRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.StoreHoursResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Merchant_SetStoreOpen0_HTTP_Handler(srv MerchantHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.SetStoreOpenRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationMerchantSetStoreOpen)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SetStoreOpen(ctx, req.(*request.SetStoreOpenRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.StoreHoursResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -295,6 +351,8 @@ type MerchantHTTPClient interface {
 	RequestStoreUpdateOtp(ctx context.Context, req *request.RequestStoreUpdateOtpRequest, opts ...http.CallOption) (rsp *response.RequestStoreUpdateOtpResponse, err error)
 	ResolveStoreByVpa(ctx context.Context, req *request.ResolveStoreByVpaRequest, opts ...http.CallOption) (rsp *response.ResolveStoreByVpaResponse, err error)
 	SetPrimaryMerchantVpa(ctx context.Context, req *request.SetPrimaryMerchantVpaRequest, opts ...http.CallOption) (rsp *response.MerchantVpasResponse, err error)
+	SetStoreHours(ctx context.Context, req *request.SetStoreHoursRequest, opts ...http.CallOption) (rsp *response.StoreHoursResponse, err error)
+	SetStoreOpen(ctx context.Context, req *request.SetStoreOpenRequest, opts ...http.CallOption) (rsp *response.StoreHoursResponse, err error)
 	UpdateMerchant(ctx context.Context, req *request.UpdateMerchantRequest, opts ...http.CallOption) (rsp *response.UpdateMerchantResponse, err error)
 }
 
@@ -417,6 +475,32 @@ func (c *MerchantHTTPClientImpl) SetPrimaryMerchantVpa(ctx context.Context, in *
 	opts = append(opts, http.Operation(OperationMerchantSetPrimaryMerchantVpa))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *MerchantHTTPClientImpl) SetStoreHours(ctx context.Context, in *request.SetStoreHoursRequest, opts ...http.CallOption) (*response.StoreHoursResponse, error) {
+	var out response.StoreHoursResponse
+	pattern := "/v1/merchants/{merchant_id}/hours"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationMerchantSetStoreHours))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *MerchantHTTPClientImpl) SetStoreOpen(ctx context.Context, in *request.SetStoreOpenRequest, opts ...http.CallOption) (*response.StoreHoursResponse, error) {
+	var out response.StoreHoursResponse
+	pattern := "/v1/merchants/{merchant_id}/open"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationMerchantSetStoreOpen))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

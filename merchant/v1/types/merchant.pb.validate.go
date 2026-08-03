@@ -143,6 +143,64 @@ func (m *MerchantInfo) validate(all bool) error {
 
 	// no validation rules for MaxOrderDistanceM
 
+	if all {
+		switch v := interface{}(m.GetHours()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MerchantInfoValidationError{
+					field:  "Hours",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MerchantInfoValidationError{
+					field:  "Hours",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetHours()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MerchantInfoValidationError{
+				field:  "Hours",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAvailability()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MerchantInfoValidationError{
+					field:  "Availability",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MerchantInfoValidationError{
+					field:  "Availability",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAvailability()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MerchantInfoValidationError{
+				field:  "Availability",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return MerchantInfoMultiError(errors)
 	}
@@ -527,6 +585,64 @@ func (m *StoreSummary) validate(all bool) error {
 	// no validation rules for Longitude
 
 	// no validation rules for MaxOrderDistanceM
+
+	if all {
+		switch v := interface{}(m.GetHours()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, StoreSummaryValidationError{
+					field:  "Hours",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, StoreSummaryValidationError{
+					field:  "Hours",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetHours()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return StoreSummaryValidationError{
+				field:  "Hours",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetAvailability()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, StoreSummaryValidationError{
+					field:  "Availability",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, StoreSummaryValidationError{
+					field:  "Availability",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAvailability()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return StoreSummaryValidationError{
+				field:  "Availability",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return StoreSummaryMultiError(errors)

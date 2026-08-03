@@ -4,6 +4,7 @@ package merchant.v1.types;
 
 import "google/protobuf/timestamp.proto";
 import "merchant/v1/types/enums/merchant_status.proto";
+import "merchant/v1/types/store_hours.proto";
 
 option go_package = "github.com/arm-1234/protos/merchant/v1/types;types";
 
@@ -22,6 +23,8 @@ message MerchantInfo {
   google.protobuf.Timestamp created_at = 12;
   google.protobuf.Timestamp updated_at = 13;
   double max_order_distance_m = 14;
+  StoreHours hours = 15;
+  StoreAvailability availability = 16;
 }
 
 message MerchantVpa {
@@ -48,4 +51,6 @@ message StoreSummary {
   double latitude = 7;
   double longitude = 8;
   double max_order_distance_m = 9;
+  StoreHours hours = 10;
+  StoreAvailability availability = 11;
 }

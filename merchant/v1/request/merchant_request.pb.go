@@ -7,6 +7,7 @@
 package request
 
 import (
+	types "github.com/arm-1234/protos/merchant/v1/types"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -345,6 +346,114 @@ func (x *RequestStoreUpdateOtpRequest) GetMerchantId() string {
 	return ""
 }
 
+// Replaces the whole weekly schedule: send every open day. An empty list clears
+// the schedule, which leaves the store always orderable.
+type SetStoreHoursRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Days          []*types.DayHours      `protobuf:"bytes,2,rep,name=days,proto3" json:"days,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetStoreHoursRequest) Reset() {
+	*x = SetStoreHoursRequest{}
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetStoreHoursRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetStoreHoursRequest) ProtoMessage() {}
+
+func (x *SetStoreHoursRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetStoreHoursRequest.ProtoReflect.Descriptor instead.
+func (*SetStoreHoursRequest) Descriptor() ([]byte, []int) {
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SetStoreHoursRequest) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
+}
+
+func (x *SetStoreHoursRequest) GetDays() []*types.DayHours {
+	if x != nil {
+		return x.Days
+	}
+	return nil
+}
+
+// The manual switch. Closing pauses orders until the next scheduled opening;
+// opening clears an active pause.
+type SetStoreOpenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MerchantId    string                 `protobuf:"bytes,1,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Open          bool                   `protobuf:"varint,2,opt,name=open,proto3" json:"open,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetStoreOpenRequest) Reset() {
+	*x = SetStoreOpenRequest{}
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetStoreOpenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetStoreOpenRequest) ProtoMessage() {}
+
+func (x *SetStoreOpenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetStoreOpenRequest.ProtoReflect.Descriptor instead.
+func (*SetStoreOpenRequest) Descriptor() ([]byte, []int) {
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SetStoreOpenRequest) GetMerchantId() string {
+	if x != nil {
+		return x.MerchantId
+	}
+	return ""
+}
+
+func (x *SetStoreOpenRequest) GetOpen() bool {
+	if x != nil {
+		return x.Open
+	}
+	return false
+}
+
 type ResolveStoreByVpaRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Vpa           string                 `protobuf:"bytes,1,opt,name=vpa,proto3" json:"vpa,omitempty"`
@@ -354,7 +463,7 @@ type ResolveStoreByVpaRequest struct {
 
 func (x *ResolveStoreByVpaRequest) Reset() {
 	*x = ResolveStoreByVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -366,7 +475,7 @@ func (x *ResolveStoreByVpaRequest) String() string {
 func (*ResolveStoreByVpaRequest) ProtoMessage() {}
 
 func (x *ResolveStoreByVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[4]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -379,7 +488,7 @@ func (x *ResolveStoreByVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResolveStoreByVpaRequest.ProtoReflect.Descriptor instead.
 func (*ResolveStoreByVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{4}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ResolveStoreByVpaRequest) GetVpa() string {
@@ -398,7 +507,7 @@ type ListMerchantVpasRequest struct {
 
 func (x *ListMerchantVpasRequest) Reset() {
 	*x = ListMerchantVpasRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -410,7 +519,7 @@ func (x *ListMerchantVpasRequest) String() string {
 func (*ListMerchantVpasRequest) ProtoMessage() {}
 
 func (x *ListMerchantVpasRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[5]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -423,7 +532,7 @@ func (x *ListMerchantVpasRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMerchantVpasRequest.ProtoReflect.Descriptor instead.
 func (*ListMerchantVpasRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{5}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ListMerchantVpasRequest) GetMerchantId() string {
@@ -445,7 +554,7 @@ type AddMerchantVpaRequest struct {
 
 func (x *AddMerchantVpaRequest) Reset() {
 	*x = AddMerchantVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -457,7 +566,7 @@ func (x *AddMerchantVpaRequest) String() string {
 func (*AddMerchantVpaRequest) ProtoMessage() {}
 
 func (x *AddMerchantVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[6]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -470,7 +579,7 @@ func (x *AddMerchantVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddMerchantVpaRequest.ProtoReflect.Descriptor instead.
 func (*AddMerchantVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{6}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *AddMerchantVpaRequest) GetMerchantId() string {
@@ -511,7 +620,7 @@ type RemoveMerchantVpaRequest struct {
 
 func (x *RemoveMerchantVpaRequest) Reset() {
 	*x = RemoveMerchantVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -523,7 +632,7 @@ func (x *RemoveMerchantVpaRequest) String() string {
 func (*RemoveMerchantVpaRequest) ProtoMessage() {}
 
 func (x *RemoveMerchantVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[7]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -536,7 +645,7 @@ func (x *RemoveMerchantVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveMerchantVpaRequest.ProtoReflect.Descriptor instead.
 func (*RemoveMerchantVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{7}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *RemoveMerchantVpaRequest) GetMerchantId() string {
@@ -563,7 +672,7 @@ type SetPrimaryMerchantVpaRequest struct {
 
 func (x *SetPrimaryMerchantVpaRequest) Reset() {
 	*x = SetPrimaryMerchantVpaRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -575,7 +684,7 @@ func (x *SetPrimaryMerchantVpaRequest) String() string {
 func (*SetPrimaryMerchantVpaRequest) ProtoMessage() {}
 
 func (x *SetPrimaryMerchantVpaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[8]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -588,7 +697,7 @@ func (x *SetPrimaryMerchantVpaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetPrimaryMerchantVpaRequest.ProtoReflect.Descriptor instead.
 func (*SetPrimaryMerchantVpaRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{8}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *SetPrimaryMerchantVpaRequest) GetMerchantId() string {
@@ -619,7 +728,7 @@ type DiscoverStoresRequest struct {
 
 func (x *DiscoverStoresRequest) Reset() {
 	*x = DiscoverStoresRequest{}
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[9]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -631,7 +740,7 @@ func (x *DiscoverStoresRequest) String() string {
 func (*DiscoverStoresRequest) ProtoMessage() {}
 
 func (x *DiscoverStoresRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[9]
+	mi := &file_merchant_v1_request_merchant_request_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -644,7 +753,7 @@ func (x *DiscoverStoresRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoverStoresRequest.ProtoReflect.Descriptor instead.
 func (*DiscoverStoresRequest) Descriptor() ([]byte, []int) {
-	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{9}
+	return file_merchant_v1_request_merchant_request_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DiscoverStoresRequest) GetLatitude() float64 {
@@ -693,7 +802,7 @@ var File_merchant_v1_request_merchant_request_proto protoreflect.FileDescriptor
 
 const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	"\n" +
-	"*merchant/v1/request/merchant_request.proto\x12\x13merchant.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\"\xe3\x03\n" +
+	"*merchant/v1/request/merchant_request.proto\x12\x13merchant.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x17validate/validate.proto\x1a#merchant/v1/types/store_hours.proto\"\xe3\x03\n" +
 	"\x16OnboardMerchantRequest\x12\x1f\n" +
 	"\x04name\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x04name\x12#\n" +
 	"\x05phone\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\b\x18\x0fR\x05phone\x12*\n" +
@@ -728,7 +837,15 @@ const file_merchant_v1_request_merchant_request_proto_rawDesc = "" +
 	"\x15_max_order_distance_m\"H\n" +
 	"\x1cRequestStoreUpdateOtpRequest\x12(\n" +
 	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
-	"merchantId\"9\n" +
+	"merchantId\"{\n" +
+	"\x14SetStoreHoursRequest\x12(\n" +
+	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
+	"merchantId\x129\n" +
+	"\x04days\x18\x02 \x03(\v2\x1b.merchant.v1.types.DayHoursB\b\xfaB\x05\x92\x01\x02\x10\aR\x04days\"S\n" +
+	"\x13SetStoreOpenRequest\x12(\n" +
+	"\vmerchant_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\n" +
+	"merchantId\x12\x12\n" +
+	"\x04open\x18\x02 \x01(\bR\x04open\"9\n" +
 	"\x18ResolveStoreByVpaRequest\x12\x1d\n" +
 	"\x03vpa\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x03R\x03vpa\"C\n" +
 	"\x17ListMerchantVpasRequest\x12(\n" +
@@ -768,25 +885,29 @@ func file_merchant_v1_request_merchant_request_proto_rawDescGZIP() []byte {
 	return file_merchant_v1_request_merchant_request_proto_rawDescData
 }
 
-var file_merchant_v1_request_merchant_request_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_merchant_v1_request_merchant_request_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_merchant_v1_request_merchant_request_proto_goTypes = []any{
 	(*OnboardMerchantRequest)(nil),       // 0: merchant.v1.request.OnboardMerchantRequest
 	(*GetMerchantRequest)(nil),           // 1: merchant.v1.request.GetMerchantRequest
 	(*UpdateMerchantRequest)(nil),        // 2: merchant.v1.request.UpdateMerchantRequest
 	(*RequestStoreUpdateOtpRequest)(nil), // 3: merchant.v1.request.RequestStoreUpdateOtpRequest
-	(*ResolveStoreByVpaRequest)(nil),     // 4: merchant.v1.request.ResolveStoreByVpaRequest
-	(*ListMerchantVpasRequest)(nil),      // 5: merchant.v1.request.ListMerchantVpasRequest
-	(*AddMerchantVpaRequest)(nil),        // 6: merchant.v1.request.AddMerchantVpaRequest
-	(*RemoveMerchantVpaRequest)(nil),     // 7: merchant.v1.request.RemoveMerchantVpaRequest
-	(*SetPrimaryMerchantVpaRequest)(nil), // 8: merchant.v1.request.SetPrimaryMerchantVpaRequest
-	(*DiscoverStoresRequest)(nil),        // 9: merchant.v1.request.DiscoverStoresRequest
+	(*SetStoreHoursRequest)(nil),         // 4: merchant.v1.request.SetStoreHoursRequest
+	(*SetStoreOpenRequest)(nil),          // 5: merchant.v1.request.SetStoreOpenRequest
+	(*ResolveStoreByVpaRequest)(nil),     // 6: merchant.v1.request.ResolveStoreByVpaRequest
+	(*ListMerchantVpasRequest)(nil),      // 7: merchant.v1.request.ListMerchantVpasRequest
+	(*AddMerchantVpaRequest)(nil),        // 8: merchant.v1.request.AddMerchantVpaRequest
+	(*RemoveMerchantVpaRequest)(nil),     // 9: merchant.v1.request.RemoveMerchantVpaRequest
+	(*SetPrimaryMerchantVpaRequest)(nil), // 10: merchant.v1.request.SetPrimaryMerchantVpaRequest
+	(*DiscoverStoresRequest)(nil),        // 11: merchant.v1.request.DiscoverStoresRequest
+	(*types.DayHours)(nil),               // 12: merchant.v1.types.DayHours
 }
 var file_merchant_v1_request_merchant_request_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	12, // 0: merchant.v1.request.SetStoreHoursRequest.days:type_name -> merchant.v1.types.DayHours
+	1,  // [1:1] is the sub-list for method output_type
+	1,  // [1:1] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_merchant_v1_request_merchant_request_proto_init() }
@@ -801,7 +922,7 @@ func file_merchant_v1_request_merchant_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_merchant_v1_request_merchant_request_proto_rawDesc), len(file_merchant_v1_request_merchant_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

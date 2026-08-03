@@ -37,6 +37,20 @@ service Merchant {
     };
   }
 
+  rpc SetStoreHours (merchant.v1.request.SetStoreHoursRequest) returns (merchant.v1.response.StoreHoursResponse) {
+    option (google.api.http) = {
+      put: "/v1/merchants/{merchant_id}/hours"
+      body: "*"
+    };
+  }
+
+  rpc SetStoreOpen (merchant.v1.request.SetStoreOpenRequest) returns (merchant.v1.response.StoreHoursResponse) {
+    option (google.api.http) = {
+      post: "/v1/merchants/{merchant_id}/open"
+      body: "*"
+    };
+  }
+
   rpc ResolveStoreByVpa (merchant.v1.request.ResolveStoreByVpaRequest) returns (merchant.v1.response.ResolveStoreByVpaResponse) {
     option (google.api.http) = {
       get: "/v1/stores:resolve"

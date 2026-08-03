@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package merchant.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+import "merchant/v1/types/enums/weekday.proto";
+
+option go_package = "github.com/arm-1234/protos/merchant/v1/types;types";
+
+// A single opening window, as minutes from midnight in the store's local day.
+// 9:00 am is 540; 1:00 pm is 780. End is exclusive and must be after start, so a
+// window never wraps past midnight — split it across two days instead.
+message OpeningWindow {
+  int32 open_minute = 1 [(validate.rules).int32 = {gte: 0, lte: 1439}];
+  int32 close_minute = 2 [(validate.rules).int32 = {gte: 1, lte: 1440}];
+}
+
+// One weekday's windows. No windows means closed all day.
+message DayHours {
+  merchant.v1.types.enums.Weekday day = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  repeated OpeningWindow windows = 2 [(validate.rules).repeated = {max_items: 4}];
+}
+
+// The store's weekly opening hours. An empty schedule means hours are not set,
+// which leaves the store always orderable — absence of a schedule must not lock
+// a merchant out of trading.
+message StoreHours {
+  repeated DayHours days = 1 [(validate.rules).repeated = {max_items: 7}];
+}
+
+// Whether a store is taking orders right now, and why.
+message StoreAvailability {
+  bool open_now = 1;
+  // Set while the merchant has manually closed the store. The pause lifts on its
+  // own at the next scheduled opening, so a forgotten switch cannot close a shop
+  // indefinitely.
+  bool manually_closed = 2;
+  // Human-readable next transition, e.g. "Opens at 3:00 pm" or "Open until 1:00 pm".
+  string next_change_label = 3;
+  google.protobuf.Timestamp next_change_at = 4;
+}

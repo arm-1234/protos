@@ -39,6 +39,8 @@ type MerchantInfo struct {
 	CreatedAt         *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt         *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	MaxOrderDistanceM float64                `protobuf:"fixed64,14,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	Hours             *StoreHours            `protobuf:"bytes,15,opt,name=hours,proto3" json:"hours,omitempty"`
+	Availability      *StoreAvailability     `protobuf:"bytes,16,opt,name=availability,proto3" json:"availability,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -169,6 +171,20 @@ func (x *MerchantInfo) GetMaxOrderDistanceM() float64 {
 		return x.MaxOrderDistanceM
 	}
 	return 0
+}
+
+func (x *MerchantInfo) GetHours() *StoreHours {
+	if x != nil {
+		return x.Hours
+	}
+	return nil
+}
+
+func (x *MerchantInfo) GetAvailability() *StoreAvailability {
+	if x != nil {
+		return x.Availability
+	}
+	return nil
 }
 
 type MerchantVpa struct {
@@ -318,6 +334,8 @@ type StoreSummary struct {
 	Latitude          float64                `protobuf:"fixed64,7,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude         float64                `protobuf:"fixed64,8,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	MaxOrderDistanceM float64                `protobuf:"fixed64,9,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	Hours             *StoreHours            `protobuf:"bytes,10,opt,name=hours,proto3" json:"hours,omitempty"`
+	Availability      *StoreAvailability     `protobuf:"bytes,11,opt,name=availability,proto3" json:"availability,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -415,11 +433,25 @@ func (x *StoreSummary) GetMaxOrderDistanceM() float64 {
 	return 0
 }
 
+func (x *StoreSummary) GetHours() *StoreHours {
+	if x != nil {
+		return x.Hours
+	}
+	return nil
+}
+
+func (x *StoreSummary) GetAvailability() *StoreAvailability {
+	if x != nil {
+		return x.Availability
+	}
+	return nil
+}
+
 var File_merchant_v1_types_merchant_proto protoreflect.FileDescriptor
 
 const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\n" +
-	" merchant/v1/types/merchant.proto\x12\x11merchant.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a-merchant/v1/types/enums/merchant_status.proto\"\x8a\x04\n" +
+	" merchant/v1/types/merchant.proto\x12\x11merchant.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a-merchant/v1/types/enums/merchant_status.proto\x1a#merchant/v1/types/store_hours.proto\"\x89\x05\n" +
 	"\fMerchantInfo\x12\x1f\n" +
 	"\vmerchant_id\x18\x01 \x01(\tR\n" +
 	"merchantId\x12\x12\n" +
@@ -439,7 +471,9 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"created_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
 	"updated_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12/\n" +
-	"\x14max_order_distance_m\x18\x0e \x01(\x01R\x11maxOrderDistanceM\"\xa6\x01\n" +
+	"\x14max_order_distance_m\x18\x0e \x01(\x01R\x11maxOrderDistanceM\x123\n" +
+	"\x05hours\x18\x0f \x01(\v2\x1d.merchant.v1.types.StoreHoursR\x05hours\x12H\n" +
+	"\favailability\x18\x10 \x01(\v2$.merchant.v1.types.StoreAvailabilityR\favailability\"\xa6\x01\n" +
 	"\vMerchantVpa\x12\x15\n" +
 	"\x06vpa_id\x18\x01 \x01(\tR\x05vpaId\x12\x10\n" +
 	"\x03vpa\x18\x02 \x01(\tR\x03vpa\x12\x14\n" +
@@ -452,7 +486,7 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\x05store\x18\x01 \x01(\v2\x1f.merchant.v1.types.StoreSummaryR\x05store\x12\x1d\n" +
 	"\n" +
 	"distance_m\x18\x02 \x01(\x01R\tdistanceM\x12\x19\n" +
-	"\bin_range\x18\x03 \x01(\bR\ainRange\"\xa9\x02\n" +
+	"\bin_range\x18\x03 \x01(\bR\ainRange\"\xa8\x03\n" +
 	"\fStoreSummary\x12\x1f\n" +
 	"\vmerchant_id\x18\x01 \x01(\tR\n" +
 	"merchantId\x12\x1d\n" +
@@ -464,7 +498,10 @@ const file_merchant_v1_types_merchant_proto_rawDesc = "" +
 	"\aupi_vpa\x18\x06 \x01(\tR\x06upiVpa\x12\x1a\n" +
 	"\blatitude\x18\a \x01(\x01R\blatitude\x12\x1c\n" +
 	"\tlongitude\x18\b \x01(\x01R\tlongitude\x12/\n" +
-	"\x14max_order_distance_m\x18\t \x01(\x01R\x11maxOrderDistanceMB4Z2github.com/arm-1234/protos/merchant/v1/types;typesb\x06proto3"
+	"\x14max_order_distance_m\x18\t \x01(\x01R\x11maxOrderDistanceM\x123\n" +
+	"\x05hours\x18\n" +
+	" \x01(\v2\x1d.merchant.v1.types.StoreHoursR\x05hours\x12H\n" +
+	"\favailability\x18\v \x01(\v2$.merchant.v1.types.StoreAvailabilityR\favailabilityB4Z2github.com/arm-1234/protos/merchant/v1/types;typesb\x06proto3"
 
 var (
 	file_merchant_v1_types_merchant_proto_rawDescOnce sync.Once
@@ -486,18 +523,24 @@ var file_merchant_v1_types_merchant_proto_goTypes = []any{
 	(*StoreSummary)(nil),          // 3: merchant.v1.types.StoreSummary
 	(enums.MerchantStatus)(0),     // 4: merchant.v1.types.enums.MerchantStatus
 	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
+	(*StoreHours)(nil),            // 6: merchant.v1.types.StoreHours
+	(*StoreAvailability)(nil),     // 7: merchant.v1.types.StoreAvailability
 }
 var file_merchant_v1_types_merchant_proto_depIdxs = []int32{
 	4, // 0: merchant.v1.types.MerchantInfo.status:type_name -> merchant.v1.types.enums.MerchantStatus
 	5, // 1: merchant.v1.types.MerchantInfo.created_at:type_name -> google.protobuf.Timestamp
 	5, // 2: merchant.v1.types.MerchantInfo.updated_at:type_name -> google.protobuf.Timestamp
-	5, // 3: merchant.v1.types.MerchantVpa.created_at:type_name -> google.protobuf.Timestamp
-	3, // 4: merchant.v1.types.NearbyStore.store:type_name -> merchant.v1.types.StoreSummary
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	6, // 3: merchant.v1.types.MerchantInfo.hours:type_name -> merchant.v1.types.StoreHours
+	7, // 4: merchant.v1.types.MerchantInfo.availability:type_name -> merchant.v1.types.StoreAvailability
+	5, // 5: merchant.v1.types.MerchantVpa.created_at:type_name -> google.protobuf.Timestamp
+	3, // 6: merchant.v1.types.NearbyStore.store:type_name -> merchant.v1.types.StoreSummary
+	6, // 7: merchant.v1.types.StoreSummary.hours:type_name -> merchant.v1.types.StoreHours
+	7, // 8: merchant.v1.types.StoreSummary.availability:type_name -> merchant.v1.types.StoreAvailability
+	9, // [9:9] is the sub-list for method output_type
+	9, // [9:9] is the sub-list for method input_type
+	9, // [9:9] is the sub-list for extension type_name
+	9, // [9:9] is the sub-list for extension extendee
+	0, // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_merchant_v1_types_merchant_proto_init() }
@@ -505,6 +548,7 @@ func file_merchant_v1_types_merchant_proto_init() {
 	if File_merchant_v1_types_merchant_proto != nil {
 		return
 	}
+	file_merchant_v1_types_store_hours_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

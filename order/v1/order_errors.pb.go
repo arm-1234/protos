@@ -130,3 +130,15 @@ func IsOrderRefundFailed(err error) bool {
 func ErrorOrderRefundFailed(format string, args ...interface{}) *errors.Error {
 	return errors.New(502, ErrorReason_ORDER_REFUND_FAILED.String(), fmt.Sprintf(format, args...))
 }
+
+func IsOrderStoreClosed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_ORDER_STORE_CLOSED.String() && e.Code == 409
+}
+
+func ErrorOrderStoreClosed(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_ORDER_STORE_CLOSED.String(), fmt.Sprintf(format, args...))
+}

@@ -71,4 +71,5 @@ enum ErrorReason {
   ORDER_NOT_CANCELLABLE = 7 [(errors.code) = 409];
   ORDER_NO_CANCELLATION_PENDING = 8 [(errors.code) = 409];
   ORDER_REFUND_FAILED = 9 [(errors.code) = 502];
+  ORDER_STORE_CLOSED = 10 [(errors.code) = 409];
 }

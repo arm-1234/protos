@@ -38,21 +38,23 @@ const (
 	ErrorReason_ORDER_NOT_CANCELLABLE           ErrorReason = 7
 	ErrorReason_ORDER_NO_CANCELLATION_PENDING   ErrorReason = 8
 	ErrorReason_ORDER_REFUND_FAILED             ErrorReason = 9
+	ErrorReason_ORDER_STORE_CLOSED              ErrorReason = 10
 )
 
 // Enum value maps for ErrorReason.
 var (
 	ErrorReason_name = map[int32]string{
-		0: "ORDER_UNSPECIFIED",
-		1: "ORDER_NOT_FOUND",
-		2: "ORDER_INVALID_REQUEST",
-		3: "ORDER_PRODUCT_NOT_FOUND",
-		4: "ORDER_FORBIDDEN",
-		5: "ORDER_INVALID_STATUS_TRANSITION",
-		6: "ORDER_TOO_FAR",
-		7: "ORDER_NOT_CANCELLABLE",
-		8: "ORDER_NO_CANCELLATION_PENDING",
-		9: "ORDER_REFUND_FAILED",
+		0:  "ORDER_UNSPECIFIED",
+		1:  "ORDER_NOT_FOUND",
+		2:  "ORDER_INVALID_REQUEST",
+		3:  "ORDER_PRODUCT_NOT_FOUND",
+		4:  "ORDER_FORBIDDEN",
+		5:  "ORDER_INVALID_STATUS_TRANSITION",
+		6:  "ORDER_TOO_FAR",
+		7:  "ORDER_NOT_CANCELLABLE",
+		8:  "ORDER_NO_CANCELLATION_PENDING",
+		9:  "ORDER_REFUND_FAILED",
+		10: "ORDER_STORE_CLOSED",
 	}
 	ErrorReason_value = map[string]int32{
 		"ORDER_UNSPECIFIED":               0,
@@ -65,6 +67,7 @@ var (
 		"ORDER_NOT_CANCELLABLE":           7,
 		"ORDER_NO_CANCELLATION_PENDING":   8,
 		"ORDER_REFUND_FAILED":             9,
+		"ORDER_STORE_CLOSED":              10,
 	}
 )
 
@@ -99,7 +102,7 @@ var File_order_v1_order_proto protoreflect.FileDescriptor
 
 const file_order_v1_order_proto_rawDesc = "" +
 	"\n" +
-	"\x14order/v1/order.proto\x12\border.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a$order/v1/request/order_request.proto\x1a&order/v1/response/order_response.proto*\xd7\x02\n" +
+	"\x14order/v1/order.proto\x12\border.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a$order/v1/request/order_request.proto\x1a&order/v1/response/order_response.proto*\xf5\x02\n" +
 	"\vErrorReason\x12\x1b\n" +
 	"\x11ORDER_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12\x19\n" +
 	"\x0fORDER_NOT_FOUND\x10\x01\x1a\x04\xa8E\x94\x03\x12\x1f\n" +
@@ -110,7 +113,9 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"\rORDER_TOO_FAR\x10\x06\x1a\x04\xa8E\x93\x03\x12\x1f\n" +
 	"\x15ORDER_NOT_CANCELLABLE\x10\a\x1a\x04\xa8E\x99\x03\x12'\n" +
 	"\x1dORDER_NO_CANCELLATION_PENDING\x10\b\x1a\x04\xa8E\x99\x03\x12\x1d\n" +
-	"\x13ORDER_REFUND_FAILED\x10\t\x1a\x04\xa8E\xf6\x03\x1a\x04\xa0E\xf4\x032\xd8\a\n" +
+	"\x13ORDER_REFUND_FAILED\x10\t\x1a\x04\xa8E\xf6\x03\x12\x1c\n" +
+	"\x12ORDER_STORE_CLOSED\x10\n" +
+	"\x1a\x04\xa8E\x99\x03\x1a\x04\xa0E\xf4\x032\xd8\a\n" +
 	"\x05Order\x12o\n" +
 	"\n" +
 	"PlaceOrder\x12#.order.v1.request.PlaceOrderRequest\x1a%.order.v1.response.PlaceOrderResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
