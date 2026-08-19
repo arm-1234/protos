@@ -31,6 +31,15 @@ service Identity {
     };
   }
 
+  // Password login by email or phone. LoginWithPhone is kept for existing
+  // merchant-store clients; new clients should call this.
+  rpc LoginWithIdentifier (identity.v1.request.LoginWithIdentifierRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/login:identifier"
+      body: "*"
+    };
+  }
+
   rpc SetPassword (identity.v1.request.SetPasswordRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/password:set"
@@ -109,4 +118,11 @@ enum ErrorReason {
   IDENTITY_OTP_DELIVERY_FAILED = 10 [(errors.code) = 502];
   IDENTITY_WRONG_APP = 11 [(errors.code) = 403];
   IDENTITY_PHONE_TAKEN = 12 [(errors.code) = 409];
+  IDENTITY_EMAIL_TAKEN = 13 [(errors.code) = 409];
+  // Neither phone nor email was supplied on registration.
+  IDENTITY_IDENTIFIER_REQUIRED = 14 [(errors.code) = 400];
+  // Action needs a verified email, e.g. redeeming a gift.
+  IDENTITY_EMAIL_NOT_VERIFIED = 15 [(errors.code) = 403];
+  // Admin accounts cannot be self-registered.
+  IDENTITY_ADMIN_PROVISION_FORBIDDEN = 16 [(errors.code) = 403];
 }

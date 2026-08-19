@@ -14,6 +14,7 @@ import "fitness/v1/types/enums/competition_metric.proto";
 import "fitness/v1/types/enums/challenge_status.proto";
 import "fitness/v1/types/enums/leaderboard_period.proto";
 import "fitness/v1/types/enums/redemption_status.proto";
+import "fitness/v1/types/enums/gift_status.proto";
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/request;request";
 
@@ -253,6 +254,92 @@ message ListMyRedemptionsRequest {
 
 message CancelRedemptionRequest {
   string redemption_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+// ---------------------------------------------------------------------------
+// Administration (USER_TYPE_ADMIN only)
+// ---------------------------------------------------------------------------
+
+// Only fields that are set are changed. Limits stay editable mid-run so an
+// abused competition can be tightened without cancelling it.
+message UpdateCompetitionRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+  optional string title = 2 [(validate.rules).string = {ignore_empty: true, min_len: 3}];
+  optional string description = 3;
+  optional string banner_url = 4;
+  optional google.protobuf.Timestamp ends_at = 5;
+  optional int32 daily_challenge_limit = 6 [(validate.rules).int32 = {ignore_empty: true, gte: 1, lte: 50}];
+  optional int64 daily_step_cap = 7 [(validate.rules).int64.gte = 0];
+  optional int32 challenge_cooldown_seconds = 8 [(validate.rules).int32.gte = 0];
+  optional int64 points_per_unit = 9 [(validate.rules).int64.gte = 0];
+  optional int64 daily_points_cap = 10 [(validate.rules).int64.gte = 0];
+  optional bool enforce_geofence = 11;
+  optional double max_speed_mps = 12 [(validate.rules).double = {ignore_empty: true, gt: 0, lte: 20}];
+}
+
+message CancelCompetitionRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+  string reason = 2 [(validate.rules).string = {ignore_empty: true, max_len: 512}];
+}
+
+message CreateChallengeTemplateRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+  string title = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 3
+  ];
+  string description = 3;
+  fitness.v1.types.enums.CompetitionMetric metric = 4 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  int64 target_value = 5 [(validate.rules).int64.gt = 0];
+  int64 reward_points = 6 [(validate.rules).int64.gte = 0];
+  int32 time_limit_seconds = 7 [(validate.rules).int32 = {ignore_empty: true, gte: 60}];
+}
+
+message CreateGiftRequest {
+  string title = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 2
+  ];
+  string description = 2;
+  string image_url = 3;
+  int64 points_cost = 4 [(validate.rules).int64.gt = 0];
+  int64 stock_total = 5 [(validate.rules).int64.gte = 0];
+  int32 per_user_limit = 6 [(validate.rules).int32.gte = 0];
+  string category = 7 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+  // Restricts the gift to one state, for state-sponsored rewards.
+  string state_code = 8;
+  google.protobuf.Timestamp available_until = 9;
+}
+
+message UpdateGiftRequest {
+  string gift_id = 1 [(validate.rules).string.min_len = 1];
+  optional string title = 2 [(validate.rules).string = {ignore_empty: true, min_len: 2}];
+  optional string description = 3;
+  optional string image_url = 4;
+  optional int64 points_cost = 5 [(validate.rules).int64.gt = 0];
+  // Absolute stock level, not a delta, so concurrent edits cannot drift.
+  optional int64 stock_remaining = 6 [(validate.rules).int64.gte = 0];
+  optional int32 per_user_limit = 7 [(validate.rules).int32.gte = 0];
+  optional fitness.v1.types.enums.GiftStatus status = 8 [(validate.rules).enum = {defined_only: true}];
+  optional google.protobuf.Timestamp available_until = 9;
+}
+
+message FulfilRedemptionRequest {
+  string redemption_id = 1 [(validate.rules).string.min_len = 1];
+  // Target state: APPROVED, FULFILLED or REJECTED. Rejecting refunds the
+  // reserved points through a compensating ledger entry.
+  fitness.v1.types.enums.RedemptionStatus status = 2 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  // Voucher code or tracking reference, surfaced to the user when fulfilled.
+  string fulfilment_code = 3 [(validate.rules).string = {ignore_empty: true, max_len: 256}];
+  string note = 4 [(validate.rules).string = {ignore_empty: true, max_len: 512}];
+}
+
+message ListAllRedemptionsRequest {
+  fitness.v1.types.enums.RedemptionStatus status = 1;
+  string user_id = 2;
+  string gift_id = 3;
+  int64 page_number = 4;
+  int64 page_size = 5 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
 }
 
 // ---------------------------------------------------------------------------

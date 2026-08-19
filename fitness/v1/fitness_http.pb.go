@@ -22,9 +22,13 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationFitnessAbandonChallenge = "/fitness.v1.Fitness/AbandonChallenge"
+const OperationFitnessCancelCompetition = "/fitness.v1.Fitness/CancelCompetition"
 const OperationFitnessCancelRedemption = "/fitness.v1.Fitness/CancelRedemption"
+const OperationFitnessCreateChallengeTemplate = "/fitness.v1.Fitness/CreateChallengeTemplate"
 const OperationFitnessCreateCompetition = "/fitness.v1.Fitness/CreateCompetition"
+const OperationFitnessCreateGift = "/fitness.v1.Fitness/CreateGift"
 const OperationFitnessEndWalkSession = "/fitness.v1.Fitness/EndWalkSession"
+const OperationFitnessFulfilRedemption = "/fitness.v1.Fitness/FulfilRedemption"
 const OperationFitnessGetCompetition = "/fitness.v1.Fitness/GetCompetition"
 const OperationFitnessGetDailyQuota = "/fitness.v1.Fitness/GetDailyQuota"
 const OperationFitnessGetGift = "/fitness.v1.Fitness/GetGift"
@@ -36,6 +40,7 @@ const OperationFitnessGetRegionStandings = "/fitness.v1.Fitness/GetRegionStandin
 const OperationFitnessGetWalkSession = "/fitness.v1.Fitness/GetWalkSession"
 const OperationFitnessJoinCompetition = "/fitness.v1.Fitness/JoinCompetition"
 const OperationFitnessLeaveCompetition = "/fitness.v1.Fitness/LeaveCompetition"
+const OperationFitnessListAllRedemptions = "/fitness.v1.Fitness/ListAllRedemptions"
 const OperationFitnessListChallengeTemplates = "/fitness.v1.Fitness/ListChallengeTemplates"
 const OperationFitnessListCompetitions = "/fitness.v1.Fitness/ListCompetitions"
 const OperationFitnessListFlaggedSessions = "/fitness.v1.Fitness/ListFlaggedSessions"
@@ -50,15 +55,24 @@ const OperationFitnessReviewSession = "/fitness.v1.Fitness/ReviewSession"
 const OperationFitnessStartChallenge = "/fitness.v1.Fitness/StartChallenge"
 const OperationFitnessStartWalkSession = "/fitness.v1.Fitness/StartWalkSession"
 const OperationFitnessSubmitWalkSamples = "/fitness.v1.Fitness/SubmitWalkSamples"
+const OperationFitnessUpdateCompetition = "/fitness.v1.Fitness/UpdateCompetition"
+const OperationFitnessUpdateGift = "/fitness.v1.Fitness/UpdateGift"
 const OperationFitnessUpsertMyProfile = "/fitness.v1.Fitness/UpsertMyProfile"
 
 type FitnessHTTPServer interface {
 	AbandonChallenge(context.Context, *request.AbandonChallengeRequest) (*response.AbandonChallengeResponse, error)
+	// CancelCompetition Ends a competition early and freezes its leaderboard.
+	CancelCompetition(context.Context, *request.CancelCompetitionRequest) (*response.CancelCompetitionResponse, error)
 	CancelRedemption(context.Context, *request.CancelRedemptionRequest) (*response.CancelRedemptionResponse, error)
-	// CreateCompetition Admin only.
+	CreateChallengeTemplate(context.Context, *request.CreateChallengeTemplateRequest) (*response.CreateChallengeTemplateResponse, error)
+	// CreateCompetition Admin only: requires a USER_TYPE_ADMIN token. Walkers get FITNESS_ADMIN_REQUIRED.
 	CreateCompetition(context.Context, *request.CreateCompetitionRequest) (*response.CreateCompetitionResponse, error)
+	CreateGift(context.Context, *request.CreateGiftRequest) (*response.CreateGiftResponse, error)
 	// EndWalkSession Finalizes the session, runs the full anti-cheat pass and credits points.
 	EndWalkSession(context.Context, *request.EndWalkSessionRequest) (*response.EndWalkSessionResponse, error)
+	// FulfilRedemption Moves a redemption to APPROVED, FULFILLED or REJECTED. Rejecting refunds
+	// the reserved points via a compensating ledger entry.
+	FulfilRedemption(context.Context, *request.FulfilRedemptionRequest) (*response.FulfilRedemptionResponse, error)
 	GetCompetition(context.Context, *request.GetCompetitionRequest) (*response.GetCompetitionResponse, error)
 	// GetDailyQuota Remaining attempts, step cap and cooldown for today, so the app can
 	// disable the start button instead of provoking a rejection.
@@ -74,6 +88,7 @@ type FitnessHTTPServer interface {
 	GetWalkSession(context.Context, *request.GetWalkSessionRequest) (*response.GetWalkSessionResponse, error)
 	JoinCompetition(context.Context, *request.JoinCompetitionRequest) (*response.JoinCompetitionResponse, error)
 	LeaveCompetition(context.Context, *request.LeaveCompetitionRequest) (*response.LeaveCompetitionResponse, error)
+	ListAllRedemptions(context.Context, *request.ListAllRedemptionsRequest) (*response.ListAllRedemptionsResponse, error)
 	ListChallengeTemplates(context.Context, *request.ListChallengeTemplatesRequest) (*response.ListChallengeTemplatesResponse, error)
 	ListCompetitions(context.Context, *request.ListCompetitionsRequest) (*response.ListCompetitionsResponse, error)
 	ListFlaggedSessions(context.Context, *request.ListFlaggedSessionsRequest) (*response.ListFlaggedSessionsResponse, error)
@@ -95,6 +110,8 @@ type FitnessHTTPServer interface {
 	// SubmitWalkSamples Called every 30-60s while walking. The server recomputes distance and steps
 	// from the samples; client totals are never trusted.
 	SubmitWalkSamples(context.Context, *request.SubmitWalkSamplesRequest) (*response.SubmitWalkSamplesResponse, error)
+	UpdateCompetition(context.Context, *request.UpdateCompetitionRequest) (*response.UpdateCompetitionResponse, error)
+	UpdateGift(context.Context, *request.UpdateGiftRequest) (*response.UpdateGiftResponse, error)
 	UpsertMyProfile(context.Context, *request.UpsertMyProfileRequest) (*response.UpsertMyProfileResponse, error)
 }
 
@@ -128,6 +145,13 @@ func RegisterFitnessHTTPServer(s *http.Server, srv FitnessHTTPServer) {
 	r.POST("/v1/fitness/gifts/{gift_id}:redeem", _Fitness_RedeemGift0_HTTP_Handler(srv))
 	r.GET("/v1/fitness/me/redemptions", _Fitness_ListMyRedemptions0_HTTP_Handler(srv))
 	r.POST("/v1/fitness/me/redemptions/{redemption_id}:cancel", _Fitness_CancelRedemption0_HTTP_Handler(srv))
+	r.PATCH("/v1/fitness/admin/competitions/{competition_id}", _Fitness_UpdateCompetition0_HTTP_Handler(srv))
+	r.POST("/v1/fitness/admin/competitions/{competition_id}:cancel", _Fitness_CancelCompetition0_HTTP_Handler(srv))
+	r.POST("/v1/fitness/admin/competitions/{competition_id}/challenge-templates", _Fitness_CreateChallengeTemplate0_HTTP_Handler(srv))
+	r.POST("/v1/fitness/admin/gifts", _Fitness_CreateGift0_HTTP_Handler(srv))
+	r.PATCH("/v1/fitness/admin/gifts/{gift_id}", _Fitness_UpdateGift0_HTTP_Handler(srv))
+	r.POST("/v1/fitness/admin/redemptions/{redemption_id}:fulfil", _Fitness_FulfilRedemption0_HTTP_Handler(srv))
+	r.GET("/v1/fitness/admin/redemptions", _Fitness_ListAllRedemptions0_HTTP_Handler(srv))
 	r.GET("/v1/fitness/admin/flagged-sessions", _Fitness_ListFlaggedSessions0_HTTP_Handler(srv))
 	r.POST("/v1/fitness/admin/flagged-sessions/{session_id}:review", _Fitness_ReviewSession0_HTTP_Handler(srv))
 }
@@ -733,6 +757,172 @@ func _Fitness_CancelRedemption0_HTTP_Handler(srv FitnessHTTPServer) func(ctx htt
 	}
 }
 
+func _Fitness_UpdateCompetition0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateCompetitionRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessUpdateCompetition)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateCompetition(ctx, req.(*request.UpdateCompetitionRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateCompetitionResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Fitness_CancelCompetition0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.CancelCompetitionRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessCancelCompetition)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CancelCompetition(ctx, req.(*request.CancelCompetitionRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.CancelCompetitionResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Fitness_CreateChallengeTemplate0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.CreateChallengeTemplateRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessCreateChallengeTemplate)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateChallengeTemplate(ctx, req.(*request.CreateChallengeTemplateRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.CreateChallengeTemplateResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Fitness_CreateGift0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.CreateGiftRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessCreateGift)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateGift(ctx, req.(*request.CreateGiftRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.CreateGiftResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Fitness_UpdateGift0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateGiftRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessUpdateGift)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateGift(ctx, req.(*request.UpdateGiftRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateGiftResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Fitness_FulfilRedemption0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.FulfilRedemptionRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessFulfilRedemption)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.FulfilRedemption(ctx, req.(*request.FulfilRedemptionRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.FulfilRedemptionResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Fitness_ListAllRedemptions0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListAllRedemptionsRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessListAllRedemptions)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListAllRedemptions(ctx, req.(*request.ListAllRedemptionsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListAllRedemptionsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Fitness_ListFlaggedSessions0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.ListFlaggedSessionsRequest
@@ -779,11 +969,18 @@ func _Fitness_ReviewSession0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.C
 
 type FitnessHTTPClient interface {
 	AbandonChallenge(ctx context.Context, req *request.AbandonChallengeRequest, opts ...http.CallOption) (rsp *response.AbandonChallengeResponse, err error)
+	// CancelCompetition Ends a competition early and freezes its leaderboard.
+	CancelCompetition(ctx context.Context, req *request.CancelCompetitionRequest, opts ...http.CallOption) (rsp *response.CancelCompetitionResponse, err error)
 	CancelRedemption(ctx context.Context, req *request.CancelRedemptionRequest, opts ...http.CallOption) (rsp *response.CancelRedemptionResponse, err error)
-	// CreateCompetition Admin only.
+	CreateChallengeTemplate(ctx context.Context, req *request.CreateChallengeTemplateRequest, opts ...http.CallOption) (rsp *response.CreateChallengeTemplateResponse, err error)
+	// CreateCompetition Admin only: requires a USER_TYPE_ADMIN token. Walkers get FITNESS_ADMIN_REQUIRED.
 	CreateCompetition(ctx context.Context, req *request.CreateCompetitionRequest, opts ...http.CallOption) (rsp *response.CreateCompetitionResponse, err error)
+	CreateGift(ctx context.Context, req *request.CreateGiftRequest, opts ...http.CallOption) (rsp *response.CreateGiftResponse, err error)
 	// EndWalkSession Finalizes the session, runs the full anti-cheat pass and credits points.
 	EndWalkSession(ctx context.Context, req *request.EndWalkSessionRequest, opts ...http.CallOption) (rsp *response.EndWalkSessionResponse, err error)
+	// FulfilRedemption Moves a redemption to APPROVED, FULFILLED or REJECTED. Rejecting refunds
+	// the reserved points via a compensating ledger entry.
+	FulfilRedemption(ctx context.Context, req *request.FulfilRedemptionRequest, opts ...http.CallOption) (rsp *response.FulfilRedemptionResponse, err error)
 	GetCompetition(ctx context.Context, req *request.GetCompetitionRequest, opts ...http.CallOption) (rsp *response.GetCompetitionResponse, err error)
 	// GetDailyQuota Remaining attempts, step cap and cooldown for today, so the app can
 	// disable the start button instead of provoking a rejection.
@@ -799,6 +996,7 @@ type FitnessHTTPClient interface {
 	GetWalkSession(ctx context.Context, req *request.GetWalkSessionRequest, opts ...http.CallOption) (rsp *response.GetWalkSessionResponse, err error)
 	JoinCompetition(ctx context.Context, req *request.JoinCompetitionRequest, opts ...http.CallOption) (rsp *response.JoinCompetitionResponse, err error)
 	LeaveCompetition(ctx context.Context, req *request.LeaveCompetitionRequest, opts ...http.CallOption) (rsp *response.LeaveCompetitionResponse, err error)
+	ListAllRedemptions(ctx context.Context, req *request.ListAllRedemptionsRequest, opts ...http.CallOption) (rsp *response.ListAllRedemptionsResponse, err error)
 	ListChallengeTemplates(ctx context.Context, req *request.ListChallengeTemplatesRequest, opts ...http.CallOption) (rsp *response.ListChallengeTemplatesResponse, err error)
 	ListCompetitions(ctx context.Context, req *request.ListCompetitionsRequest, opts ...http.CallOption) (rsp *response.ListCompetitionsResponse, err error)
 	ListFlaggedSessions(ctx context.Context, req *request.ListFlaggedSessionsRequest, opts ...http.CallOption) (rsp *response.ListFlaggedSessionsResponse, err error)
@@ -820,6 +1018,8 @@ type FitnessHTTPClient interface {
 	// SubmitWalkSamples Called every 30-60s while walking. The server recomputes distance and steps
 	// from the samples; client totals are never trusted.
 	SubmitWalkSamples(ctx context.Context, req *request.SubmitWalkSamplesRequest, opts ...http.CallOption) (rsp *response.SubmitWalkSamplesResponse, err error)
+	UpdateCompetition(ctx context.Context, req *request.UpdateCompetitionRequest, opts ...http.CallOption) (rsp *response.UpdateCompetitionResponse, err error)
+	UpdateGift(ctx context.Context, req *request.UpdateGiftRequest, opts ...http.CallOption) (rsp *response.UpdateGiftResponse, err error)
 	UpsertMyProfile(ctx context.Context, req *request.UpsertMyProfileRequest, opts ...http.CallOption) (rsp *response.UpsertMyProfileResponse, err error)
 }
 
@@ -844,6 +1044,20 @@ func (c *FitnessHTTPClientImpl) AbandonChallenge(ctx context.Context, in *reques
 	return &out, nil
 }
 
+// CancelCompetition Ends a competition early and freezes its leaderboard.
+func (c *FitnessHTTPClientImpl) CancelCompetition(ctx context.Context, in *request.CancelCompetitionRequest, opts ...http.CallOption) (*response.CancelCompetitionResponse, error) {
+	var out response.CancelCompetitionResponse
+	pattern := "/v1/fitness/admin/competitions/{competition_id}:cancel"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessCancelCompetition))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *FitnessHTTPClientImpl) CancelRedemption(ctx context.Context, in *request.CancelRedemptionRequest, opts ...http.CallOption) (*response.CancelRedemptionResponse, error) {
 	var out response.CancelRedemptionResponse
 	pattern := "/v1/fitness/me/redemptions/{redemption_id}:cancel"
@@ -857,12 +1071,38 @@ func (c *FitnessHTTPClientImpl) CancelRedemption(ctx context.Context, in *reques
 	return &out, nil
 }
 
-// CreateCompetition Admin only.
+func (c *FitnessHTTPClientImpl) CreateChallengeTemplate(ctx context.Context, in *request.CreateChallengeTemplateRequest, opts ...http.CallOption) (*response.CreateChallengeTemplateResponse, error) {
+	var out response.CreateChallengeTemplateResponse
+	pattern := "/v1/fitness/admin/competitions/{competition_id}/challenge-templates"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessCreateChallengeTemplate))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// CreateCompetition Admin only: requires a USER_TYPE_ADMIN token. Walkers get FITNESS_ADMIN_REQUIRED.
 func (c *FitnessHTTPClientImpl) CreateCompetition(ctx context.Context, in *request.CreateCompetitionRequest, opts ...http.CallOption) (*response.CreateCompetitionResponse, error) {
 	var out response.CreateCompetitionResponse
 	pattern := "/v1/fitness/competitions"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationFitnessCreateCompetition))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *FitnessHTTPClientImpl) CreateGift(ctx context.Context, in *request.CreateGiftRequest, opts ...http.CallOption) (*response.CreateGiftResponse, error) {
+	var out response.CreateGiftResponse
+	pattern := "/v1/fitness/admin/gifts"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessCreateGift))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -877,6 +1117,21 @@ func (c *FitnessHTTPClientImpl) EndWalkSession(ctx context.Context, in *request.
 	pattern := "/v1/fitness/walk-sessions/{session_id}:end"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationFitnessEndWalkSession))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// FulfilRedemption Moves a redemption to APPROVED, FULFILLED or REJECTED. Rejecting refunds
+// the reserved points via a compensating ledger entry.
+func (c *FitnessHTTPClientImpl) FulfilRedemption(ctx context.Context, in *request.FulfilRedemptionRequest, opts ...http.CallOption) (*response.FulfilRedemptionResponse, error) {
+	var out response.FulfilRedemptionResponse
+	pattern := "/v1/fitness/admin/redemptions/{redemption_id}:fulfil"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessFulfilRedemption))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -1026,6 +1281,19 @@ func (c *FitnessHTTPClientImpl) LeaveCompetition(ctx context.Context, in *reques
 	opts = append(opts, http.Operation(OperationFitnessLeaveCompetition))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *FitnessHTTPClientImpl) ListAllRedemptions(ctx context.Context, in *request.ListAllRedemptionsRequest, opts ...http.CallOption) (*response.ListAllRedemptionsResponse, error) {
+	var out response.ListAllRedemptionsResponse
+	pattern := "/v1/fitness/admin/redemptions"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationFitnessListAllRedemptions))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1215,6 +1483,32 @@ func (c *FitnessHTTPClientImpl) SubmitWalkSamples(ctx context.Context, in *reque
 	opts = append(opts, http.Operation(OperationFitnessSubmitWalkSamples))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *FitnessHTTPClientImpl) UpdateCompetition(ctx context.Context, in *request.UpdateCompetitionRequest, opts ...http.CallOption) (*response.UpdateCompetitionResponse, error) {
+	var out response.UpdateCompetitionResponse
+	pattern := "/v1/fitness/admin/competitions/{competition_id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessUpdateCompetition))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *FitnessHTTPClientImpl) UpdateGift(ctx context.Context, in *request.UpdateGiftRequest, opts ...http.CallOption) (*response.UpdateGiftResponse, error) {
+	var out response.UpdateGiftResponse
+	pattern := "/v1/fitness/admin/gifts/{gift_id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessUpdateGift))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

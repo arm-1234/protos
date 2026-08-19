@@ -27,6 +27,9 @@ const (
 	UserType_USER_TYPE_UNSPECIFIED UserType = 0
 	UserType_USER_TYPE_USER        UserType = 1
 	UserType_USER_TYPE_MERCHANT    UserType = 2
+	// Staff account. Carried in the JWT so services can gate privileged RPCs
+	// (creating competitions, reviewing flagged sessions) without a DB lookup.
+	UserType_USER_TYPE_ADMIN UserType = 3
 )
 
 // Enum value maps for UserType.
@@ -35,11 +38,13 @@ var (
 		0: "USER_TYPE_UNSPECIFIED",
 		1: "USER_TYPE_USER",
 		2: "USER_TYPE_MERCHANT",
+		3: "USER_TYPE_ADMIN",
 	}
 	UserType_value = map[string]int32{
 		"USER_TYPE_UNSPECIFIED": 0,
 		"USER_TYPE_USER":        1,
 		"USER_TYPE_MERCHANT":    2,
+		"USER_TYPE_ADMIN":       3,
 	}
 )
 
@@ -74,11 +79,12 @@ var File_identity_v1_types_enums_user_type_proto protoreflect.FileDescriptor
 
 const file_identity_v1_types_enums_user_type_proto_rawDesc = "" +
 	"\n" +
-	"'identity/v1/types/enums/user_type.proto\x12\x17identity.v1.types.enums*Q\n" +
+	"'identity/v1/types/enums/user_type.proto\x12\x17identity.v1.types.enums*f\n" +
 	"\bUserType\x12\x19\n" +
 	"\x15USER_TYPE_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eUSER_TYPE_USER\x10\x01\x12\x16\n" +
-	"\x12USER_TYPE_MERCHANT\x10\x02B:Z8github.com/arm-1234/protos/identity/v1/types/enums;enumsb\x06proto3"
+	"\x12USER_TYPE_MERCHANT\x10\x02\x12\x13\n" +
+	"\x0fUSER_TYPE_ADMIN\x10\x03B:Z8github.com/arm-1234/protos/identity/v1/types/enums;enumsb\x06proto3"
 
 var (
 	file_identity_v1_types_enums_user_type_proto_rawDescOnce sync.Once

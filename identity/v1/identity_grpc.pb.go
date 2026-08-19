@@ -24,6 +24,7 @@ const (
 	Identity_RegisterUser_FullMethodName             = "/identity.v1.Identity/RegisterUser"
 	Identity_RegisterMerchant_FullMethodName         = "/identity.v1.Identity/RegisterMerchant"
 	Identity_LoginWithPhone_FullMethodName           = "/identity.v1.Identity/LoginWithPhone"
+	Identity_LoginWithIdentifier_FullMethodName      = "/identity.v1.Identity/LoginWithIdentifier"
 	Identity_SetPassword_FullMethodName              = "/identity.v1.Identity/SetPassword"
 	Identity_UpdateProfile_FullMethodName            = "/identity.v1.Identity/UpdateProfile"
 	Identity_AuthenticateWithProvider_FullMethodName = "/identity.v1.Identity/AuthenticateWithProvider"
@@ -42,6 +43,9 @@ type IdentityClient interface {
 	RegisterUser(ctx context.Context, in *request.RegisterUserRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	RegisterMerchant(ctx context.Context, in *request.RegisterMerchantRequest, opts ...grpc.CallOption) (*response.RegisterMerchantResponse, error)
 	LoginWithPhone(ctx context.Context, in *request.LoginWithPhoneRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
+	// Password login by email or phone. LoginWithPhone is kept for existing
+	// merchant-store clients; new clients should call this.
+	LoginWithIdentifier(ctx context.Context, in *request.LoginWithIdentifierRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
@@ -85,6 +89,16 @@ func (c *identityClient) LoginWithPhone(ctx context.Context, in *request.LoginWi
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.AuthResponse)
 	err := c.cc.Invoke(ctx, Identity_LoginWithPhone_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) LoginWithIdentifier(ctx context.Context, in *request.LoginWithIdentifierRequest, opts ...grpc.CallOption) (*response.AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.AuthResponse)
+	err := c.cc.Invoke(ctx, Identity_LoginWithIdentifier_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -188,6 +202,9 @@ type IdentityServer interface {
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
+	// Password login by email or phone. LoginWithPhone is kept for existing
+	// merchant-store clients; new clients should call this.
+	LoginWithIdentifier(context.Context, *request.LoginWithIdentifierRequest) (*response.AuthResponse, error)
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
@@ -215,6 +232,9 @@ func (UnimplementedIdentityServer) RegisterMerchant(context.Context, *request.Re
 }
 func (UnimplementedIdentityServer) LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method LoginWithPhone not implemented")
+}
+func (UnimplementedIdentityServer) LoginWithIdentifier(context.Context, *request.LoginWithIdentifierRequest) (*response.AuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method LoginWithIdentifier not implemented")
 }
 func (UnimplementedIdentityServer) SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SetPassword not implemented")
@@ -314,6 +334,24 @@ func _Identity_LoginWithPhone_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServer).LoginWithPhone(ctx, req.(*request.LoginWithPhoneRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_LoginWithIdentifier_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.LoginWithIdentifierRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).LoginWithIdentifier(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_LoginWithIdentifier_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).LoginWithIdentifier(ctx, req.(*request.LoginWithIdentifierRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -498,6 +536,10 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LoginWithPhone",
 			Handler:    _Identity_LoginWithPhone_Handler,
+		},
+		{
+			MethodName: "LoginWithIdentifier",
+			Handler:    _Identity_LoginWithIdentifier_Handler,
 		},
 		{
 			MethodName: "SetPassword",

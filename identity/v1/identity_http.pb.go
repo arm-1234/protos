@@ -24,6 +24,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationIdentityAuthenticateWithProvider = "/identity.v1.Identity/AuthenticateWithProvider"
 const OperationIdentityConfirmPhoneChange = "/identity.v1.Identity/ConfirmPhoneChange"
 const OperationIdentityGetMe = "/identity.v1.Identity/GetMe"
+const OperationIdentityLoginWithIdentifier = "/identity.v1.Identity/LoginWithIdentifier"
 const OperationIdentityLoginWithPhone = "/identity.v1.Identity/LoginWithPhone"
 const OperationIdentityRegisterMerchant = "/identity.v1.Identity/RegisterMerchant"
 const OperationIdentityRegisterPushToken = "/identity.v1.Identity/RegisterPushToken"
@@ -38,6 +39,9 @@ type IdentityHTTPServer interface {
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
 	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
+	// LoginWithIdentifier Password login by email or phone. LoginWithPhone is kept for existing
+	// merchant-store clients; new clients should call this.
+	LoginWithIdentifier(context.Context, *request.LoginWithIdentifierRequest) (*response.AuthResponse, error)
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
@@ -54,6 +58,7 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.POST("/v1/auth/users:register", _Identity_RegisterUser0_HTTP_Handler(srv))
 	r.POST("/v1/auth/merchants:register", _Identity_RegisterMerchant0_HTTP_Handler(srv))
 	r.POST("/v1/auth/login", _Identity_LoginWithPhone0_HTTP_Handler(srv))
+	r.POST("/v1/auth/login:identifier", _Identity_LoginWithIdentifier0_HTTP_Handler(srv))
 	r.POST("/v1/auth/password:set", _Identity_SetPassword0_HTTP_Handler(srv))
 	r.PATCH("/v1/auth/me", _Identity_UpdateProfile0_HTTP_Handler(srv))
 	r.POST("/v1/auth/external", _Identity_AuthenticateWithProvider0_HTTP_Handler(srv))
@@ -121,6 +126,28 @@ func _Identity_LoginWithPhone0_HTTP_Handler(srv IdentityHTTPServer) func(ctx htt
 		http.SetOperation(ctx, OperationIdentityLoginWithPhone)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.LoginWithPhone(ctx, req.(*request.LoginWithPhoneRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.AuthResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Identity_LoginWithIdentifier0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.LoginWithIdentifierRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityLoginWithIdentifier)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.LoginWithIdentifier(ctx, req.(*request.LoginWithIdentifierRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -330,6 +357,9 @@ type IdentityHTTPClient interface {
 	AuthenticateWithProvider(ctx context.Context, req *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	ConfirmPhoneChange(ctx context.Context, req *request.ConfirmPhoneChangeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
 	GetMe(ctx context.Context, req *request.GetMeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
+	// LoginWithIdentifier Password login by email or phone. LoginWithPhone is kept for existing
+	// merchant-store clients; new clients should call this.
+	LoginWithIdentifier(ctx context.Context, req *request.LoginWithIdentifierRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	LoginWithPhone(ctx context.Context, req *request.LoginWithPhoneRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	RegisterMerchant(ctx context.Context, req *request.RegisterMerchantRequest, opts ...http.CallOption) (rsp *response.RegisterMerchantResponse, err error)
 	RegisterPushToken(ctx context.Context, req *request.RegisterPushTokenRequest, opts ...http.CallOption) (rsp *response.RegisterPushTokenResponse, err error)
@@ -382,6 +412,21 @@ func (c *IdentityHTTPClientImpl) GetMe(ctx context.Context, in *request.GetMeReq
 	opts = append(opts, http.Operation(OperationIdentityGetMe))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// LoginWithIdentifier Password login by email or phone. LoginWithPhone is kept for existing
+// merchant-store clients; new clients should call this.
+func (c *IdentityHTTPClientImpl) LoginWithIdentifier(ctx context.Context, in *request.LoginWithIdentifierRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
+	var out response.AuthResponse
+	pattern := "/v1/auth/login:identifier"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityLoginWithIdentifier))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

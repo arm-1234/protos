@@ -1675,6 +1675,331 @@ func (x *CancelRedemptionResponse) GetBalance() *types.PointsBalance {
 	return nil
 }
 
+type UpdateCompetitionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Competition   *types.CompetitionInfo `protobuf:"bytes,1,opt,name=competition,proto3" json:"competition,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCompetitionResponse) Reset() {
+	*x = UpdateCompetitionResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCompetitionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCompetitionResponse) ProtoMessage() {}
+
+func (x *UpdateCompetitionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCompetitionResponse.ProtoReflect.Descriptor instead.
+func (*UpdateCompetitionResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *UpdateCompetitionResponse) GetCompetition() *types.CompetitionInfo {
+	if x != nil {
+		return x.Competition
+	}
+	return nil
+}
+
+type CancelCompetitionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Competition   *types.CompetitionInfo `protobuf:"bytes,1,opt,name=competition,proto3" json:"competition,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelCompetitionResponse) Reset() {
+	*x = CancelCompetitionResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelCompetitionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelCompetitionResponse) ProtoMessage() {}
+
+func (x *CancelCompetitionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelCompetitionResponse.ProtoReflect.Descriptor instead.
+func (*CancelCompetitionResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *CancelCompetitionResponse) GetCompetition() *types.CompetitionInfo {
+	if x != nil {
+		return x.Competition
+	}
+	return nil
+}
+
+type CreateChallengeTemplateResponse struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	Template      *types.ChallengeTemplateInfo `protobuf:"bytes,1,opt,name=template,proto3" json:"template,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateChallengeTemplateResponse) Reset() {
+	*x = CreateChallengeTemplateResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateChallengeTemplateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateChallengeTemplateResponse) ProtoMessage() {}
+
+func (x *CreateChallengeTemplateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateChallengeTemplateResponse.ProtoReflect.Descriptor instead.
+func (*CreateChallengeTemplateResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *CreateChallengeTemplateResponse) GetTemplate() *types.ChallengeTemplateInfo {
+	if x != nil {
+		return x.Template
+	}
+	return nil
+}
+
+type CreateGiftResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Gift          *types.GiftInfo        `protobuf:"bytes,1,opt,name=gift,proto3" json:"gift,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateGiftResponse) Reset() {
+	*x = CreateGiftResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateGiftResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateGiftResponse) ProtoMessage() {}
+
+func (x *CreateGiftResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateGiftResponse.ProtoReflect.Descriptor instead.
+func (*CreateGiftResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *CreateGiftResponse) GetGift() *types.GiftInfo {
+	if x != nil {
+		return x.Gift
+	}
+	return nil
+}
+
+type UpdateGiftResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Gift          *types.GiftInfo        `protobuf:"bytes,1,opt,name=gift,proto3" json:"gift,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateGiftResponse) Reset() {
+	*x = UpdateGiftResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGiftResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGiftResponse) ProtoMessage() {}
+
+func (x *UpdateGiftResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGiftResponse.ProtoReflect.Descriptor instead.
+func (*UpdateGiftResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *UpdateGiftResponse) GetGift() *types.GiftInfo {
+	if x != nil {
+		return x.Gift
+	}
+	return nil
+}
+
+type FulfilRedemptionResponse struct {
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	Redemption *types.RedemptionInfo  `protobuf:"bytes,1,opt,name=redemption,proto3" json:"redemption,omitempty"`
+	// Non-zero when a rejection refunded the user's reserved points.
+	PointsRefunded int64 `protobuf:"varint,2,opt,name=points_refunded,json=pointsRefunded,proto3" json:"points_refunded,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *FulfilRedemptionResponse) Reset() {
+	*x = FulfilRedemptionResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FulfilRedemptionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FulfilRedemptionResponse) ProtoMessage() {}
+
+func (x *FulfilRedemptionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FulfilRedemptionResponse.ProtoReflect.Descriptor instead.
+func (*FulfilRedemptionResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *FulfilRedemptionResponse) GetRedemption() *types.RedemptionInfo {
+	if x != nil {
+		return x.Redemption
+	}
+	return nil
+}
+
+func (x *FulfilRedemptionResponse) GetPointsRefunded() int64 {
+	if x != nil {
+		return x.PointsRefunded
+	}
+	return 0
+}
+
+type ListAllRedemptionsResponse struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Redemptions   []*types.RedemptionInfo `protobuf:"bytes,1,rep,name=redemptions,proto3" json:"redemptions,omitempty"`
+	Page          *PageInfo               `protobuf:"bytes,2,opt,name=page,proto3" json:"page,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListAllRedemptionsResponse) Reset() {
+	*x = ListAllRedemptionsResponse{}
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListAllRedemptionsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListAllRedemptionsResponse) ProtoMessage() {}
+
+func (x *ListAllRedemptionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListAllRedemptionsResponse.ProtoReflect.Descriptor instead.
+func (*ListAllRedemptionsResponse) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *ListAllRedemptionsResponse) GetRedemptions() []*types.RedemptionInfo {
+	if x != nil {
+		return x.Redemptions
+	}
+	return nil
+}
+
+func (x *ListAllRedemptionsResponse) GetPage() *PageInfo {
+	if x != nil {
+		return x.Page
+	}
+	return nil
+}
+
 type ListFlaggedSessionsResponse struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
 	Sessions      []*types.WalkSessionInfo `protobuf:"bytes,1,rep,name=sessions,proto3" json:"sessions,omitempty"`
@@ -1685,7 +2010,7 @@ type ListFlaggedSessionsResponse struct {
 
 func (x *ListFlaggedSessionsResponse) Reset() {
 	*x = ListFlaggedSessionsResponse{}
-	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[30]
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1697,7 +2022,7 @@ func (x *ListFlaggedSessionsResponse) String() string {
 func (*ListFlaggedSessionsResponse) ProtoMessage() {}
 
 func (x *ListFlaggedSessionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[30]
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1710,7 +2035,7 @@ func (x *ListFlaggedSessionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListFlaggedSessionsResponse.ProtoReflect.Descriptor instead.
 func (*ListFlaggedSessionsResponse) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{30}
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ListFlaggedSessionsResponse) GetSessions() []*types.WalkSessionInfo {
@@ -1738,7 +2063,7 @@ type ReviewSessionResponse struct {
 
 func (x *ReviewSessionResponse) Reset() {
 	*x = ReviewSessionResponse{}
-	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[31]
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1750,7 +2075,7 @@ func (x *ReviewSessionResponse) String() string {
 func (*ReviewSessionResponse) ProtoMessage() {}
 
 func (x *ReviewSessionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[31]
+	mi := &file_fitness_v1_response_fitness_response_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1763,7 +2088,7 @@ func (x *ReviewSessionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReviewSessionResponse.ProtoReflect.Descriptor instead.
 func (*ReviewSessionResponse) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{31}
+	return file_fitness_v1_response_fitness_response_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *ReviewSessionResponse) GetSession() *types.WalkSessionInfo {
@@ -1894,7 +2219,25 @@ const file_fitness_v1_response_fitness_response_proto_rawDesc = "" +
 	"\n" +
 	"redemption\x18\x01 \x01(\v2 .fitness.v1.types.RedemptionInfoR\n" +
 	"redemption\x129\n" +
-	"\abalance\x18\x02 \x01(\v2\x1f.fitness.v1.types.PointsBalanceR\abalance\"\x8f\x01\n" +
+	"\abalance\x18\x02 \x01(\v2\x1f.fitness.v1.types.PointsBalanceR\abalance\"`\n" +
+	"\x19UpdateCompetitionResponse\x12C\n" +
+	"\vcompetition\x18\x01 \x01(\v2!.fitness.v1.types.CompetitionInfoR\vcompetition\"`\n" +
+	"\x19CancelCompetitionResponse\x12C\n" +
+	"\vcompetition\x18\x01 \x01(\v2!.fitness.v1.types.CompetitionInfoR\vcompetition\"f\n" +
+	"\x1fCreateChallengeTemplateResponse\x12C\n" +
+	"\btemplate\x18\x01 \x01(\v2'.fitness.v1.types.ChallengeTemplateInfoR\btemplate\"D\n" +
+	"\x12CreateGiftResponse\x12.\n" +
+	"\x04gift\x18\x01 \x01(\v2\x1a.fitness.v1.types.GiftInfoR\x04gift\"D\n" +
+	"\x12UpdateGiftResponse\x12.\n" +
+	"\x04gift\x18\x01 \x01(\v2\x1a.fitness.v1.types.GiftInfoR\x04gift\"\x85\x01\n" +
+	"\x18FulfilRedemptionResponse\x12@\n" +
+	"\n" +
+	"redemption\x18\x01 \x01(\v2 .fitness.v1.types.RedemptionInfoR\n" +
+	"redemption\x12'\n" +
+	"\x0fpoints_refunded\x18\x02 \x01(\x03R\x0epointsRefunded\"\x93\x01\n" +
+	"\x1aListAllRedemptionsResponse\x12B\n" +
+	"\vredemptions\x18\x01 \x03(\v2 .fitness.v1.types.RedemptionInfoR\vredemptions\x121\n" +
+	"\x04page\x18\x02 \x01(\v2\x1d.fitness.v1.response.PageInfoR\x04page\"\x8f\x01\n" +
 	"\x1bListFlaggedSessionsResponse\x12=\n" +
 	"\bsessions\x18\x01 \x03(\v2!.fitness.v1.types.WalkSessionInfoR\bsessions\x121\n" +
 	"\x04page\x18\x02 \x01(\v2\x1d.fitness.v1.response.PageInfoR\x04page\"}\n" +
@@ -1914,108 +2257,123 @@ func file_fitness_v1_response_fitness_response_proto_rawDescGZIP() []byte {
 	return file_fitness_v1_response_fitness_response_proto_rawDescData
 }
 
-var file_fitness_v1_response_fitness_response_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
+var file_fitness_v1_response_fitness_response_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
 var file_fitness_v1_response_fitness_response_proto_goTypes = []any{
-	(*PageInfo)(nil),                       // 0: fitness.v1.response.PageInfo
-	(*GetMyProfileResponse)(nil),           // 1: fitness.v1.response.GetMyProfileResponse
-	(*UpsertMyProfileResponse)(nil),        // 2: fitness.v1.response.UpsertMyProfileResponse
-	(*ListRegionsResponse)(nil),            // 3: fitness.v1.response.ListRegionsResponse
-	(*ListCompetitionsResponse)(nil),       // 4: fitness.v1.response.ListCompetitionsResponse
-	(*GetCompetitionResponse)(nil),         // 5: fitness.v1.response.GetCompetitionResponse
-	(*JoinCompetitionResponse)(nil),        // 6: fitness.v1.response.JoinCompetitionResponse
-	(*LeaveCompetitionResponse)(nil),       // 7: fitness.v1.response.LeaveCompetitionResponse
-	(*CreateCompetitionResponse)(nil),      // 8: fitness.v1.response.CreateCompetitionResponse
-	(*ListChallengeTemplatesResponse)(nil), // 9: fitness.v1.response.ListChallengeTemplatesResponse
-	(*GetDailyQuotaResponse)(nil),          // 10: fitness.v1.response.GetDailyQuotaResponse
-	(*StartChallengeResponse)(nil),         // 11: fitness.v1.response.StartChallengeResponse
-	(*ListMyChallengesResponse)(nil),       // 12: fitness.v1.response.ListMyChallengesResponse
-	(*AbandonChallengeResponse)(nil),       // 13: fitness.v1.response.AbandonChallengeResponse
-	(*StartWalkSessionResponse)(nil),       // 14: fitness.v1.response.StartWalkSessionResponse
-	(*SubmitWalkSamplesResponse)(nil),      // 15: fitness.v1.response.SubmitWalkSamplesResponse
-	(*EndWalkSessionResponse)(nil),         // 16: fitness.v1.response.EndWalkSessionResponse
-	(*GetWalkSessionResponse)(nil),         // 17: fitness.v1.response.GetWalkSessionResponse
-	(*ListMyWalkSessionsResponse)(nil),     // 18: fitness.v1.response.ListMyWalkSessionsResponse
-	(*DailyStat)(nil),                      // 19: fitness.v1.response.DailyStat
-	(*GetMyStatsResponse)(nil),             // 20: fitness.v1.response.GetMyStatsResponse
-	(*GetLeaderboardResponse)(nil),         // 21: fitness.v1.response.GetLeaderboardResponse
-	(*GetRegionStandingsResponse)(nil),     // 22: fitness.v1.response.GetRegionStandingsResponse
-	(*GetMyPointsBalanceResponse)(nil),     // 23: fitness.v1.response.GetMyPointsBalanceResponse
-	(*ListMyPointsLedgerResponse)(nil),     // 24: fitness.v1.response.ListMyPointsLedgerResponse
-	(*ListGiftsResponse)(nil),              // 25: fitness.v1.response.ListGiftsResponse
-	(*GetGiftResponse)(nil),                // 26: fitness.v1.response.GetGiftResponse
-	(*RedeemGiftResponse)(nil),             // 27: fitness.v1.response.RedeemGiftResponse
-	(*ListMyRedemptionsResponse)(nil),      // 28: fitness.v1.response.ListMyRedemptionsResponse
-	(*CancelRedemptionResponse)(nil),       // 29: fitness.v1.response.CancelRedemptionResponse
-	(*ListFlaggedSessionsResponse)(nil),    // 30: fitness.v1.response.ListFlaggedSessionsResponse
-	(*ReviewSessionResponse)(nil),          // 31: fitness.v1.response.ReviewSessionResponse
-	(*types.UserProfileInfo)(nil),          // 32: fitness.v1.types.UserProfileInfo
-	(*types.Region)(nil),                   // 33: fitness.v1.types.Region
-	(*types.CompetitionInfo)(nil),          // 34: fitness.v1.types.CompetitionInfo
-	(*types.DailyChallengeQuota)(nil),      // 35: fitness.v1.types.DailyChallengeQuota
-	(*types.ChallengeTemplateInfo)(nil),    // 36: fitness.v1.types.ChallengeTemplateInfo
-	(*types.ChallengeInfo)(nil),            // 37: fitness.v1.types.ChallengeInfo
-	(*types.WalkSessionInfo)(nil),          // 38: fitness.v1.types.WalkSessionInfo
-	(*types.AntiCheatVerdict)(nil),         // 39: fitness.v1.types.AntiCheatVerdict
-	(*types.PointsBalance)(nil),            // 40: fitness.v1.types.PointsBalance
-	(*types.LeaderboardInfo)(nil),          // 41: fitness.v1.types.LeaderboardInfo
-	(*types.RegionStanding)(nil),           // 42: fitness.v1.types.RegionStanding
-	(*timestamppb.Timestamp)(nil),          // 43: google.protobuf.Timestamp
-	(*types.PointsLedgerEntry)(nil),        // 44: fitness.v1.types.PointsLedgerEntry
-	(*types.GiftInfo)(nil),                 // 45: fitness.v1.types.GiftInfo
-	(*types.RedemptionInfo)(nil),           // 46: fitness.v1.types.RedemptionInfo
+	(*PageInfo)(nil),                        // 0: fitness.v1.response.PageInfo
+	(*GetMyProfileResponse)(nil),            // 1: fitness.v1.response.GetMyProfileResponse
+	(*UpsertMyProfileResponse)(nil),         // 2: fitness.v1.response.UpsertMyProfileResponse
+	(*ListRegionsResponse)(nil),             // 3: fitness.v1.response.ListRegionsResponse
+	(*ListCompetitionsResponse)(nil),        // 4: fitness.v1.response.ListCompetitionsResponse
+	(*GetCompetitionResponse)(nil),          // 5: fitness.v1.response.GetCompetitionResponse
+	(*JoinCompetitionResponse)(nil),         // 6: fitness.v1.response.JoinCompetitionResponse
+	(*LeaveCompetitionResponse)(nil),        // 7: fitness.v1.response.LeaveCompetitionResponse
+	(*CreateCompetitionResponse)(nil),       // 8: fitness.v1.response.CreateCompetitionResponse
+	(*ListChallengeTemplatesResponse)(nil),  // 9: fitness.v1.response.ListChallengeTemplatesResponse
+	(*GetDailyQuotaResponse)(nil),           // 10: fitness.v1.response.GetDailyQuotaResponse
+	(*StartChallengeResponse)(nil),          // 11: fitness.v1.response.StartChallengeResponse
+	(*ListMyChallengesResponse)(nil),        // 12: fitness.v1.response.ListMyChallengesResponse
+	(*AbandonChallengeResponse)(nil),        // 13: fitness.v1.response.AbandonChallengeResponse
+	(*StartWalkSessionResponse)(nil),        // 14: fitness.v1.response.StartWalkSessionResponse
+	(*SubmitWalkSamplesResponse)(nil),       // 15: fitness.v1.response.SubmitWalkSamplesResponse
+	(*EndWalkSessionResponse)(nil),          // 16: fitness.v1.response.EndWalkSessionResponse
+	(*GetWalkSessionResponse)(nil),          // 17: fitness.v1.response.GetWalkSessionResponse
+	(*ListMyWalkSessionsResponse)(nil),      // 18: fitness.v1.response.ListMyWalkSessionsResponse
+	(*DailyStat)(nil),                       // 19: fitness.v1.response.DailyStat
+	(*GetMyStatsResponse)(nil),              // 20: fitness.v1.response.GetMyStatsResponse
+	(*GetLeaderboardResponse)(nil),          // 21: fitness.v1.response.GetLeaderboardResponse
+	(*GetRegionStandingsResponse)(nil),      // 22: fitness.v1.response.GetRegionStandingsResponse
+	(*GetMyPointsBalanceResponse)(nil),      // 23: fitness.v1.response.GetMyPointsBalanceResponse
+	(*ListMyPointsLedgerResponse)(nil),      // 24: fitness.v1.response.ListMyPointsLedgerResponse
+	(*ListGiftsResponse)(nil),               // 25: fitness.v1.response.ListGiftsResponse
+	(*GetGiftResponse)(nil),                 // 26: fitness.v1.response.GetGiftResponse
+	(*RedeemGiftResponse)(nil),              // 27: fitness.v1.response.RedeemGiftResponse
+	(*ListMyRedemptionsResponse)(nil),       // 28: fitness.v1.response.ListMyRedemptionsResponse
+	(*CancelRedemptionResponse)(nil),        // 29: fitness.v1.response.CancelRedemptionResponse
+	(*UpdateCompetitionResponse)(nil),       // 30: fitness.v1.response.UpdateCompetitionResponse
+	(*CancelCompetitionResponse)(nil),       // 31: fitness.v1.response.CancelCompetitionResponse
+	(*CreateChallengeTemplateResponse)(nil), // 32: fitness.v1.response.CreateChallengeTemplateResponse
+	(*CreateGiftResponse)(nil),              // 33: fitness.v1.response.CreateGiftResponse
+	(*UpdateGiftResponse)(nil),              // 34: fitness.v1.response.UpdateGiftResponse
+	(*FulfilRedemptionResponse)(nil),        // 35: fitness.v1.response.FulfilRedemptionResponse
+	(*ListAllRedemptionsResponse)(nil),      // 36: fitness.v1.response.ListAllRedemptionsResponse
+	(*ListFlaggedSessionsResponse)(nil),     // 37: fitness.v1.response.ListFlaggedSessionsResponse
+	(*ReviewSessionResponse)(nil),           // 38: fitness.v1.response.ReviewSessionResponse
+	(*types.UserProfileInfo)(nil),           // 39: fitness.v1.types.UserProfileInfo
+	(*types.Region)(nil),                    // 40: fitness.v1.types.Region
+	(*types.CompetitionInfo)(nil),           // 41: fitness.v1.types.CompetitionInfo
+	(*types.DailyChallengeQuota)(nil),       // 42: fitness.v1.types.DailyChallengeQuota
+	(*types.ChallengeTemplateInfo)(nil),     // 43: fitness.v1.types.ChallengeTemplateInfo
+	(*types.ChallengeInfo)(nil),             // 44: fitness.v1.types.ChallengeInfo
+	(*types.WalkSessionInfo)(nil),           // 45: fitness.v1.types.WalkSessionInfo
+	(*types.AntiCheatVerdict)(nil),          // 46: fitness.v1.types.AntiCheatVerdict
+	(*types.PointsBalance)(nil),             // 47: fitness.v1.types.PointsBalance
+	(*types.LeaderboardInfo)(nil),           // 48: fitness.v1.types.LeaderboardInfo
+	(*types.RegionStanding)(nil),            // 49: fitness.v1.types.RegionStanding
+	(*timestamppb.Timestamp)(nil),           // 50: google.protobuf.Timestamp
+	(*types.PointsLedgerEntry)(nil),         // 51: fitness.v1.types.PointsLedgerEntry
+	(*types.GiftInfo)(nil),                  // 52: fitness.v1.types.GiftInfo
+	(*types.RedemptionInfo)(nil),            // 53: fitness.v1.types.RedemptionInfo
 }
 var file_fitness_v1_response_fitness_response_proto_depIdxs = []int32{
-	32, // 0: fitness.v1.response.GetMyProfileResponse.profile:type_name -> fitness.v1.types.UserProfileInfo
-	32, // 1: fitness.v1.response.UpsertMyProfileResponse.profile:type_name -> fitness.v1.types.UserProfileInfo
-	33, // 2: fitness.v1.response.ListRegionsResponse.regions:type_name -> fitness.v1.types.Region
-	34, // 3: fitness.v1.response.ListCompetitionsResponse.competitions:type_name -> fitness.v1.types.CompetitionInfo
+	39, // 0: fitness.v1.response.GetMyProfileResponse.profile:type_name -> fitness.v1.types.UserProfileInfo
+	39, // 1: fitness.v1.response.UpsertMyProfileResponse.profile:type_name -> fitness.v1.types.UserProfileInfo
+	40, // 2: fitness.v1.response.ListRegionsResponse.regions:type_name -> fitness.v1.types.Region
+	41, // 3: fitness.v1.response.ListCompetitionsResponse.competitions:type_name -> fitness.v1.types.CompetitionInfo
 	0,  // 4: fitness.v1.response.ListCompetitionsResponse.page:type_name -> fitness.v1.response.PageInfo
-	34, // 5: fitness.v1.response.GetCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
-	34, // 6: fitness.v1.response.JoinCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
-	35, // 7: fitness.v1.response.JoinCompetitionResponse.quota:type_name -> fitness.v1.types.DailyChallengeQuota
-	34, // 8: fitness.v1.response.CreateCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
-	36, // 9: fitness.v1.response.ListChallengeTemplatesResponse.templates:type_name -> fitness.v1.types.ChallengeTemplateInfo
-	35, // 10: fitness.v1.response.GetDailyQuotaResponse.quota:type_name -> fitness.v1.types.DailyChallengeQuota
-	37, // 11: fitness.v1.response.StartChallengeResponse.challenge:type_name -> fitness.v1.types.ChallengeInfo
-	35, // 12: fitness.v1.response.StartChallengeResponse.quota:type_name -> fitness.v1.types.DailyChallengeQuota
-	37, // 13: fitness.v1.response.ListMyChallengesResponse.challenges:type_name -> fitness.v1.types.ChallengeInfo
+	41, // 5: fitness.v1.response.GetCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
+	41, // 6: fitness.v1.response.JoinCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
+	42, // 7: fitness.v1.response.JoinCompetitionResponse.quota:type_name -> fitness.v1.types.DailyChallengeQuota
+	41, // 8: fitness.v1.response.CreateCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
+	43, // 9: fitness.v1.response.ListChallengeTemplatesResponse.templates:type_name -> fitness.v1.types.ChallengeTemplateInfo
+	42, // 10: fitness.v1.response.GetDailyQuotaResponse.quota:type_name -> fitness.v1.types.DailyChallengeQuota
+	44, // 11: fitness.v1.response.StartChallengeResponse.challenge:type_name -> fitness.v1.types.ChallengeInfo
+	42, // 12: fitness.v1.response.StartChallengeResponse.quota:type_name -> fitness.v1.types.DailyChallengeQuota
+	44, // 13: fitness.v1.response.ListMyChallengesResponse.challenges:type_name -> fitness.v1.types.ChallengeInfo
 	0,  // 14: fitness.v1.response.ListMyChallengesResponse.page:type_name -> fitness.v1.response.PageInfo
-	37, // 15: fitness.v1.response.AbandonChallengeResponse.challenge:type_name -> fitness.v1.types.ChallengeInfo
-	38, // 16: fitness.v1.response.StartWalkSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
-	39, // 17: fitness.v1.response.SubmitWalkSamplesResponse.verdict:type_name -> fitness.v1.types.AntiCheatVerdict
-	38, // 18: fitness.v1.response.EndWalkSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
-	37, // 19: fitness.v1.response.EndWalkSessionResponse.challenge:type_name -> fitness.v1.types.ChallengeInfo
-	40, // 20: fitness.v1.response.EndWalkSessionResponse.balance:type_name -> fitness.v1.types.PointsBalance
-	38, // 21: fitness.v1.response.GetWalkSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
-	38, // 22: fitness.v1.response.ListMyWalkSessionsResponse.sessions:type_name -> fitness.v1.types.WalkSessionInfo
+	44, // 15: fitness.v1.response.AbandonChallengeResponse.challenge:type_name -> fitness.v1.types.ChallengeInfo
+	45, // 16: fitness.v1.response.StartWalkSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
+	46, // 17: fitness.v1.response.SubmitWalkSamplesResponse.verdict:type_name -> fitness.v1.types.AntiCheatVerdict
+	45, // 18: fitness.v1.response.EndWalkSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
+	44, // 19: fitness.v1.response.EndWalkSessionResponse.challenge:type_name -> fitness.v1.types.ChallengeInfo
+	47, // 20: fitness.v1.response.EndWalkSessionResponse.balance:type_name -> fitness.v1.types.PointsBalance
+	45, // 21: fitness.v1.response.GetWalkSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
+	45, // 22: fitness.v1.response.ListMyWalkSessionsResponse.sessions:type_name -> fitness.v1.types.WalkSessionInfo
 	0,  // 23: fitness.v1.response.ListMyWalkSessionsResponse.page:type_name -> fitness.v1.response.PageInfo
 	19, // 24: fitness.v1.response.GetMyStatsResponse.days:type_name -> fitness.v1.response.DailyStat
-	41, // 25: fitness.v1.response.GetLeaderboardResponse.leaderboard:type_name -> fitness.v1.types.LeaderboardInfo
+	48, // 25: fitness.v1.response.GetLeaderboardResponse.leaderboard:type_name -> fitness.v1.types.LeaderboardInfo
 	0,  // 26: fitness.v1.response.GetLeaderboardResponse.page:type_name -> fitness.v1.response.PageInfo
-	42, // 27: fitness.v1.response.GetRegionStandingsResponse.standings:type_name -> fitness.v1.types.RegionStanding
-	42, // 28: fitness.v1.response.GetRegionStandingsResponse.my_region:type_name -> fitness.v1.types.RegionStanding
+	49, // 27: fitness.v1.response.GetRegionStandingsResponse.standings:type_name -> fitness.v1.types.RegionStanding
+	49, // 28: fitness.v1.response.GetRegionStandingsResponse.my_region:type_name -> fitness.v1.types.RegionStanding
 	0,  // 29: fitness.v1.response.GetRegionStandingsResponse.page:type_name -> fitness.v1.response.PageInfo
-	43, // 30: fitness.v1.response.GetRegionStandingsResponse.refreshed_at:type_name -> google.protobuf.Timestamp
-	40, // 31: fitness.v1.response.GetMyPointsBalanceResponse.balance:type_name -> fitness.v1.types.PointsBalance
-	44, // 32: fitness.v1.response.ListMyPointsLedgerResponse.entries:type_name -> fitness.v1.types.PointsLedgerEntry
+	50, // 30: fitness.v1.response.GetRegionStandingsResponse.refreshed_at:type_name -> google.protobuf.Timestamp
+	47, // 31: fitness.v1.response.GetMyPointsBalanceResponse.balance:type_name -> fitness.v1.types.PointsBalance
+	51, // 32: fitness.v1.response.ListMyPointsLedgerResponse.entries:type_name -> fitness.v1.types.PointsLedgerEntry
 	0,  // 33: fitness.v1.response.ListMyPointsLedgerResponse.page:type_name -> fitness.v1.response.PageInfo
-	45, // 34: fitness.v1.response.ListGiftsResponse.gifts:type_name -> fitness.v1.types.GiftInfo
+	52, // 34: fitness.v1.response.ListGiftsResponse.gifts:type_name -> fitness.v1.types.GiftInfo
 	0,  // 35: fitness.v1.response.ListGiftsResponse.page:type_name -> fitness.v1.response.PageInfo
-	45, // 36: fitness.v1.response.GetGiftResponse.gift:type_name -> fitness.v1.types.GiftInfo
-	46, // 37: fitness.v1.response.RedeemGiftResponse.redemption:type_name -> fitness.v1.types.RedemptionInfo
-	40, // 38: fitness.v1.response.RedeemGiftResponse.balance:type_name -> fitness.v1.types.PointsBalance
-	46, // 39: fitness.v1.response.ListMyRedemptionsResponse.redemptions:type_name -> fitness.v1.types.RedemptionInfo
+	52, // 36: fitness.v1.response.GetGiftResponse.gift:type_name -> fitness.v1.types.GiftInfo
+	53, // 37: fitness.v1.response.RedeemGiftResponse.redemption:type_name -> fitness.v1.types.RedemptionInfo
+	47, // 38: fitness.v1.response.RedeemGiftResponse.balance:type_name -> fitness.v1.types.PointsBalance
+	53, // 39: fitness.v1.response.ListMyRedemptionsResponse.redemptions:type_name -> fitness.v1.types.RedemptionInfo
 	0,  // 40: fitness.v1.response.ListMyRedemptionsResponse.page:type_name -> fitness.v1.response.PageInfo
-	46, // 41: fitness.v1.response.CancelRedemptionResponse.redemption:type_name -> fitness.v1.types.RedemptionInfo
-	40, // 42: fitness.v1.response.CancelRedemptionResponse.balance:type_name -> fitness.v1.types.PointsBalance
-	38, // 43: fitness.v1.response.ListFlaggedSessionsResponse.sessions:type_name -> fitness.v1.types.WalkSessionInfo
-	0,  // 44: fitness.v1.response.ListFlaggedSessionsResponse.page:type_name -> fitness.v1.response.PageInfo
-	38, // 45: fitness.v1.response.ReviewSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
-	46, // [46:46] is the sub-list for method output_type
-	46, // [46:46] is the sub-list for method input_type
-	46, // [46:46] is the sub-list for extension type_name
-	46, // [46:46] is the sub-list for extension extendee
-	0,  // [0:46] is the sub-list for field type_name
+	53, // 41: fitness.v1.response.CancelRedemptionResponse.redemption:type_name -> fitness.v1.types.RedemptionInfo
+	47, // 42: fitness.v1.response.CancelRedemptionResponse.balance:type_name -> fitness.v1.types.PointsBalance
+	41, // 43: fitness.v1.response.UpdateCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
+	41, // 44: fitness.v1.response.CancelCompetitionResponse.competition:type_name -> fitness.v1.types.CompetitionInfo
+	43, // 45: fitness.v1.response.CreateChallengeTemplateResponse.template:type_name -> fitness.v1.types.ChallengeTemplateInfo
+	52, // 46: fitness.v1.response.CreateGiftResponse.gift:type_name -> fitness.v1.types.GiftInfo
+	52, // 47: fitness.v1.response.UpdateGiftResponse.gift:type_name -> fitness.v1.types.GiftInfo
+	53, // 48: fitness.v1.response.FulfilRedemptionResponse.redemption:type_name -> fitness.v1.types.RedemptionInfo
+	53, // 49: fitness.v1.response.ListAllRedemptionsResponse.redemptions:type_name -> fitness.v1.types.RedemptionInfo
+	0,  // 50: fitness.v1.response.ListAllRedemptionsResponse.page:type_name -> fitness.v1.response.PageInfo
+	45, // 51: fitness.v1.response.ListFlaggedSessionsResponse.sessions:type_name -> fitness.v1.types.WalkSessionInfo
+	0,  // 52: fitness.v1.response.ListFlaggedSessionsResponse.page:type_name -> fitness.v1.response.PageInfo
+	45, // 53: fitness.v1.response.ReviewSessionResponse.session:type_name -> fitness.v1.types.WalkSessionInfo
+	54, // [54:54] is the sub-list for method output_type
+	54, // [54:54] is the sub-list for method input_type
+	54, // [54:54] is the sub-list for extension type_name
+	54, // [54:54] is the sub-list for extension extendee
+	0,  // [0:54] is the sub-list for field type_name
 }
 
 func init() { file_fitness_v1_response_fitness_response_proto_init() }
@@ -2029,7 +2387,7 @@ func file_fitness_v1_response_fitness_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_fitness_v1_response_fitness_response_proto_rawDesc), len(file_fitness_v1_response_fitness_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   32,
+			NumMessages:   39,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

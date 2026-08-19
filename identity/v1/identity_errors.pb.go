@@ -166,3 +166,57 @@ func IsIdentityPhoneTaken(err error) bool {
 func ErrorIdentityPhoneTaken(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_IDENTITY_PHONE_TAKEN.String(), fmt.Sprintf(format, args...))
 }
+
+func IsIdentityEmailTaken(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_EMAIL_TAKEN.String() && e.Code == 409
+}
+
+func ErrorIdentityEmailTaken(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_IDENTITY_EMAIL_TAKEN.String(), fmt.Sprintf(format, args...))
+}
+
+// Neither phone nor email was supplied on registration.
+func IsIdentityIdentifierRequired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_IDENTIFIER_REQUIRED.String() && e.Code == 400
+}
+
+// Neither phone nor email was supplied on registration.
+func ErrorIdentityIdentifierRequired(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_IDENTITY_IDENTIFIER_REQUIRED.String(), fmt.Sprintf(format, args...))
+}
+
+// Action needs a verified email, e.g. redeeming a gift.
+func IsIdentityEmailNotVerified(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_EMAIL_NOT_VERIFIED.String() && e.Code == 403
+}
+
+// Action needs a verified email, e.g. redeeming a gift.
+func ErrorIdentityEmailNotVerified(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, ErrorReason_IDENTITY_EMAIL_NOT_VERIFIED.String(), fmt.Sprintf(format, args...))
+}
+
+// Admin accounts cannot be self-registered.
+func IsIdentityAdminProvisionForbidden(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IDENTITY_ADMIN_PROVISION_FORBIDDEN.String() && e.Code == 403
+}
+
+// Admin accounts cannot be self-registered.
+func ErrorIdentityAdminProvisionForbidden(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, ErrorReason_IDENTITY_ADMIN_PROVISION_FORBIDDEN.String(), fmt.Sprintf(format, args...))
+}

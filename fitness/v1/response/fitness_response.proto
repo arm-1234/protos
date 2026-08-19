@@ -211,6 +211,41 @@ message CancelRedemptionResponse {
 }
 
 // ---------------------------------------------------------------------------
+// Administration (USER_TYPE_ADMIN only)
+// ---------------------------------------------------------------------------
+
+message UpdateCompetitionResponse {
+  fitness.v1.types.CompetitionInfo competition = 1;
+}
+
+message CancelCompetitionResponse {
+  fitness.v1.types.CompetitionInfo competition = 1;
+}
+
+message CreateChallengeTemplateResponse {
+  fitness.v1.types.ChallengeTemplateInfo template = 1;
+}
+
+message CreateGiftResponse {
+  fitness.v1.types.GiftInfo gift = 1;
+}
+
+message UpdateGiftResponse {
+  fitness.v1.types.GiftInfo gift = 1;
+}
+
+message FulfilRedemptionResponse {
+  fitness.v1.types.RedemptionInfo redemption = 1;
+  // Non-zero when a rejection refunded the user's reserved points.
+  int64 points_refunded = 2;
+}
+
+message ListAllRedemptionsResponse {
+  repeated fitness.v1.types.RedemptionInfo redemptions = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+// ---------------------------------------------------------------------------
 // Moderation
 // ---------------------------------------------------------------------------
 

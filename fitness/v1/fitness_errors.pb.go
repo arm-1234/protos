@@ -47,6 +47,32 @@ func ErrorFitnessForbidden(format string, args ...interface{}) *errors.Error {
 	return errors.New(403, ErrorReason_FITNESS_FORBIDDEN.String(), fmt.Sprintf(format, args...))
 }
 
+// Caller is authenticated but is not a USER_TYPE_ADMIN.
+func IsFitnessAdminRequired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_FITNESS_ADMIN_REQUIRED.String() && e.Code == 403
+}
+
+// Caller is authenticated but is not a USER_TYPE_ADMIN.
+func ErrorFitnessAdminRequired(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, ErrorReason_FITNESS_ADMIN_REQUIRED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsFitnessUnauthenticated(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_FITNESS_UNAUTHENTICATED.String() && e.Code == 401
+}
+
+func ErrorFitnessUnauthenticated(format string, args ...interface{}) *errors.Error {
+	return errors.New(401, ErrorReason_FITNESS_UNAUTHENTICATED.String(), fmt.Sprintf(format, args...))
+}
+
 func IsProfileNotFound(err error) bool {
 	if err == nil {
 		return false
@@ -511,6 +537,32 @@ func IsRedemptionNotCancellable(err error) bool {
 
 func ErrorRedemptionNotCancellable(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_REDEMPTION_NOT_CANCELLABLE.String(), fmt.Sprintf(format, args...))
+}
+
+// Redeeming requires a verified email, so throwaway addresses cannot farm gifts.
+func IsRedemptionEmailNotVerified(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_REDEMPTION_EMAIL_NOT_VERIFIED.String() && e.Code == 403
+}
+
+// Redeeming requires a verified email, so throwaway addresses cannot farm gifts.
+func ErrorRedemptionEmailNotVerified(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, ErrorReason_REDEMPTION_EMAIL_NOT_VERIFIED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsRedemptionNotFulfillable(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_REDEMPTION_NOT_FULFILLABLE.String() && e.Code == 409
+}
+
+func ErrorRedemptionNotFulfillable(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_REDEMPTION_NOT_FULFILLABLE.String(), fmt.Sprintf(format, args...))
 }
 
 func IsLeaderboardNotAvailable(err error) bool {
