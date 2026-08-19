@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package fitness.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
+
+// What a competition ranks users by.
+enum CompetitionMetric {
+  COMPETITION_METRIC_UNSPECIFIED = 0;
+  COMPETITION_METRIC_STEPS = 1;
+  COMPETITION_METRIC_DISTANCE_METERS = 2;
+  COMPETITION_METRIC_ACTIVE_MINUTES = 3;
+}

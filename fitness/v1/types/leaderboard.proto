@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package fitness.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "fitness/v1/types/geo.proto";
+import "fitness/v1/types/enums/leaderboard_period.proto";
+import "fitness/v1/types/enums/competition_scope.proto";
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
+
+message LeaderboardEntry {
+  int64 rank = 1;
+  string user_id = 2;
+  string display_name = 3;
+  string avatar_url = 4;
+  int64 score = 5;
+  fitness.v1.types.Region region = 6;
+  // Movement since the previous refresh: positive means climbing.
+  int64 rank_delta = 7;
+  bool is_me = 8;
+}
+
+// A ranked page plus the caller's own row, so the app can pin "you are 412th"
+// without a second request when the user is off-page.
+message LeaderboardInfo {
+  fitness.v1.types.enums.CompetitionScope scope = 1;
+  fitness.v1.types.Region region = 2;
+  fitness.v1.types.enums.LeaderboardPeriod period = 3;
+  // Bucket identifier in Asia/Kolkata: 2026-W34, 2026-08, or 2026-08-19.
+  string period_key = 4;
+  string competition_id = 5;
+  repeated fitness.v1.types.LeaderboardEntry entries = 6;
+  fitness.v1.types.LeaderboardEntry my_entry = 7;
+  int64 total_participants = 8;
+  google.protobuf.Timestamp refreshed_at = 9;
+}
+
+// Aggregate standing of a whole district or state, for the region-vs-region
+// board that the district and state competitions ladder up to.
+message RegionStanding {
+  int64 rank = 1;
+  fitness.v1.types.Region region = 2;
+  int64 total_score = 3;
+  int64 participant_count = 4;
+  // Total divided by participants, so a small district can still win.
+  int64 average_score = 5;
+}

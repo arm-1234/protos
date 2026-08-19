@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package fitness.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
+
+// Outcome of the server-side anti-cheat evaluation of a walk session.
+//
+// ACCEPTED credits points immediately and irreversibly. FLAGGED also credits,
+// but the ledger entry stays reversible for a review window and the session
+// lands in the moderation queue, so a false positive never costs an honest
+// user their points. REJECTED credits nothing.
+enum AntiCheatStatus {
+  ANTI_CHEAT_STATUS_UNSPECIFIED = 0;
+  ANTI_CHEAT_STATUS_ACCEPTED = 1;
+  ANTI_CHEAT_STATUS_FLAGGED = 2;
+  ANTI_CHEAT_STATUS_REJECTED = 3;
+  // Not enough samples to judge yet; session is still open.
+  ANTI_CHEAT_STATUS_PENDING = 4;
+}

@@ -1,0 +1,279 @@
+syntax = "proto3";
+
+package fitness.v1.request;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+import "fitness/v1/types/geo.proto";
+import "fitness/v1/types/walk_session.proto";
+import "fitness/v1/types/anti_cheat.proto";
+import "fitness/v1/types/enums/competition_scope.proto";
+import "fitness/v1/types/enums/competition_status.proto";
+import "fitness/v1/types/enums/competition_metric.proto";
+import "fitness/v1/types/enums/challenge_status.proto";
+import "fitness/v1/types/enums/leaderboard_period.proto";
+import "fitness/v1/types/enums/redemption_status.proto";
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/request;request";
+
+// ---------------------------------------------------------------------------
+// Profile
+// ---------------------------------------------------------------------------
+
+// The caller is taken from the auth token, never from the body, so one user can
+// never write another's profile.
+message GetMyProfileRequest {}
+
+message UpsertMyProfileRequest {
+  string display_name = 1 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+  string avatar_url = 2;
+  string state_code = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  string district_code = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  int32 height_cm = 5 [(validate.rules).int32 = {ignore_empty: true, gte: 60, lte: 260}];
+  int32 weight_kg = 6 [(validate.rules).int32 = {ignore_empty: true, gte: 20, lte: 350}];
+  int32 birth_year = 7 [(validate.rules).int32 = {ignore_empty: true, gte: 1900, lte: 2025}];
+  string gender = 8 [(validate.rules).string = {ignore_empty: true, max_len: 16}];
+}
+
+message ListRegionsRequest {
+  // Empty returns states; set it to list that state's districts.
+  string state_code = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Competitions
+// ---------------------------------------------------------------------------
+
+message ListCompetitionsRequest {
+  fitness.v1.types.enums.CompetitionScope scope = 1;
+  string state_code = 2;
+  string district_code = 3;
+  fitness.v1.types.enums.CompetitionStatus status = 4;
+  // Restrict to competitions the caller is eligible for by home region.
+  bool eligible_only = 5;
+  bool joined_only = 6;
+  int64 page_number = 7;
+  int64 page_size = 8 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message GetCompetitionRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message JoinCompetitionRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message LeaveCompetitionRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message CreateCompetitionRequest {
+  string title = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 3
+  ];
+  string description = 2;
+  string banner_url = 3;
+  fitness.v1.types.enums.CompetitionScope scope = 4 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  string state_code = 5;
+  string district_code = 6;
+  fitness.v1.types.enums.CompetitionMetric metric = 7 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  google.protobuf.Timestamp starts_at = 8 [(google.api.field_behavior) = REQUIRED];
+  google.protobuf.Timestamp ends_at = 9 [(google.api.field_behavior) = REQUIRED];
+  int32 daily_challenge_limit = 10 [(validate.rules).int32 = {gte: 1, lte: 50}];
+  int64 daily_step_cap = 11 [(validate.rules).int64.gte = 0];
+  int32 challenge_cooldown_seconds = 12 [(validate.rules).int32.gte = 0];
+  int64 points_per_unit = 13 [(validate.rules).int64.gte = 0];
+  int64 points_per_unit_divisor = 14 [(validate.rules).int64.gte = 1];
+  int64 daily_points_cap = 15 [(validate.rules).int64.gte = 0];
+  bool enforce_geofence = 16;
+  double max_speed_mps = 17 [(validate.rules).double = {ignore_empty: true, gt: 0, lte: 20}];
+}
+
+// ---------------------------------------------------------------------------
+// Challenges
+// ---------------------------------------------------------------------------
+
+message ListChallengeTemplatesRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetDailyQuotaRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message StartChallengeRequest {
+  string competition_id = 1 [(validate.rules).string.min_len = 1];
+  string template_id = 2 [(validate.rules).string.min_len = 1];
+  // Client-generated key making a retried start idempotent, so a flaky network
+  // cannot burn two of the day's attempts.
+  string idempotency_key = 3 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+}
+
+message ListMyChallengesRequest {
+  string competition_id = 1;
+  fitness.v1.types.enums.ChallengeStatus status = 2;
+  int64 page_number = 3;
+  int64 page_size = 4 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message AbandonChallengeRequest {
+  string challenge_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+// ---------------------------------------------------------------------------
+// Walk sessions
+// ---------------------------------------------------------------------------
+
+message StartWalkSessionRequest {
+  string challenge_id = 1 [(validate.rules).string.min_len = 1];
+  fitness.v1.types.DeviceIntegrity device = 2 [(google.api.field_behavior) = REQUIRED];
+  fitness.v1.types.GeoPoint start_point = 3;
+  string idempotency_key = 4 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+}
+
+// Sent every 30-60s while walking. Batches are ordered by sequence and the
+// server rejects gaps or replays rather than silently accepting them.
+message SubmitWalkSamplesRequest {
+  string session_id = 1 [(validate.rules).string.min_len = 1];
+  repeated fitness.v1.types.WalkSample samples = 2 [(validate.rules).repeated = {min_items: 1, max_items: 500}];
+  // Batch ordinal, so a duplicate delivery is detectable server-side.
+  int64 batch_sequence = 3 [(validate.rules).int64.gte = 0];
+  google.protobuf.Timestamp device_time = 4;
+}
+
+message EndWalkSessionRequest {
+  string session_id = 1 [(validate.rules).string.min_len = 1];
+  // Any samples not yet flushed. Totals still come from the server's own sum.
+  repeated fitness.v1.types.WalkSample samples = 2 [(validate.rules).repeated = {max_items: 500}];
+  fitness.v1.types.GeoPoint end_point = 3;
+  google.protobuf.Timestamp device_time = 4;
+}
+
+message GetWalkSessionRequest {
+  string session_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message ListMyWalkSessionsRequest {
+  string competition_id = 1;
+  string challenge_id = 2;
+  google.protobuf.Timestamp from = 3;
+  google.protobuf.Timestamp to = 4;
+  int64 page_number = 5;
+  int64 page_size = 6 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message GetMyStatsRequest {
+  // Inclusive day range in Asia/Kolkata, YYYY-MM-DD. Defaults to last 7 days.
+  string from_date = 1;
+  string to_date = 2;
+}
+
+// ---------------------------------------------------------------------------
+// Leaderboards
+// ---------------------------------------------------------------------------
+
+message GetLeaderboardRequest {
+  // Either a competition board, or a standalone geographic board when
+  // competition_id is empty.
+  string competition_id = 1;
+  fitness.v1.types.enums.CompetitionScope scope = 2;
+  string state_code = 3;
+  string district_code = 4;
+  fitness.v1.types.enums.LeaderboardPeriod period = 5 [(validate.rules).enum = {defined_only: true}];
+  // Explicit bucket, e.g. 2026-W34. Empty means the current one.
+  string period_key = 6;
+  int64 page_number = 7;
+  int64 page_size = 8 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+  // Include the caller's own row even when it falls outside the page.
+  bool include_me = 9;
+}
+
+message GetRegionStandingsRequest {
+  // DISTRICT ranks districts, STATE ranks states.
+  fitness.v1.types.enums.CompetitionScope scope = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
+  // Narrows district standings to one state.
+  string state_code = 2;
+  fitness.v1.types.enums.LeaderboardPeriod period = 3;
+  string period_key = 4;
+  // Rank by average per participant instead of raw total.
+  bool by_average = 5;
+  int64 page_number = 6;
+  int64 page_size = 7 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+// ---------------------------------------------------------------------------
+// Points and gifts
+// ---------------------------------------------------------------------------
+
+message GetMyPointsBalanceRequest {}
+
+message ListMyPointsLedgerRequest {
+  google.protobuf.Timestamp from = 1;
+  google.protobuf.Timestamp to = 2;
+  int64 page_number = 3;
+  int64 page_size = 4 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message ListGiftsRequest {
+  string category = 1;
+  // Only gifts the caller can currently afford.
+  bool affordable_only = 2;
+  int64 page_number = 3;
+  int64 page_size = 4 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message GetGiftRequest {
+  string gift_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message RedeemGiftRequest {
+  string gift_id = 1 [(validate.rules).string.min_len = 1];
+  // Required: without it a double-tap can spend points twice.
+  string idempotency_key = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 8
+  ];
+  string delivery_note = 3 [(validate.rules).string = {ignore_empty: true, max_len: 512}];
+}
+
+message ListMyRedemptionsRequest {
+  fitness.v1.types.enums.RedemptionStatus status = 1;
+  int64 page_number = 2;
+  int64 page_size = 3 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message CancelRedemptionRequest {
+  string redemption_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+// ---------------------------------------------------------------------------
+// Moderation
+// ---------------------------------------------------------------------------
+
+message ListFlaggedSessionsRequest {
+  string competition_id = 1;
+  string user_id = 2;
+  bool unreviewed_only = 3;
+  int64 page_number = 4;
+  int64 page_size = 5 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+// Confirming fraud writes a reversing ledger entry rather than editing the
+// original credit, keeping the audit trail intact.
+message ReviewSessionRequest {
+  string session_id = 1 [(validate.rules).string.min_len = 1];
+  // True upholds the session and makes its points final.
+  bool approve = 2;
+  string note = 3 [(validate.rules).string = {ignore_empty: true, max_len: 512}];
+  // Suspend the user from earning, for repeat offenders.
+  bool suspend_user = 4;
+}

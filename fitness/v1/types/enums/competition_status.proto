@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package fitness.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
+
+enum CompetitionStatus {
+  COMPETITION_STATUS_UNSPECIFIED = 0;
+  COMPETITION_STATUS_UPCOMING = 1;
+  COMPETITION_STATUS_ACTIVE = 2;
+  COMPETITION_STATUS_ENDED = 3;
+  COMPETITION_STATUS_CANCELLED = 4;
+}
