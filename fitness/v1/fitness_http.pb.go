@@ -26,6 +26,7 @@ const OperationFitnessCancelCompetition = "/fitness.v1.Fitness/CancelCompetition
 const OperationFitnessCancelRedemption = "/fitness.v1.Fitness/CancelRedemption"
 const OperationFitnessCreateChallengeTemplate = "/fitness.v1.Fitness/CreateChallengeTemplate"
 const OperationFitnessCreateCompetition = "/fitness.v1.Fitness/CreateCompetition"
+const OperationFitnessCreateCompetitionImageUpload = "/fitness.v1.Fitness/CreateCompetitionImageUpload"
 const OperationFitnessCreateGift = "/fitness.v1.Fitness/CreateGift"
 const OperationFitnessEndWalkSession = "/fitness.v1.Fitness/EndWalkSession"
 const OperationFitnessFulfilRedemption = "/fitness.v1.Fitness/FulfilRedemption"
@@ -67,6 +68,7 @@ type FitnessHTTPServer interface {
 	CreateChallengeTemplate(context.Context, *request.CreateChallengeTemplateRequest) (*response.CreateChallengeTemplateResponse, error)
 	// CreateCompetition Admin only: requires a USER_TYPE_ADMIN token. Walkers get FITNESS_ADMIN_REQUIRED.
 	CreateCompetition(context.Context, *request.CreateCompetitionRequest) (*response.CreateCompetitionResponse, error)
+	CreateCompetitionImageUpload(context.Context, *request.CreateCompetitionImageUploadRequest) (*response.CreateCompetitionImageUploadResponse, error)
 	CreateGift(context.Context, *request.CreateGiftRequest) (*response.CreateGiftResponse, error)
 	// EndWalkSession Finalizes the session, runs the full anti-cheat pass and credits points.
 	EndWalkSession(context.Context, *request.EndWalkSessionRequest) (*response.EndWalkSessionResponse, error)
@@ -148,6 +150,7 @@ func RegisterFitnessHTTPServer(s *http.Server, srv FitnessHTTPServer) {
 	r.PATCH("/v1/fitness/admin/competitions/{competition_id}", _Fitness_UpdateCompetition0_HTTP_Handler(srv))
 	r.POST("/v1/fitness/admin/competitions/{competition_id}:cancel", _Fitness_CancelCompetition0_HTTP_Handler(srv))
 	r.POST("/v1/fitness/admin/competitions/{competition_id}/challenge-templates", _Fitness_CreateChallengeTemplate0_HTTP_Handler(srv))
+	r.POST("/v1/fitness/admin/competitions/image-uploads", _Fitness_CreateCompetitionImageUpload0_HTTP_Handler(srv))
 	r.POST("/v1/fitness/admin/gifts", _Fitness_CreateGift0_HTTP_Handler(srv))
 	r.PATCH("/v1/fitness/admin/gifts/{gift_id}", _Fitness_UpdateGift0_HTTP_Handler(srv))
 	r.POST("/v1/fitness/admin/redemptions/{redemption_id}:fulfil", _Fitness_FulfilRedemption0_HTTP_Handler(srv))
@@ -832,6 +835,28 @@ func _Fitness_CreateChallengeTemplate0_HTTP_Handler(srv FitnessHTTPServer) func(
 	}
 }
 
+func _Fitness_CreateCompetitionImageUpload0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.CreateCompetitionImageUploadRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationFitnessCreateCompetitionImageUpload)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateCompetitionImageUpload(ctx, req.(*request.CreateCompetitionImageUploadRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.CreateCompetitionImageUploadResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Fitness_CreateGift0_HTTP_Handler(srv FitnessHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.CreateGiftRequest
@@ -975,6 +1000,7 @@ type FitnessHTTPClient interface {
 	CreateChallengeTemplate(ctx context.Context, req *request.CreateChallengeTemplateRequest, opts ...http.CallOption) (rsp *response.CreateChallengeTemplateResponse, err error)
 	// CreateCompetition Admin only: requires a USER_TYPE_ADMIN token. Walkers get FITNESS_ADMIN_REQUIRED.
 	CreateCompetition(ctx context.Context, req *request.CreateCompetitionRequest, opts ...http.CallOption) (rsp *response.CreateCompetitionResponse, err error)
+	CreateCompetitionImageUpload(ctx context.Context, req *request.CreateCompetitionImageUploadRequest, opts ...http.CallOption) (rsp *response.CreateCompetitionImageUploadResponse, err error)
 	CreateGift(ctx context.Context, req *request.CreateGiftRequest, opts ...http.CallOption) (rsp *response.CreateGiftResponse, err error)
 	// EndWalkSession Finalizes the session, runs the full anti-cheat pass and credits points.
 	EndWalkSession(ctx context.Context, req *request.EndWalkSessionRequest, opts ...http.CallOption) (rsp *response.EndWalkSessionResponse, err error)
@@ -1090,6 +1116,19 @@ func (c *FitnessHTTPClientImpl) CreateCompetition(ctx context.Context, in *reque
 	pattern := "/v1/fitness/competitions"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationFitnessCreateCompetition))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *FitnessHTTPClientImpl) CreateCompetitionImageUpload(ctx context.Context, in *request.CreateCompetitionImageUploadRequest, opts ...http.CallOption) (*response.CreateCompetitionImageUploadResponse, error) {
+	var out response.CreateCompetitionImageUploadResponse
+	pattern := "/v1/fitness/admin/competitions/image-uploads"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationFitnessCreateCompetitionImageUpload))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

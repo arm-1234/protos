@@ -151,6 +151,76 @@ func (x *CompetitionRules) GetMaxSessionDurationSeconds() int32 {
 	return 0
 }
 
+// Ordered gallery image. position drives display order so images can be
+// reordered without touching URLs.
+type CompetitionImage struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ImageId       string                 `protobuf:"bytes,1,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Caption       string                 `protobuf:"bytes,3,opt,name=caption,proto3" json:"caption,omitempty"`
+	Position      int32                  `protobuf:"varint,4,opt,name=position,proto3" json:"position,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CompetitionImage) Reset() {
+	*x = CompetitionImage{}
+	mi := &file_fitness_v1_types_competition_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompetitionImage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompetitionImage) ProtoMessage() {}
+
+func (x *CompetitionImage) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_types_competition_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompetitionImage.ProtoReflect.Descriptor instead.
+func (*CompetitionImage) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_types_competition_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CompetitionImage) GetImageId() string {
+	if x != nil {
+		return x.ImageId
+	}
+	return ""
+}
+
+func (x *CompetitionImage) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+func (x *CompetitionImage) GetCaption() string {
+	if x != nil {
+		return x.Caption
+	}
+	return ""
+}
+
+func (x *CompetitionImage) GetPosition() int32 {
+	if x != nil {
+		return x.Position
+	}
+	return 0
+}
+
 type CompetitionInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CompetitionId string                 `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
@@ -168,18 +238,20 @@ type CompetitionInfo struct {
 	Rules            *CompetitionRules       `protobuf:"bytes,11,opt,name=rules,proto3" json:"rules,omitempty"`
 	ParticipantCount int64                   `protobuf:"varint,12,opt,name=participant_count,json=participantCount,proto3" json:"participant_count,omitempty"`
 	// Set when the caller has joined, describing their own standing.
-	IsJoined      bool                   `protobuf:"varint,13,opt,name=is_joined,json=isJoined,proto3" json:"is_joined,omitempty"`
-	MyScore       int64                  `protobuf:"varint,14,opt,name=my_score,json=myScore,proto3" json:"my_score,omitempty"`
-	MyRank        int64                  `protobuf:"varint,15,opt,name=my_rank,json=myRank,proto3" json:"my_rank,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	IsJoined  bool                   `protobuf:"varint,13,opt,name=is_joined,json=isJoined,proto3" json:"is_joined,omitempty"`
+	MyScore   int64                  `protobuf:"varint,14,opt,name=my_score,json=myScore,proto3" json:"my_score,omitempty"`
+	MyRank    int64                  `protobuf:"varint,15,opt,name=my_rank,json=myRank,proto3" json:"my_rank,omitempty"`
+	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// banner_url stays the single hero image; these are the gallery.
+	Images        []*CompetitionImage `protobuf:"bytes,18,rep,name=images,proto3" json:"images,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CompetitionInfo) Reset() {
 	*x = CompetitionInfo{}
-	mi := &file_fitness_v1_types_competition_proto_msgTypes[1]
+	mi := &file_fitness_v1_types_competition_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +263,7 @@ func (x *CompetitionInfo) String() string {
 func (*CompetitionInfo) ProtoMessage() {}
 
 func (x *CompetitionInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_types_competition_proto_msgTypes[1]
+	mi := &file_fitness_v1_types_competition_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +276,7 @@ func (x *CompetitionInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CompetitionInfo.ProtoReflect.Descriptor instead.
 func (*CompetitionInfo) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_types_competition_proto_rawDescGZIP(), []int{1}
+	return file_fitness_v1_types_competition_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CompetitionInfo) GetCompetitionId() string {
@@ -326,6 +398,13 @@ func (x *CompetitionInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *CompetitionInfo) GetImages() []*CompetitionImage {
+	if x != nil {
+		return x.Images
+	}
+	return nil
+}
+
 var File_fitness_v1_types_competition_proto protoreflect.FileDescriptor
 
 const file_fitness_v1_types_competition_proto_rawDesc = "" +
@@ -342,7 +421,12 @@ const file_fitness_v1_types_competition_proto_rawDesc = "" +
 	"\rmax_speed_mps\x18\b \x01(\x01R\vmaxSpeedMps\x12?\n" +
 	"\x1cmin_session_duration_seconds\x18\t \x01(\x05R\x19minSessionDurationSeconds\x12?\n" +
 	"\x1cmax_session_duration_seconds\x18\n" +
-	" \x01(\x05R\x19maxSessionDurationSeconds\"\xa3\x06\n" +
+	" \x01(\x05R\x19maxSessionDurationSeconds\"\x80\x01\n" +
+	"\x10CompetitionImage\x12\x19\n" +
+	"\bimage_id\x18\x01 \x01(\tR\aimageId\x12\x1b\n" +
+	"\timage_url\x18\x02 \x01(\tR\bimageUrl\x12\x18\n" +
+	"\acaption\x18\x03 \x01(\tR\acaption\x12\x1a\n" +
+	"\bposition\x18\x04 \x01(\x05R\bposition\"\xdf\x06\n" +
 	"\x0fCompetitionInfo\x12%\n" +
 	"\x0ecompetition_id\x18\x01 \x01(\tR\rcompetitionId\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
@@ -364,7 +448,8 @@ const file_fitness_v1_types_competition_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x10 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB3Z1github.com/arm-1234/protos/fitness/v1/types;typesb\x06proto3"
+	"updated_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12:\n" +
+	"\x06images\x18\x12 \x03(\v2\".fitness.v1.types.CompetitionImageR\x06imagesB3Z1github.com/arm-1234/protos/fitness/v1/types;typesb\x06proto3"
 
 var (
 	file_fitness_v1_types_competition_proto_rawDescOnce sync.Once
@@ -378,31 +463,33 @@ func file_fitness_v1_types_competition_proto_rawDescGZIP() []byte {
 	return file_fitness_v1_types_competition_proto_rawDescData
 }
 
-var file_fitness_v1_types_competition_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_fitness_v1_types_competition_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_fitness_v1_types_competition_proto_goTypes = []any{
 	(*CompetitionRules)(nil),      // 0: fitness.v1.types.CompetitionRules
-	(*CompetitionInfo)(nil),       // 1: fitness.v1.types.CompetitionInfo
-	(enums.CompetitionScope)(0),   // 2: fitness.v1.types.enums.CompetitionScope
-	(*Region)(nil),                // 3: fitness.v1.types.Region
-	(enums.CompetitionMetric)(0),  // 4: fitness.v1.types.enums.CompetitionMetric
-	(enums.CompetitionStatus)(0),  // 5: fitness.v1.types.enums.CompetitionStatus
-	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(*CompetitionImage)(nil),      // 1: fitness.v1.types.CompetitionImage
+	(*CompetitionInfo)(nil),       // 2: fitness.v1.types.CompetitionInfo
+	(enums.CompetitionScope)(0),   // 3: fitness.v1.types.enums.CompetitionScope
+	(*Region)(nil),                // 4: fitness.v1.types.Region
+	(enums.CompetitionMetric)(0),  // 5: fitness.v1.types.enums.CompetitionMetric
+	(enums.CompetitionStatus)(0),  // 6: fitness.v1.types.enums.CompetitionStatus
+	(*timestamppb.Timestamp)(nil), // 7: google.protobuf.Timestamp
 }
 var file_fitness_v1_types_competition_proto_depIdxs = []int32{
-	2, // 0: fitness.v1.types.CompetitionInfo.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	3, // 1: fitness.v1.types.CompetitionInfo.region:type_name -> fitness.v1.types.Region
-	4, // 2: fitness.v1.types.CompetitionInfo.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
-	5, // 3: fitness.v1.types.CompetitionInfo.status:type_name -> fitness.v1.types.enums.CompetitionStatus
-	6, // 4: fitness.v1.types.CompetitionInfo.starts_at:type_name -> google.protobuf.Timestamp
-	6, // 5: fitness.v1.types.CompetitionInfo.ends_at:type_name -> google.protobuf.Timestamp
-	0, // 6: fitness.v1.types.CompetitionInfo.rules:type_name -> fitness.v1.types.CompetitionRules
-	6, // 7: fitness.v1.types.CompetitionInfo.created_at:type_name -> google.protobuf.Timestamp
-	6, // 8: fitness.v1.types.CompetitionInfo.updated_at:type_name -> google.protobuf.Timestamp
-	9, // [9:9] is the sub-list for method output_type
-	9, // [9:9] is the sub-list for method input_type
-	9, // [9:9] is the sub-list for extension type_name
-	9, // [9:9] is the sub-list for extension extendee
-	0, // [0:9] is the sub-list for field type_name
+	3,  // 0: fitness.v1.types.CompetitionInfo.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	4,  // 1: fitness.v1.types.CompetitionInfo.region:type_name -> fitness.v1.types.Region
+	5,  // 2: fitness.v1.types.CompetitionInfo.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
+	6,  // 3: fitness.v1.types.CompetitionInfo.status:type_name -> fitness.v1.types.enums.CompetitionStatus
+	7,  // 4: fitness.v1.types.CompetitionInfo.starts_at:type_name -> google.protobuf.Timestamp
+	7,  // 5: fitness.v1.types.CompetitionInfo.ends_at:type_name -> google.protobuf.Timestamp
+	0,  // 6: fitness.v1.types.CompetitionInfo.rules:type_name -> fitness.v1.types.CompetitionRules
+	7,  // 7: fitness.v1.types.CompetitionInfo.created_at:type_name -> google.protobuf.Timestamp
+	7,  // 8: fitness.v1.types.CompetitionInfo.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 9: fitness.v1.types.CompetitionInfo.images:type_name -> fitness.v1.types.CompetitionImage
+	10, // [10:10] is the sub-list for method output_type
+	10, // [10:10] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_fitness_v1_types_competition_proto_init() }
@@ -417,7 +504,7 @@ func file_fitness_v1_types_competition_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_fitness_v1_types_competition_proto_rawDesc), len(file_fitness_v1_types_competition_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

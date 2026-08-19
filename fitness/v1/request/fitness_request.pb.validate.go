@@ -1142,6 +1142,51 @@ func (m *CreateCompetitionRequest) validate(all bool) error {
 
 	}
 
+	if len(m.GetImages()) > 10 {
+		err := CreateCompetitionRequestValidationError{
+			field:  "Images",
+			reason: "value must contain no more than 10 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetImages() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateCompetitionRequestValidationError{
+						field:  fmt.Sprintf("Images[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateCompetitionRequestValidationError{
+						field:  fmt.Sprintf("Images[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateCompetitionRequestValidationError{
+					field:  fmt.Sprintf("Images[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return CreateCompetitionRequestMultiError(errors)
 	}
@@ -1229,6 +1274,145 @@ var _CreateCompetitionRequest_Scope_NotInLookup = map[enums.CompetitionScope]str
 var _CreateCompetitionRequest_Metric_NotInLookup = map[enums.CompetitionMetric]struct{}{
 	0: {},
 }
+
+// Validate checks the field values on CompetitionImageInput with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CompetitionImageInput) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CompetitionImageInput with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CompetitionImageInputMultiError, or nil if none found.
+func (m *CompetitionImageInput) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CompetitionImageInput) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetImageUrl()) < 1 {
+		err := CompetitionImageInputValidationError{
+			field:  "ImageUrl",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetCaption() != "" {
+
+		if utf8.RuneCountInString(m.GetCaption()) > 200 {
+			err := CompetitionImageInputValidationError{
+				field:  "Caption",
+				reason: "value length must be at most 200 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetPosition() < 0 {
+		err := CompetitionImageInputValidationError{
+			field:  "Position",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CompetitionImageInputMultiError(errors)
+	}
+
+	return nil
+}
+
+// CompetitionImageInputMultiError is an error wrapping multiple validation
+// errors returned by CompetitionImageInput.ValidateAll() if the designated
+// constraints aren't met.
+type CompetitionImageInputMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CompetitionImageInputMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CompetitionImageInputMultiError) AllErrors() []error { return m }
+
+// CompetitionImageInputValidationError is the validation error returned by
+// CompetitionImageInput.Validate if the designated constraints aren't met.
+type CompetitionImageInputValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CompetitionImageInputValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CompetitionImageInputValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CompetitionImageInputValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CompetitionImageInputValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CompetitionImageInputValidationError) ErrorName() string {
+	return "CompetitionImageInputValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CompetitionImageInputValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCompetitionImageInput.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CompetitionImageInputValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CompetitionImageInputValidationError{}
 
 // Validate checks the field values on ListChallengeTemplatesRequest with the
 // rules defined in the proto definition for this message. If any rules are
@@ -4044,6 +4228,53 @@ func (m *UpdateCompetitionRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if len(m.GetImages()) > 10 {
+		err := UpdateCompetitionRequestValidationError{
+			field:  "Images",
+			reason: "value must contain no more than 10 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetImages() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateCompetitionRequestValidationError{
+						field:  fmt.Sprintf("Images[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateCompetitionRequestValidationError{
+						field:  fmt.Sprintf("Images[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateCompetitionRequestValidationError{
+					field:  fmt.Sprintf("Images[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for ReplaceImages
+
 	if m.Title != nil {
 
 		if m.GetTitle() != "" {
@@ -5200,6 +5431,139 @@ var _ interface {
 
 var _FulfilRedemptionRequest_Status_NotInLookup = map[enums.RedemptionStatus]struct{}{
 	0: {},
+}
+
+// Validate checks the field values on CreateCompetitionImageUploadRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CreateCompetitionImageUploadRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateCompetitionImageUploadRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CreateCompetitionImageUploadRequestMultiError, or nil if none found.
+func (m *CreateCompetitionImageUploadRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateCompetitionImageUploadRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if _, ok := _CreateCompetitionImageUploadRequest_ContentType_InLookup[m.GetContentType()]; !ok {
+		err := CreateCompetitionImageUploadRequestValidationError{
+			field:  "ContentType",
+			reason: "value must be in list [image/jpeg image/png image/webp]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if val := m.GetContentLength(); val <= 0 || val > 10485760 {
+		err := CreateCompetitionImageUploadRequestValidationError{
+			field:  "ContentLength",
+			reason: "value must be inside range (0, 10485760]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CreateCompetitionImageUploadRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateCompetitionImageUploadRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// CreateCompetitionImageUploadRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CreateCompetitionImageUploadRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateCompetitionImageUploadRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateCompetitionImageUploadRequestMultiError) AllErrors() []error { return m }
+
+// CreateCompetitionImageUploadRequestValidationError is the validation error
+// returned by CreateCompetitionImageUploadRequest.Validate if the designated
+// constraints aren't met.
+type CreateCompetitionImageUploadRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCompetitionImageUploadRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCompetitionImageUploadRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCompetitionImageUploadRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCompetitionImageUploadRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCompetitionImageUploadRequestValidationError) ErrorName() string {
+	return "CreateCompetitionImageUploadRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCompetitionImageUploadRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCompetitionImageUploadRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCompetitionImageUploadRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCompetitionImageUploadRequestValidationError{}
+
+var _CreateCompetitionImageUploadRequest_ContentType_InLookup = map[string]struct{}{
+	"image/jpeg": {},
+	"image/png":  {},
+	"image/webp": {},
 }
 
 // Validate checks the field values on ListAllRedemptionsRequest with the rules

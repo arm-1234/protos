@@ -258,6 +258,13 @@ service Fitness {
     };
   }
 
+  rpc CreateCompetitionImageUpload (fitness.v1.request.CreateCompetitionImageUploadRequest) returns (fitness.v1.response.CreateCompetitionImageUploadResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/admin/competitions/image-uploads"
+      body: "*"
+    };
+  }
+
   rpc CreateGift (fitness.v1.request.CreateGiftRequest) returns (fitness.v1.response.CreateGiftResponse) {
     option (google.api.http) = {
       post: "/v1/fitness/admin/gifts"
@@ -364,4 +371,7 @@ enum ErrorReason {
   REDEMPTION_NOT_FULFILLABLE = 68 [(errors.code) = 409];
 
   LEADERBOARD_NOT_AVAILABLE = 70 [(errors.code) = 503];
+
+  IMAGE_UPLOAD_UNAVAILABLE = 80 [(errors.code) = 503];
+  IMAGE_TYPE_UNSUPPORTED = 81 [(errors.code) = 400];
 }

@@ -21,43 +21,44 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Fitness_GetMyProfile_FullMethodName            = "/fitness.v1.Fitness/GetMyProfile"
-	Fitness_UpsertMyProfile_FullMethodName         = "/fitness.v1.Fitness/UpsertMyProfile"
-	Fitness_ListRegions_FullMethodName             = "/fitness.v1.Fitness/ListRegions"
-	Fitness_ListCompetitions_FullMethodName        = "/fitness.v1.Fitness/ListCompetitions"
-	Fitness_GetCompetition_FullMethodName          = "/fitness.v1.Fitness/GetCompetition"
-	Fitness_JoinCompetition_FullMethodName         = "/fitness.v1.Fitness/JoinCompetition"
-	Fitness_LeaveCompetition_FullMethodName        = "/fitness.v1.Fitness/LeaveCompetition"
-	Fitness_CreateCompetition_FullMethodName       = "/fitness.v1.Fitness/CreateCompetition"
-	Fitness_ListChallengeTemplates_FullMethodName  = "/fitness.v1.Fitness/ListChallengeTemplates"
-	Fitness_GetDailyQuota_FullMethodName           = "/fitness.v1.Fitness/GetDailyQuota"
-	Fitness_StartChallenge_FullMethodName          = "/fitness.v1.Fitness/StartChallenge"
-	Fitness_ListMyChallenges_FullMethodName        = "/fitness.v1.Fitness/ListMyChallenges"
-	Fitness_AbandonChallenge_FullMethodName        = "/fitness.v1.Fitness/AbandonChallenge"
-	Fitness_StartWalkSession_FullMethodName        = "/fitness.v1.Fitness/StartWalkSession"
-	Fitness_SubmitWalkSamples_FullMethodName       = "/fitness.v1.Fitness/SubmitWalkSamples"
-	Fitness_EndWalkSession_FullMethodName          = "/fitness.v1.Fitness/EndWalkSession"
-	Fitness_GetWalkSession_FullMethodName          = "/fitness.v1.Fitness/GetWalkSession"
-	Fitness_ListMyWalkSessions_FullMethodName      = "/fitness.v1.Fitness/ListMyWalkSessions"
-	Fitness_GetMyStats_FullMethodName              = "/fitness.v1.Fitness/GetMyStats"
-	Fitness_GetLeaderboard_FullMethodName          = "/fitness.v1.Fitness/GetLeaderboard"
-	Fitness_GetRegionStandings_FullMethodName      = "/fitness.v1.Fitness/GetRegionStandings"
-	Fitness_GetMyPointsBalance_FullMethodName      = "/fitness.v1.Fitness/GetMyPointsBalance"
-	Fitness_ListMyPointsLedger_FullMethodName      = "/fitness.v1.Fitness/ListMyPointsLedger"
-	Fitness_ListGifts_FullMethodName               = "/fitness.v1.Fitness/ListGifts"
-	Fitness_GetGift_FullMethodName                 = "/fitness.v1.Fitness/GetGift"
-	Fitness_RedeemGift_FullMethodName              = "/fitness.v1.Fitness/RedeemGift"
-	Fitness_ListMyRedemptions_FullMethodName       = "/fitness.v1.Fitness/ListMyRedemptions"
-	Fitness_CancelRedemption_FullMethodName        = "/fitness.v1.Fitness/CancelRedemption"
-	Fitness_UpdateCompetition_FullMethodName       = "/fitness.v1.Fitness/UpdateCompetition"
-	Fitness_CancelCompetition_FullMethodName       = "/fitness.v1.Fitness/CancelCompetition"
-	Fitness_CreateChallengeTemplate_FullMethodName = "/fitness.v1.Fitness/CreateChallengeTemplate"
-	Fitness_CreateGift_FullMethodName              = "/fitness.v1.Fitness/CreateGift"
-	Fitness_UpdateGift_FullMethodName              = "/fitness.v1.Fitness/UpdateGift"
-	Fitness_FulfilRedemption_FullMethodName        = "/fitness.v1.Fitness/FulfilRedemption"
-	Fitness_ListAllRedemptions_FullMethodName      = "/fitness.v1.Fitness/ListAllRedemptions"
-	Fitness_ListFlaggedSessions_FullMethodName     = "/fitness.v1.Fitness/ListFlaggedSessions"
-	Fitness_ReviewSession_FullMethodName           = "/fitness.v1.Fitness/ReviewSession"
+	Fitness_GetMyProfile_FullMethodName                 = "/fitness.v1.Fitness/GetMyProfile"
+	Fitness_UpsertMyProfile_FullMethodName              = "/fitness.v1.Fitness/UpsertMyProfile"
+	Fitness_ListRegions_FullMethodName                  = "/fitness.v1.Fitness/ListRegions"
+	Fitness_ListCompetitions_FullMethodName             = "/fitness.v1.Fitness/ListCompetitions"
+	Fitness_GetCompetition_FullMethodName               = "/fitness.v1.Fitness/GetCompetition"
+	Fitness_JoinCompetition_FullMethodName              = "/fitness.v1.Fitness/JoinCompetition"
+	Fitness_LeaveCompetition_FullMethodName             = "/fitness.v1.Fitness/LeaveCompetition"
+	Fitness_CreateCompetition_FullMethodName            = "/fitness.v1.Fitness/CreateCompetition"
+	Fitness_ListChallengeTemplates_FullMethodName       = "/fitness.v1.Fitness/ListChallengeTemplates"
+	Fitness_GetDailyQuota_FullMethodName                = "/fitness.v1.Fitness/GetDailyQuota"
+	Fitness_StartChallenge_FullMethodName               = "/fitness.v1.Fitness/StartChallenge"
+	Fitness_ListMyChallenges_FullMethodName             = "/fitness.v1.Fitness/ListMyChallenges"
+	Fitness_AbandonChallenge_FullMethodName             = "/fitness.v1.Fitness/AbandonChallenge"
+	Fitness_StartWalkSession_FullMethodName             = "/fitness.v1.Fitness/StartWalkSession"
+	Fitness_SubmitWalkSamples_FullMethodName            = "/fitness.v1.Fitness/SubmitWalkSamples"
+	Fitness_EndWalkSession_FullMethodName               = "/fitness.v1.Fitness/EndWalkSession"
+	Fitness_GetWalkSession_FullMethodName               = "/fitness.v1.Fitness/GetWalkSession"
+	Fitness_ListMyWalkSessions_FullMethodName           = "/fitness.v1.Fitness/ListMyWalkSessions"
+	Fitness_GetMyStats_FullMethodName                   = "/fitness.v1.Fitness/GetMyStats"
+	Fitness_GetLeaderboard_FullMethodName               = "/fitness.v1.Fitness/GetLeaderboard"
+	Fitness_GetRegionStandings_FullMethodName           = "/fitness.v1.Fitness/GetRegionStandings"
+	Fitness_GetMyPointsBalance_FullMethodName           = "/fitness.v1.Fitness/GetMyPointsBalance"
+	Fitness_ListMyPointsLedger_FullMethodName           = "/fitness.v1.Fitness/ListMyPointsLedger"
+	Fitness_ListGifts_FullMethodName                    = "/fitness.v1.Fitness/ListGifts"
+	Fitness_GetGift_FullMethodName                      = "/fitness.v1.Fitness/GetGift"
+	Fitness_RedeemGift_FullMethodName                   = "/fitness.v1.Fitness/RedeemGift"
+	Fitness_ListMyRedemptions_FullMethodName            = "/fitness.v1.Fitness/ListMyRedemptions"
+	Fitness_CancelRedemption_FullMethodName             = "/fitness.v1.Fitness/CancelRedemption"
+	Fitness_UpdateCompetition_FullMethodName            = "/fitness.v1.Fitness/UpdateCompetition"
+	Fitness_CancelCompetition_FullMethodName            = "/fitness.v1.Fitness/CancelCompetition"
+	Fitness_CreateChallengeTemplate_FullMethodName      = "/fitness.v1.Fitness/CreateChallengeTemplate"
+	Fitness_CreateCompetitionImageUpload_FullMethodName = "/fitness.v1.Fitness/CreateCompetitionImageUpload"
+	Fitness_CreateGift_FullMethodName                   = "/fitness.v1.Fitness/CreateGift"
+	Fitness_UpdateGift_FullMethodName                   = "/fitness.v1.Fitness/UpdateGift"
+	Fitness_FulfilRedemption_FullMethodName             = "/fitness.v1.Fitness/FulfilRedemption"
+	Fitness_ListAllRedemptions_FullMethodName           = "/fitness.v1.Fitness/ListAllRedemptions"
+	Fitness_ListFlaggedSessions_FullMethodName          = "/fitness.v1.Fitness/ListFlaggedSessions"
+	Fitness_ReviewSession_FullMethodName                = "/fitness.v1.Fitness/ReviewSession"
 )
 
 // FitnessClient is the client API for Fitness service.
@@ -113,6 +114,7 @@ type FitnessClient interface {
 	// Ends a competition early and freezes its leaderboard.
 	CancelCompetition(ctx context.Context, in *request.CancelCompetitionRequest, opts ...grpc.CallOption) (*response.CancelCompetitionResponse, error)
 	CreateChallengeTemplate(ctx context.Context, in *request.CreateChallengeTemplateRequest, opts ...grpc.CallOption) (*response.CreateChallengeTemplateResponse, error)
+	CreateCompetitionImageUpload(ctx context.Context, in *request.CreateCompetitionImageUploadRequest, opts ...grpc.CallOption) (*response.CreateCompetitionImageUploadResponse, error)
 	CreateGift(ctx context.Context, in *request.CreateGiftRequest, opts ...grpc.CallOption) (*response.CreateGiftResponse, error)
 	UpdateGift(ctx context.Context, in *request.UpdateGiftRequest, opts ...grpc.CallOption) (*response.UpdateGiftResponse, error)
 	// Moves a redemption to APPROVED, FULFILLED or REJECTED. Rejecting refunds
@@ -441,6 +443,16 @@ func (c *fitnessClient) CreateChallengeTemplate(ctx context.Context, in *request
 	return out, nil
 }
 
+func (c *fitnessClient) CreateCompetitionImageUpload(ctx context.Context, in *request.CreateCompetitionImageUploadRequest, opts ...grpc.CallOption) (*response.CreateCompetitionImageUploadResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.CreateCompetitionImageUploadResponse)
+	err := c.cc.Invoke(ctx, Fitness_CreateCompetitionImageUpload_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *fitnessClient) CreateGift(ctx context.Context, in *request.CreateGiftRequest, opts ...grpc.CallOption) (*response.CreateGiftResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.CreateGiftResponse)
@@ -554,6 +566,7 @@ type FitnessServer interface {
 	// Ends a competition early and freezes its leaderboard.
 	CancelCompetition(context.Context, *request.CancelCompetitionRequest) (*response.CancelCompetitionResponse, error)
 	CreateChallengeTemplate(context.Context, *request.CreateChallengeTemplateRequest) (*response.CreateChallengeTemplateResponse, error)
+	CreateCompetitionImageUpload(context.Context, *request.CreateCompetitionImageUploadRequest) (*response.CreateCompetitionImageUploadResponse, error)
 	CreateGift(context.Context, *request.CreateGiftRequest) (*response.CreateGiftResponse, error)
 	UpdateGift(context.Context, *request.UpdateGiftRequest) (*response.UpdateGiftResponse, error)
 	// Moves a redemption to APPROVED, FULFILLED or REJECTED. Rejecting refunds
@@ -664,6 +677,9 @@ func (UnimplementedFitnessServer) CancelCompetition(context.Context, *request.Ca
 }
 func (UnimplementedFitnessServer) CreateChallengeTemplate(context.Context, *request.CreateChallengeTemplateRequest) (*response.CreateChallengeTemplateResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateChallengeTemplate not implemented")
+}
+func (UnimplementedFitnessServer) CreateCompetitionImageUpload(context.Context, *request.CreateCompetitionImageUploadRequest) (*response.CreateCompetitionImageUploadResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateCompetitionImageUpload not implemented")
 }
 func (UnimplementedFitnessServer) CreateGift(context.Context, *request.CreateGiftRequest) (*response.CreateGiftResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateGift not implemented")
@@ -1262,6 +1278,24 @@ func _Fitness_CreateChallengeTemplate_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Fitness_CreateCompetitionImageUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CreateCompetitionImageUploadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FitnessServer).CreateCompetitionImageUpload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Fitness_CreateCompetitionImageUpload_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FitnessServer).CreateCompetitionImageUpload(ctx, req.(*request.CreateCompetitionImageUploadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Fitness_CreateGift_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.CreateGiftRequest)
 	if err := dec(in); err != nil {
@@ -1500,6 +1534,10 @@ var Fitness_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateChallengeTemplate",
 			Handler:    _Fitness_CreateChallengeTemplate_Handler,
+		},
+		{
+			MethodName: "CreateCompetitionImageUpload",
+			Handler:    _Fitness_CreateCompetitionImageUpload_Handler,
 		},
 		{
 			MethodName: "CreateGift",

@@ -35,6 +35,15 @@ message CompetitionRules {
   int32 max_session_duration_seconds = 10;
 }
 
+// Ordered gallery image. position drives display order so images can be
+// reordered without touching URLs.
+message CompetitionImage {
+  string image_id = 1;
+  string image_url = 2;
+  string caption = 3;
+  int32 position = 4;
+}
+
 message CompetitionInfo {
   string competition_id = 1;
   string title = 2;
@@ -56,4 +65,6 @@ message CompetitionInfo {
   int64 my_rank = 15;
   google.protobuf.Timestamp created_at = 16;
   google.protobuf.Timestamp updated_at = 17;
+  // banner_url stays the single hero image; these are the gallery.
+  repeated fitness.v1.types.CompetitionImage images = 18;
 }
