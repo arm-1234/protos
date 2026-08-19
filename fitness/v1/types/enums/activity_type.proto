@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package fitness.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
+
+// Motion classification the device reported for a sample. Used as an
+// anti-cheat signal: AUTOMOTIVE or CYCLING samples do not earn credit.
+enum ActivityType {
+  ACTIVITY_TYPE_UNSPECIFIED = 0;
+  ACTIVITY_TYPE_STATIONARY = 1;
+  ACTIVITY_TYPE_WALKING = 2;
+  ACTIVITY_TYPE_RUNNING = 3;
+  ACTIVITY_TYPE_CYCLING = 4;
+  ACTIVITY_TYPE_AUTOMOTIVE = 5;
+  ACTIVITY_TYPE_UNKNOWN = 6;
+}

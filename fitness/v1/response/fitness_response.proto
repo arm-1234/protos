@@ -1,0 +1,226 @@
+syntax = "proto3";
+
+package fitness.v1.response;
+
+import "google/protobuf/timestamp.proto";
+import "fitness/v1/types/geo.proto";
+import "fitness/v1/types/user_profile.proto";
+import "fitness/v1/types/competition.proto";
+import "fitness/v1/types/challenge.proto";
+import "fitness/v1/types/walk_session.proto";
+import "fitness/v1/types/anti_cheat.proto";
+import "fitness/v1/types/leaderboard.proto";
+import "fitness/v1/types/points.proto";
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/response;response";
+
+// Repeated on every paged response so clients share one pagination shape.
+message PageInfo {
+  int64 page_number = 1;
+  int64 page_size = 2;
+  int64 total_pages = 3;
+  int64 total_records = 4;
+}
+
+// ---------------------------------------------------------------------------
+// Profile
+// ---------------------------------------------------------------------------
+
+message GetMyProfileResponse {
+  fitness.v1.types.UserProfileInfo profile = 1;
+}
+
+message UpsertMyProfileResponse {
+  fitness.v1.types.UserProfileInfo profile = 1;
+}
+
+message ListRegionsResponse {
+  repeated fitness.v1.types.Region regions = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Competitions
+// ---------------------------------------------------------------------------
+
+message ListCompetitionsResponse {
+  repeated fitness.v1.types.CompetitionInfo competitions = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+message GetCompetitionResponse {
+  fitness.v1.types.CompetitionInfo competition = 1;
+}
+
+message JoinCompetitionResponse {
+  fitness.v1.types.CompetitionInfo competition = 1;
+  // Today's allowance, so the app can render the start button immediately.
+  fitness.v1.types.DailyChallengeQuota quota = 2;
+}
+
+message LeaveCompetitionResponse {
+  bool success = 1;
+}
+
+message CreateCompetitionResponse {
+  fitness.v1.types.CompetitionInfo competition = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Challenges
+// ---------------------------------------------------------------------------
+
+message ListChallengeTemplatesResponse {
+  repeated fitness.v1.types.ChallengeTemplateInfo templates = 1;
+}
+
+message GetDailyQuotaResponse {
+  fitness.v1.types.DailyChallengeQuota quota = 1;
+}
+
+message StartChallengeResponse {
+  fitness.v1.types.ChallengeInfo challenge = 1;
+  // Allowance after this attempt was counted.
+  fitness.v1.types.DailyChallengeQuota quota = 2;
+}
+
+message ListMyChallengesResponse {
+  repeated fitness.v1.types.ChallengeInfo challenges = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+message AbandonChallengeResponse {
+  fitness.v1.types.ChallengeInfo challenge = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Walk sessions
+// ---------------------------------------------------------------------------
+
+message StartWalkSessionResponse {
+  fitness.v1.types.WalkSessionInfo session = 1;
+  // How often to flush samples, so the server can tune batching without an
+  // app release.
+  int32 sample_interval_seconds = 2;
+  int32 batch_upload_seconds = 3;
+}
+
+message SubmitWalkSamplesResponse {
+  string session_id = 1;
+  // Server-recomputed running totals, for the live in-app display.
+  int64 counted_steps = 2;
+  double counted_distance_meters = 3;
+  int64 accepted_samples = 4;
+  int64 rejected_samples = 5;
+  // Interim verdict. REJECTED here means stop walking, the session is void.
+  fitness.v1.types.AntiCheatVerdict verdict = 6;
+  // Highest sequence the server holds, so the client can resend a gap.
+  int64 last_sequence = 7;
+}
+
+message EndWalkSessionResponse {
+  fitness.v1.types.WalkSessionInfo session = 1;
+  // Challenge state after this session was folded in.
+  fitness.v1.types.ChallengeInfo challenge = 2;
+  int64 points_awarded = 3;
+  fitness.v1.types.PointsBalance balance = 4;
+  bool challenge_completed = 5;
+}
+
+message GetWalkSessionResponse {
+  fitness.v1.types.WalkSessionInfo session = 1;
+}
+
+message ListMyWalkSessionsResponse {
+  repeated fitness.v1.types.WalkSessionInfo sessions = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+// One day's totals, for the bar chart on the home screen.
+message DailyStat {
+  string date = 1;
+  int64 steps = 2;
+  double distance_meters = 3;
+  int32 active_minutes = 4;
+  int64 points_earned = 5;
+  int32 challenges_completed = 6;
+}
+
+message GetMyStatsResponse {
+  repeated fitness.v1.response.DailyStat days = 1;
+  int64 total_steps = 2;
+  double total_distance_meters = 3;
+  int64 total_points_earned = 4;
+  int32 current_streak_days = 5;
+  int32 longest_streak_days = 6;
+}
+
+// ---------------------------------------------------------------------------
+// Leaderboards
+// ---------------------------------------------------------------------------
+
+message GetLeaderboardResponse {
+  fitness.v1.types.LeaderboardInfo leaderboard = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+message GetRegionStandingsResponse {
+  repeated fitness.v1.types.RegionStanding standings = 1;
+  // The caller's own region, pinned regardless of page.
+  fitness.v1.types.RegionStanding my_region = 2;
+  fitness.v1.response.PageInfo page = 3;
+  google.protobuf.Timestamp refreshed_at = 4;
+}
+
+// ---------------------------------------------------------------------------
+// Points and gifts
+// ---------------------------------------------------------------------------
+
+message GetMyPointsBalanceResponse {
+  fitness.v1.types.PointsBalance balance = 1;
+}
+
+message ListMyPointsLedgerResponse {
+  repeated fitness.v1.types.PointsLedgerEntry entries = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+message ListGiftsResponse {
+  repeated fitness.v1.types.GiftInfo gifts = 1;
+  fitness.v1.response.PageInfo page = 2;
+  // Echoed so the catalogue can grey out what the user cannot afford.
+  int64 my_available_points = 3;
+}
+
+message GetGiftResponse {
+  fitness.v1.types.GiftInfo gift = 1;
+}
+
+message RedeemGiftResponse {
+  fitness.v1.types.RedemptionInfo redemption = 1;
+  fitness.v1.types.PointsBalance balance = 2;
+}
+
+message ListMyRedemptionsResponse {
+  repeated fitness.v1.types.RedemptionInfo redemptions = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+message CancelRedemptionResponse {
+  fitness.v1.types.RedemptionInfo redemption = 1;
+  fitness.v1.types.PointsBalance balance = 2;
+}
+
+// ---------------------------------------------------------------------------
+// Moderation
+// ---------------------------------------------------------------------------
+
+message ListFlaggedSessionsResponse {
+  repeated fitness.v1.types.WalkSessionInfo sessions = 1;
+  fitness.v1.response.PageInfo page = 2;
+}
+
+message ReviewSessionResponse {
+  fitness.v1.types.WalkSessionInfo session = 1;
+  // Non-zero when upholding fraud clawed points back.
+  int64 points_reversed = 2;
+}

@@ -1,0 +1,307 @@
+syntax = "proto3";
+
+package fitness.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "fitness/v1/request/fitness_request.proto";
+import "fitness/v1/response/fitness_response.proto";
+
+option go_package = "github.com/arm-1234/protos/fitness/v1;v1";
+
+// Walking competitions scoped by district and state, with server-side
+// anti-cheat, a points ledger, and gift redemption. Identity, auth and tokens
+// live in identity.v1; every "my" RPC here takes its subject from the token.
+service Fitness {
+  // -------------------------------------------------------------------------
+  // Profile
+  // -------------------------------------------------------------------------
+
+  rpc GetMyProfile (fitness.v1.request.GetMyProfileRequest) returns (fitness.v1.response.GetMyProfileResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/me"
+    };
+  }
+
+  rpc UpsertMyProfile (fitness.v1.request.UpsertMyProfileRequest) returns (fitness.v1.response.UpsertMyProfileResponse) {
+    option (google.api.http) = {
+      put: "/v1/fitness/me"
+      body: "*"
+    };
+  }
+
+  // States, or a state's districts, for the onboarding pickers.
+  rpc ListRegions (fitness.v1.request.ListRegionsRequest) returns (fitness.v1.response.ListRegionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/regions"
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Competitions
+  // -------------------------------------------------------------------------
+
+  rpc ListCompetitions (fitness.v1.request.ListCompetitionsRequest) returns (fitness.v1.response.ListCompetitionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/competitions"
+    };
+  }
+
+  rpc GetCompetition (fitness.v1.request.GetCompetitionRequest) returns (fitness.v1.response.GetCompetitionResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/competitions/{competition_id}"
+    };
+  }
+
+  rpc JoinCompetition (fitness.v1.request.JoinCompetitionRequest) returns (fitness.v1.response.JoinCompetitionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/competitions/{competition_id}:join"
+      body: "*"
+    };
+  }
+
+  rpc LeaveCompetition (fitness.v1.request.LeaveCompetitionRequest) returns (fitness.v1.response.LeaveCompetitionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/competitions/{competition_id}:leave"
+      body: "*"
+    };
+  }
+
+  // Admin only.
+  rpc CreateCompetition (fitness.v1.request.CreateCompetitionRequest) returns (fitness.v1.response.CreateCompetitionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/competitions"
+      body: "*"
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Challenges
+  // -------------------------------------------------------------------------
+
+  rpc ListChallengeTemplates (fitness.v1.request.ListChallengeTemplatesRequest) returns (fitness.v1.response.ListChallengeTemplatesResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/competitions/{competition_id}/challenge-templates"
+    };
+  }
+
+  // Remaining attempts, step cap and cooldown for today, so the app can
+  // disable the start button instead of provoking a rejection.
+  rpc GetDailyQuota (fitness.v1.request.GetDailyQuotaRequest) returns (fitness.v1.response.GetDailyQuotaResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/competitions/{competition_id}/quota"
+    };
+  }
+
+  // Consumes one of the day's attempts. Fails with CHALLENGE_DAILY_LIMIT_REACHED
+  // once the cap is hit, and is idempotent on idempotency_key.
+  rpc StartChallenge (fitness.v1.request.StartChallengeRequest) returns (fitness.v1.response.StartChallengeResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/challenges"
+      body: "*"
+    };
+  }
+
+  rpc ListMyChallenges (fitness.v1.request.ListMyChallengesRequest) returns (fitness.v1.response.ListMyChallengesResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/challenges"
+    };
+  }
+
+  rpc AbandonChallenge (fitness.v1.request.AbandonChallengeRequest) returns (fitness.v1.response.AbandonChallengeResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/challenges/{challenge_id}:abandon"
+      body: "*"
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Walk sessions
+  // -------------------------------------------------------------------------
+
+  rpc StartWalkSession (fitness.v1.request.StartWalkSessionRequest) returns (fitness.v1.response.StartWalkSessionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/walk-sessions"
+      body: "*"
+    };
+  }
+
+  // Called every 30-60s while walking. The server recomputes distance and steps
+  // from the samples; client totals are never trusted.
+  rpc SubmitWalkSamples (fitness.v1.request.SubmitWalkSamplesRequest) returns (fitness.v1.response.SubmitWalkSamplesResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/walk-sessions/{session_id}/samples"
+      body: "*"
+    };
+  }
+
+  // Finalizes the session, runs the full anti-cheat pass and credits points.
+  rpc EndWalkSession (fitness.v1.request.EndWalkSessionRequest) returns (fitness.v1.response.EndWalkSessionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/walk-sessions/{session_id}:end"
+      body: "*"
+    };
+  }
+
+  rpc GetWalkSession (fitness.v1.request.GetWalkSessionRequest) returns (fitness.v1.response.GetWalkSessionResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/walk-sessions/{session_id}"
+    };
+  }
+
+  rpc ListMyWalkSessions (fitness.v1.request.ListMyWalkSessionsRequest) returns (fitness.v1.response.ListMyWalkSessionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/walk-sessions"
+    };
+  }
+
+  rpc GetMyStats (fitness.v1.request.GetMyStatsRequest) returns (fitness.v1.response.GetMyStatsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/me/stats"
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Leaderboards
+  // -------------------------------------------------------------------------
+
+  // Serves competition, weekly, monthly and all-time boards at any scope.
+  rpc GetLeaderboard (fitness.v1.request.GetLeaderboardRequest) returns (fitness.v1.response.GetLeaderboardResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/leaderboard"
+    };
+  }
+
+  // District-vs-district or state-vs-state standings.
+  rpc GetRegionStandings (fitness.v1.request.GetRegionStandingsRequest) returns (fitness.v1.response.GetRegionStandingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/leaderboard/regions"
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Points and gifts
+  // -------------------------------------------------------------------------
+
+  rpc GetMyPointsBalance (fitness.v1.request.GetMyPointsBalanceRequest) returns (fitness.v1.response.GetMyPointsBalanceResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/me/points"
+    };
+  }
+
+  rpc ListMyPointsLedger (fitness.v1.request.ListMyPointsLedgerRequest) returns (fitness.v1.response.ListMyPointsLedgerResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/me/points/ledger"
+    };
+  }
+
+  rpc ListGifts (fitness.v1.request.ListGiftsRequest) returns (fitness.v1.response.ListGiftsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/gifts"
+    };
+  }
+
+  rpc GetGift (fitness.v1.request.GetGiftRequest) returns (fitness.v1.response.GetGiftResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/gifts/{gift_id}"
+    };
+  }
+
+  // Reserves the points immediately; fulfilment moves it to FULFILLED or
+  // refunds on rejection.
+  rpc RedeemGift (fitness.v1.request.RedeemGiftRequest) returns (fitness.v1.response.RedeemGiftResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/gifts/{gift_id}:redeem"
+      body: "*"
+    };
+  }
+
+  rpc ListMyRedemptions (fitness.v1.request.ListMyRedemptionsRequest) returns (fitness.v1.response.ListMyRedemptionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/me/redemptions"
+    };
+  }
+
+  rpc CancelRedemption (fitness.v1.request.CancelRedemptionRequest) returns (fitness.v1.response.CancelRedemptionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/me/redemptions/{redemption_id}:cancel"
+      body: "*"
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Moderation (admin only)
+  // -------------------------------------------------------------------------
+
+  rpc ListFlaggedSessions (fitness.v1.request.ListFlaggedSessionsRequest) returns (fitness.v1.response.ListFlaggedSessionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/admin/flagged-sessions"
+    };
+  }
+
+  rpc ReviewSession (fitness.v1.request.ReviewSessionRequest) returns (fitness.v1.response.ReviewSessionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/admin/flagged-sessions/{session_id}:review"
+      body: "*"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+
+  FITNESS_UNSPECIFIED = 0 [(errors.code) = 500];
+  FITNESS_INVALID_REQUEST = 1 [(errors.code) = 400];
+  FITNESS_FORBIDDEN = 2 [(errors.code) = 403];
+
+  PROFILE_NOT_FOUND = 10 [(errors.code) = 404];
+  // Home region is locked for a cooldown so users cannot hop to a weak district.
+  PROFILE_REGION_LOCKED = 11 [(errors.code) = 409];
+  REGION_NOT_FOUND = 12 [(errors.code) = 404];
+  // Barred from earning after upheld fraud findings.
+  USER_SUSPENDED = 13 [(errors.code) = 403];
+
+  COMPETITION_NOT_FOUND = 20 [(errors.code) = 404];
+  COMPETITION_NOT_ACTIVE = 21 [(errors.code) = 409];
+  COMPETITION_ALREADY_JOINED = 22 [(errors.code) = 409];
+  COMPETITION_NOT_JOINED = 23 [(errors.code) = 403];
+  // Home region does not match the competition's scope.
+  COMPETITION_REGION_INELIGIBLE = 24 [(errors.code) = 403];
+
+  CHALLENGE_NOT_FOUND = 30 [(errors.code) = 404];
+  CHALLENGE_TEMPLATE_NOT_FOUND = 31 [(errors.code) = 404];
+  CHALLENGE_DAILY_LIMIT_REACHED = 32 [(errors.code) = 429];
+  CHALLENGE_COOLDOWN_ACTIVE = 33 [(errors.code) = 429];
+  CHALLENGE_ALREADY_IN_PROGRESS = 34 [(errors.code) = 409];
+  CHALLENGE_EXPIRED = 35 [(errors.code) = 409];
+  CHALLENGE_NOT_IN_PROGRESS = 36 [(errors.code) = 409];
+  DAILY_STEP_CAP_REACHED = 37 [(errors.code) = 429];
+  DAILY_POINTS_CAP_REACHED = 38 [(errors.code) = 429];
+
+  SESSION_NOT_FOUND = 40 [(errors.code) = 404];
+  SESSION_NOT_ACTIVE = 41 [(errors.code) = 409];
+  SESSION_ALREADY_FINALIZED = 42 [(errors.code) = 409];
+  // Another session is still open for this user.
+  SESSION_ALREADY_ACTIVE = 43 [(errors.code) = 409];
+  SESSION_SAMPLE_SEQUENCE_INVALID = 44 [(errors.code) = 400];
+  SESSION_TOO_SHORT = 45 [(errors.code) = 400];
+
+  // Anti-cheat rejections, split so the app can explain what went wrong.
+  ANTI_CHEAT_REJECTED = 50 [(errors.code) = 422];
+  ANTI_CHEAT_MOCK_LOCATION = 51 [(errors.code) = 422];
+  ANTI_CHEAT_SPEED_VIOLATION = 52 [(errors.code) = 422];
+  ANTI_CHEAT_INTEGRITY_FAILED = 53 [(errors.code) = 422];
+  ANTI_CHEAT_GEOFENCE_MISMATCH = 54 [(errors.code) = 422];
+  ANTI_CHEAT_DEVICE_SHARED = 55 [(errors.code) = 422];
+  ANTI_CHEAT_CLOCK_SKEW = 56 [(errors.code) = 422];
+
+  POINTS_INSUFFICIENT = 60 [(errors.code) = 409];
+  GIFT_NOT_FOUND = 61 [(errors.code) = 404];
+  GIFT_OUT_OF_STOCK = 62 [(errors.code) = 409];
+  GIFT_NOT_AVAILABLE = 63 [(errors.code) = 409];
+  GIFT_PER_USER_LIMIT_REACHED = 64 [(errors.code) = 409];
+  REDEMPTION_NOT_FOUND = 65 [(errors.code) = 404];
+  REDEMPTION_NOT_CANCELLABLE = 66 [(errors.code) = 409];
+
+  LEADERBOARD_NOT_AVAILABLE = 70 [(errors.code) = 503];
+}

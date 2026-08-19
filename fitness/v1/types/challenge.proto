@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package fitness.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "fitness/v1/types/enums/challenge_status.proto";
+import "fitness/v1/types/enums/competition_metric.proto";
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
+
+// A template a user can attempt, e.g. "walk 5000 steps". Templates belong to a
+// competition and bound what a single attempt can be worth.
+message ChallengeTemplateInfo {
+  string template_id = 1;
+  string competition_id = 2;
+  string title = 3;
+  string description = 4;
+  fitness.v1.types.enums.CompetitionMetric metric = 5;
+  int64 target_value = 6;
+  int64 reward_points = 7;
+  // Wall-clock budget to finish an attempt once started.
+  int32 time_limit_seconds = 8;
+  bool is_active = 9;
+}
+
+// One user's attempt at a template. Created on start, which is the moment it
+// consumes one of the day's allowed attempts.
+message ChallengeInfo {
+  string challenge_id = 1;
+  string template_id = 2;
+  string competition_id = 3;
+  string user_id = 4;
+  string title = 5;
+  fitness.v1.types.enums.CompetitionMetric metric = 6;
+  int64 target_value = 7;
+  // Progress from finalized sessions only, so an in-flight session cannot
+  // inflate it.
+  int64 current_value = 8;
+  fitness.v1.types.enums.ChallengeStatus status = 9;
+  int64 reward_points = 10;
+  int64 points_awarded = 11;
+  google.protobuf.Timestamp started_at = 12;
+  google.protobuf.Timestamp expires_at = 13;
+  google.protobuf.Timestamp completed_at = 14;
+  repeated string session_ids = 15;
+}
+
+// The user's remaining allowance for a competition today. Surfaced so the app
+// can disable the start button rather than let the server reject a tap.
+message DailyChallengeQuota {
+  string competition_id = 1;
+  // Calendar day in Asia/Kolkata, YYYY-MM-DD.
+  string date = 2;
+  int32 challenges_started = 3;
+  int32 challenges_allowed = 4;
+  int32 challenges_remaining = 5;
+  int64 steps_counted_today = 6;
+  int64 daily_step_cap = 7;
+  int64 points_earned_today = 8;
+  int64 daily_points_cap = 9;
+  // Set while a cooldown from the previous attempt is still running.
+  google.protobuf.Timestamp next_challenge_available_at = 10;
+  bool can_start_challenge = 11;
+  // Why can_start_challenge is false, for a precise message in the app.
+  string blocked_reason = 12;
+}

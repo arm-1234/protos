@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package fitness.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "fitness/v1/types/geo.proto";
+import "fitness/v1/types/anti_cheat.proto";
+import "fitness/v1/types/enums/session_status.proto";
+import "fitness/v1/types/enums/activity_type.proto";
+
+option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
+
+// One point on a walk trail, as recorded by the device. The client submits
+// these in batches; the server recomputes distance and step totals from them
+// and never trusts a client-supplied aggregate.
+message WalkSample {
+  // Client-assigned monotonic index within the session. Lets the server detect
+  // gaps and reject replays without depending on arrival order.
+  int64 sequence = 1;
+  double latitude = 2;
+  double longitude = 3;
+  // Horizontal accuracy in metres. Samples worse than the configured threshold
+  // are excluded from distance but still inspected for tampering.
+  double accuracy_meters = 4;
+  double altitude_meters = 5;
+  // Steps counted since the previous sample, from the platform pedometer.
+  int64 steps_delta = 6;
+  // Device-reported instantaneous speed in m/s, cross-checked against the
+  // speed the server derives from consecutive coordinates.
+  double speed_mps = 7;
+  google.protobuf.Timestamp recorded_at = 8;
+  fitness.v1.types.enums.ActivityType activity_type = 9;
+  // OS mock-provider flag (Android) or equivalent. A single true rejects.
+  bool is_mock_location = 10;
+  double heading_degrees = 11;
+}
+
+message WalkSessionInfo {
+  string session_id = 1;
+  string user_id = 2;
+  string challenge_id = 3;
+  string competition_id = 4;
+  fitness.v1.types.enums.SessionStatus status = 5;
+  google.protobuf.Timestamp started_at = 6;
+  google.protobuf.Timestamp ended_at = 7;
+  int32 duration_seconds = 8;
+  // Server-recomputed totals. These are authoritative; the client's own
+  // running totals are display-only.
+  int64 counted_steps = 9;
+  double counted_distance_meters = 10;
+  // Totals before anti-cheat exclusions, kept for transparency and disputes.
+  int64 raw_steps = 11;
+  double raw_distance_meters = 12;
+  double average_speed_mps = 13;
+  double max_speed_mps = 14;
+  int64 sample_count = 15;
+  fitness.v1.types.AntiCheatVerdict verdict = 16;
+  // Points actually credited for this session, after caps and verdict.
+  int64 points_awarded = 17;
+  // District the GPS trail resolved to, which may differ from the user's
+  // declared home district.
+  fitness.v1.types.Region detected_region = 18;
+  fitness.v1.types.GeoPoint start_point = 19;
+  fitness.v1.types.GeoPoint end_point = 20;
+  string device_id = 21;
+  google.protobuf.Timestamp created_at = 22;
+  google.protobuf.Timestamp updated_at = 23;
+}
