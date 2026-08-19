@@ -81,6 +81,8 @@ const (
 	ErrorReason_REDEMPTION_EMAIL_NOT_VERIFIED ErrorReason = 67
 	ErrorReason_REDEMPTION_NOT_FULFILLABLE    ErrorReason = 68
 	ErrorReason_LEADERBOARD_NOT_AVAILABLE     ErrorReason = 70
+	ErrorReason_IMAGE_UPLOAD_UNAVAILABLE      ErrorReason = 80
+	ErrorReason_IMAGE_TYPE_UNSUPPORTED        ErrorReason = 81
 )
 
 // Enum value maps for ErrorReason.
@@ -132,6 +134,8 @@ var (
 		67: "REDEMPTION_EMAIL_NOT_VERIFIED",
 		68: "REDEMPTION_NOT_FULFILLABLE",
 		70: "LEADERBOARD_NOT_AVAILABLE",
+		80: "IMAGE_UPLOAD_UNAVAILABLE",
+		81: "IMAGE_TYPE_UNSUPPORTED",
 	}
 	ErrorReason_value = map[string]int32{
 		"FITNESS_UNSPECIFIED":             0,
@@ -180,6 +184,8 @@ var (
 		"REDEMPTION_EMAIL_NOT_VERIFIED":   67,
 		"REDEMPTION_NOT_FULFILLABLE":      68,
 		"LEADERBOARD_NOT_AVAILABLE":       70,
+		"IMAGE_UPLOAD_UNAVAILABLE":        80,
+		"IMAGE_TYPE_UNSUPPORTED":          81,
 	}
 )
 
@@ -215,7 +221,7 @@ var File_fitness_v1_fitness_proto protoreflect.FileDescriptor
 const file_fitness_v1_fitness_proto_rawDesc = "" +
 	"\n" +
 	"\x18fitness/v1/fitness.proto\x12\n" +
-	"fitness.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(fitness/v1/request/fitness_request.proto\x1a*fitness/v1/response/fitness_response.proto*\xc1\f\n" +
+	"fitness.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a(fitness/v1/request/fitness_request.proto\x1a*fitness/v1/response/fitness_response.proto*\x87\r\n" +
 	"\vErrorReason\x12\x1d\n" +
 	"\x13FITNESS_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12!\n" +
 	"\x17FITNESS_INVALID_REQUEST\x10\x01\x1a\x04\xa8E\x90\x03\x12\x1b\n" +
@@ -263,7 +269,9 @@ const file_fitness_v1_fitness_proto_rawDesc = "" +
 	"\x1aREDEMPTION_NOT_CANCELLABLE\x10B\x1a\x04\xa8E\x99\x03\x12'\n" +
 	"\x1dREDEMPTION_EMAIL_NOT_VERIFIED\x10C\x1a\x04\xa8E\x93\x03\x12$\n" +
 	"\x1aREDEMPTION_NOT_FULFILLABLE\x10D\x1a\x04\xa8E\x99\x03\x12#\n" +
-	"\x19LEADERBOARD_NOT_AVAILABLE\x10F\x1a\x04\xa8E\xf7\x03\x1a\x04\xa0E\xf4\x032\x8c-\n" +
+	"\x19LEADERBOARD_NOT_AVAILABLE\x10F\x1a\x04\xa8E\xf7\x03\x12\"\n" +
+	"\x18IMAGE_UPLOAD_UNAVAILABLE\x10P\x1a\x04\xa8E\xf7\x03\x12 \n" +
+	"\x16IMAGE_TYPE_UNSUPPORTED\x10Q\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x032\xda.\n" +
 	"\aFitness\x12z\n" +
 	"\fGetMyProfile\x12'.fitness.v1.request.GetMyProfileRequest\x1a).fitness.v1.response.GetMyProfileResponse\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/fitness/me\x12\x86\x01\n" +
 	"\x0fUpsertMyProfile\x12*.fitness.v1.request.UpsertMyProfileRequest\x1a,.fitness.v1.response.UpsertMyProfileResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\x1a\x0e/v1/fitness/me\x12|\n" +
@@ -297,7 +305,8 @@ const file_fitness_v1_fitness_proto_rawDesc = "" +
 	"\x10CancelRedemption\x12+.fitness.v1.request.CancelRedemptionRequest\x1a-.fitness.v1.response.CancelRedemptionResponse\"<\x82\xd3\xe4\x93\x026:\x01*\"1/v1/fitness/me/redemptions/{redemption_id}:cancel\x12\xad\x01\n" +
 	"\x11UpdateCompetition\x12,.fitness.v1.request.UpdateCompetitionRequest\x1a..fitness.v1.response.UpdateCompetitionResponse\":\x82\xd3\xe4\x93\x024:\x01*2//v1/fitness/admin/competitions/{competition_id}\x12\xb4\x01\n" +
 	"\x11CancelCompetition\x12,.fitness.v1.request.CancelCompetitionRequest\x1a..fitness.v1.response.CancelCompetitionResponse\"A\x82\xd3\xe4\x93\x02;:\x01*\"6/v1/fitness/admin/competitions/{competition_id}:cancel\x12\xd3\x01\n" +
-	"\x17CreateChallengeTemplate\x122.fitness.v1.request.CreateChallengeTemplateRequest\x1a4.fitness.v1.response.CreateChallengeTemplateResponse\"N\x82\xd3\xe4\x93\x02H:\x01*\"C/v1/fitness/admin/competitions/{competition_id}/challenge-templates\x12\x80\x01\n" +
+	"\x17CreateChallengeTemplate\x122.fitness.v1.request.CreateChallengeTemplateRequest\x1a4.fitness.v1.response.CreateChallengeTemplateResponse\"N\x82\xd3\xe4\x93\x02H:\x01*\"C/v1/fitness/admin/competitions/{competition_id}/challenge-templates\x12\xcb\x01\n" +
+	"\x1cCreateCompetitionImageUpload\x127.fitness.v1.request.CreateCompetitionImageUploadRequest\x1a9.fitness.v1.response.CreateCompetitionImageUploadResponse\"7\x82\xd3\xe4\x93\x021:\x01*\",/v1/fitness/admin/competitions/image-uploads\x12\x80\x01\n" +
 	"\n" +
 	"CreateGift\x12%.fitness.v1.request.CreateGiftRequest\x1a'.fitness.v1.response.CreateGiftResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/fitness/admin/gifts\x12\x8a\x01\n" +
 	"\n" +
@@ -321,81 +330,83 @@ func file_fitness_v1_fitness_proto_rawDescGZIP() []byte {
 
 var file_fitness_v1_fitness_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_fitness_v1_fitness_proto_goTypes = []any{
-	(ErrorReason)(0),                                 // 0: fitness.v1.ErrorReason
-	(*request.GetMyProfileRequest)(nil),              // 1: fitness.v1.request.GetMyProfileRequest
-	(*request.UpsertMyProfileRequest)(nil),           // 2: fitness.v1.request.UpsertMyProfileRequest
-	(*request.ListRegionsRequest)(nil),               // 3: fitness.v1.request.ListRegionsRequest
-	(*request.ListCompetitionsRequest)(nil),          // 4: fitness.v1.request.ListCompetitionsRequest
-	(*request.GetCompetitionRequest)(nil),            // 5: fitness.v1.request.GetCompetitionRequest
-	(*request.JoinCompetitionRequest)(nil),           // 6: fitness.v1.request.JoinCompetitionRequest
-	(*request.LeaveCompetitionRequest)(nil),          // 7: fitness.v1.request.LeaveCompetitionRequest
-	(*request.CreateCompetitionRequest)(nil),         // 8: fitness.v1.request.CreateCompetitionRequest
-	(*request.ListChallengeTemplatesRequest)(nil),    // 9: fitness.v1.request.ListChallengeTemplatesRequest
-	(*request.GetDailyQuotaRequest)(nil),             // 10: fitness.v1.request.GetDailyQuotaRequest
-	(*request.StartChallengeRequest)(nil),            // 11: fitness.v1.request.StartChallengeRequest
-	(*request.ListMyChallengesRequest)(nil),          // 12: fitness.v1.request.ListMyChallengesRequest
-	(*request.AbandonChallengeRequest)(nil),          // 13: fitness.v1.request.AbandonChallengeRequest
-	(*request.StartWalkSessionRequest)(nil),          // 14: fitness.v1.request.StartWalkSessionRequest
-	(*request.SubmitWalkSamplesRequest)(nil),         // 15: fitness.v1.request.SubmitWalkSamplesRequest
-	(*request.EndWalkSessionRequest)(nil),            // 16: fitness.v1.request.EndWalkSessionRequest
-	(*request.GetWalkSessionRequest)(nil),            // 17: fitness.v1.request.GetWalkSessionRequest
-	(*request.ListMyWalkSessionsRequest)(nil),        // 18: fitness.v1.request.ListMyWalkSessionsRequest
-	(*request.GetMyStatsRequest)(nil),                // 19: fitness.v1.request.GetMyStatsRequest
-	(*request.GetLeaderboardRequest)(nil),            // 20: fitness.v1.request.GetLeaderboardRequest
-	(*request.GetRegionStandingsRequest)(nil),        // 21: fitness.v1.request.GetRegionStandingsRequest
-	(*request.GetMyPointsBalanceRequest)(nil),        // 22: fitness.v1.request.GetMyPointsBalanceRequest
-	(*request.ListMyPointsLedgerRequest)(nil),        // 23: fitness.v1.request.ListMyPointsLedgerRequest
-	(*request.ListGiftsRequest)(nil),                 // 24: fitness.v1.request.ListGiftsRequest
-	(*request.GetGiftRequest)(nil),                   // 25: fitness.v1.request.GetGiftRequest
-	(*request.RedeemGiftRequest)(nil),                // 26: fitness.v1.request.RedeemGiftRequest
-	(*request.ListMyRedemptionsRequest)(nil),         // 27: fitness.v1.request.ListMyRedemptionsRequest
-	(*request.CancelRedemptionRequest)(nil),          // 28: fitness.v1.request.CancelRedemptionRequest
-	(*request.UpdateCompetitionRequest)(nil),         // 29: fitness.v1.request.UpdateCompetitionRequest
-	(*request.CancelCompetitionRequest)(nil),         // 30: fitness.v1.request.CancelCompetitionRequest
-	(*request.CreateChallengeTemplateRequest)(nil),   // 31: fitness.v1.request.CreateChallengeTemplateRequest
-	(*request.CreateGiftRequest)(nil),                // 32: fitness.v1.request.CreateGiftRequest
-	(*request.UpdateGiftRequest)(nil),                // 33: fitness.v1.request.UpdateGiftRequest
-	(*request.FulfilRedemptionRequest)(nil),          // 34: fitness.v1.request.FulfilRedemptionRequest
-	(*request.ListAllRedemptionsRequest)(nil),        // 35: fitness.v1.request.ListAllRedemptionsRequest
-	(*request.ListFlaggedSessionsRequest)(nil),       // 36: fitness.v1.request.ListFlaggedSessionsRequest
-	(*request.ReviewSessionRequest)(nil),             // 37: fitness.v1.request.ReviewSessionRequest
-	(*response.GetMyProfileResponse)(nil),            // 38: fitness.v1.response.GetMyProfileResponse
-	(*response.UpsertMyProfileResponse)(nil),         // 39: fitness.v1.response.UpsertMyProfileResponse
-	(*response.ListRegionsResponse)(nil),             // 40: fitness.v1.response.ListRegionsResponse
-	(*response.ListCompetitionsResponse)(nil),        // 41: fitness.v1.response.ListCompetitionsResponse
-	(*response.GetCompetitionResponse)(nil),          // 42: fitness.v1.response.GetCompetitionResponse
-	(*response.JoinCompetitionResponse)(nil),         // 43: fitness.v1.response.JoinCompetitionResponse
-	(*response.LeaveCompetitionResponse)(nil),        // 44: fitness.v1.response.LeaveCompetitionResponse
-	(*response.CreateCompetitionResponse)(nil),       // 45: fitness.v1.response.CreateCompetitionResponse
-	(*response.ListChallengeTemplatesResponse)(nil),  // 46: fitness.v1.response.ListChallengeTemplatesResponse
-	(*response.GetDailyQuotaResponse)(nil),           // 47: fitness.v1.response.GetDailyQuotaResponse
-	(*response.StartChallengeResponse)(nil),          // 48: fitness.v1.response.StartChallengeResponse
-	(*response.ListMyChallengesResponse)(nil),        // 49: fitness.v1.response.ListMyChallengesResponse
-	(*response.AbandonChallengeResponse)(nil),        // 50: fitness.v1.response.AbandonChallengeResponse
-	(*response.StartWalkSessionResponse)(nil),        // 51: fitness.v1.response.StartWalkSessionResponse
-	(*response.SubmitWalkSamplesResponse)(nil),       // 52: fitness.v1.response.SubmitWalkSamplesResponse
-	(*response.EndWalkSessionResponse)(nil),          // 53: fitness.v1.response.EndWalkSessionResponse
-	(*response.GetWalkSessionResponse)(nil),          // 54: fitness.v1.response.GetWalkSessionResponse
-	(*response.ListMyWalkSessionsResponse)(nil),      // 55: fitness.v1.response.ListMyWalkSessionsResponse
-	(*response.GetMyStatsResponse)(nil),              // 56: fitness.v1.response.GetMyStatsResponse
-	(*response.GetLeaderboardResponse)(nil),          // 57: fitness.v1.response.GetLeaderboardResponse
-	(*response.GetRegionStandingsResponse)(nil),      // 58: fitness.v1.response.GetRegionStandingsResponse
-	(*response.GetMyPointsBalanceResponse)(nil),      // 59: fitness.v1.response.GetMyPointsBalanceResponse
-	(*response.ListMyPointsLedgerResponse)(nil),      // 60: fitness.v1.response.ListMyPointsLedgerResponse
-	(*response.ListGiftsResponse)(nil),               // 61: fitness.v1.response.ListGiftsResponse
-	(*response.GetGiftResponse)(nil),                 // 62: fitness.v1.response.GetGiftResponse
-	(*response.RedeemGiftResponse)(nil),              // 63: fitness.v1.response.RedeemGiftResponse
-	(*response.ListMyRedemptionsResponse)(nil),       // 64: fitness.v1.response.ListMyRedemptionsResponse
-	(*response.CancelRedemptionResponse)(nil),        // 65: fitness.v1.response.CancelRedemptionResponse
-	(*response.UpdateCompetitionResponse)(nil),       // 66: fitness.v1.response.UpdateCompetitionResponse
-	(*response.CancelCompetitionResponse)(nil),       // 67: fitness.v1.response.CancelCompetitionResponse
-	(*response.CreateChallengeTemplateResponse)(nil), // 68: fitness.v1.response.CreateChallengeTemplateResponse
-	(*response.CreateGiftResponse)(nil),              // 69: fitness.v1.response.CreateGiftResponse
-	(*response.UpdateGiftResponse)(nil),              // 70: fitness.v1.response.UpdateGiftResponse
-	(*response.FulfilRedemptionResponse)(nil),        // 71: fitness.v1.response.FulfilRedemptionResponse
-	(*response.ListAllRedemptionsResponse)(nil),      // 72: fitness.v1.response.ListAllRedemptionsResponse
-	(*response.ListFlaggedSessionsResponse)(nil),     // 73: fitness.v1.response.ListFlaggedSessionsResponse
-	(*response.ReviewSessionResponse)(nil),           // 74: fitness.v1.response.ReviewSessionResponse
+	(ErrorReason)(0),                                      // 0: fitness.v1.ErrorReason
+	(*request.GetMyProfileRequest)(nil),                   // 1: fitness.v1.request.GetMyProfileRequest
+	(*request.UpsertMyProfileRequest)(nil),                // 2: fitness.v1.request.UpsertMyProfileRequest
+	(*request.ListRegionsRequest)(nil),                    // 3: fitness.v1.request.ListRegionsRequest
+	(*request.ListCompetitionsRequest)(nil),               // 4: fitness.v1.request.ListCompetitionsRequest
+	(*request.GetCompetitionRequest)(nil),                 // 5: fitness.v1.request.GetCompetitionRequest
+	(*request.JoinCompetitionRequest)(nil),                // 6: fitness.v1.request.JoinCompetitionRequest
+	(*request.LeaveCompetitionRequest)(nil),               // 7: fitness.v1.request.LeaveCompetitionRequest
+	(*request.CreateCompetitionRequest)(nil),              // 8: fitness.v1.request.CreateCompetitionRequest
+	(*request.ListChallengeTemplatesRequest)(nil),         // 9: fitness.v1.request.ListChallengeTemplatesRequest
+	(*request.GetDailyQuotaRequest)(nil),                  // 10: fitness.v1.request.GetDailyQuotaRequest
+	(*request.StartChallengeRequest)(nil),                 // 11: fitness.v1.request.StartChallengeRequest
+	(*request.ListMyChallengesRequest)(nil),               // 12: fitness.v1.request.ListMyChallengesRequest
+	(*request.AbandonChallengeRequest)(nil),               // 13: fitness.v1.request.AbandonChallengeRequest
+	(*request.StartWalkSessionRequest)(nil),               // 14: fitness.v1.request.StartWalkSessionRequest
+	(*request.SubmitWalkSamplesRequest)(nil),              // 15: fitness.v1.request.SubmitWalkSamplesRequest
+	(*request.EndWalkSessionRequest)(nil),                 // 16: fitness.v1.request.EndWalkSessionRequest
+	(*request.GetWalkSessionRequest)(nil),                 // 17: fitness.v1.request.GetWalkSessionRequest
+	(*request.ListMyWalkSessionsRequest)(nil),             // 18: fitness.v1.request.ListMyWalkSessionsRequest
+	(*request.GetMyStatsRequest)(nil),                     // 19: fitness.v1.request.GetMyStatsRequest
+	(*request.GetLeaderboardRequest)(nil),                 // 20: fitness.v1.request.GetLeaderboardRequest
+	(*request.GetRegionStandingsRequest)(nil),             // 21: fitness.v1.request.GetRegionStandingsRequest
+	(*request.GetMyPointsBalanceRequest)(nil),             // 22: fitness.v1.request.GetMyPointsBalanceRequest
+	(*request.ListMyPointsLedgerRequest)(nil),             // 23: fitness.v1.request.ListMyPointsLedgerRequest
+	(*request.ListGiftsRequest)(nil),                      // 24: fitness.v1.request.ListGiftsRequest
+	(*request.GetGiftRequest)(nil),                        // 25: fitness.v1.request.GetGiftRequest
+	(*request.RedeemGiftRequest)(nil),                     // 26: fitness.v1.request.RedeemGiftRequest
+	(*request.ListMyRedemptionsRequest)(nil),              // 27: fitness.v1.request.ListMyRedemptionsRequest
+	(*request.CancelRedemptionRequest)(nil),               // 28: fitness.v1.request.CancelRedemptionRequest
+	(*request.UpdateCompetitionRequest)(nil),              // 29: fitness.v1.request.UpdateCompetitionRequest
+	(*request.CancelCompetitionRequest)(nil),              // 30: fitness.v1.request.CancelCompetitionRequest
+	(*request.CreateChallengeTemplateRequest)(nil),        // 31: fitness.v1.request.CreateChallengeTemplateRequest
+	(*request.CreateCompetitionImageUploadRequest)(nil),   // 32: fitness.v1.request.CreateCompetitionImageUploadRequest
+	(*request.CreateGiftRequest)(nil),                     // 33: fitness.v1.request.CreateGiftRequest
+	(*request.UpdateGiftRequest)(nil),                     // 34: fitness.v1.request.UpdateGiftRequest
+	(*request.FulfilRedemptionRequest)(nil),               // 35: fitness.v1.request.FulfilRedemptionRequest
+	(*request.ListAllRedemptionsRequest)(nil),             // 36: fitness.v1.request.ListAllRedemptionsRequest
+	(*request.ListFlaggedSessionsRequest)(nil),            // 37: fitness.v1.request.ListFlaggedSessionsRequest
+	(*request.ReviewSessionRequest)(nil),                  // 38: fitness.v1.request.ReviewSessionRequest
+	(*response.GetMyProfileResponse)(nil),                 // 39: fitness.v1.response.GetMyProfileResponse
+	(*response.UpsertMyProfileResponse)(nil),              // 40: fitness.v1.response.UpsertMyProfileResponse
+	(*response.ListRegionsResponse)(nil),                  // 41: fitness.v1.response.ListRegionsResponse
+	(*response.ListCompetitionsResponse)(nil),             // 42: fitness.v1.response.ListCompetitionsResponse
+	(*response.GetCompetitionResponse)(nil),               // 43: fitness.v1.response.GetCompetitionResponse
+	(*response.JoinCompetitionResponse)(nil),              // 44: fitness.v1.response.JoinCompetitionResponse
+	(*response.LeaveCompetitionResponse)(nil),             // 45: fitness.v1.response.LeaveCompetitionResponse
+	(*response.CreateCompetitionResponse)(nil),            // 46: fitness.v1.response.CreateCompetitionResponse
+	(*response.ListChallengeTemplatesResponse)(nil),       // 47: fitness.v1.response.ListChallengeTemplatesResponse
+	(*response.GetDailyQuotaResponse)(nil),                // 48: fitness.v1.response.GetDailyQuotaResponse
+	(*response.StartChallengeResponse)(nil),               // 49: fitness.v1.response.StartChallengeResponse
+	(*response.ListMyChallengesResponse)(nil),             // 50: fitness.v1.response.ListMyChallengesResponse
+	(*response.AbandonChallengeResponse)(nil),             // 51: fitness.v1.response.AbandonChallengeResponse
+	(*response.StartWalkSessionResponse)(nil),             // 52: fitness.v1.response.StartWalkSessionResponse
+	(*response.SubmitWalkSamplesResponse)(nil),            // 53: fitness.v1.response.SubmitWalkSamplesResponse
+	(*response.EndWalkSessionResponse)(nil),               // 54: fitness.v1.response.EndWalkSessionResponse
+	(*response.GetWalkSessionResponse)(nil),               // 55: fitness.v1.response.GetWalkSessionResponse
+	(*response.ListMyWalkSessionsResponse)(nil),           // 56: fitness.v1.response.ListMyWalkSessionsResponse
+	(*response.GetMyStatsResponse)(nil),                   // 57: fitness.v1.response.GetMyStatsResponse
+	(*response.GetLeaderboardResponse)(nil),               // 58: fitness.v1.response.GetLeaderboardResponse
+	(*response.GetRegionStandingsResponse)(nil),           // 59: fitness.v1.response.GetRegionStandingsResponse
+	(*response.GetMyPointsBalanceResponse)(nil),           // 60: fitness.v1.response.GetMyPointsBalanceResponse
+	(*response.ListMyPointsLedgerResponse)(nil),           // 61: fitness.v1.response.ListMyPointsLedgerResponse
+	(*response.ListGiftsResponse)(nil),                    // 62: fitness.v1.response.ListGiftsResponse
+	(*response.GetGiftResponse)(nil),                      // 63: fitness.v1.response.GetGiftResponse
+	(*response.RedeemGiftResponse)(nil),                   // 64: fitness.v1.response.RedeemGiftResponse
+	(*response.ListMyRedemptionsResponse)(nil),            // 65: fitness.v1.response.ListMyRedemptionsResponse
+	(*response.CancelRedemptionResponse)(nil),             // 66: fitness.v1.response.CancelRedemptionResponse
+	(*response.UpdateCompetitionResponse)(nil),            // 67: fitness.v1.response.UpdateCompetitionResponse
+	(*response.CancelCompetitionResponse)(nil),            // 68: fitness.v1.response.CancelCompetitionResponse
+	(*response.CreateChallengeTemplateResponse)(nil),      // 69: fitness.v1.response.CreateChallengeTemplateResponse
+	(*response.CreateCompetitionImageUploadResponse)(nil), // 70: fitness.v1.response.CreateCompetitionImageUploadResponse
+	(*response.CreateGiftResponse)(nil),                   // 71: fitness.v1.response.CreateGiftResponse
+	(*response.UpdateGiftResponse)(nil),                   // 72: fitness.v1.response.UpdateGiftResponse
+	(*response.FulfilRedemptionResponse)(nil),             // 73: fitness.v1.response.FulfilRedemptionResponse
+	(*response.ListAllRedemptionsResponse)(nil),           // 74: fitness.v1.response.ListAllRedemptionsResponse
+	(*response.ListFlaggedSessionsResponse)(nil),          // 75: fitness.v1.response.ListFlaggedSessionsResponse
+	(*response.ReviewSessionResponse)(nil),                // 76: fitness.v1.response.ReviewSessionResponse
 }
 var file_fitness_v1_fitness_proto_depIdxs = []int32{
 	1,  // 0: fitness.v1.Fitness.GetMyProfile:input_type -> fitness.v1.request.GetMyProfileRequest
@@ -429,51 +440,53 @@ var file_fitness_v1_fitness_proto_depIdxs = []int32{
 	29, // 28: fitness.v1.Fitness.UpdateCompetition:input_type -> fitness.v1.request.UpdateCompetitionRequest
 	30, // 29: fitness.v1.Fitness.CancelCompetition:input_type -> fitness.v1.request.CancelCompetitionRequest
 	31, // 30: fitness.v1.Fitness.CreateChallengeTemplate:input_type -> fitness.v1.request.CreateChallengeTemplateRequest
-	32, // 31: fitness.v1.Fitness.CreateGift:input_type -> fitness.v1.request.CreateGiftRequest
-	33, // 32: fitness.v1.Fitness.UpdateGift:input_type -> fitness.v1.request.UpdateGiftRequest
-	34, // 33: fitness.v1.Fitness.FulfilRedemption:input_type -> fitness.v1.request.FulfilRedemptionRequest
-	35, // 34: fitness.v1.Fitness.ListAllRedemptions:input_type -> fitness.v1.request.ListAllRedemptionsRequest
-	36, // 35: fitness.v1.Fitness.ListFlaggedSessions:input_type -> fitness.v1.request.ListFlaggedSessionsRequest
-	37, // 36: fitness.v1.Fitness.ReviewSession:input_type -> fitness.v1.request.ReviewSessionRequest
-	38, // 37: fitness.v1.Fitness.GetMyProfile:output_type -> fitness.v1.response.GetMyProfileResponse
-	39, // 38: fitness.v1.Fitness.UpsertMyProfile:output_type -> fitness.v1.response.UpsertMyProfileResponse
-	40, // 39: fitness.v1.Fitness.ListRegions:output_type -> fitness.v1.response.ListRegionsResponse
-	41, // 40: fitness.v1.Fitness.ListCompetitions:output_type -> fitness.v1.response.ListCompetitionsResponse
-	42, // 41: fitness.v1.Fitness.GetCompetition:output_type -> fitness.v1.response.GetCompetitionResponse
-	43, // 42: fitness.v1.Fitness.JoinCompetition:output_type -> fitness.v1.response.JoinCompetitionResponse
-	44, // 43: fitness.v1.Fitness.LeaveCompetition:output_type -> fitness.v1.response.LeaveCompetitionResponse
-	45, // 44: fitness.v1.Fitness.CreateCompetition:output_type -> fitness.v1.response.CreateCompetitionResponse
-	46, // 45: fitness.v1.Fitness.ListChallengeTemplates:output_type -> fitness.v1.response.ListChallengeTemplatesResponse
-	47, // 46: fitness.v1.Fitness.GetDailyQuota:output_type -> fitness.v1.response.GetDailyQuotaResponse
-	48, // 47: fitness.v1.Fitness.StartChallenge:output_type -> fitness.v1.response.StartChallengeResponse
-	49, // 48: fitness.v1.Fitness.ListMyChallenges:output_type -> fitness.v1.response.ListMyChallengesResponse
-	50, // 49: fitness.v1.Fitness.AbandonChallenge:output_type -> fitness.v1.response.AbandonChallengeResponse
-	51, // 50: fitness.v1.Fitness.StartWalkSession:output_type -> fitness.v1.response.StartWalkSessionResponse
-	52, // 51: fitness.v1.Fitness.SubmitWalkSamples:output_type -> fitness.v1.response.SubmitWalkSamplesResponse
-	53, // 52: fitness.v1.Fitness.EndWalkSession:output_type -> fitness.v1.response.EndWalkSessionResponse
-	54, // 53: fitness.v1.Fitness.GetWalkSession:output_type -> fitness.v1.response.GetWalkSessionResponse
-	55, // 54: fitness.v1.Fitness.ListMyWalkSessions:output_type -> fitness.v1.response.ListMyWalkSessionsResponse
-	56, // 55: fitness.v1.Fitness.GetMyStats:output_type -> fitness.v1.response.GetMyStatsResponse
-	57, // 56: fitness.v1.Fitness.GetLeaderboard:output_type -> fitness.v1.response.GetLeaderboardResponse
-	58, // 57: fitness.v1.Fitness.GetRegionStandings:output_type -> fitness.v1.response.GetRegionStandingsResponse
-	59, // 58: fitness.v1.Fitness.GetMyPointsBalance:output_type -> fitness.v1.response.GetMyPointsBalanceResponse
-	60, // 59: fitness.v1.Fitness.ListMyPointsLedger:output_type -> fitness.v1.response.ListMyPointsLedgerResponse
-	61, // 60: fitness.v1.Fitness.ListGifts:output_type -> fitness.v1.response.ListGiftsResponse
-	62, // 61: fitness.v1.Fitness.GetGift:output_type -> fitness.v1.response.GetGiftResponse
-	63, // 62: fitness.v1.Fitness.RedeemGift:output_type -> fitness.v1.response.RedeemGiftResponse
-	64, // 63: fitness.v1.Fitness.ListMyRedemptions:output_type -> fitness.v1.response.ListMyRedemptionsResponse
-	65, // 64: fitness.v1.Fitness.CancelRedemption:output_type -> fitness.v1.response.CancelRedemptionResponse
-	66, // 65: fitness.v1.Fitness.UpdateCompetition:output_type -> fitness.v1.response.UpdateCompetitionResponse
-	67, // 66: fitness.v1.Fitness.CancelCompetition:output_type -> fitness.v1.response.CancelCompetitionResponse
-	68, // 67: fitness.v1.Fitness.CreateChallengeTemplate:output_type -> fitness.v1.response.CreateChallengeTemplateResponse
-	69, // 68: fitness.v1.Fitness.CreateGift:output_type -> fitness.v1.response.CreateGiftResponse
-	70, // 69: fitness.v1.Fitness.UpdateGift:output_type -> fitness.v1.response.UpdateGiftResponse
-	71, // 70: fitness.v1.Fitness.FulfilRedemption:output_type -> fitness.v1.response.FulfilRedemptionResponse
-	72, // 71: fitness.v1.Fitness.ListAllRedemptions:output_type -> fitness.v1.response.ListAllRedemptionsResponse
-	73, // 72: fitness.v1.Fitness.ListFlaggedSessions:output_type -> fitness.v1.response.ListFlaggedSessionsResponse
-	74, // 73: fitness.v1.Fitness.ReviewSession:output_type -> fitness.v1.response.ReviewSessionResponse
-	37, // [37:74] is the sub-list for method output_type
-	0,  // [0:37] is the sub-list for method input_type
+	32, // 31: fitness.v1.Fitness.CreateCompetitionImageUpload:input_type -> fitness.v1.request.CreateCompetitionImageUploadRequest
+	33, // 32: fitness.v1.Fitness.CreateGift:input_type -> fitness.v1.request.CreateGiftRequest
+	34, // 33: fitness.v1.Fitness.UpdateGift:input_type -> fitness.v1.request.UpdateGiftRequest
+	35, // 34: fitness.v1.Fitness.FulfilRedemption:input_type -> fitness.v1.request.FulfilRedemptionRequest
+	36, // 35: fitness.v1.Fitness.ListAllRedemptions:input_type -> fitness.v1.request.ListAllRedemptionsRequest
+	37, // 36: fitness.v1.Fitness.ListFlaggedSessions:input_type -> fitness.v1.request.ListFlaggedSessionsRequest
+	38, // 37: fitness.v1.Fitness.ReviewSession:input_type -> fitness.v1.request.ReviewSessionRequest
+	39, // 38: fitness.v1.Fitness.GetMyProfile:output_type -> fitness.v1.response.GetMyProfileResponse
+	40, // 39: fitness.v1.Fitness.UpsertMyProfile:output_type -> fitness.v1.response.UpsertMyProfileResponse
+	41, // 40: fitness.v1.Fitness.ListRegions:output_type -> fitness.v1.response.ListRegionsResponse
+	42, // 41: fitness.v1.Fitness.ListCompetitions:output_type -> fitness.v1.response.ListCompetitionsResponse
+	43, // 42: fitness.v1.Fitness.GetCompetition:output_type -> fitness.v1.response.GetCompetitionResponse
+	44, // 43: fitness.v1.Fitness.JoinCompetition:output_type -> fitness.v1.response.JoinCompetitionResponse
+	45, // 44: fitness.v1.Fitness.LeaveCompetition:output_type -> fitness.v1.response.LeaveCompetitionResponse
+	46, // 45: fitness.v1.Fitness.CreateCompetition:output_type -> fitness.v1.response.CreateCompetitionResponse
+	47, // 46: fitness.v1.Fitness.ListChallengeTemplates:output_type -> fitness.v1.response.ListChallengeTemplatesResponse
+	48, // 47: fitness.v1.Fitness.GetDailyQuota:output_type -> fitness.v1.response.GetDailyQuotaResponse
+	49, // 48: fitness.v1.Fitness.StartChallenge:output_type -> fitness.v1.response.StartChallengeResponse
+	50, // 49: fitness.v1.Fitness.ListMyChallenges:output_type -> fitness.v1.response.ListMyChallengesResponse
+	51, // 50: fitness.v1.Fitness.AbandonChallenge:output_type -> fitness.v1.response.AbandonChallengeResponse
+	52, // 51: fitness.v1.Fitness.StartWalkSession:output_type -> fitness.v1.response.StartWalkSessionResponse
+	53, // 52: fitness.v1.Fitness.SubmitWalkSamples:output_type -> fitness.v1.response.SubmitWalkSamplesResponse
+	54, // 53: fitness.v1.Fitness.EndWalkSession:output_type -> fitness.v1.response.EndWalkSessionResponse
+	55, // 54: fitness.v1.Fitness.GetWalkSession:output_type -> fitness.v1.response.GetWalkSessionResponse
+	56, // 55: fitness.v1.Fitness.ListMyWalkSessions:output_type -> fitness.v1.response.ListMyWalkSessionsResponse
+	57, // 56: fitness.v1.Fitness.GetMyStats:output_type -> fitness.v1.response.GetMyStatsResponse
+	58, // 57: fitness.v1.Fitness.GetLeaderboard:output_type -> fitness.v1.response.GetLeaderboardResponse
+	59, // 58: fitness.v1.Fitness.GetRegionStandings:output_type -> fitness.v1.response.GetRegionStandingsResponse
+	60, // 59: fitness.v1.Fitness.GetMyPointsBalance:output_type -> fitness.v1.response.GetMyPointsBalanceResponse
+	61, // 60: fitness.v1.Fitness.ListMyPointsLedger:output_type -> fitness.v1.response.ListMyPointsLedgerResponse
+	62, // 61: fitness.v1.Fitness.ListGifts:output_type -> fitness.v1.response.ListGiftsResponse
+	63, // 62: fitness.v1.Fitness.GetGift:output_type -> fitness.v1.response.GetGiftResponse
+	64, // 63: fitness.v1.Fitness.RedeemGift:output_type -> fitness.v1.response.RedeemGiftResponse
+	65, // 64: fitness.v1.Fitness.ListMyRedemptions:output_type -> fitness.v1.response.ListMyRedemptionsResponse
+	66, // 65: fitness.v1.Fitness.CancelRedemption:output_type -> fitness.v1.response.CancelRedemptionResponse
+	67, // 66: fitness.v1.Fitness.UpdateCompetition:output_type -> fitness.v1.response.UpdateCompetitionResponse
+	68, // 67: fitness.v1.Fitness.CancelCompetition:output_type -> fitness.v1.response.CancelCompetitionResponse
+	69, // 68: fitness.v1.Fitness.CreateChallengeTemplate:output_type -> fitness.v1.response.CreateChallengeTemplateResponse
+	70, // 69: fitness.v1.Fitness.CreateCompetitionImageUpload:output_type -> fitness.v1.response.CreateCompetitionImageUploadResponse
+	71, // 70: fitness.v1.Fitness.CreateGift:output_type -> fitness.v1.response.CreateGiftResponse
+	72, // 71: fitness.v1.Fitness.UpdateGift:output_type -> fitness.v1.response.UpdateGiftResponse
+	73, // 72: fitness.v1.Fitness.FulfilRedemption:output_type -> fitness.v1.response.FulfilRedemptionResponse
+	74, // 73: fitness.v1.Fitness.ListAllRedemptions:output_type -> fitness.v1.response.ListAllRedemptionsResponse
+	75, // 74: fitness.v1.Fitness.ListFlaggedSessions:output_type -> fitness.v1.response.ListFlaggedSessionsResponse
+	76, // 75: fitness.v1.Fitness.ReviewSession:output_type -> fitness.v1.response.ReviewSessionResponse
+	38, // [38:76] is the sub-list for method output_type
+	0,  // [0:38] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

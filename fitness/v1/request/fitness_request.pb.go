@@ -443,24 +443,25 @@ func (x *LeaveCompetitionRequest) GetCompetitionId() string {
 }
 
 type CreateCompetitionRequest struct {
-	state                    protoimpl.MessageState  `protogen:"open.v1"`
-	Title                    string                  `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	Description              string                  `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	BannerUrl                string                  `protobuf:"bytes,3,opt,name=banner_url,json=bannerUrl,proto3" json:"banner_url,omitempty"`
-	Scope                    enums.CompetitionScope  `protobuf:"varint,4,opt,name=scope,proto3,enum=fitness.v1.types.enums.CompetitionScope" json:"scope,omitempty"`
-	StateCode                string                  `protobuf:"bytes,5,opt,name=state_code,json=stateCode,proto3" json:"state_code,omitempty"`
-	DistrictCode             string                  `protobuf:"bytes,6,opt,name=district_code,json=districtCode,proto3" json:"district_code,omitempty"`
-	Metric                   enums.CompetitionMetric `protobuf:"varint,7,opt,name=metric,proto3,enum=fitness.v1.types.enums.CompetitionMetric" json:"metric,omitempty"`
-	StartsAt                 *timestamppb.Timestamp  `protobuf:"bytes,8,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
-	EndsAt                   *timestamppb.Timestamp  `protobuf:"bytes,9,opt,name=ends_at,json=endsAt,proto3" json:"ends_at,omitempty"`
-	DailyChallengeLimit      int32                   `protobuf:"varint,10,opt,name=daily_challenge_limit,json=dailyChallengeLimit,proto3" json:"daily_challenge_limit,omitempty"`
-	DailyStepCap             int64                   `protobuf:"varint,11,opt,name=daily_step_cap,json=dailyStepCap,proto3" json:"daily_step_cap,omitempty"`
-	ChallengeCooldownSeconds int32                   `protobuf:"varint,12,opt,name=challenge_cooldown_seconds,json=challengeCooldownSeconds,proto3" json:"challenge_cooldown_seconds,omitempty"`
-	PointsPerUnit            int64                   `protobuf:"varint,13,opt,name=points_per_unit,json=pointsPerUnit,proto3" json:"points_per_unit,omitempty"`
-	PointsPerUnitDivisor     int64                   `protobuf:"varint,14,opt,name=points_per_unit_divisor,json=pointsPerUnitDivisor,proto3" json:"points_per_unit_divisor,omitempty"`
-	DailyPointsCap           int64                   `protobuf:"varint,15,opt,name=daily_points_cap,json=dailyPointsCap,proto3" json:"daily_points_cap,omitempty"`
-	EnforceGeofence          bool                    `protobuf:"varint,16,opt,name=enforce_geofence,json=enforceGeofence,proto3" json:"enforce_geofence,omitempty"`
-	MaxSpeedMps              float64                 `protobuf:"fixed64,17,opt,name=max_speed_mps,json=maxSpeedMps,proto3" json:"max_speed_mps,omitempty"`
+	state                    protoimpl.MessageState   `protogen:"open.v1"`
+	Title                    string                   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description              string                   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	BannerUrl                string                   `protobuf:"bytes,3,opt,name=banner_url,json=bannerUrl,proto3" json:"banner_url,omitempty"`
+	Scope                    enums.CompetitionScope   `protobuf:"varint,4,opt,name=scope,proto3,enum=fitness.v1.types.enums.CompetitionScope" json:"scope,omitempty"`
+	StateCode                string                   `protobuf:"bytes,5,opt,name=state_code,json=stateCode,proto3" json:"state_code,omitempty"`
+	DistrictCode             string                   `protobuf:"bytes,6,opt,name=district_code,json=districtCode,proto3" json:"district_code,omitempty"`
+	Metric                   enums.CompetitionMetric  `protobuf:"varint,7,opt,name=metric,proto3,enum=fitness.v1.types.enums.CompetitionMetric" json:"metric,omitempty"`
+	StartsAt                 *timestamppb.Timestamp   `protobuf:"bytes,8,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	EndsAt                   *timestamppb.Timestamp   `protobuf:"bytes,9,opt,name=ends_at,json=endsAt,proto3" json:"ends_at,omitempty"`
+	DailyChallengeLimit      int32                    `protobuf:"varint,10,opt,name=daily_challenge_limit,json=dailyChallengeLimit,proto3" json:"daily_challenge_limit,omitempty"`
+	DailyStepCap             int64                    `protobuf:"varint,11,opt,name=daily_step_cap,json=dailyStepCap,proto3" json:"daily_step_cap,omitempty"`
+	ChallengeCooldownSeconds int32                    `protobuf:"varint,12,opt,name=challenge_cooldown_seconds,json=challengeCooldownSeconds,proto3" json:"challenge_cooldown_seconds,omitempty"`
+	PointsPerUnit            int64                    `protobuf:"varint,13,opt,name=points_per_unit,json=pointsPerUnit,proto3" json:"points_per_unit,omitempty"`
+	PointsPerUnitDivisor     int64                    `protobuf:"varint,14,opt,name=points_per_unit_divisor,json=pointsPerUnitDivisor,proto3" json:"points_per_unit_divisor,omitempty"`
+	DailyPointsCap           int64                    `protobuf:"varint,15,opt,name=daily_points_cap,json=dailyPointsCap,proto3" json:"daily_points_cap,omitempty"`
+	EnforceGeofence          bool                     `protobuf:"varint,16,opt,name=enforce_geofence,json=enforceGeofence,proto3" json:"enforce_geofence,omitempty"`
+	MaxSpeedMps              float64                  `protobuf:"fixed64,17,opt,name=max_speed_mps,json=maxSpeedMps,proto3" json:"max_speed_mps,omitempty"`
+	Images                   []*CompetitionImageInput `protobuf:"bytes,18,rep,name=images,proto3" json:"images,omitempty"`
 	unknownFields            protoimpl.UnknownFields
 	sizeCache                protoimpl.SizeCache
 }
@@ -614,6 +615,73 @@ func (x *CreateCompetitionRequest) GetMaxSpeedMps() float64 {
 	return 0
 }
 
+func (x *CreateCompetitionRequest) GetImages() []*CompetitionImageInput {
+	if x != nil {
+		return x.Images
+	}
+	return nil
+}
+
+type CompetitionImageInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ImageUrl      string                 `protobuf:"bytes,1,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Caption       string                 `protobuf:"bytes,2,opt,name=caption,proto3" json:"caption,omitempty"`
+	Position      int32                  `protobuf:"varint,3,opt,name=position,proto3" json:"position,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CompetitionImageInput) Reset() {
+	*x = CompetitionImageInput{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompetitionImageInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompetitionImageInput) ProtoMessage() {}
+
+func (x *CompetitionImageInput) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompetitionImageInput.ProtoReflect.Descriptor instead.
+func (*CompetitionImageInput) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *CompetitionImageInput) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+func (x *CompetitionImageInput) GetCaption() string {
+	if x != nil {
+		return x.Caption
+	}
+	return ""
+}
+
+func (x *CompetitionImageInput) GetPosition() int32 {
+	if x != nil {
+		return x.Position
+	}
+	return 0
+}
+
 type ListChallengeTemplatesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CompetitionId string                 `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
@@ -623,7 +691,7 @@ type ListChallengeTemplatesRequest struct {
 
 func (x *ListChallengeTemplatesRequest) Reset() {
 	*x = ListChallengeTemplatesRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[8]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -635,7 +703,7 @@ func (x *ListChallengeTemplatesRequest) String() string {
 func (*ListChallengeTemplatesRequest) ProtoMessage() {}
 
 func (x *ListChallengeTemplatesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[8]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -648,7 +716,7 @@ func (x *ListChallengeTemplatesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListChallengeTemplatesRequest.ProtoReflect.Descriptor instead.
 func (*ListChallengeTemplatesRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{8}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ListChallengeTemplatesRequest) GetCompetitionId() string {
@@ -667,7 +735,7 @@ type GetDailyQuotaRequest struct {
 
 func (x *GetDailyQuotaRequest) Reset() {
 	*x = GetDailyQuotaRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[9]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -679,7 +747,7 @@ func (x *GetDailyQuotaRequest) String() string {
 func (*GetDailyQuotaRequest) ProtoMessage() {}
 
 func (x *GetDailyQuotaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[9]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -692,7 +760,7 @@ func (x *GetDailyQuotaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDailyQuotaRequest.ProtoReflect.Descriptor instead.
 func (*GetDailyQuotaRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{9}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetDailyQuotaRequest) GetCompetitionId() string {
@@ -715,7 +783,7 @@ type StartChallengeRequest struct {
 
 func (x *StartChallengeRequest) Reset() {
 	*x = StartChallengeRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[10]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -727,7 +795,7 @@ func (x *StartChallengeRequest) String() string {
 func (*StartChallengeRequest) ProtoMessage() {}
 
 func (x *StartChallengeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[10]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -740,7 +808,7 @@ func (x *StartChallengeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartChallengeRequest.ProtoReflect.Descriptor instead.
 func (*StartChallengeRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{10}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *StartChallengeRequest) GetCompetitionId() string {
@@ -776,7 +844,7 @@ type ListMyChallengesRequest struct {
 
 func (x *ListMyChallengesRequest) Reset() {
 	*x = ListMyChallengesRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[11]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -788,7 +856,7 @@ func (x *ListMyChallengesRequest) String() string {
 func (*ListMyChallengesRequest) ProtoMessage() {}
 
 func (x *ListMyChallengesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[11]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -801,7 +869,7 @@ func (x *ListMyChallengesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMyChallengesRequest.ProtoReflect.Descriptor instead.
 func (*ListMyChallengesRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{11}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *ListMyChallengesRequest) GetCompetitionId() string {
@@ -841,7 +909,7 @@ type AbandonChallengeRequest struct {
 
 func (x *AbandonChallengeRequest) Reset() {
 	*x = AbandonChallengeRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[12]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -853,7 +921,7 @@ func (x *AbandonChallengeRequest) String() string {
 func (*AbandonChallengeRequest) ProtoMessage() {}
 
 func (x *AbandonChallengeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[12]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -866,7 +934,7 @@ func (x *AbandonChallengeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AbandonChallengeRequest.ProtoReflect.Descriptor instead.
 func (*AbandonChallengeRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{12}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *AbandonChallengeRequest) GetChallengeId() string {
@@ -888,7 +956,7 @@ type StartWalkSessionRequest struct {
 
 func (x *StartWalkSessionRequest) Reset() {
 	*x = StartWalkSessionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[13]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -900,7 +968,7 @@ func (x *StartWalkSessionRequest) String() string {
 func (*StartWalkSessionRequest) ProtoMessage() {}
 
 func (x *StartWalkSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[13]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -913,7 +981,7 @@ func (x *StartWalkSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartWalkSessionRequest.ProtoReflect.Descriptor instead.
 func (*StartWalkSessionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{13}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *StartWalkSessionRequest) GetChallengeId() string {
@@ -959,7 +1027,7 @@ type SubmitWalkSamplesRequest struct {
 
 func (x *SubmitWalkSamplesRequest) Reset() {
 	*x = SubmitWalkSamplesRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[14]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -971,7 +1039,7 @@ func (x *SubmitWalkSamplesRequest) String() string {
 func (*SubmitWalkSamplesRequest) ProtoMessage() {}
 
 func (x *SubmitWalkSamplesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[14]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -984,7 +1052,7 @@ func (x *SubmitWalkSamplesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SubmitWalkSamplesRequest.ProtoReflect.Descriptor instead.
 func (*SubmitWalkSamplesRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{14}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *SubmitWalkSamplesRequest) GetSessionId() string {
@@ -1028,7 +1096,7 @@ type EndWalkSessionRequest struct {
 
 func (x *EndWalkSessionRequest) Reset() {
 	*x = EndWalkSessionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[15]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1040,7 +1108,7 @@ func (x *EndWalkSessionRequest) String() string {
 func (*EndWalkSessionRequest) ProtoMessage() {}
 
 func (x *EndWalkSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[15]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1053,7 +1121,7 @@ func (x *EndWalkSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EndWalkSessionRequest.ProtoReflect.Descriptor instead.
 func (*EndWalkSessionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{15}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *EndWalkSessionRequest) GetSessionId() string {
@@ -1093,7 +1161,7 @@ type GetWalkSessionRequest struct {
 
 func (x *GetWalkSessionRequest) Reset() {
 	*x = GetWalkSessionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[16]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1105,7 +1173,7 @@ func (x *GetWalkSessionRequest) String() string {
 func (*GetWalkSessionRequest) ProtoMessage() {}
 
 func (x *GetWalkSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[16]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1118,7 +1186,7 @@ func (x *GetWalkSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetWalkSessionRequest.ProtoReflect.Descriptor instead.
 func (*GetWalkSessionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{16}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetWalkSessionRequest) GetSessionId() string {
@@ -1142,7 +1210,7 @@ type ListMyWalkSessionsRequest struct {
 
 func (x *ListMyWalkSessionsRequest) Reset() {
 	*x = ListMyWalkSessionsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[17]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1154,7 +1222,7 @@ func (x *ListMyWalkSessionsRequest) String() string {
 func (*ListMyWalkSessionsRequest) ProtoMessage() {}
 
 func (x *ListMyWalkSessionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[17]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1167,7 +1235,7 @@ func (x *ListMyWalkSessionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMyWalkSessionsRequest.ProtoReflect.Descriptor instead.
 func (*ListMyWalkSessionsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{17}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *ListMyWalkSessionsRequest) GetCompetitionId() string {
@@ -1223,7 +1291,7 @@ type GetMyStatsRequest struct {
 
 func (x *GetMyStatsRequest) Reset() {
 	*x = GetMyStatsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[18]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1235,7 +1303,7 @@ func (x *GetMyStatsRequest) String() string {
 func (*GetMyStatsRequest) ProtoMessage() {}
 
 func (x *GetMyStatsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[18]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1248,7 +1316,7 @@ func (x *GetMyStatsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMyStatsRequest.ProtoReflect.Descriptor instead.
 func (*GetMyStatsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{18}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetMyStatsRequest) GetFromDate() string {
@@ -1286,7 +1354,7 @@ type GetLeaderboardRequest struct {
 
 func (x *GetLeaderboardRequest) Reset() {
 	*x = GetLeaderboardRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[19]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1298,7 +1366,7 @@ func (x *GetLeaderboardRequest) String() string {
 func (*GetLeaderboardRequest) ProtoMessage() {}
 
 func (x *GetLeaderboardRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[19]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1311,7 +1379,7 @@ func (x *GetLeaderboardRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLeaderboardRequest.ProtoReflect.Descriptor instead.
 func (*GetLeaderboardRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{19}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetLeaderboardRequest) GetCompetitionId() string {
@@ -1395,7 +1463,7 @@ type GetRegionStandingsRequest struct {
 
 func (x *GetRegionStandingsRequest) Reset() {
 	*x = GetRegionStandingsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[20]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1407,7 +1475,7 @@ func (x *GetRegionStandingsRequest) String() string {
 func (*GetRegionStandingsRequest) ProtoMessage() {}
 
 func (x *GetRegionStandingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[20]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1420,7 +1488,7 @@ func (x *GetRegionStandingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRegionStandingsRequest.ProtoReflect.Descriptor instead.
 func (*GetRegionStandingsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{20}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetRegionStandingsRequest) GetScope() enums.CompetitionScope {
@@ -1480,7 +1548,7 @@ type GetMyPointsBalanceRequest struct {
 
 func (x *GetMyPointsBalanceRequest) Reset() {
 	*x = GetMyPointsBalanceRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[21]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1492,7 +1560,7 @@ func (x *GetMyPointsBalanceRequest) String() string {
 func (*GetMyPointsBalanceRequest) ProtoMessage() {}
 
 func (x *GetMyPointsBalanceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[21]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1505,7 +1573,7 @@ func (x *GetMyPointsBalanceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMyPointsBalanceRequest.ProtoReflect.Descriptor instead.
 func (*GetMyPointsBalanceRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{21}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{22}
 }
 
 type ListMyPointsLedgerRequest struct {
@@ -1520,7 +1588,7 @@ type ListMyPointsLedgerRequest struct {
 
 func (x *ListMyPointsLedgerRequest) Reset() {
 	*x = ListMyPointsLedgerRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[22]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1532,7 +1600,7 @@ func (x *ListMyPointsLedgerRequest) String() string {
 func (*ListMyPointsLedgerRequest) ProtoMessage() {}
 
 func (x *ListMyPointsLedgerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[22]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1545,7 +1613,7 @@ func (x *ListMyPointsLedgerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMyPointsLedgerRequest.ProtoReflect.Descriptor instead.
 func (*ListMyPointsLedgerRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{22}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *ListMyPointsLedgerRequest) GetFrom() *timestamppb.Timestamp {
@@ -1589,7 +1657,7 @@ type ListGiftsRequest struct {
 
 func (x *ListGiftsRequest) Reset() {
 	*x = ListGiftsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[23]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1601,7 +1669,7 @@ func (x *ListGiftsRequest) String() string {
 func (*ListGiftsRequest) ProtoMessage() {}
 
 func (x *ListGiftsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[23]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1614,7 +1682,7 @@ func (x *ListGiftsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGiftsRequest.ProtoReflect.Descriptor instead.
 func (*ListGiftsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{23}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *ListGiftsRequest) GetCategory() string {
@@ -1654,7 +1722,7 @@ type GetGiftRequest struct {
 
 func (x *GetGiftRequest) Reset() {
 	*x = GetGiftRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[24]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1666,7 +1734,7 @@ func (x *GetGiftRequest) String() string {
 func (*GetGiftRequest) ProtoMessage() {}
 
 func (x *GetGiftRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[24]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1679,7 +1747,7 @@ func (x *GetGiftRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGiftRequest.ProtoReflect.Descriptor instead.
 func (*GetGiftRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{24}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetGiftRequest) GetGiftId() string {
@@ -1701,7 +1769,7 @@ type RedeemGiftRequest struct {
 
 func (x *RedeemGiftRequest) Reset() {
 	*x = RedeemGiftRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[25]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1713,7 +1781,7 @@ func (x *RedeemGiftRequest) String() string {
 func (*RedeemGiftRequest) ProtoMessage() {}
 
 func (x *RedeemGiftRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[25]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1726,7 +1794,7 @@ func (x *RedeemGiftRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RedeemGiftRequest.ProtoReflect.Descriptor instead.
 func (*RedeemGiftRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{25}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *RedeemGiftRequest) GetGiftId() string {
@@ -1761,7 +1829,7 @@ type ListMyRedemptionsRequest struct {
 
 func (x *ListMyRedemptionsRequest) Reset() {
 	*x = ListMyRedemptionsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[26]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1773,7 +1841,7 @@ func (x *ListMyRedemptionsRequest) String() string {
 func (*ListMyRedemptionsRequest) ProtoMessage() {}
 
 func (x *ListMyRedemptionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[26]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1786,7 +1854,7 @@ func (x *ListMyRedemptionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMyRedemptionsRequest.ProtoReflect.Descriptor instead.
 func (*ListMyRedemptionsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{26}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ListMyRedemptionsRequest) GetStatus() enums.RedemptionStatus {
@@ -1819,7 +1887,7 @@ type CancelRedemptionRequest struct {
 
 func (x *CancelRedemptionRequest) Reset() {
 	*x = CancelRedemptionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[27]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1831,7 +1899,7 @@ func (x *CancelRedemptionRequest) String() string {
 func (*CancelRedemptionRequest) ProtoMessage() {}
 
 func (x *CancelRedemptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[27]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1844,7 +1912,7 @@ func (x *CancelRedemptionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CancelRedemptionRequest.ProtoReflect.Descriptor instead.
 func (*CancelRedemptionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{27}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *CancelRedemptionRequest) GetRedemptionId() string {
@@ -1870,13 +1938,17 @@ type UpdateCompetitionRequest struct {
 	DailyPointsCap           *int64                 `protobuf:"varint,10,opt,name=daily_points_cap,json=dailyPointsCap,proto3,oneof" json:"daily_points_cap,omitempty"`
 	EnforceGeofence          *bool                  `protobuf:"varint,11,opt,name=enforce_geofence,json=enforceGeofence,proto3,oneof" json:"enforce_geofence,omitempty"`
 	MaxSpeedMps              *float64               `protobuf:"fixed64,12,opt,name=max_speed_mps,json=maxSpeedMps,proto3,oneof" json:"max_speed_mps,omitempty"`
-	unknownFields            protoimpl.UnknownFields
-	sizeCache                protoimpl.SizeCache
+	// Replaces the whole gallery when replace_images is set, so an edit cannot
+	// half-apply. Leave unset to keep the existing images.
+	Images        []*CompetitionImageInput `protobuf:"bytes,13,rep,name=images,proto3" json:"images,omitempty"`
+	ReplaceImages bool                     `protobuf:"varint,14,opt,name=replace_images,json=replaceImages,proto3" json:"replace_images,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateCompetitionRequest) Reset() {
 	*x = UpdateCompetitionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1888,7 +1960,7 @@ func (x *UpdateCompetitionRequest) String() string {
 func (*UpdateCompetitionRequest) ProtoMessage() {}
 
 func (x *UpdateCompetitionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1901,7 +1973,7 @@ func (x *UpdateCompetitionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCompetitionRequest.ProtoReflect.Descriptor instead.
 func (*UpdateCompetitionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{28}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *UpdateCompetitionRequest) GetCompetitionId() string {
@@ -1988,6 +2060,20 @@ func (x *UpdateCompetitionRequest) GetMaxSpeedMps() float64 {
 	return 0
 }
 
+func (x *UpdateCompetitionRequest) GetImages() []*CompetitionImageInput {
+	if x != nil {
+		return x.Images
+	}
+	return nil
+}
+
+func (x *UpdateCompetitionRequest) GetReplaceImages() bool {
+	if x != nil {
+		return x.ReplaceImages
+	}
+	return false
+}
+
 type CancelCompetitionRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CompetitionId string                 `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
@@ -1998,7 +2084,7 @@ type CancelCompetitionRequest struct {
 
 func (x *CancelCompetitionRequest) Reset() {
 	*x = CancelCompetitionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2010,7 +2096,7 @@ func (x *CancelCompetitionRequest) String() string {
 func (*CancelCompetitionRequest) ProtoMessage() {}
 
 func (x *CancelCompetitionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2023,7 +2109,7 @@ func (x *CancelCompetitionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CancelCompetitionRequest.ProtoReflect.Descriptor instead.
 func (*CancelCompetitionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{29}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *CancelCompetitionRequest) GetCompetitionId() string {
@@ -2055,7 +2141,7 @@ type CreateChallengeTemplateRequest struct {
 
 func (x *CreateChallengeTemplateRequest) Reset() {
 	*x = CreateChallengeTemplateRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[30]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2067,7 +2153,7 @@ func (x *CreateChallengeTemplateRequest) String() string {
 func (*CreateChallengeTemplateRequest) ProtoMessage() {}
 
 func (x *CreateChallengeTemplateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[30]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2080,7 +2166,7 @@ func (x *CreateChallengeTemplateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateChallengeTemplateRequest.ProtoReflect.Descriptor instead.
 func (*CreateChallengeTemplateRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{30}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *CreateChallengeTemplateRequest) GetCompetitionId() string {
@@ -2150,7 +2236,7 @@ type CreateGiftRequest struct {
 
 func (x *CreateGiftRequest) Reset() {
 	*x = CreateGiftRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[31]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2162,7 +2248,7 @@ func (x *CreateGiftRequest) String() string {
 func (*CreateGiftRequest) ProtoMessage() {}
 
 func (x *CreateGiftRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[31]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2175,7 +2261,7 @@ func (x *CreateGiftRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateGiftRequest.ProtoReflect.Descriptor instead.
 func (*CreateGiftRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{31}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *CreateGiftRequest) GetTitle() string {
@@ -2259,7 +2345,7 @@ type UpdateGiftRequest struct {
 
 func (x *UpdateGiftRequest) Reset() {
 	*x = UpdateGiftRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[32]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2271,7 +2357,7 @@ func (x *UpdateGiftRequest) String() string {
 func (*UpdateGiftRequest) ProtoMessage() {}
 
 func (x *UpdateGiftRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[32]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2284,7 +2370,7 @@ func (x *UpdateGiftRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateGiftRequest.ProtoReflect.Descriptor instead.
 func (*UpdateGiftRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{32}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *UpdateGiftRequest) GetGiftId() string {
@@ -2365,7 +2451,7 @@ type FulfilRedemptionRequest struct {
 
 func (x *FulfilRedemptionRequest) Reset() {
 	*x = FulfilRedemptionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[33]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2377,7 +2463,7 @@ func (x *FulfilRedemptionRequest) String() string {
 func (*FulfilRedemptionRequest) ProtoMessage() {}
 
 func (x *FulfilRedemptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[33]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2390,7 +2476,7 @@ func (x *FulfilRedemptionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FulfilRedemptionRequest.ProtoReflect.Descriptor instead.
 func (*FulfilRedemptionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{33}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *FulfilRedemptionRequest) GetRedemptionId() string {
@@ -2421,6 +2507,59 @@ func (x *FulfilRedemptionRequest) GetNote() string {
 	return ""
 }
 
+// Presigned direct-to-storage upload, so image bytes never transit the API.
+type CreateCompetitionImageUploadRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ContentType   string                 `protobuf:"bytes,1,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
+	ContentLength int64                  `protobuf:"varint,2,opt,name=content_length,json=contentLength,proto3" json:"content_length,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCompetitionImageUploadRequest) Reset() {
+	*x = CreateCompetitionImageUploadRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCompetitionImageUploadRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCompetitionImageUploadRequest) ProtoMessage() {}
+
+func (x *CreateCompetitionImageUploadRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCompetitionImageUploadRequest.ProtoReflect.Descriptor instead.
+func (*CreateCompetitionImageUploadRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *CreateCompetitionImageUploadRequest) GetContentType() string {
+	if x != nil {
+		return x.ContentType
+	}
+	return ""
+}
+
+func (x *CreateCompetitionImageUploadRequest) GetContentLength() int64 {
+	if x != nil {
+		return x.ContentLength
+	}
+	return 0
+}
+
 type ListAllRedemptionsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        enums.RedemptionStatus `protobuf:"varint,1,opt,name=status,proto3,enum=fitness.v1.types.enums.RedemptionStatus" json:"status,omitempty"`
@@ -2434,7 +2573,7 @@ type ListAllRedemptionsRequest struct {
 
 func (x *ListAllRedemptionsRequest) Reset() {
 	*x = ListAllRedemptionsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[34]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2446,7 +2585,7 @@ func (x *ListAllRedemptionsRequest) String() string {
 func (*ListAllRedemptionsRequest) ProtoMessage() {}
 
 func (x *ListAllRedemptionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[34]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2459,7 +2598,7 @@ func (x *ListAllRedemptionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListAllRedemptionsRequest.ProtoReflect.Descriptor instead.
 func (*ListAllRedemptionsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{34}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *ListAllRedemptionsRequest) GetStatus() enums.RedemptionStatus {
@@ -2510,7 +2649,7 @@ type ListFlaggedSessionsRequest struct {
 
 func (x *ListFlaggedSessionsRequest) Reset() {
 	*x = ListFlaggedSessionsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[35]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2522,7 +2661,7 @@ func (x *ListFlaggedSessionsRequest) String() string {
 func (*ListFlaggedSessionsRequest) ProtoMessage() {}
 
 func (x *ListFlaggedSessionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[35]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2535,7 +2674,7 @@ func (x *ListFlaggedSessionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListFlaggedSessionsRequest.ProtoReflect.Descriptor instead.
 func (*ListFlaggedSessionsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{35}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ListFlaggedSessionsRequest) GetCompetitionId() string {
@@ -2589,7 +2728,7 @@ type ReviewSessionRequest struct {
 
 func (x *ReviewSessionRequest) Reset() {
 	*x = ReviewSessionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[36]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2601,7 +2740,7 @@ func (x *ReviewSessionRequest) String() string {
 func (*ReviewSessionRequest) ProtoMessage() {}
 
 func (x *ReviewSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[36]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2614,7 +2753,7 @@ func (x *ReviewSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReviewSessionRequest.ProtoReflect.Descriptor instead.
 func (*ReviewSessionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{36}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *ReviewSessionRequest) GetSessionId() string {
@@ -2686,7 +2825,7 @@ const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	"\x16JoinCompetitionRequest\x12.\n" +
 	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\"I\n" +
 	"\x17LeaveCompetitionRequest\x12.\n" +
-	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\"\x9a\a\n" +
+	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\"\xe7\a\n" +
 	"\x18CreateCompetitionRequest\x12!\n" +
 	"\x05title\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x03R\x05title\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1d\n" +
@@ -2709,7 +2848,13 @@ const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	"\x17points_per_unit_divisor\x18\x0e \x01(\x03B\a\xfaB\x04\"\x02(\x01R\x14pointsPerUnitDivisor\x121\n" +
 	"\x10daily_points_cap\x18\x0f \x01(\x03B\a\xfaB\x04\"\x02(\x00R\x0edailyPointsCap\x12)\n" +
 	"\x10enforce_geofence\x18\x10 \x01(\bR\x0fenforceGeofence\x12=\n" +
-	"\rmax_speed_mps\x18\x11 \x01(\x01B\x19\xfaB\x16\x12\x14\x19\x00\x00\x00\x00\x00\x004@!\x00\x00\x00\x00\x00\x00\x00\x00@\x01R\vmaxSpeedMps\"O\n" +
+	"\rmax_speed_mps\x18\x11 \x01(\x01B\x19\xfaB\x16\x12\x14\x19\x00\x00\x00\x00\x00\x004@!\x00\x00\x00\x00\x00\x00\x00\x00@\x01R\vmaxSpeedMps\x12K\n" +
+	"\x06images\x18\x12 \x03(\v2).fitness.v1.request.CompetitionImageInputB\b\xfaB\x05\x92\x01\x02\x10\n" +
+	"R\x06images\"\x8d\x01\n" +
+	"\x15CompetitionImageInput\x12(\n" +
+	"\timage_url\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\bimageUrl\x12%\n" +
+	"\acaption\x18\x02 \x01(\tB\v\xfaB\br\x06\x18\xc8\x01\xd0\x01\x01R\acaption\x12#\n" +
+	"\bposition\x18\x03 \x01(\x05B\a\xfaB\x04\x1a\x02(\x00R\bposition\"O\n" +
 	"\x1dListChallengeTemplatesRequest\x12.\n" +
 	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\"F\n" +
 	"\x14GetDailyQuotaRequest\x12.\n" +
@@ -2815,7 +2960,7 @@ const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	"pageNumber\x12&\n" +
 	"\tpage_size\x18\x03 \x01(\x03B\t\xfaB\x06\"\x04\x18d@\x01R\bpageSize\"G\n" +
 	"\x17CancelRedemptionRequest\x12,\n" +
-	"\rredemption_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\fredemptionId\"\xef\x06\n" +
+	"\rredemption_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\fredemptionId\"\xe3\a\n" +
 	"\x18UpdateCompetitionRequest\x12.\n" +
 	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\x12%\n" +
 	"\x05title\x18\x02 \x01(\tB\n" +
@@ -2832,7 +2977,10 @@ const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	" \x01(\x03B\a\xfaB\x04\"\x02(\x00H\bR\x0edailyPointsCap\x88\x01\x01\x12.\n" +
 	"\x10enforce_geofence\x18\v \x01(\bH\tR\x0fenforceGeofence\x88\x01\x01\x12B\n" +
 	"\rmax_speed_mps\x18\f \x01(\x01B\x19\xfaB\x16\x12\x14\x19\x00\x00\x00\x00\x00\x004@!\x00\x00\x00\x00\x00\x00\x00\x00@\x01H\n" +
-	"R\vmaxSpeedMps\x88\x01\x01B\b\n" +
+	"R\vmaxSpeedMps\x88\x01\x01\x12K\n" +
+	"\x06images\x18\r \x03(\v2).fitness.v1.request.CompetitionImageInputB\b\xfaB\x05\x92\x01\x02\x10\n" +
+	"R\x06images\x12%\n" +
+	"\x0ereplace_images\x18\x0e \x01(\bR\rreplaceImagesB\b\n" +
 	"\x06_titleB\x0e\n" +
 	"\f_descriptionB\r\n" +
 	"\v_banner_urlB\n" +
@@ -2897,7 +3045,12 @@ const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	"\x06status\x18\x02 \x01(\x0e2(.fitness.v1.types.enums.RedemptionStatusB\n" +
 	"\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06status\x124\n" +
 	"\x0ffulfilment_code\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\x80\x02\xd0\x01\x01R\x0efulfilmentCode\x12\x1f\n" +
-	"\x04note\x18\x04 \x01(\tB\v\xfaB\br\x06\x18\x80\x04\xd0\x01\x01R\x04note\"\xd8\x01\n" +
+	"\x04note\x18\x04 \x01(\tB\v\xfaB\br\x06\x18\x80\x04\xd0\x01\x01R\x04note\"\xab\x01\n" +
+	"#CreateCompetitionImageUploadRequest\x12O\n" +
+	"\fcontent_type\x18\x01 \x01(\tB,\xe2A\x01\x02\xfaB%r#R\n" +
+	"image/jpegR\timage/pngR\n" +
+	"image/webpR\vcontentType\x123\n" +
+	"\x0econtent_length\x18\x02 \x01(\x03B\f\xfaB\t\"\a\x18\x80\x80\x80\x05 \x00R\rcontentLength\"\xd8\x01\n" +
 	"\x19ListAllRedemptionsRequest\x12@\n" +
 	"\x06status\x18\x01 \x01(\x0e2(.fitness.v1.types.enums.RedemptionStatusR\x06status\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x17\n" +
@@ -2931,93 +3084,97 @@ func file_fitness_v1_request_fitness_request_proto_rawDescGZIP() []byte {
 	return file_fitness_v1_request_fitness_request_proto_rawDescData
 }
 
-var file_fitness_v1_request_fitness_request_proto_msgTypes = make([]protoimpl.MessageInfo, 37)
+var file_fitness_v1_request_fitness_request_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
 var file_fitness_v1_request_fitness_request_proto_goTypes = []any{
-	(*GetMyProfileRequest)(nil),            // 0: fitness.v1.request.GetMyProfileRequest
-	(*UpsertMyProfileRequest)(nil),         // 1: fitness.v1.request.UpsertMyProfileRequest
-	(*ListRegionsRequest)(nil),             // 2: fitness.v1.request.ListRegionsRequest
-	(*ListCompetitionsRequest)(nil),        // 3: fitness.v1.request.ListCompetitionsRequest
-	(*GetCompetitionRequest)(nil),          // 4: fitness.v1.request.GetCompetitionRequest
-	(*JoinCompetitionRequest)(nil),         // 5: fitness.v1.request.JoinCompetitionRequest
-	(*LeaveCompetitionRequest)(nil),        // 6: fitness.v1.request.LeaveCompetitionRequest
-	(*CreateCompetitionRequest)(nil),       // 7: fitness.v1.request.CreateCompetitionRequest
-	(*ListChallengeTemplatesRequest)(nil),  // 8: fitness.v1.request.ListChallengeTemplatesRequest
-	(*GetDailyQuotaRequest)(nil),           // 9: fitness.v1.request.GetDailyQuotaRequest
-	(*StartChallengeRequest)(nil),          // 10: fitness.v1.request.StartChallengeRequest
-	(*ListMyChallengesRequest)(nil),        // 11: fitness.v1.request.ListMyChallengesRequest
-	(*AbandonChallengeRequest)(nil),        // 12: fitness.v1.request.AbandonChallengeRequest
-	(*StartWalkSessionRequest)(nil),        // 13: fitness.v1.request.StartWalkSessionRequest
-	(*SubmitWalkSamplesRequest)(nil),       // 14: fitness.v1.request.SubmitWalkSamplesRequest
-	(*EndWalkSessionRequest)(nil),          // 15: fitness.v1.request.EndWalkSessionRequest
-	(*GetWalkSessionRequest)(nil),          // 16: fitness.v1.request.GetWalkSessionRequest
-	(*ListMyWalkSessionsRequest)(nil),      // 17: fitness.v1.request.ListMyWalkSessionsRequest
-	(*GetMyStatsRequest)(nil),              // 18: fitness.v1.request.GetMyStatsRequest
-	(*GetLeaderboardRequest)(nil),          // 19: fitness.v1.request.GetLeaderboardRequest
-	(*GetRegionStandingsRequest)(nil),      // 20: fitness.v1.request.GetRegionStandingsRequest
-	(*GetMyPointsBalanceRequest)(nil),      // 21: fitness.v1.request.GetMyPointsBalanceRequest
-	(*ListMyPointsLedgerRequest)(nil),      // 22: fitness.v1.request.ListMyPointsLedgerRequest
-	(*ListGiftsRequest)(nil),               // 23: fitness.v1.request.ListGiftsRequest
-	(*GetGiftRequest)(nil),                 // 24: fitness.v1.request.GetGiftRequest
-	(*RedeemGiftRequest)(nil),              // 25: fitness.v1.request.RedeemGiftRequest
-	(*ListMyRedemptionsRequest)(nil),       // 26: fitness.v1.request.ListMyRedemptionsRequest
-	(*CancelRedemptionRequest)(nil),        // 27: fitness.v1.request.CancelRedemptionRequest
-	(*UpdateCompetitionRequest)(nil),       // 28: fitness.v1.request.UpdateCompetitionRequest
-	(*CancelCompetitionRequest)(nil),       // 29: fitness.v1.request.CancelCompetitionRequest
-	(*CreateChallengeTemplateRequest)(nil), // 30: fitness.v1.request.CreateChallengeTemplateRequest
-	(*CreateGiftRequest)(nil),              // 31: fitness.v1.request.CreateGiftRequest
-	(*UpdateGiftRequest)(nil),              // 32: fitness.v1.request.UpdateGiftRequest
-	(*FulfilRedemptionRequest)(nil),        // 33: fitness.v1.request.FulfilRedemptionRequest
-	(*ListAllRedemptionsRequest)(nil),      // 34: fitness.v1.request.ListAllRedemptionsRequest
-	(*ListFlaggedSessionsRequest)(nil),     // 35: fitness.v1.request.ListFlaggedSessionsRequest
-	(*ReviewSessionRequest)(nil),           // 36: fitness.v1.request.ReviewSessionRequest
-	(enums.CompetitionScope)(0),            // 37: fitness.v1.types.enums.CompetitionScope
-	(enums.CompetitionStatus)(0),           // 38: fitness.v1.types.enums.CompetitionStatus
-	(enums.CompetitionMetric)(0),           // 39: fitness.v1.types.enums.CompetitionMetric
-	(*timestamppb.Timestamp)(nil),          // 40: google.protobuf.Timestamp
-	(enums.ChallengeStatus)(0),             // 41: fitness.v1.types.enums.ChallengeStatus
-	(*types.DeviceIntegrity)(nil),          // 42: fitness.v1.types.DeviceIntegrity
-	(*types.GeoPoint)(nil),                 // 43: fitness.v1.types.GeoPoint
-	(*types.WalkSample)(nil),               // 44: fitness.v1.types.WalkSample
-	(enums.LeaderboardPeriod)(0),           // 45: fitness.v1.types.enums.LeaderboardPeriod
-	(enums.RedemptionStatus)(0),            // 46: fitness.v1.types.enums.RedemptionStatus
-	(enums.GiftStatus)(0),                  // 47: fitness.v1.types.enums.GiftStatus
+	(*GetMyProfileRequest)(nil),                 // 0: fitness.v1.request.GetMyProfileRequest
+	(*UpsertMyProfileRequest)(nil),              // 1: fitness.v1.request.UpsertMyProfileRequest
+	(*ListRegionsRequest)(nil),                  // 2: fitness.v1.request.ListRegionsRequest
+	(*ListCompetitionsRequest)(nil),             // 3: fitness.v1.request.ListCompetitionsRequest
+	(*GetCompetitionRequest)(nil),               // 4: fitness.v1.request.GetCompetitionRequest
+	(*JoinCompetitionRequest)(nil),              // 5: fitness.v1.request.JoinCompetitionRequest
+	(*LeaveCompetitionRequest)(nil),             // 6: fitness.v1.request.LeaveCompetitionRequest
+	(*CreateCompetitionRequest)(nil),            // 7: fitness.v1.request.CreateCompetitionRequest
+	(*CompetitionImageInput)(nil),               // 8: fitness.v1.request.CompetitionImageInput
+	(*ListChallengeTemplatesRequest)(nil),       // 9: fitness.v1.request.ListChallengeTemplatesRequest
+	(*GetDailyQuotaRequest)(nil),                // 10: fitness.v1.request.GetDailyQuotaRequest
+	(*StartChallengeRequest)(nil),               // 11: fitness.v1.request.StartChallengeRequest
+	(*ListMyChallengesRequest)(nil),             // 12: fitness.v1.request.ListMyChallengesRequest
+	(*AbandonChallengeRequest)(nil),             // 13: fitness.v1.request.AbandonChallengeRequest
+	(*StartWalkSessionRequest)(nil),             // 14: fitness.v1.request.StartWalkSessionRequest
+	(*SubmitWalkSamplesRequest)(nil),            // 15: fitness.v1.request.SubmitWalkSamplesRequest
+	(*EndWalkSessionRequest)(nil),               // 16: fitness.v1.request.EndWalkSessionRequest
+	(*GetWalkSessionRequest)(nil),               // 17: fitness.v1.request.GetWalkSessionRequest
+	(*ListMyWalkSessionsRequest)(nil),           // 18: fitness.v1.request.ListMyWalkSessionsRequest
+	(*GetMyStatsRequest)(nil),                   // 19: fitness.v1.request.GetMyStatsRequest
+	(*GetLeaderboardRequest)(nil),               // 20: fitness.v1.request.GetLeaderboardRequest
+	(*GetRegionStandingsRequest)(nil),           // 21: fitness.v1.request.GetRegionStandingsRequest
+	(*GetMyPointsBalanceRequest)(nil),           // 22: fitness.v1.request.GetMyPointsBalanceRequest
+	(*ListMyPointsLedgerRequest)(nil),           // 23: fitness.v1.request.ListMyPointsLedgerRequest
+	(*ListGiftsRequest)(nil),                    // 24: fitness.v1.request.ListGiftsRequest
+	(*GetGiftRequest)(nil),                      // 25: fitness.v1.request.GetGiftRequest
+	(*RedeemGiftRequest)(nil),                   // 26: fitness.v1.request.RedeemGiftRequest
+	(*ListMyRedemptionsRequest)(nil),            // 27: fitness.v1.request.ListMyRedemptionsRequest
+	(*CancelRedemptionRequest)(nil),             // 28: fitness.v1.request.CancelRedemptionRequest
+	(*UpdateCompetitionRequest)(nil),            // 29: fitness.v1.request.UpdateCompetitionRequest
+	(*CancelCompetitionRequest)(nil),            // 30: fitness.v1.request.CancelCompetitionRequest
+	(*CreateChallengeTemplateRequest)(nil),      // 31: fitness.v1.request.CreateChallengeTemplateRequest
+	(*CreateGiftRequest)(nil),                   // 32: fitness.v1.request.CreateGiftRequest
+	(*UpdateGiftRequest)(nil),                   // 33: fitness.v1.request.UpdateGiftRequest
+	(*FulfilRedemptionRequest)(nil),             // 34: fitness.v1.request.FulfilRedemptionRequest
+	(*CreateCompetitionImageUploadRequest)(nil), // 35: fitness.v1.request.CreateCompetitionImageUploadRequest
+	(*ListAllRedemptionsRequest)(nil),           // 36: fitness.v1.request.ListAllRedemptionsRequest
+	(*ListFlaggedSessionsRequest)(nil),          // 37: fitness.v1.request.ListFlaggedSessionsRequest
+	(*ReviewSessionRequest)(nil),                // 38: fitness.v1.request.ReviewSessionRequest
+	(enums.CompetitionScope)(0),                 // 39: fitness.v1.types.enums.CompetitionScope
+	(enums.CompetitionStatus)(0),                // 40: fitness.v1.types.enums.CompetitionStatus
+	(enums.CompetitionMetric)(0),                // 41: fitness.v1.types.enums.CompetitionMetric
+	(*timestamppb.Timestamp)(nil),               // 42: google.protobuf.Timestamp
+	(enums.ChallengeStatus)(0),                  // 43: fitness.v1.types.enums.ChallengeStatus
+	(*types.DeviceIntegrity)(nil),               // 44: fitness.v1.types.DeviceIntegrity
+	(*types.GeoPoint)(nil),                      // 45: fitness.v1.types.GeoPoint
+	(*types.WalkSample)(nil),                    // 46: fitness.v1.types.WalkSample
+	(enums.LeaderboardPeriod)(0),                // 47: fitness.v1.types.enums.LeaderboardPeriod
+	(enums.RedemptionStatus)(0),                 // 48: fitness.v1.types.enums.RedemptionStatus
+	(enums.GiftStatus)(0),                       // 49: fitness.v1.types.enums.GiftStatus
 }
 var file_fitness_v1_request_fitness_request_proto_depIdxs = []int32{
-	37, // 0: fitness.v1.request.ListCompetitionsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	38, // 1: fitness.v1.request.ListCompetitionsRequest.status:type_name -> fitness.v1.types.enums.CompetitionStatus
-	37, // 2: fitness.v1.request.CreateCompetitionRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	39, // 3: fitness.v1.request.CreateCompetitionRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
-	40, // 4: fitness.v1.request.CreateCompetitionRequest.starts_at:type_name -> google.protobuf.Timestamp
-	40, // 5: fitness.v1.request.CreateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
-	41, // 6: fitness.v1.request.ListMyChallengesRequest.status:type_name -> fitness.v1.types.enums.ChallengeStatus
-	42, // 7: fitness.v1.request.StartWalkSessionRequest.device:type_name -> fitness.v1.types.DeviceIntegrity
-	43, // 8: fitness.v1.request.StartWalkSessionRequest.start_point:type_name -> fitness.v1.types.GeoPoint
-	44, // 9: fitness.v1.request.SubmitWalkSamplesRequest.samples:type_name -> fitness.v1.types.WalkSample
-	40, // 10: fitness.v1.request.SubmitWalkSamplesRequest.device_time:type_name -> google.protobuf.Timestamp
-	44, // 11: fitness.v1.request.EndWalkSessionRequest.samples:type_name -> fitness.v1.types.WalkSample
-	43, // 12: fitness.v1.request.EndWalkSessionRequest.end_point:type_name -> fitness.v1.types.GeoPoint
-	40, // 13: fitness.v1.request.EndWalkSessionRequest.device_time:type_name -> google.protobuf.Timestamp
-	40, // 14: fitness.v1.request.ListMyWalkSessionsRequest.from:type_name -> google.protobuf.Timestamp
-	40, // 15: fitness.v1.request.ListMyWalkSessionsRequest.to:type_name -> google.protobuf.Timestamp
-	37, // 16: fitness.v1.request.GetLeaderboardRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	45, // 17: fitness.v1.request.GetLeaderboardRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
-	37, // 18: fitness.v1.request.GetRegionStandingsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	45, // 19: fitness.v1.request.GetRegionStandingsRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
-	40, // 20: fitness.v1.request.ListMyPointsLedgerRequest.from:type_name -> google.protobuf.Timestamp
-	40, // 21: fitness.v1.request.ListMyPointsLedgerRequest.to:type_name -> google.protobuf.Timestamp
-	46, // 22: fitness.v1.request.ListMyRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
-	40, // 23: fitness.v1.request.UpdateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
-	39, // 24: fitness.v1.request.CreateChallengeTemplateRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
-	40, // 25: fitness.v1.request.CreateGiftRequest.available_until:type_name -> google.protobuf.Timestamp
-	47, // 26: fitness.v1.request.UpdateGiftRequest.status:type_name -> fitness.v1.types.enums.GiftStatus
-	40, // 27: fitness.v1.request.UpdateGiftRequest.available_until:type_name -> google.protobuf.Timestamp
-	46, // 28: fitness.v1.request.FulfilRedemptionRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
-	46, // 29: fitness.v1.request.ListAllRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
-	30, // [30:30] is the sub-list for method output_type
-	30, // [30:30] is the sub-list for method input_type
-	30, // [30:30] is the sub-list for extension type_name
-	30, // [30:30] is the sub-list for extension extendee
-	0,  // [0:30] is the sub-list for field type_name
+	39, // 0: fitness.v1.request.ListCompetitionsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	40, // 1: fitness.v1.request.ListCompetitionsRequest.status:type_name -> fitness.v1.types.enums.CompetitionStatus
+	39, // 2: fitness.v1.request.CreateCompetitionRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	41, // 3: fitness.v1.request.CreateCompetitionRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
+	42, // 4: fitness.v1.request.CreateCompetitionRequest.starts_at:type_name -> google.protobuf.Timestamp
+	42, // 5: fitness.v1.request.CreateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
+	8,  // 6: fitness.v1.request.CreateCompetitionRequest.images:type_name -> fitness.v1.request.CompetitionImageInput
+	43, // 7: fitness.v1.request.ListMyChallengesRequest.status:type_name -> fitness.v1.types.enums.ChallengeStatus
+	44, // 8: fitness.v1.request.StartWalkSessionRequest.device:type_name -> fitness.v1.types.DeviceIntegrity
+	45, // 9: fitness.v1.request.StartWalkSessionRequest.start_point:type_name -> fitness.v1.types.GeoPoint
+	46, // 10: fitness.v1.request.SubmitWalkSamplesRequest.samples:type_name -> fitness.v1.types.WalkSample
+	42, // 11: fitness.v1.request.SubmitWalkSamplesRequest.device_time:type_name -> google.protobuf.Timestamp
+	46, // 12: fitness.v1.request.EndWalkSessionRequest.samples:type_name -> fitness.v1.types.WalkSample
+	45, // 13: fitness.v1.request.EndWalkSessionRequest.end_point:type_name -> fitness.v1.types.GeoPoint
+	42, // 14: fitness.v1.request.EndWalkSessionRequest.device_time:type_name -> google.protobuf.Timestamp
+	42, // 15: fitness.v1.request.ListMyWalkSessionsRequest.from:type_name -> google.protobuf.Timestamp
+	42, // 16: fitness.v1.request.ListMyWalkSessionsRequest.to:type_name -> google.protobuf.Timestamp
+	39, // 17: fitness.v1.request.GetLeaderboardRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	47, // 18: fitness.v1.request.GetLeaderboardRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
+	39, // 19: fitness.v1.request.GetRegionStandingsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	47, // 20: fitness.v1.request.GetRegionStandingsRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
+	42, // 21: fitness.v1.request.ListMyPointsLedgerRequest.from:type_name -> google.protobuf.Timestamp
+	42, // 22: fitness.v1.request.ListMyPointsLedgerRequest.to:type_name -> google.protobuf.Timestamp
+	48, // 23: fitness.v1.request.ListMyRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
+	42, // 24: fitness.v1.request.UpdateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
+	8,  // 25: fitness.v1.request.UpdateCompetitionRequest.images:type_name -> fitness.v1.request.CompetitionImageInput
+	41, // 26: fitness.v1.request.CreateChallengeTemplateRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
+	42, // 27: fitness.v1.request.CreateGiftRequest.available_until:type_name -> google.protobuf.Timestamp
+	49, // 28: fitness.v1.request.UpdateGiftRequest.status:type_name -> fitness.v1.types.enums.GiftStatus
+	42, // 29: fitness.v1.request.UpdateGiftRequest.available_until:type_name -> google.protobuf.Timestamp
+	48, // 30: fitness.v1.request.FulfilRedemptionRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
+	48, // 31: fitness.v1.request.ListAllRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
+	32, // [32:32] is the sub-list for method output_type
+	32, // [32:32] is the sub-list for method input_type
+	32, // [32:32] is the sub-list for extension type_name
+	32, // [32:32] is the sub-list for extension extendee
+	0,  // [0:32] is the sub-list for field type_name
 }
 
 func init() { file_fitness_v1_request_fitness_request_proto_init() }
@@ -3025,15 +3182,15 @@ func file_fitness_v1_request_fitness_request_proto_init() {
 	if File_fitness_v1_request_fitness_request_proto != nil {
 		return
 	}
-	file_fitness_v1_request_fitness_request_proto_msgTypes[28].OneofWrappers = []any{}
-	file_fitness_v1_request_fitness_request_proto_msgTypes[32].OneofWrappers = []any{}
+	file_fitness_v1_request_fitness_request_proto_msgTypes[29].OneofWrappers = []any{}
+	file_fitness_v1_request_fitness_request_proto_msgTypes[33].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_fitness_v1_request_fitness_request_proto_rawDesc), len(file_fitness_v1_request_fitness_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   37,
+			NumMessages:   39,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

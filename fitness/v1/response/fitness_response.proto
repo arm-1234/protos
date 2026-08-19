@@ -240,6 +240,14 @@ message FulfilRedemptionResponse {
   int64 points_refunded = 2;
 }
 
+message CreateCompetitionImageUploadResponse {
+  string upload_url = 1;
+  string method = 2;
+  string image_key = 3;
+  string image_url = 4;
+  google.protobuf.Timestamp expires_at = 5;
+}
+
 message ListAllRedemptionsResponse {
   repeated fitness.v1.types.RedemptionInfo redemptions = 1;
   fitness.v1.response.PageInfo page = 2;

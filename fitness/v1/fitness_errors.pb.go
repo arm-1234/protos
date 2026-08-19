@@ -576,3 +576,27 @@ func IsLeaderboardNotAvailable(err error) bool {
 func ErrorLeaderboardNotAvailable(format string, args ...interface{}) *errors.Error {
 	return errors.New(503, ErrorReason_LEADERBOARD_NOT_AVAILABLE.String(), fmt.Sprintf(format, args...))
 }
+
+func IsImageUploadUnavailable(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IMAGE_UPLOAD_UNAVAILABLE.String() && e.Code == 503
+}
+
+func ErrorImageUploadUnavailable(format string, args ...interface{}) *errors.Error {
+	return errors.New(503, ErrorReason_IMAGE_UPLOAD_UNAVAILABLE.String(), fmt.Sprintf(format, args...))
+}
+
+func IsImageTypeUnsupported(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_IMAGE_TYPE_UNSUPPORTED.String() && e.Code == 400
+}
+
+func ErrorImageTypeUnsupported(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_IMAGE_TYPE_UNSUPPORTED.String(), fmt.Sprintf(format, args...))
+}
