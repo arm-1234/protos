@@ -1854,6 +1854,649 @@ func (x *CancelRedemptionRequest) GetRedemptionId() string {
 	return ""
 }
 
+// Only fields that are set are changed. Limits stay editable mid-run so an
+// abused competition can be tightened without cancelling it.
+type UpdateCompetitionRequest struct {
+	state                    protoimpl.MessageState `protogen:"open.v1"`
+	CompetitionId            string                 `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
+	Title                    *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
+	Description              *string                `protobuf:"bytes,3,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	BannerUrl                *string                `protobuf:"bytes,4,opt,name=banner_url,json=bannerUrl,proto3,oneof" json:"banner_url,omitempty"`
+	EndsAt                   *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=ends_at,json=endsAt,proto3,oneof" json:"ends_at,omitempty"`
+	DailyChallengeLimit      *int32                 `protobuf:"varint,6,opt,name=daily_challenge_limit,json=dailyChallengeLimit,proto3,oneof" json:"daily_challenge_limit,omitempty"`
+	DailyStepCap             *int64                 `protobuf:"varint,7,opt,name=daily_step_cap,json=dailyStepCap,proto3,oneof" json:"daily_step_cap,omitempty"`
+	ChallengeCooldownSeconds *int32                 `protobuf:"varint,8,opt,name=challenge_cooldown_seconds,json=challengeCooldownSeconds,proto3,oneof" json:"challenge_cooldown_seconds,omitempty"`
+	PointsPerUnit            *int64                 `protobuf:"varint,9,opt,name=points_per_unit,json=pointsPerUnit,proto3,oneof" json:"points_per_unit,omitempty"`
+	DailyPointsCap           *int64                 `protobuf:"varint,10,opt,name=daily_points_cap,json=dailyPointsCap,proto3,oneof" json:"daily_points_cap,omitempty"`
+	EnforceGeofence          *bool                  `protobuf:"varint,11,opt,name=enforce_geofence,json=enforceGeofence,proto3,oneof" json:"enforce_geofence,omitempty"`
+	MaxSpeedMps              *float64               `protobuf:"fixed64,12,opt,name=max_speed_mps,json=maxSpeedMps,proto3,oneof" json:"max_speed_mps,omitempty"`
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
+}
+
+func (x *UpdateCompetitionRequest) Reset() {
+	*x = UpdateCompetitionRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCompetitionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCompetitionRequest) ProtoMessage() {}
+
+func (x *UpdateCompetitionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCompetitionRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCompetitionRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *UpdateCompetitionRequest) GetCompetitionId() string {
+	if x != nil {
+		return x.CompetitionId
+	}
+	return ""
+}
+
+func (x *UpdateCompetitionRequest) GetTitle() string {
+	if x != nil && x.Title != nil {
+		return *x.Title
+	}
+	return ""
+}
+
+func (x *UpdateCompetitionRequest) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *UpdateCompetitionRequest) GetBannerUrl() string {
+	if x != nil && x.BannerUrl != nil {
+		return *x.BannerUrl
+	}
+	return ""
+}
+
+func (x *UpdateCompetitionRequest) GetEndsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EndsAt
+	}
+	return nil
+}
+
+func (x *UpdateCompetitionRequest) GetDailyChallengeLimit() int32 {
+	if x != nil && x.DailyChallengeLimit != nil {
+		return *x.DailyChallengeLimit
+	}
+	return 0
+}
+
+func (x *UpdateCompetitionRequest) GetDailyStepCap() int64 {
+	if x != nil && x.DailyStepCap != nil {
+		return *x.DailyStepCap
+	}
+	return 0
+}
+
+func (x *UpdateCompetitionRequest) GetChallengeCooldownSeconds() int32 {
+	if x != nil && x.ChallengeCooldownSeconds != nil {
+		return *x.ChallengeCooldownSeconds
+	}
+	return 0
+}
+
+func (x *UpdateCompetitionRequest) GetPointsPerUnit() int64 {
+	if x != nil && x.PointsPerUnit != nil {
+		return *x.PointsPerUnit
+	}
+	return 0
+}
+
+func (x *UpdateCompetitionRequest) GetDailyPointsCap() int64 {
+	if x != nil && x.DailyPointsCap != nil {
+		return *x.DailyPointsCap
+	}
+	return 0
+}
+
+func (x *UpdateCompetitionRequest) GetEnforceGeofence() bool {
+	if x != nil && x.EnforceGeofence != nil {
+		return *x.EnforceGeofence
+	}
+	return false
+}
+
+func (x *UpdateCompetitionRequest) GetMaxSpeedMps() float64 {
+	if x != nil && x.MaxSpeedMps != nil {
+		return *x.MaxSpeedMps
+	}
+	return 0
+}
+
+type CancelCompetitionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CompetitionId string                 `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
+	Reason        string                 `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelCompetitionRequest) Reset() {
+	*x = CancelCompetitionRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelCompetitionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelCompetitionRequest) ProtoMessage() {}
+
+func (x *CancelCompetitionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelCompetitionRequest.ProtoReflect.Descriptor instead.
+func (*CancelCompetitionRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *CancelCompetitionRequest) GetCompetitionId() string {
+	if x != nil {
+		return x.CompetitionId
+	}
+	return ""
+}
+
+func (x *CancelCompetitionRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type CreateChallengeTemplateRequest struct {
+	state            protoimpl.MessageState  `protogen:"open.v1"`
+	CompetitionId    string                  `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
+	Title            string                  `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Description      string                  `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Metric           enums.CompetitionMetric `protobuf:"varint,4,opt,name=metric,proto3,enum=fitness.v1.types.enums.CompetitionMetric" json:"metric,omitempty"`
+	TargetValue      int64                   `protobuf:"varint,5,opt,name=target_value,json=targetValue,proto3" json:"target_value,omitempty"`
+	RewardPoints     int64                   `protobuf:"varint,6,opt,name=reward_points,json=rewardPoints,proto3" json:"reward_points,omitempty"`
+	TimeLimitSeconds int32                   `protobuf:"varint,7,opt,name=time_limit_seconds,json=timeLimitSeconds,proto3" json:"time_limit_seconds,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *CreateChallengeTemplateRequest) Reset() {
+	*x = CreateChallengeTemplateRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateChallengeTemplateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateChallengeTemplateRequest) ProtoMessage() {}
+
+func (x *CreateChallengeTemplateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateChallengeTemplateRequest.ProtoReflect.Descriptor instead.
+func (*CreateChallengeTemplateRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *CreateChallengeTemplateRequest) GetCompetitionId() string {
+	if x != nil {
+		return x.CompetitionId
+	}
+	return ""
+}
+
+func (x *CreateChallengeTemplateRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *CreateChallengeTemplateRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CreateChallengeTemplateRequest) GetMetric() enums.CompetitionMetric {
+	if x != nil {
+		return x.Metric
+	}
+	return enums.CompetitionMetric(0)
+}
+
+func (x *CreateChallengeTemplateRequest) GetTargetValue() int64 {
+	if x != nil {
+		return x.TargetValue
+	}
+	return 0
+}
+
+func (x *CreateChallengeTemplateRequest) GetRewardPoints() int64 {
+	if x != nil {
+		return x.RewardPoints
+	}
+	return 0
+}
+
+func (x *CreateChallengeTemplateRequest) GetTimeLimitSeconds() int32 {
+	if x != nil {
+		return x.TimeLimitSeconds
+	}
+	return 0
+}
+
+type CreateGiftRequest struct {
+	state        protoimpl.MessageState `protogen:"open.v1"`
+	Title        string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description  string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	ImageUrl     string                 `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	PointsCost   int64                  `protobuf:"varint,4,opt,name=points_cost,json=pointsCost,proto3" json:"points_cost,omitempty"`
+	StockTotal   int64                  `protobuf:"varint,5,opt,name=stock_total,json=stockTotal,proto3" json:"stock_total,omitempty"`
+	PerUserLimit int32                  `protobuf:"varint,6,opt,name=per_user_limit,json=perUserLimit,proto3" json:"per_user_limit,omitempty"`
+	Category     string                 `protobuf:"bytes,7,opt,name=category,proto3" json:"category,omitempty"`
+	// Restricts the gift to one state, for state-sponsored rewards.
+	StateCode      string                 `protobuf:"bytes,8,opt,name=state_code,json=stateCode,proto3" json:"state_code,omitempty"`
+	AvailableUntil *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=available_until,json=availableUntil,proto3" json:"available_until,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *CreateGiftRequest) Reset() {
+	*x = CreateGiftRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateGiftRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateGiftRequest) ProtoMessage() {}
+
+func (x *CreateGiftRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateGiftRequest.ProtoReflect.Descriptor instead.
+func (*CreateGiftRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *CreateGiftRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *CreateGiftRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CreateGiftRequest) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+func (x *CreateGiftRequest) GetPointsCost() int64 {
+	if x != nil {
+		return x.PointsCost
+	}
+	return 0
+}
+
+func (x *CreateGiftRequest) GetStockTotal() int64 {
+	if x != nil {
+		return x.StockTotal
+	}
+	return 0
+}
+
+func (x *CreateGiftRequest) GetPerUserLimit() int32 {
+	if x != nil {
+		return x.PerUserLimit
+	}
+	return 0
+}
+
+func (x *CreateGiftRequest) GetCategory() string {
+	if x != nil {
+		return x.Category
+	}
+	return ""
+}
+
+func (x *CreateGiftRequest) GetStateCode() string {
+	if x != nil {
+		return x.StateCode
+	}
+	return ""
+}
+
+func (x *CreateGiftRequest) GetAvailableUntil() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AvailableUntil
+	}
+	return nil
+}
+
+type UpdateGiftRequest struct {
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	GiftId      string                 `protobuf:"bytes,1,opt,name=gift_id,json=giftId,proto3" json:"gift_id,omitempty"`
+	Title       *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
+	Description *string                `protobuf:"bytes,3,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	ImageUrl    *string                `protobuf:"bytes,4,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
+	PointsCost  *int64                 `protobuf:"varint,5,opt,name=points_cost,json=pointsCost,proto3,oneof" json:"points_cost,omitempty"`
+	// Absolute stock level, not a delta, so concurrent edits cannot drift.
+	StockRemaining *int64                 `protobuf:"varint,6,opt,name=stock_remaining,json=stockRemaining,proto3,oneof" json:"stock_remaining,omitempty"`
+	PerUserLimit   *int32                 `protobuf:"varint,7,opt,name=per_user_limit,json=perUserLimit,proto3,oneof" json:"per_user_limit,omitempty"`
+	Status         *enums.GiftStatus      `protobuf:"varint,8,opt,name=status,proto3,enum=fitness.v1.types.enums.GiftStatus,oneof" json:"status,omitempty"`
+	AvailableUntil *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=available_until,json=availableUntil,proto3,oneof" json:"available_until,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UpdateGiftRequest) Reset() {
+	*x = UpdateGiftRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGiftRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGiftRequest) ProtoMessage() {}
+
+func (x *UpdateGiftRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGiftRequest.ProtoReflect.Descriptor instead.
+func (*UpdateGiftRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *UpdateGiftRequest) GetGiftId() string {
+	if x != nil {
+		return x.GiftId
+	}
+	return ""
+}
+
+func (x *UpdateGiftRequest) GetTitle() string {
+	if x != nil && x.Title != nil {
+		return *x.Title
+	}
+	return ""
+}
+
+func (x *UpdateGiftRequest) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *UpdateGiftRequest) GetImageUrl() string {
+	if x != nil && x.ImageUrl != nil {
+		return *x.ImageUrl
+	}
+	return ""
+}
+
+func (x *UpdateGiftRequest) GetPointsCost() int64 {
+	if x != nil && x.PointsCost != nil {
+		return *x.PointsCost
+	}
+	return 0
+}
+
+func (x *UpdateGiftRequest) GetStockRemaining() int64 {
+	if x != nil && x.StockRemaining != nil {
+		return *x.StockRemaining
+	}
+	return 0
+}
+
+func (x *UpdateGiftRequest) GetPerUserLimit() int32 {
+	if x != nil && x.PerUserLimit != nil {
+		return *x.PerUserLimit
+	}
+	return 0
+}
+
+func (x *UpdateGiftRequest) GetStatus() enums.GiftStatus {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return enums.GiftStatus(0)
+}
+
+func (x *UpdateGiftRequest) GetAvailableUntil() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AvailableUntil
+	}
+	return nil
+}
+
+type FulfilRedemptionRequest struct {
+	state        protoimpl.MessageState `protogen:"open.v1"`
+	RedemptionId string                 `protobuf:"bytes,1,opt,name=redemption_id,json=redemptionId,proto3" json:"redemption_id,omitempty"`
+	// Target state: APPROVED, FULFILLED or REJECTED. Rejecting refunds the
+	// reserved points through a compensating ledger entry.
+	Status enums.RedemptionStatus `protobuf:"varint,2,opt,name=status,proto3,enum=fitness.v1.types.enums.RedemptionStatus" json:"status,omitempty"`
+	// Voucher code or tracking reference, surfaced to the user when fulfilled.
+	FulfilmentCode string `protobuf:"bytes,3,opt,name=fulfilment_code,json=fulfilmentCode,proto3" json:"fulfilment_code,omitempty"`
+	Note           string `protobuf:"bytes,4,opt,name=note,proto3" json:"note,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *FulfilRedemptionRequest) Reset() {
+	*x = FulfilRedemptionRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FulfilRedemptionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FulfilRedemptionRequest) ProtoMessage() {}
+
+func (x *FulfilRedemptionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FulfilRedemptionRequest.ProtoReflect.Descriptor instead.
+func (*FulfilRedemptionRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *FulfilRedemptionRequest) GetRedemptionId() string {
+	if x != nil {
+		return x.RedemptionId
+	}
+	return ""
+}
+
+func (x *FulfilRedemptionRequest) GetStatus() enums.RedemptionStatus {
+	if x != nil {
+		return x.Status
+	}
+	return enums.RedemptionStatus(0)
+}
+
+func (x *FulfilRedemptionRequest) GetFulfilmentCode() string {
+	if x != nil {
+		return x.FulfilmentCode
+	}
+	return ""
+}
+
+func (x *FulfilRedemptionRequest) GetNote() string {
+	if x != nil {
+		return x.Note
+	}
+	return ""
+}
+
+type ListAllRedemptionsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        enums.RedemptionStatus `protobuf:"varint,1,opt,name=status,proto3,enum=fitness.v1.types.enums.RedemptionStatus" json:"status,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	GiftId        string                 `protobuf:"bytes,3,opt,name=gift_id,json=giftId,proto3" json:"gift_id,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,4,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,5,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListAllRedemptionsRequest) Reset() {
+	*x = ListAllRedemptionsRequest{}
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListAllRedemptionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListAllRedemptionsRequest) ProtoMessage() {}
+
+func (x *ListAllRedemptionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListAllRedemptionsRequest.ProtoReflect.Descriptor instead.
+func (*ListAllRedemptionsRequest) Descriptor() ([]byte, []int) {
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *ListAllRedemptionsRequest) GetStatus() enums.RedemptionStatus {
+	if x != nil {
+		return x.Status
+	}
+	return enums.RedemptionStatus(0)
+}
+
+func (x *ListAllRedemptionsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ListAllRedemptionsRequest) GetGiftId() string {
+	if x != nil {
+		return x.GiftId
+	}
+	return ""
+}
+
+func (x *ListAllRedemptionsRequest) GetPageNumber() int64 {
+	if x != nil {
+		return x.PageNumber
+	}
+	return 0
+}
+
+func (x *ListAllRedemptionsRequest) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
 type ListFlaggedSessionsRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	CompetitionId  string                 `protobuf:"bytes,1,opt,name=competition_id,json=competitionId,proto3" json:"competition_id,omitempty"`
@@ -1867,7 +2510,7 @@ type ListFlaggedSessionsRequest struct {
 
 func (x *ListFlaggedSessionsRequest) Reset() {
 	*x = ListFlaggedSessionsRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1879,7 +2522,7 @@ func (x *ListFlaggedSessionsRequest) String() string {
 func (*ListFlaggedSessionsRequest) ProtoMessage() {}
 
 func (x *ListFlaggedSessionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[28]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1892,7 +2535,7 @@ func (x *ListFlaggedSessionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListFlaggedSessionsRequest.ProtoReflect.Descriptor instead.
 func (*ListFlaggedSessionsRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{28}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *ListFlaggedSessionsRequest) GetCompetitionId() string {
@@ -1946,7 +2589,7 @@ type ReviewSessionRequest struct {
 
 func (x *ReviewSessionRequest) Reset() {
 	*x = ReviewSessionRequest{}
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1958,7 +2601,7 @@ func (x *ReviewSessionRequest) String() string {
 func (*ReviewSessionRequest) ProtoMessage() {}
 
 func (x *ReviewSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[29]
+	mi := &file_fitness_v1_request_fitness_request_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1971,7 +2614,7 @@ func (x *ReviewSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReviewSessionRequest.ProtoReflect.Descriptor instead.
 func (*ReviewSessionRequest) Descriptor() ([]byte, []int) {
-	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{29}
+	return file_fitness_v1_request_fitness_request_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *ReviewSessionRequest) GetSessionId() string {
@@ -2006,7 +2649,7 @@ var File_fitness_v1_request_fitness_request_proto protoreflect.FileDescriptor
 
 const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	"\n" +
-	"(fitness/v1/request/fitness_request.proto\x12\x12fitness.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a\x1afitness/v1/types/geo.proto\x1a#fitness/v1/types/walk_session.proto\x1a!fitness/v1/types/anti_cheat.proto\x1a.fitness/v1/types/enums/competition_scope.proto\x1a/fitness/v1/types/enums/competition_status.proto\x1a/fitness/v1/types/enums/competition_metric.proto\x1a-fitness/v1/types/enums/challenge_status.proto\x1a/fitness/v1/types/enums/leaderboard_period.proto\x1a.fitness/v1/types/enums/redemption_status.proto\"\x15\n" +
+	"(fitness/v1/request/fitness_request.proto\x12\x12fitness.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a\x1afitness/v1/types/geo.proto\x1a#fitness/v1/types/walk_session.proto\x1a!fitness/v1/types/anti_cheat.proto\x1a.fitness/v1/types/enums/competition_scope.proto\x1a/fitness/v1/types/enums/competition_status.proto\x1a/fitness/v1/types/enums/competition_metric.proto\x1a-fitness/v1/types/enums/challenge_status.proto\x1a/fitness/v1/types/enums/leaderboard_period.proto\x1a.fitness/v1/types/enums/redemption_status.proto\x1a(fitness/v1/types/enums/gift_status.proto\"\x15\n" +
 	"\x13GetMyProfileRequest\"\xec\x02\n" +
 	"\x16UpsertMyProfileRequest\x12-\n" +
 	"\fdisplay_name\x18\x01 \x01(\tB\n" +
@@ -2172,7 +2815,96 @@ const file_fitness_v1_request_fitness_request_proto_rawDesc = "" +
 	"pageNumber\x12&\n" +
 	"\tpage_size\x18\x03 \x01(\x03B\t\xfaB\x06\"\x04\x18d@\x01R\bpageSize\"G\n" +
 	"\x17CancelRedemptionRequest\x12,\n" +
-	"\rredemption_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\fredemptionId\"\xce\x01\n" +
+	"\rredemption_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\fredemptionId\"\xef\x06\n" +
+	"\x18UpdateCompetitionRequest\x12.\n" +
+	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\x12%\n" +
+	"\x05title\x18\x02 \x01(\tB\n" +
+	"\xfaB\ar\x05\x10\x03\xd0\x01\x01H\x00R\x05title\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\x03 \x01(\tH\x01R\vdescription\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"banner_url\x18\x04 \x01(\tH\x02R\tbannerUrl\x88\x01\x01\x128\n" +
+	"\aends_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampH\x03R\x06endsAt\x88\x01\x01\x12D\n" +
+	"\x15daily_challenge_limit\x18\x06 \x01(\x05B\v\xfaB\b\x1a\x06\x182(\x01@\x01H\x04R\x13dailyChallengeLimit\x88\x01\x01\x122\n" +
+	"\x0edaily_step_cap\x18\a \x01(\x03B\a\xfaB\x04\"\x02(\x00H\x05R\fdailyStepCap\x88\x01\x01\x12J\n" +
+	"\x1achallenge_cooldown_seconds\x18\b \x01(\x05B\a\xfaB\x04\x1a\x02(\x00H\x06R\x18challengeCooldownSeconds\x88\x01\x01\x124\n" +
+	"\x0fpoints_per_unit\x18\t \x01(\x03B\a\xfaB\x04\"\x02(\x00H\aR\rpointsPerUnit\x88\x01\x01\x126\n" +
+	"\x10daily_points_cap\x18\n" +
+	" \x01(\x03B\a\xfaB\x04\"\x02(\x00H\bR\x0edailyPointsCap\x88\x01\x01\x12.\n" +
+	"\x10enforce_geofence\x18\v \x01(\bH\tR\x0fenforceGeofence\x88\x01\x01\x12B\n" +
+	"\rmax_speed_mps\x18\f \x01(\x01B\x19\xfaB\x16\x12\x14\x19\x00\x00\x00\x00\x00\x004@!\x00\x00\x00\x00\x00\x00\x00\x00@\x01H\n" +
+	"R\vmaxSpeedMps\x88\x01\x01B\b\n" +
+	"\x06_titleB\x0e\n" +
+	"\f_descriptionB\r\n" +
+	"\v_banner_urlB\n" +
+	"\n" +
+	"\b_ends_atB\x18\n" +
+	"\x16_daily_challenge_limitB\x11\n" +
+	"\x0f_daily_step_capB\x1d\n" +
+	"\x1b_challenge_cooldown_secondsB\x12\n" +
+	"\x10_points_per_unitB\x13\n" +
+	"\x11_daily_points_capB\x13\n" +
+	"\x11_enforce_geofenceB\x10\n" +
+	"\x0e_max_speed_mps\"o\n" +
+	"\x18CancelCompetitionRequest\x12.\n" +
+	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\x12#\n" +
+	"\x06reason\x18\x02 \x01(\tB\v\xfaB\br\x06\x18\x80\x04\xd0\x01\x01R\x06reason\"\xf7\x02\n" +
+	"\x1eCreateChallengeTemplateRequest\x12.\n" +
+	"\x0ecompetition_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\rcompetitionId\x12!\n" +
+	"\x05title\x18\x02 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x03R\x05title\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12M\n" +
+	"\x06metric\x18\x04 \x01(\x0e2).fitness.v1.types.enums.CompetitionMetricB\n" +
+	"\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06metric\x12*\n" +
+	"\ftarget_value\x18\x05 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\vtargetValue\x12,\n" +
+	"\rreward_points\x18\x06 \x01(\x03B\a\xfaB\x04\"\x02(\x00R\frewardPoints\x127\n" +
+	"\x12time_limit_seconds\x18\a \x01(\x05B\t\xfaB\x06\x1a\x04(<@\x01R\x10timeLimitSeconds\"\x84\x03\n" +
+	"\x11CreateGiftRequest\x12!\n" +
+	"\x05title\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x02R\x05title\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x1b\n" +
+	"\timage_url\x18\x03 \x01(\tR\bimageUrl\x12(\n" +
+	"\vpoints_cost\x18\x04 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\n" +
+	"pointsCost\x12(\n" +
+	"\vstock_total\x18\x05 \x01(\x03B\a\xfaB\x04\"\x02(\x00R\n" +
+	"stockTotal\x12-\n" +
+	"\x0eper_user_limit\x18\x06 \x01(\x05B\a\xfaB\x04\x1a\x02(\x00R\fperUserLimit\x12&\n" +
+	"\bcategory\x18\a \x01(\tB\n" +
+	"\xfaB\ar\x05\x18@\xd0\x01\x01R\bcategory\x12\x1d\n" +
+	"\n" +
+	"state_code\x18\b \x01(\tR\tstateCode\x12C\n" +
+	"\x0favailable_until\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\x0eavailableUntil\"\xd2\x04\n" +
+	"\x11UpdateGiftRequest\x12 \n" +
+	"\agift_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\x06giftId\x12%\n" +
+	"\x05title\x18\x02 \x01(\tB\n" +
+	"\xfaB\ar\x05\x10\x02\xd0\x01\x01H\x00R\x05title\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\x03 \x01(\tH\x01R\vdescription\x88\x01\x01\x12 \n" +
+	"\timage_url\x18\x04 \x01(\tH\x02R\bimageUrl\x88\x01\x01\x12-\n" +
+	"\vpoints_cost\x18\x05 \x01(\x03B\a\xfaB\x04\"\x02 \x00H\x03R\n" +
+	"pointsCost\x88\x01\x01\x125\n" +
+	"\x0fstock_remaining\x18\x06 \x01(\x03B\a\xfaB\x04\"\x02(\x00H\x04R\x0estockRemaining\x88\x01\x01\x122\n" +
+	"\x0eper_user_limit\x18\a \x01(\x05B\a\xfaB\x04\x1a\x02(\x00H\x05R\fperUserLimit\x88\x01\x01\x12I\n" +
+	"\x06status\x18\b \x01(\x0e2\".fitness.v1.types.enums.GiftStatusB\b\xfaB\x05\x82\x01\x02\x10\x01H\x06R\x06status\x88\x01\x01\x12H\n" +
+	"\x0favailable_until\x18\t \x01(\v2\x1a.google.protobuf.TimestampH\aR\x0eavailableUntil\x88\x01\x01B\b\n" +
+	"\x06_titleB\x0e\n" +
+	"\f_descriptionB\f\n" +
+	"\n" +
+	"_image_urlB\x0e\n" +
+	"\f_points_costB\x12\n" +
+	"\x10_stock_remainingB\x11\n" +
+	"\x0f_per_user_limitB\t\n" +
+	"\a_statusB\x12\n" +
+	"\x10_available_until\"\xec\x01\n" +
+	"\x17FulfilRedemptionRequest\x12,\n" +
+	"\rredemption_id\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\fredemptionId\x12L\n" +
+	"\x06status\x18\x02 \x01(\x0e2(.fitness.v1.types.enums.RedemptionStatusB\n" +
+	"\xfaB\a\x82\x01\x04\x10\x01 \x00R\x06status\x124\n" +
+	"\x0ffulfilment_code\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\x80\x02\xd0\x01\x01R\x0efulfilmentCode\x12\x1f\n" +
+	"\x04note\x18\x04 \x01(\tB\v\xfaB\br\x06\x18\x80\x04\xd0\x01\x01R\x04note\"\xd8\x01\n" +
+	"\x19ListAllRedemptionsRequest\x12@\n" +
+	"\x06status\x18\x01 \x01(\x0e2(.fitness.v1.types.enums.RedemptionStatusR\x06status\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x17\n" +
+	"\agift_id\x18\x03 \x01(\tR\x06giftId\x12\x1f\n" +
+	"\vpage_number\x18\x04 \x01(\x03R\n" +
+	"pageNumber\x12&\n" +
+	"\tpage_size\x18\x05 \x01(\x03B\t\xfaB\x06\"\x04\x18d@\x01R\bpageSize\"\xce\x01\n" +
 	"\x1aListFlaggedSessionsRequest\x12%\n" +
 	"\x0ecompetition_id\x18\x01 \x01(\tR\rcompetitionId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12'\n" +
@@ -2199,78 +2931,93 @@ func file_fitness_v1_request_fitness_request_proto_rawDescGZIP() []byte {
 	return file_fitness_v1_request_fitness_request_proto_rawDescData
 }
 
-var file_fitness_v1_request_fitness_request_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
+var file_fitness_v1_request_fitness_request_proto_msgTypes = make([]protoimpl.MessageInfo, 37)
 var file_fitness_v1_request_fitness_request_proto_goTypes = []any{
-	(*GetMyProfileRequest)(nil),           // 0: fitness.v1.request.GetMyProfileRequest
-	(*UpsertMyProfileRequest)(nil),        // 1: fitness.v1.request.UpsertMyProfileRequest
-	(*ListRegionsRequest)(nil),            // 2: fitness.v1.request.ListRegionsRequest
-	(*ListCompetitionsRequest)(nil),       // 3: fitness.v1.request.ListCompetitionsRequest
-	(*GetCompetitionRequest)(nil),         // 4: fitness.v1.request.GetCompetitionRequest
-	(*JoinCompetitionRequest)(nil),        // 5: fitness.v1.request.JoinCompetitionRequest
-	(*LeaveCompetitionRequest)(nil),       // 6: fitness.v1.request.LeaveCompetitionRequest
-	(*CreateCompetitionRequest)(nil),      // 7: fitness.v1.request.CreateCompetitionRequest
-	(*ListChallengeTemplatesRequest)(nil), // 8: fitness.v1.request.ListChallengeTemplatesRequest
-	(*GetDailyQuotaRequest)(nil),          // 9: fitness.v1.request.GetDailyQuotaRequest
-	(*StartChallengeRequest)(nil),         // 10: fitness.v1.request.StartChallengeRequest
-	(*ListMyChallengesRequest)(nil),       // 11: fitness.v1.request.ListMyChallengesRequest
-	(*AbandonChallengeRequest)(nil),       // 12: fitness.v1.request.AbandonChallengeRequest
-	(*StartWalkSessionRequest)(nil),       // 13: fitness.v1.request.StartWalkSessionRequest
-	(*SubmitWalkSamplesRequest)(nil),      // 14: fitness.v1.request.SubmitWalkSamplesRequest
-	(*EndWalkSessionRequest)(nil),         // 15: fitness.v1.request.EndWalkSessionRequest
-	(*GetWalkSessionRequest)(nil),         // 16: fitness.v1.request.GetWalkSessionRequest
-	(*ListMyWalkSessionsRequest)(nil),     // 17: fitness.v1.request.ListMyWalkSessionsRequest
-	(*GetMyStatsRequest)(nil),             // 18: fitness.v1.request.GetMyStatsRequest
-	(*GetLeaderboardRequest)(nil),         // 19: fitness.v1.request.GetLeaderboardRequest
-	(*GetRegionStandingsRequest)(nil),     // 20: fitness.v1.request.GetRegionStandingsRequest
-	(*GetMyPointsBalanceRequest)(nil),     // 21: fitness.v1.request.GetMyPointsBalanceRequest
-	(*ListMyPointsLedgerRequest)(nil),     // 22: fitness.v1.request.ListMyPointsLedgerRequest
-	(*ListGiftsRequest)(nil),              // 23: fitness.v1.request.ListGiftsRequest
-	(*GetGiftRequest)(nil),                // 24: fitness.v1.request.GetGiftRequest
-	(*RedeemGiftRequest)(nil),             // 25: fitness.v1.request.RedeemGiftRequest
-	(*ListMyRedemptionsRequest)(nil),      // 26: fitness.v1.request.ListMyRedemptionsRequest
-	(*CancelRedemptionRequest)(nil),       // 27: fitness.v1.request.CancelRedemptionRequest
-	(*ListFlaggedSessionsRequest)(nil),    // 28: fitness.v1.request.ListFlaggedSessionsRequest
-	(*ReviewSessionRequest)(nil),          // 29: fitness.v1.request.ReviewSessionRequest
-	(enums.CompetitionScope)(0),           // 30: fitness.v1.types.enums.CompetitionScope
-	(enums.CompetitionStatus)(0),          // 31: fitness.v1.types.enums.CompetitionStatus
-	(enums.CompetitionMetric)(0),          // 32: fitness.v1.types.enums.CompetitionMetric
-	(*timestamppb.Timestamp)(nil),         // 33: google.protobuf.Timestamp
-	(enums.ChallengeStatus)(0),            // 34: fitness.v1.types.enums.ChallengeStatus
-	(*types.DeviceIntegrity)(nil),         // 35: fitness.v1.types.DeviceIntegrity
-	(*types.GeoPoint)(nil),                // 36: fitness.v1.types.GeoPoint
-	(*types.WalkSample)(nil),              // 37: fitness.v1.types.WalkSample
-	(enums.LeaderboardPeriod)(0),          // 38: fitness.v1.types.enums.LeaderboardPeriod
-	(enums.RedemptionStatus)(0),           // 39: fitness.v1.types.enums.RedemptionStatus
+	(*GetMyProfileRequest)(nil),            // 0: fitness.v1.request.GetMyProfileRequest
+	(*UpsertMyProfileRequest)(nil),         // 1: fitness.v1.request.UpsertMyProfileRequest
+	(*ListRegionsRequest)(nil),             // 2: fitness.v1.request.ListRegionsRequest
+	(*ListCompetitionsRequest)(nil),        // 3: fitness.v1.request.ListCompetitionsRequest
+	(*GetCompetitionRequest)(nil),          // 4: fitness.v1.request.GetCompetitionRequest
+	(*JoinCompetitionRequest)(nil),         // 5: fitness.v1.request.JoinCompetitionRequest
+	(*LeaveCompetitionRequest)(nil),        // 6: fitness.v1.request.LeaveCompetitionRequest
+	(*CreateCompetitionRequest)(nil),       // 7: fitness.v1.request.CreateCompetitionRequest
+	(*ListChallengeTemplatesRequest)(nil),  // 8: fitness.v1.request.ListChallengeTemplatesRequest
+	(*GetDailyQuotaRequest)(nil),           // 9: fitness.v1.request.GetDailyQuotaRequest
+	(*StartChallengeRequest)(nil),          // 10: fitness.v1.request.StartChallengeRequest
+	(*ListMyChallengesRequest)(nil),        // 11: fitness.v1.request.ListMyChallengesRequest
+	(*AbandonChallengeRequest)(nil),        // 12: fitness.v1.request.AbandonChallengeRequest
+	(*StartWalkSessionRequest)(nil),        // 13: fitness.v1.request.StartWalkSessionRequest
+	(*SubmitWalkSamplesRequest)(nil),       // 14: fitness.v1.request.SubmitWalkSamplesRequest
+	(*EndWalkSessionRequest)(nil),          // 15: fitness.v1.request.EndWalkSessionRequest
+	(*GetWalkSessionRequest)(nil),          // 16: fitness.v1.request.GetWalkSessionRequest
+	(*ListMyWalkSessionsRequest)(nil),      // 17: fitness.v1.request.ListMyWalkSessionsRequest
+	(*GetMyStatsRequest)(nil),              // 18: fitness.v1.request.GetMyStatsRequest
+	(*GetLeaderboardRequest)(nil),          // 19: fitness.v1.request.GetLeaderboardRequest
+	(*GetRegionStandingsRequest)(nil),      // 20: fitness.v1.request.GetRegionStandingsRequest
+	(*GetMyPointsBalanceRequest)(nil),      // 21: fitness.v1.request.GetMyPointsBalanceRequest
+	(*ListMyPointsLedgerRequest)(nil),      // 22: fitness.v1.request.ListMyPointsLedgerRequest
+	(*ListGiftsRequest)(nil),               // 23: fitness.v1.request.ListGiftsRequest
+	(*GetGiftRequest)(nil),                 // 24: fitness.v1.request.GetGiftRequest
+	(*RedeemGiftRequest)(nil),              // 25: fitness.v1.request.RedeemGiftRequest
+	(*ListMyRedemptionsRequest)(nil),       // 26: fitness.v1.request.ListMyRedemptionsRequest
+	(*CancelRedemptionRequest)(nil),        // 27: fitness.v1.request.CancelRedemptionRequest
+	(*UpdateCompetitionRequest)(nil),       // 28: fitness.v1.request.UpdateCompetitionRequest
+	(*CancelCompetitionRequest)(nil),       // 29: fitness.v1.request.CancelCompetitionRequest
+	(*CreateChallengeTemplateRequest)(nil), // 30: fitness.v1.request.CreateChallengeTemplateRequest
+	(*CreateGiftRequest)(nil),              // 31: fitness.v1.request.CreateGiftRequest
+	(*UpdateGiftRequest)(nil),              // 32: fitness.v1.request.UpdateGiftRequest
+	(*FulfilRedemptionRequest)(nil),        // 33: fitness.v1.request.FulfilRedemptionRequest
+	(*ListAllRedemptionsRequest)(nil),      // 34: fitness.v1.request.ListAllRedemptionsRequest
+	(*ListFlaggedSessionsRequest)(nil),     // 35: fitness.v1.request.ListFlaggedSessionsRequest
+	(*ReviewSessionRequest)(nil),           // 36: fitness.v1.request.ReviewSessionRequest
+	(enums.CompetitionScope)(0),            // 37: fitness.v1.types.enums.CompetitionScope
+	(enums.CompetitionStatus)(0),           // 38: fitness.v1.types.enums.CompetitionStatus
+	(enums.CompetitionMetric)(0),           // 39: fitness.v1.types.enums.CompetitionMetric
+	(*timestamppb.Timestamp)(nil),          // 40: google.protobuf.Timestamp
+	(enums.ChallengeStatus)(0),             // 41: fitness.v1.types.enums.ChallengeStatus
+	(*types.DeviceIntegrity)(nil),          // 42: fitness.v1.types.DeviceIntegrity
+	(*types.GeoPoint)(nil),                 // 43: fitness.v1.types.GeoPoint
+	(*types.WalkSample)(nil),               // 44: fitness.v1.types.WalkSample
+	(enums.LeaderboardPeriod)(0),           // 45: fitness.v1.types.enums.LeaderboardPeriod
+	(enums.RedemptionStatus)(0),            // 46: fitness.v1.types.enums.RedemptionStatus
+	(enums.GiftStatus)(0),                  // 47: fitness.v1.types.enums.GiftStatus
 }
 var file_fitness_v1_request_fitness_request_proto_depIdxs = []int32{
-	30, // 0: fitness.v1.request.ListCompetitionsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	31, // 1: fitness.v1.request.ListCompetitionsRequest.status:type_name -> fitness.v1.types.enums.CompetitionStatus
-	30, // 2: fitness.v1.request.CreateCompetitionRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	32, // 3: fitness.v1.request.CreateCompetitionRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
-	33, // 4: fitness.v1.request.CreateCompetitionRequest.starts_at:type_name -> google.protobuf.Timestamp
-	33, // 5: fitness.v1.request.CreateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
-	34, // 6: fitness.v1.request.ListMyChallengesRequest.status:type_name -> fitness.v1.types.enums.ChallengeStatus
-	35, // 7: fitness.v1.request.StartWalkSessionRequest.device:type_name -> fitness.v1.types.DeviceIntegrity
-	36, // 8: fitness.v1.request.StartWalkSessionRequest.start_point:type_name -> fitness.v1.types.GeoPoint
-	37, // 9: fitness.v1.request.SubmitWalkSamplesRequest.samples:type_name -> fitness.v1.types.WalkSample
-	33, // 10: fitness.v1.request.SubmitWalkSamplesRequest.device_time:type_name -> google.protobuf.Timestamp
-	37, // 11: fitness.v1.request.EndWalkSessionRequest.samples:type_name -> fitness.v1.types.WalkSample
-	36, // 12: fitness.v1.request.EndWalkSessionRequest.end_point:type_name -> fitness.v1.types.GeoPoint
-	33, // 13: fitness.v1.request.EndWalkSessionRequest.device_time:type_name -> google.protobuf.Timestamp
-	33, // 14: fitness.v1.request.ListMyWalkSessionsRequest.from:type_name -> google.protobuf.Timestamp
-	33, // 15: fitness.v1.request.ListMyWalkSessionsRequest.to:type_name -> google.protobuf.Timestamp
-	30, // 16: fitness.v1.request.GetLeaderboardRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	38, // 17: fitness.v1.request.GetLeaderboardRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
-	30, // 18: fitness.v1.request.GetRegionStandingsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
-	38, // 19: fitness.v1.request.GetRegionStandingsRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
-	33, // 20: fitness.v1.request.ListMyPointsLedgerRequest.from:type_name -> google.protobuf.Timestamp
-	33, // 21: fitness.v1.request.ListMyPointsLedgerRequest.to:type_name -> google.protobuf.Timestamp
-	39, // 22: fitness.v1.request.ListMyRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
-	23, // [23:23] is the sub-list for method output_type
-	23, // [23:23] is the sub-list for method input_type
-	23, // [23:23] is the sub-list for extension type_name
-	23, // [23:23] is the sub-list for extension extendee
-	0,  // [0:23] is the sub-list for field type_name
+	37, // 0: fitness.v1.request.ListCompetitionsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	38, // 1: fitness.v1.request.ListCompetitionsRequest.status:type_name -> fitness.v1.types.enums.CompetitionStatus
+	37, // 2: fitness.v1.request.CreateCompetitionRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	39, // 3: fitness.v1.request.CreateCompetitionRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
+	40, // 4: fitness.v1.request.CreateCompetitionRequest.starts_at:type_name -> google.protobuf.Timestamp
+	40, // 5: fitness.v1.request.CreateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
+	41, // 6: fitness.v1.request.ListMyChallengesRequest.status:type_name -> fitness.v1.types.enums.ChallengeStatus
+	42, // 7: fitness.v1.request.StartWalkSessionRequest.device:type_name -> fitness.v1.types.DeviceIntegrity
+	43, // 8: fitness.v1.request.StartWalkSessionRequest.start_point:type_name -> fitness.v1.types.GeoPoint
+	44, // 9: fitness.v1.request.SubmitWalkSamplesRequest.samples:type_name -> fitness.v1.types.WalkSample
+	40, // 10: fitness.v1.request.SubmitWalkSamplesRequest.device_time:type_name -> google.protobuf.Timestamp
+	44, // 11: fitness.v1.request.EndWalkSessionRequest.samples:type_name -> fitness.v1.types.WalkSample
+	43, // 12: fitness.v1.request.EndWalkSessionRequest.end_point:type_name -> fitness.v1.types.GeoPoint
+	40, // 13: fitness.v1.request.EndWalkSessionRequest.device_time:type_name -> google.protobuf.Timestamp
+	40, // 14: fitness.v1.request.ListMyWalkSessionsRequest.from:type_name -> google.protobuf.Timestamp
+	40, // 15: fitness.v1.request.ListMyWalkSessionsRequest.to:type_name -> google.protobuf.Timestamp
+	37, // 16: fitness.v1.request.GetLeaderboardRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	45, // 17: fitness.v1.request.GetLeaderboardRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
+	37, // 18: fitness.v1.request.GetRegionStandingsRequest.scope:type_name -> fitness.v1.types.enums.CompetitionScope
+	45, // 19: fitness.v1.request.GetRegionStandingsRequest.period:type_name -> fitness.v1.types.enums.LeaderboardPeriod
+	40, // 20: fitness.v1.request.ListMyPointsLedgerRequest.from:type_name -> google.protobuf.Timestamp
+	40, // 21: fitness.v1.request.ListMyPointsLedgerRequest.to:type_name -> google.protobuf.Timestamp
+	46, // 22: fitness.v1.request.ListMyRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
+	40, // 23: fitness.v1.request.UpdateCompetitionRequest.ends_at:type_name -> google.protobuf.Timestamp
+	39, // 24: fitness.v1.request.CreateChallengeTemplateRequest.metric:type_name -> fitness.v1.types.enums.CompetitionMetric
+	40, // 25: fitness.v1.request.CreateGiftRequest.available_until:type_name -> google.protobuf.Timestamp
+	47, // 26: fitness.v1.request.UpdateGiftRequest.status:type_name -> fitness.v1.types.enums.GiftStatus
+	40, // 27: fitness.v1.request.UpdateGiftRequest.available_until:type_name -> google.protobuf.Timestamp
+	46, // 28: fitness.v1.request.FulfilRedemptionRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
+	46, // 29: fitness.v1.request.ListAllRedemptionsRequest.status:type_name -> fitness.v1.types.enums.RedemptionStatus
+	30, // [30:30] is the sub-list for method output_type
+	30, // [30:30] is the sub-list for method input_type
+	30, // [30:30] is the sub-list for extension type_name
+	30, // [30:30] is the sub-list for extension extendee
+	0,  // [0:30] is the sub-list for field type_name
 }
 
 func init() { file_fitness_v1_request_fitness_request_proto_init() }
@@ -2278,13 +3025,15 @@ func file_fitness_v1_request_fitness_request_proto_init() {
 	if File_fitness_v1_request_fitness_request_proto != nil {
 		return
 	}
+	file_fitness_v1_request_fitness_request_proto_msgTypes[28].OneofWrappers = []any{}
+	file_fitness_v1_request_fitness_request_proto_msgTypes[32].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_fitness_v1_request_fitness_request_proto_rawDesc), len(file_fitness_v1_request_fitness_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   30,
+			NumMessages:   37,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

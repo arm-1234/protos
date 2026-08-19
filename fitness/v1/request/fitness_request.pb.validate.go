@@ -4011,6 +4011,1322 @@ var _ interface {
 	ErrorName() string
 } = CancelRedemptionRequestValidationError{}
 
+// Validate checks the field values on UpdateCompetitionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateCompetitionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateCompetitionRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateCompetitionRequestMultiError, or nil if none found.
+func (m *UpdateCompetitionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateCompetitionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetCompetitionId()) < 1 {
+		err := UpdateCompetitionRequestValidationError{
+			field:  "CompetitionId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.Title != nil {
+
+		if m.GetTitle() != "" {
+
+			if utf8.RuneCountInString(m.GetTitle()) < 3 {
+				err := UpdateCompetitionRequestValidationError{
+					field:  "Title",
+					reason: "value length must be at least 3 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if m.Description != nil {
+		// no validation rules for Description
+	}
+
+	if m.BannerUrl != nil {
+		// no validation rules for BannerUrl
+	}
+
+	if m.EndsAt != nil {
+
+		if all {
+			switch v := interface{}(m.GetEndsAt()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateCompetitionRequestValidationError{
+						field:  "EndsAt",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateCompetitionRequestValidationError{
+						field:  "EndsAt",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEndsAt()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateCompetitionRequestValidationError{
+					field:  "EndsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.DailyChallengeLimit != nil {
+
+		if m.GetDailyChallengeLimit() != 0 {
+
+			if val := m.GetDailyChallengeLimit(); val < 1 || val > 50 {
+				err := UpdateCompetitionRequestValidationError{
+					field:  "DailyChallengeLimit",
+					reason: "value must be inside range [1, 50]",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if m.DailyStepCap != nil {
+
+		if m.GetDailyStepCap() < 0 {
+			err := UpdateCompetitionRequestValidationError{
+				field:  "DailyStepCap",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.ChallengeCooldownSeconds != nil {
+
+		if m.GetChallengeCooldownSeconds() < 0 {
+			err := UpdateCompetitionRequestValidationError{
+				field:  "ChallengeCooldownSeconds",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.PointsPerUnit != nil {
+
+		if m.GetPointsPerUnit() < 0 {
+			err := UpdateCompetitionRequestValidationError{
+				field:  "PointsPerUnit",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.DailyPointsCap != nil {
+
+		if m.GetDailyPointsCap() < 0 {
+			err := UpdateCompetitionRequestValidationError{
+				field:  "DailyPointsCap",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.EnforceGeofence != nil {
+		// no validation rules for EnforceGeofence
+	}
+
+	if m.MaxSpeedMps != nil {
+
+		if m.GetMaxSpeedMps() != 0 {
+
+			if val := m.GetMaxSpeedMps(); val <= 0 || val > 20 {
+				err := UpdateCompetitionRequestValidationError{
+					field:  "MaxSpeedMps",
+					reason: "value must be inside range (0, 20]",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpdateCompetitionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateCompetitionRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdateCompetitionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateCompetitionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateCompetitionRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateCompetitionRequestMultiError) AllErrors() []error { return m }
+
+// UpdateCompetitionRequestValidationError is the validation error returned by
+// UpdateCompetitionRequest.Validate if the designated constraints aren't met.
+type UpdateCompetitionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateCompetitionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateCompetitionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateCompetitionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateCompetitionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateCompetitionRequestValidationError) ErrorName() string {
+	return "UpdateCompetitionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateCompetitionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateCompetitionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateCompetitionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateCompetitionRequestValidationError{}
+
+// Validate checks the field values on CancelCompetitionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CancelCompetitionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CancelCompetitionRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CancelCompetitionRequestMultiError, or nil if none found.
+func (m *CancelCompetitionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CancelCompetitionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetCompetitionId()) < 1 {
+		err := CancelCompetitionRequestValidationError{
+			field:  "CompetitionId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetReason() != "" {
+
+		if utf8.RuneCountInString(m.GetReason()) > 512 {
+			err := CancelCompetitionRequestValidationError{
+				field:  "Reason",
+				reason: "value length must be at most 512 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return CancelCompetitionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CancelCompetitionRequestMultiError is an error wrapping multiple validation
+// errors returned by CancelCompetitionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CancelCompetitionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CancelCompetitionRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CancelCompetitionRequestMultiError) AllErrors() []error { return m }
+
+// CancelCompetitionRequestValidationError is the validation error returned by
+// CancelCompetitionRequest.Validate if the designated constraints aren't met.
+type CancelCompetitionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CancelCompetitionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CancelCompetitionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CancelCompetitionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CancelCompetitionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CancelCompetitionRequestValidationError) ErrorName() string {
+	return "CancelCompetitionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CancelCompetitionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCancelCompetitionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CancelCompetitionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CancelCompetitionRequestValidationError{}
+
+// Validate checks the field values on CreateChallengeTemplateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateChallengeTemplateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateChallengeTemplateRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// CreateChallengeTemplateRequestMultiError, or nil if none found.
+func (m *CreateChallengeTemplateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateChallengeTemplateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetCompetitionId()) < 1 {
+		err := CreateChallengeTemplateRequestValidationError{
+			field:  "CompetitionId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTitle()) < 3 {
+		err := CreateChallengeTemplateRequestValidationError{
+			field:  "Title",
+			reason: "value length must be at least 3 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Description
+
+	if _, ok := _CreateChallengeTemplateRequest_Metric_NotInLookup[m.GetMetric()]; ok {
+		err := CreateChallengeTemplateRequestValidationError{
+			field:  "Metric",
+			reason: "value must not be in list [COMPETITION_METRIC_UNSPECIFIED]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if _, ok := enums.CompetitionMetric_name[int32(m.GetMetric())]; !ok {
+		err := CreateChallengeTemplateRequestValidationError{
+			field:  "Metric",
+			reason: "value must be one of the defined enum values",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetTargetValue() <= 0 {
+		err := CreateChallengeTemplateRequestValidationError{
+			field:  "TargetValue",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetRewardPoints() < 0 {
+		err := CreateChallengeTemplateRequestValidationError{
+			field:  "RewardPoints",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetTimeLimitSeconds() != 0 {
+
+		if m.GetTimeLimitSeconds() < 60 {
+			err := CreateChallengeTemplateRequestValidationError{
+				field:  "TimeLimitSeconds",
+				reason: "value must be greater than or equal to 60",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return CreateChallengeTemplateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateChallengeTemplateRequestMultiError is an error wrapping multiple
+// validation errors returned by CreateChallengeTemplateRequest.ValidateAll()
+// if the designated constraints aren't met.
+type CreateChallengeTemplateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateChallengeTemplateRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateChallengeTemplateRequestMultiError) AllErrors() []error { return m }
+
+// CreateChallengeTemplateRequestValidationError is the validation error
+// returned by CreateChallengeTemplateRequest.Validate if the designated
+// constraints aren't met.
+type CreateChallengeTemplateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateChallengeTemplateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateChallengeTemplateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateChallengeTemplateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateChallengeTemplateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateChallengeTemplateRequestValidationError) ErrorName() string {
+	return "CreateChallengeTemplateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateChallengeTemplateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateChallengeTemplateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateChallengeTemplateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateChallengeTemplateRequestValidationError{}
+
+var _CreateChallengeTemplateRequest_Metric_NotInLookup = map[enums.CompetitionMetric]struct{}{
+	0: {},
+}
+
+// Validate checks the field values on CreateGiftRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CreateGiftRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateGiftRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateGiftRequestMultiError, or nil if none found.
+func (m *CreateGiftRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateGiftRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetTitle()) < 2 {
+		err := CreateGiftRequestValidationError{
+			field:  "Title",
+			reason: "value length must be at least 2 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Description
+
+	// no validation rules for ImageUrl
+
+	if m.GetPointsCost() <= 0 {
+		err := CreateGiftRequestValidationError{
+			field:  "PointsCost",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetStockTotal() < 0 {
+		err := CreateGiftRequestValidationError{
+			field:  "StockTotal",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPerUserLimit() < 0 {
+		err := CreateGiftRequestValidationError{
+			field:  "PerUserLimit",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetCategory() != "" {
+
+		if utf8.RuneCountInString(m.GetCategory()) > 64 {
+			err := CreateGiftRequestValidationError{
+				field:  "Category",
+				reason: "value length must be at most 64 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	// no validation rules for StateCode
+
+	if all {
+		switch v := interface{}(m.GetAvailableUntil()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateGiftRequestValidationError{
+					field:  "AvailableUntil",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateGiftRequestValidationError{
+					field:  "AvailableUntil",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAvailableUntil()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateGiftRequestValidationError{
+				field:  "AvailableUntil",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CreateGiftRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateGiftRequestMultiError is an error wrapping multiple validation errors
+// returned by CreateGiftRequest.ValidateAll() if the designated constraints
+// aren't met.
+type CreateGiftRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateGiftRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateGiftRequestMultiError) AllErrors() []error { return m }
+
+// CreateGiftRequestValidationError is the validation error returned by
+// CreateGiftRequest.Validate if the designated constraints aren't met.
+type CreateGiftRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateGiftRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateGiftRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateGiftRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateGiftRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateGiftRequestValidationError) ErrorName() string {
+	return "CreateGiftRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateGiftRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateGiftRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateGiftRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateGiftRequestValidationError{}
+
+// Validate checks the field values on UpdateGiftRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *UpdateGiftRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateGiftRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateGiftRequestMultiError, or nil if none found.
+func (m *UpdateGiftRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateGiftRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetGiftId()) < 1 {
+		err := UpdateGiftRequestValidationError{
+			field:  "GiftId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.Title != nil {
+
+		if m.GetTitle() != "" {
+
+			if utf8.RuneCountInString(m.GetTitle()) < 2 {
+				err := UpdateGiftRequestValidationError{
+					field:  "Title",
+					reason: "value length must be at least 2 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+
+	}
+
+	if m.Description != nil {
+		// no validation rules for Description
+	}
+
+	if m.ImageUrl != nil {
+		// no validation rules for ImageUrl
+	}
+
+	if m.PointsCost != nil {
+
+		if m.GetPointsCost() <= 0 {
+			err := UpdateGiftRequestValidationError{
+				field:  "PointsCost",
+				reason: "value must be greater than 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.StockRemaining != nil {
+
+		if m.GetStockRemaining() < 0 {
+			err := UpdateGiftRequestValidationError{
+				field:  "StockRemaining",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.PerUserLimit != nil {
+
+		if m.GetPerUserLimit() < 0 {
+			err := UpdateGiftRequestValidationError{
+				field:  "PerUserLimit",
+				reason: "value must be greater than or equal to 0",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Status != nil {
+
+		if _, ok := enums.GiftStatus_name[int32(m.GetStatus())]; !ok {
+			err := UpdateGiftRequestValidationError{
+				field:  "Status",
+				reason: "value must be one of the defined enum values",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.AvailableUntil != nil {
+
+		if all {
+			switch v := interface{}(m.GetAvailableUntil()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateGiftRequestValidationError{
+						field:  "AvailableUntil",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateGiftRequestValidationError{
+						field:  "AvailableUntil",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAvailableUntil()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateGiftRequestValidationError{
+					field:  "AvailableUntil",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpdateGiftRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateGiftRequestMultiError is an error wrapping multiple validation errors
+// returned by UpdateGiftRequest.ValidateAll() if the designated constraints
+// aren't met.
+type UpdateGiftRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateGiftRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateGiftRequestMultiError) AllErrors() []error { return m }
+
+// UpdateGiftRequestValidationError is the validation error returned by
+// UpdateGiftRequest.Validate if the designated constraints aren't met.
+type UpdateGiftRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateGiftRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateGiftRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateGiftRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateGiftRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateGiftRequestValidationError) ErrorName() string {
+	return "UpdateGiftRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateGiftRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateGiftRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateGiftRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateGiftRequestValidationError{}
+
+// Validate checks the field values on FulfilRedemptionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *FulfilRedemptionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FulfilRedemptionRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FulfilRedemptionRequestMultiError, or nil if none found.
+func (m *FulfilRedemptionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FulfilRedemptionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetRedemptionId()) < 1 {
+		err := FulfilRedemptionRequestValidationError{
+			field:  "RedemptionId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if _, ok := _FulfilRedemptionRequest_Status_NotInLookup[m.GetStatus()]; ok {
+		err := FulfilRedemptionRequestValidationError{
+			field:  "Status",
+			reason: "value must not be in list [REDEMPTION_STATUS_UNSPECIFIED]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if _, ok := enums.RedemptionStatus_name[int32(m.GetStatus())]; !ok {
+		err := FulfilRedemptionRequestValidationError{
+			field:  "Status",
+			reason: "value must be one of the defined enum values",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetFulfilmentCode() != "" {
+
+		if utf8.RuneCountInString(m.GetFulfilmentCode()) > 256 {
+			err := FulfilRedemptionRequestValidationError{
+				field:  "FulfilmentCode",
+				reason: "value length must be at most 256 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetNote() != "" {
+
+		if utf8.RuneCountInString(m.GetNote()) > 512 {
+			err := FulfilRedemptionRequestValidationError{
+				field:  "Note",
+				reason: "value length must be at most 512 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return FulfilRedemptionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// FulfilRedemptionRequestMultiError is an error wrapping multiple validation
+// errors returned by FulfilRedemptionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type FulfilRedemptionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FulfilRedemptionRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FulfilRedemptionRequestMultiError) AllErrors() []error { return m }
+
+// FulfilRedemptionRequestValidationError is the validation error returned by
+// FulfilRedemptionRequest.Validate if the designated constraints aren't met.
+type FulfilRedemptionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FulfilRedemptionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FulfilRedemptionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FulfilRedemptionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FulfilRedemptionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FulfilRedemptionRequestValidationError) ErrorName() string {
+	return "FulfilRedemptionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FulfilRedemptionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFulfilRedemptionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FulfilRedemptionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FulfilRedemptionRequestValidationError{}
+
+var _FulfilRedemptionRequest_Status_NotInLookup = map[enums.RedemptionStatus]struct{}{
+	0: {},
+}
+
+// Validate checks the field values on ListAllRedemptionsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListAllRedemptionsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListAllRedemptionsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListAllRedemptionsRequestMultiError, or nil if none found.
+func (m *ListAllRedemptionsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListAllRedemptionsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	// no validation rules for UserId
+
+	// no validation rules for GiftId
+
+	// no validation rules for PageNumber
+
+	if m.GetPageSize() != 0 {
+
+		if m.GetPageSize() > 100 {
+			err := ListAllRedemptionsRequestValidationError{
+				field:  "PageSize",
+				reason: "value must be less than or equal to 100",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListAllRedemptionsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListAllRedemptionsRequestMultiError is an error wrapping multiple validation
+// errors returned by ListAllRedemptionsRequest.ValidateAll() if the
+// designated constraints aren't met.
+type ListAllRedemptionsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListAllRedemptionsRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListAllRedemptionsRequestMultiError) AllErrors() []error { return m }
+
+// ListAllRedemptionsRequestValidationError is the validation error returned by
+// ListAllRedemptionsRequest.Validate if the designated constraints aren't met.
+type ListAllRedemptionsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListAllRedemptionsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListAllRedemptionsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListAllRedemptionsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListAllRedemptionsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListAllRedemptionsRequestValidationError) ErrorName() string {
+	return "ListAllRedemptionsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListAllRedemptionsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListAllRedemptionsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListAllRedemptionsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListAllRedemptionsRequestValidationError{}
+
 // Validate checks the field values on ListFlaggedSessionsRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

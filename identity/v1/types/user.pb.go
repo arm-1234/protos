@@ -24,18 +24,24 @@ const (
 )
 
 type UserInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	UserType      enums.UserType         `protobuf:"varint,2,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
-	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Phone         string                 `protobuf:"bytes,4,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
-	MerchantId    string                 `protobuf:"bytes,6,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Provider      string                 `protobuf:"bytes,7,opt,name=provider,proto3" json:"provider,omitempty"`
-	ExternalId    string                 `protobuf:"bytes,8,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	Verified      bool                   `protobuf:"varint,11,opt,name=verified,proto3" json:"verified,omitempty"`
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	UserId     string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UserType   enums.UserType         `protobuf:"varint,2,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
+	Name       string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Phone      string                 `protobuf:"bytes,4,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email      string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
+	MerchantId string                 `protobuf:"bytes,6,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Provider   string                 `protobuf:"bytes,7,opt,name=provider,proto3" json:"provider,omitempty"`
+	ExternalId string                 `protobuf:"bytes,8,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
+	CreatedAt  *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt  *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Verified   bool                   `protobuf:"varint,11,opt,name=verified,proto3" json:"verified,omitempty"`
+	// Email ownership proven by OTP. Gates gift redemption, so a throwaway
+	// address cannot farm rewards.
+	EmailVerified bool `protobuf:"varint,12,opt,name=email_verified,json=emailVerified,proto3" json:"email_verified,omitempty"`
+	// True when a password is set. Lets the app show "log in with OTP" only for
+	// accounts that have no password yet.
+	HasPassword   bool `protobuf:"varint,13,opt,name=has_password,json=hasPassword,proto3" json:"has_password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -147,11 +153,25 @@ func (x *UserInfo) GetVerified() bool {
 	return false
 }
 
+func (x *UserInfo) GetEmailVerified() bool {
+	if x != nil {
+		return x.EmailVerified
+	}
+	return false
+}
+
+func (x *UserInfo) GetHasPassword() bool {
+	if x != nil {
+		return x.HasPassword
+	}
+	return false
+}
+
 var File_identity_v1_types_user_proto protoreflect.FileDescriptor
 
 const file_identity_v1_types_user_proto_rawDesc = "" +
 	"\n" +
-	"\x1cidentity/v1/types/user.proto\x12\x11identity.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'identity/v1/types/enums/user_type.proto\"\x93\x03\n" +
+	"\x1cidentity/v1/types/user.proto\x12\x11identity.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a'identity/v1/types/enums/user_type.proto\"\xdd\x03\n" +
 	"\bUserInfo\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12>\n" +
 	"\tuser_type\x18\x02 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\buserType\x12\x12\n" +
@@ -168,7 +188,9 @@ const file_identity_v1_types_user_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\n" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12\x1a\n" +
-	"\bverified\x18\v \x01(\bR\bverifiedB4Z2github.com/arm-1234/protos/identity/v1/types;typesb\x06proto3"
+	"\bverified\x18\v \x01(\bR\bverified\x12%\n" +
+	"\x0eemail_verified\x18\f \x01(\bR\remailVerified\x12!\n" +
+	"\fhas_password\x18\r \x01(\bR\vhasPasswordB4Z2github.com/arm-1234/protos/identity/v1/types;typesb\x06proto3"
 
 var (
 	file_identity_v1_types_user_proto_rawDescOnce sync.Once

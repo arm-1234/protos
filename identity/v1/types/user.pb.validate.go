@@ -137,6 +137,10 @@ func (m *UserInfo) validate(all bool) error {
 
 	// no validation rules for Verified
 
+	// no validation rules for EmailVerified
+
+	// no validation rules for HasPassword
+
 	if len(errors) > 0 {
 		return UserInfoMultiError(errors)
 	}

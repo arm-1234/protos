@@ -72,15 +72,19 @@ func (m *RegisterUserRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetPhone()); l < 8 || l > 15 {
-		err := RegisterUserRequestValidationError{
-			field:  "Phone",
-			reason: "value length must be between 8 and 15 runes, inclusive",
+	if m.GetPhone() != "" {
+
+		if l := utf8.RuneCountInString(m.GetPhone()); l < 8 || l > 15 {
+			err := RegisterUserRequestValidationError{
+				field:  "Phone",
+				reason: "value length must be between 8 and 15 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
+
 	}
 
 	if m.GetEmail() != "" {
@@ -109,6 +113,8 @@ func (m *RegisterUserRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for UserType
 
 	if len(errors) > 0 {
 		return RegisterUserRequestMultiError(errors)
@@ -239,6 +245,132 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RegisterUserRequestValidationError{}
+
+// Validate checks the field values on LoginWithIdentifierRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *LoginWithIdentifierRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LoginWithIdentifierRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// LoginWithIdentifierRequestMultiError, or nil if none found.
+func (m *LoginWithIdentifierRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LoginWithIdentifierRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetIdentifier()); l < 3 || l > 320 {
+		err := LoginWithIdentifierRequestValidationError{
+			field:  "Identifier",
+			reason: "value length must be between 3 and 320 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 1 || l > 128 {
+		err := LoginWithIdentifierRequestValidationError{
+			field:  "Password",
+			reason: "value length must be between 1 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ExpectedUserType
+
+	if len(errors) > 0 {
+		return LoginWithIdentifierRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// LoginWithIdentifierRequestMultiError is an error wrapping multiple
+// validation errors returned by LoginWithIdentifierRequest.ValidateAll() if
+// the designated constraints aren't met.
+type LoginWithIdentifierRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LoginWithIdentifierRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LoginWithIdentifierRequestMultiError) AllErrors() []error { return m }
+
+// LoginWithIdentifierRequestValidationError is the validation error returned
+// by LoginWithIdentifierRequest.Validate if the designated constraints aren't met.
+type LoginWithIdentifierRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LoginWithIdentifierRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LoginWithIdentifierRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LoginWithIdentifierRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LoginWithIdentifierRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LoginWithIdentifierRequestValidationError) ErrorName() string {
+	return "LoginWithIdentifierRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e LoginWithIdentifierRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLoginWithIdentifierRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LoginWithIdentifierRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LoginWithIdentifierRequestValidationError{}
 
 // Validate checks the field values on RegisterMerchantRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -656,15 +788,19 @@ func (m *SetPasswordRequest) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetPhone()); l < 8 || l > 15 {
-		err := SetPasswordRequestValidationError{
-			field:  "Phone",
-			reason: "value length must be between 8 and 15 runes, inclusive",
+	if m.GetPhone() != "" {
+
+		if l := utf8.RuneCountInString(m.GetPhone()); l < 8 || l > 15 {
+			err := SetPasswordRequestValidationError{
+				field:  "Phone",
+				reason: "value length must be between 8 and 15 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
+
 	}
 
 	if l := utf8.RuneCountInString(m.GetNewPassword()); l < 6 || l > 128 {
@@ -679,6 +815,21 @@ func (m *SetPasswordRequest) validate(all bool) error {
 	}
 
 	// no validation rules for CurrentPassword
+
+	if m.GetIdentifier() != "" {
+
+		if l := utf8.RuneCountInString(m.GetIdentifier()); l < 3 || l > 320 {
+			err := SetPasswordRequestValidationError{
+				field:  "Identifier",
+				reason: "value length must be between 3 and 320 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return SetPasswordRequestMultiError(errors)

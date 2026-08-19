@@ -67,7 +67,7 @@ service Fitness {
     };
   }
 
-  // Admin only.
+  // Admin only: requires a USER_TYPE_ADMIN token. Walkers get FITNESS_ADMIN_REQUIRED.
   rpc CreateCompetition (fitness.v1.request.CreateCompetitionRequest) returns (fitness.v1.response.CreateCompetitionResponse) {
     option (google.api.http) = {
       post: "/v1/fitness/competitions"
@@ -230,8 +230,62 @@ service Fitness {
   }
 
   // -------------------------------------------------------------------------
-  // Moderation (admin only)
+  // Moderation and gift administration
+  //
+  // Every RPC below requires a USER_TYPE_ADMIN token; the HTTP paths are
+  // grouped under /admin/ so the gateway can gate the whole prefix as well.
   // -------------------------------------------------------------------------
+
+  rpc UpdateCompetition (fitness.v1.request.UpdateCompetitionRequest) returns (fitness.v1.response.UpdateCompetitionResponse) {
+    option (google.api.http) = {
+      patch: "/v1/fitness/admin/competitions/{competition_id}"
+      body: "*"
+    };
+  }
+
+  // Ends a competition early and freezes its leaderboard.
+  rpc CancelCompetition (fitness.v1.request.CancelCompetitionRequest) returns (fitness.v1.response.CancelCompetitionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/admin/competitions/{competition_id}:cancel"
+      body: "*"
+    };
+  }
+
+  rpc CreateChallengeTemplate (fitness.v1.request.CreateChallengeTemplateRequest) returns (fitness.v1.response.CreateChallengeTemplateResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/admin/competitions/{competition_id}/challenge-templates"
+      body: "*"
+    };
+  }
+
+  rpc CreateGift (fitness.v1.request.CreateGiftRequest) returns (fitness.v1.response.CreateGiftResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/admin/gifts"
+      body: "*"
+    };
+  }
+
+  rpc UpdateGift (fitness.v1.request.UpdateGiftRequest) returns (fitness.v1.response.UpdateGiftResponse) {
+    option (google.api.http) = {
+      patch: "/v1/fitness/admin/gifts/{gift_id}"
+      body: "*"
+    };
+  }
+
+  // Moves a redemption to APPROVED, FULFILLED or REJECTED. Rejecting refunds
+  // the reserved points via a compensating ledger entry.
+  rpc FulfilRedemption (fitness.v1.request.FulfilRedemptionRequest) returns (fitness.v1.response.FulfilRedemptionResponse) {
+    option (google.api.http) = {
+      post: "/v1/fitness/admin/redemptions/{redemption_id}:fulfil"
+      body: "*"
+    };
+  }
+
+  rpc ListAllRedemptions (fitness.v1.request.ListAllRedemptionsRequest) returns (fitness.v1.response.ListAllRedemptionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/fitness/admin/redemptions"
+    };
+  }
 
   rpc ListFlaggedSessions (fitness.v1.request.ListFlaggedSessionsRequest) returns (fitness.v1.response.ListFlaggedSessionsResponse) {
     option (google.api.http) = {
@@ -253,6 +307,9 @@ enum ErrorReason {
   FITNESS_UNSPECIFIED = 0 [(errors.code) = 500];
   FITNESS_INVALID_REQUEST = 1 [(errors.code) = 400];
   FITNESS_FORBIDDEN = 2 [(errors.code) = 403];
+  // Caller is authenticated but is not a USER_TYPE_ADMIN.
+  FITNESS_ADMIN_REQUIRED = 3 [(errors.code) = 403];
+  FITNESS_UNAUTHENTICATED = 4 [(errors.code) = 401];
 
   PROFILE_NOT_FOUND = 10 [(errors.code) = 404];
   // Home region is locked for a cooldown so users cannot hop to a weak district.
@@ -302,6 +359,9 @@ enum ErrorReason {
   GIFT_PER_USER_LIMIT_REACHED = 64 [(errors.code) = 409];
   REDEMPTION_NOT_FOUND = 65 [(errors.code) = 404];
   REDEMPTION_NOT_CANCELLABLE = 66 [(errors.code) = 409];
+  // Redeeming requires a verified email, so throwaway addresses cannot farm gifts.
+  REDEMPTION_EMAIL_NOT_VERIFIED = 67 [(errors.code) = 403];
+  REDEMPTION_NOT_FULFILLABLE = 68 [(errors.code) = 409];
 
   LEADERBOARD_NOT_AVAILABLE = 70 [(errors.code) = 503];
 }
