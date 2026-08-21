@@ -4,36 +4,20 @@ package fitness.v1.types.enums;
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
 
-// Why a session was flagged or rejected. A session can trip several of these,
-// so verdicts carry a repeated field rather than one reason.
 enum AntiCheatReason {
   ANTI_CHEAT_REASON_UNSPECIFIED = 0;
-  // Sustained pace above a human walking/jogging range: vehicle or cycle.
   ANTI_CHEAT_REASON_SPEED_TOO_HIGH = 1;
-  // A single segment implies an impossible jump between two points.
   ANTI_CHEAT_REASON_TELEPORT = 2;
-  // Steps per minute outside a plausible cadence band.
   ANTI_CHEAT_REASON_IMPLAUSIBLE_CADENCE = 3;
-  // Distance per step outside a plausible stride band: phone shaking.
   ANTI_CHEAT_REASON_STEP_DISTANCE_MISMATCH = 4;
-  // OS reports the location came from a mock provider.
   ANTI_CHEAT_REASON_MOCK_LOCATION = 5;
-  // Too few samples to account for the claimed duration.
   ANTI_CHEAT_REASON_SPARSE_SAMPLES = 6;
-  // Most samples have unusably poor GPS accuracy.
   ANTI_CHEAT_REASON_POOR_GPS_ACCURACY = 7;
-  // Overlaps in time with another session for the same user.
   ANTI_CHEAT_REASON_OVERLAPPING_SESSION = 8;
-  // Same device submitting for several accounts: farming.
   ANTI_CHEAT_REASON_DEVICE_SHARED = 9;
-  // Device clock disagrees with server time beyond tolerance.
   ANTI_CHEAT_REASON_CLOCK_SKEW = 10;
-  // Session GPS falls outside the user's declared district.
   ANTI_CHEAT_REASON_GEOFENCE_MISMATCH = 11;
-  // Daily counted-step ceiling already reached.
   ANTI_CHEAT_REASON_DAILY_CAP_EXCEEDED = 12;
-  // Failed platform integrity attestation (rooted/jailbroken/tampered build).
   ANTI_CHEAT_REASON_INTEGRITY_FAILED = 13;
-  // Trail is a near-duplicate of an earlier submitted trail: replay.
   ANTI_CHEAT_REASON_DUPLICATE_TRAIL = 14;
 }

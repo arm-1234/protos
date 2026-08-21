@@ -19,10 +19,6 @@ message UserInfo {
   google.protobuf.Timestamp created_at = 9;
   google.protobuf.Timestamp updated_at = 10;
   bool verified = 11;
-  // Email ownership proven by OTP. Gates gift redemption, so a throwaway
-  // address cannot farm rewards.
   bool email_verified = 12;
-  // True when a password is set. Lets the app show "log in with OTP" only for
-  // accounts that have no password yet.
   bool has_password = 13;
 }

@@ -9,37 +9,27 @@ import "fitness/v1/types/enums/gift_status.proto";
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
 
-// One immutable movement of points. Balance is the sum of a user's deltas, so
-// there is no stored total to drift out of sync with history.
 message PointsLedgerEntry {
   string entry_id = 1;
   string user_id = 2;
-  // Signed: positive credits, negative debits.
   int64 delta = 3;
-  // Running balance after this entry, denormalized for cheap statements.
   int64 balance_after = 4;
   fitness.v1.types.enums.PointsReason reason = 5;
-  // What caused it: session_id, challenge_id, redemption_id.
   string reference_id = 6;
   string description = 7;
-  // Set on entries that a fraud reversal may still claw back.
   bool is_reversible = 8;
   google.protobuf.Timestamp reversible_until = 9;
-  // Points to the entry this one reverses, when it is a correction.
   string reverses_entry_id = 10;
   google.protobuf.Timestamp created_at = 11;
 }
 
 message PointsBalance {
   string user_id = 1;
-  // Spendable now: available = total - reserved.
   int64 available_points = 2;
-  // Held against PENDING redemptions.
   int64 reserved_points = 3;
   int64 total_points = 4;
   int64 lifetime_earned = 5;
   int64 lifetime_redeemed = 6;
-  // Credited but still reversible pending review.
   int64 pending_points = 7;
   google.protobuf.Timestamp updated_at = 8;
 }
@@ -52,10 +42,8 @@ message GiftInfo {
   int64 points_cost = 5;
   fitness.v1.types.enums.GiftStatus status = 6;
   int64 stock_remaining = 7;
-  // Cap per user across the whole catalogue lifetime, 0 for unlimited.
   int32 per_user_limit = 8;
   string category = 9;
-  // Restricts the gift to a region, for state-sponsored rewards.
   string state_code = 10;
   google.protobuf.Timestamp available_until = 11;
   bool can_afford = 12;
@@ -70,7 +58,6 @@ message RedemptionInfo {
   string gift_image_url = 5;
   int64 points_spent = 6;
   fitness.v1.types.enums.RedemptionStatus status = 7;
-  // Voucher code or tracking reference, once fulfilled.
   string fulfilment_code = 8;
   string fulfilment_note = 9;
   string rejection_reason = 10;

@@ -4,17 +4,13 @@ package payment.v1.types.enums;
 
 option go_package = "github.com/arm-1234/protos/payment/v1/types/enums;enums";
 
-// Who owns a wallet. Adding an owner type must not require new tables or RPCs.
 enum WalletOwnerType {
   WALLET_OWNER_TYPE_UNSPECIFIED = 0;
   WALLET_OWNER_TYPE_MERCHANT = 1;
   WALLET_OWNER_TYPE_USER = 2;
-  // Internal account collecting platform fees; never withdrawable via the API.
   WALLET_OWNER_TYPE_PLATFORM = 3;
 }
 
-// Why an entry was posted. The reason is what makes a statement readable, so it
-// is stored per entry rather than derived from the reference type.
 enum WalletEntryReason {
   WALLET_ENTRY_REASON_UNSPECIFIED = 0;
   WALLET_ENTRY_REASON_ORDER_SALE = 1;
@@ -25,8 +21,6 @@ enum WalletEntryReason {
   WALLET_ENTRY_REASON_ADJUSTMENT = 6;
 }
 
-// Funds credited by a sale are not withdrawable until the payout clears, so a
-// balance has to distinguish the two.
 enum WalletBalanceState {
   WALLET_BALANCE_STATE_UNSPECIFIED = 0;
   WALLET_BALANCE_STATE_PENDING = 1;

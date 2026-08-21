@@ -4,8 +4,6 @@ package fitness.v1.types;
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
 
-// An administrative area a competition or user can be scoped to. Codes are the
-// stable identifiers (e.g. LGD codes); names are display-only and may change.
 message Region {
   string state_code = 1;
   string state_name = 2;

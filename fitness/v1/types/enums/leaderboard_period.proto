@@ -4,12 +4,8 @@ package fitness.v1.types.enums;
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
 
-// Time window a leaderboard aggregates over. Period keys are computed in a
-// fixed timezone (Asia/Kolkata) so a device clock change cannot shift a user
-// into a different bucket.
 enum LeaderboardPeriod {
   LEADERBOARD_PERIOD_UNSPECIFIED = 0;
-  // Whole competition run.
   LEADERBOARD_PERIOD_COMPETITION = 1;
   LEADERBOARD_PERIOD_MONTHLY = 2;
   LEADERBOARD_PERIOD_WEEKLY = 3;

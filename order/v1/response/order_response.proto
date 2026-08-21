@@ -36,7 +36,6 @@ message UpdateOrderStatusResponse {
 
 message CancelOrderResponse {
   order.v1.types.OrderInfo order = 1;
-  // False when the order was paid online and the merchant has to approve first.
   bool cancelled = 2;
 }
 

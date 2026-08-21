@@ -4,9 +4,6 @@ package fitness.v1.types.enums;
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
 
-// Lifecycle of a single challenge attempt. A challenge counts against the
-// user's daily limit from the moment it is IN_PROGRESS, so abandoning one
-// does not hand back a free attempt.
 enum ChallengeStatus {
   CHALLENGE_STATUS_UNSPECIFIED = 0;
   CHALLENGE_STATUS_IN_PROGRESS = 1;

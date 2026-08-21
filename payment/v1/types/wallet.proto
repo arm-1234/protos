@@ -7,37 +7,29 @@ import "payment/v1/types/enums/wallet.proto";
 
 option go_package = "github.com/arm-1234/protos/payment/v1/types;types";
 
-// All amounts are minor units (paise) to keep money off floating point.
 message WalletBalance {
   string wallet_id = 1;
   payment.v1.types.enums.WalletOwnerType owner_type = 2;
   string owner_id = 3;
   string currency = 4;
-  // Credited but not yet cleared by the provider.
   int64 pending_minor = 5;
-  // Withdrawable right now: cleared less what open withdrawals reserve.
   int64 available_minor = 6;
-  // pending + available. Sent explicitly so clients never re-derive it.
   int64 total_minor = 7;
   int64 lifetime_credited_minor = 8;
   int64 lifetime_withdrawn_minor = 9;
   google.protobuf.Timestamp updated_at = 10;
 }
 
-// An immutable ledger row. Corrections are new opposing entries, never edits.
 message WalletEntry {
   string entry_id = 1;
   string wallet_id = 2;
-  // Signed: positive credits the owner, negative debits.
   int64 amount_minor = 3;
   string currency = 4;
   payment.v1.types.enums.WalletEntryReason reason = 5;
   payment.v1.types.enums.WalletBalanceState state = 6;
-  // Domain object that caused this entry, e.g. "order" / "withdrawal".
   string reference_type = 7;
   string reference_id = 8;
   string note = 9;
-  // Running total after this entry, so a statement needs no client-side sum.
   int64 balance_after_minor = 10;
   google.protobuf.Timestamp created_at = 11;
 }
@@ -47,7 +39,6 @@ message BankAccount {
   payment.v1.types.enums.WalletOwnerType owner_type = 2;
   string owner_id = 3;
   string beneficiary_name = 4;
-  // Last 4 digits only; the full number is never returned to a client.
   string account_last4 = 5;
   string ifsc = 6;
   string vpa = 7;

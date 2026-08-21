@@ -32,7 +32,6 @@ message MerchantVpasResponse {
 
 message RequestStoreUpdateOtpResponse {
   bool sent = 1;
-  // Masked address the code went to, so the merchant knows where to look.
   string sent_to = 2;
   int32 retry_after_seconds = 3;
 }

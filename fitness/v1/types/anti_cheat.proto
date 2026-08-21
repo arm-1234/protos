@@ -8,33 +8,24 @@ import "fitness/v1/types/enums/anti_cheat_reason.proto";
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
 
-// A single failed check, with the numbers behind it. Returning the observed and
-// allowed values keeps the decision explainable to the user and reviewable by
-// a moderator, instead of an opaque rejection.
 message AntiCheatSignal {
   fitness.v1.types.enums.AntiCheatReason reason = 1;
   double observed_value = 2;
   double threshold_value = 3;
   string detail = 4;
-  // Sample index where the violation occurred, when it is point-specific.
   int64 sample_sequence = 5;
 }
 
 message AntiCheatVerdict {
   fitness.v1.types.enums.AntiCheatStatus status = 1;
-  // 0-100. Confidence that the session is genuine, not that it is fraud.
   int32 confidence_score = 2;
   repeated fitness.v1.types.AntiCheatSignal signals = 3;
-  // Human-readable summary safe to show in the app.
   string message = 4;
   google.protobuf.Timestamp evaluated_at = 5;
-  // For FLAGGED sessions: points are credited but reversible until this time.
   google.protobuf.Timestamp reversible_until = 6;
   bool requires_manual_review = 7;
 }
 
-// Attestation and environment signals collected once per session start. Cheap
-// to gather, and a failure here is far more decisive than any trail heuristic.
 message DeviceIntegrity {
   string device_id = 1;
   string platform = 2;
@@ -43,9 +34,7 @@ message DeviceIntegrity {
   bool is_rooted = 5;
   bool is_emulator = 6;
   bool mock_location_permitted = 7;
-  // Play Integrity / App Attest token, verified server-side.
   string attestation_token = 8;
-  // Device clock at submission, compared against server time for skew.
   google.protobuf.Timestamp device_time = 9;
   string timezone = 10;
 }

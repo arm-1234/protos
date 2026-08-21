@@ -36,7 +36,6 @@ message GetPayoutRequest {
 }
 
 message GetWalletRequest {
-  // Omitted means "my merchant wallet", resolved from the caller's token.
   string merchant_id = 1;
 }
 
@@ -48,8 +47,6 @@ message ListWalletEntriesRequest {
 
 message AddBankAccountRequest {
   string beneficiary_name = 1 [(validate.rules).string = {min_len: 2, max_len: 120}];
-  // Either account_number + ifsc, or vpa. Checked in the usecase, since
-  // validate cannot express "one of two groups".
   string account_number = 2 [(validate.rules).string.max_len = 34];
   string ifsc = 3 [(validate.rules).string.max_len = 11];
   string vpa = 4 [(validate.rules).string.max_len = 320];
@@ -66,7 +63,6 @@ message DeleteBankAccountRequest {
 message RequestWithdrawalRequest {
   int64 amount_minor = 1 [(validate.rules).int64.gt = 0];
   string bank_account_id = 2 [(validate.rules).string.min_len = 1];
-  // Caller-supplied key so a retried tap cannot withdraw twice.
   string idempotency_key = 3 [(validate.rules).string = {min_len: 8, max_len: 64}];
 }
 
