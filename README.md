@@ -39,13 +39,14 @@ make api svc_dir=catalog
 
 ## Backend usage
 
-In your backend `go.mod`:
+Require a released tag — the `v1.0.x` series:
 
-```go
-require github.com/arm-1234/protos v0.1.0
+```bash
+go get github.com/arm-1234/protos@latest
 ```
 
-For local development against a checkout of this repo:
+A `replace` to a local checkout is for changing the contracts themselves, not
+for building against them:
 
 ```go
 replace github.com/arm-1234/protos => ../protos
