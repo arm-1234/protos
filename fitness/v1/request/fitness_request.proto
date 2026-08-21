@@ -18,12 +18,6 @@ import "fitness/v1/types/enums/gift_status.proto";
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/request;request";
 
-// ---------------------------------------------------------------------------
-// Profile
-// ---------------------------------------------------------------------------
-
-// The caller is taken from the auth token, never from the body, so one user can
-// never write another's profile.
 message GetMyProfileRequest {}
 
 message UpsertMyProfileRequest {
@@ -44,20 +38,14 @@ message UpsertMyProfileRequest {
 }
 
 message ListRegionsRequest {
-  // Empty returns states; set it to list that state's districts.
   string state_code = 1;
 }
-
-// ---------------------------------------------------------------------------
-// Competitions
-// ---------------------------------------------------------------------------
 
 message ListCompetitionsRequest {
   fitness.v1.types.enums.CompetitionScope scope = 1;
   string state_code = 2;
   string district_code = 3;
   fitness.v1.types.enums.CompetitionStatus status = 4;
-  // Restrict to competitions the caller is eligible for by home region.
   bool eligible_only = 5;
   bool joined_only = 6;
   int64 page_number = 7;
@@ -109,10 +97,6 @@ message CompetitionImageInput {
   int32 position = 3 [(validate.rules).int32.gte = 0];
 }
 
-// ---------------------------------------------------------------------------
-// Challenges
-// ---------------------------------------------------------------------------
-
 message ListChallengeTemplatesRequest {
   string competition_id = 1 [(validate.rules).string.min_len = 1];
 }
@@ -124,8 +108,6 @@ message GetDailyQuotaRequest {
 message StartChallengeRequest {
   string competition_id = 1 [(validate.rules).string.min_len = 1];
   string template_id = 2 [(validate.rules).string.min_len = 1];
-  // Client-generated key making a retried start idempotent, so a flaky network
-  // cannot burn two of the day's attempts.
   string idempotency_key = 3 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
 }
 
@@ -140,10 +122,6 @@ message AbandonChallengeRequest {
   string challenge_id = 1 [(validate.rules).string.min_len = 1];
 }
 
-// ---------------------------------------------------------------------------
-// Walk sessions
-// ---------------------------------------------------------------------------
-
 message StartWalkSessionRequest {
   string challenge_id = 1 [(validate.rules).string.min_len = 1];
   fitness.v1.types.DeviceIntegrity device = 2 [(google.api.field_behavior) = REQUIRED];
@@ -151,19 +129,15 @@ message StartWalkSessionRequest {
   string idempotency_key = 4 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
 }
 
-// Sent every 30-60s while walking. Batches are ordered by sequence and the
-// server rejects gaps or replays rather than silently accepting them.
 message SubmitWalkSamplesRequest {
   string session_id = 1 [(validate.rules).string.min_len = 1];
   repeated fitness.v1.types.WalkSample samples = 2 [(validate.rules).repeated = {min_items: 1, max_items: 500}];
-  // Batch ordinal, so a duplicate delivery is detectable server-side.
   int64 batch_sequence = 3 [(validate.rules).int64.gte = 0];
   google.protobuf.Timestamp device_time = 4;
 }
 
 message EndWalkSessionRequest {
   string session_id = 1 [(validate.rules).string.min_len = 1];
-  // Any samples not yet flushed. Totals still come from the server's own sum.
   repeated fitness.v1.types.WalkSample samples = 2 [(validate.rules).repeated = {max_items: 500}];
   fitness.v1.types.GeoPoint end_point = 3;
   google.protobuf.Timestamp device_time = 4;
@@ -183,47 +157,31 @@ message ListMyWalkSessionsRequest {
 }
 
 message GetMyStatsRequest {
-  // Inclusive day range in Asia/Kolkata, YYYY-MM-DD. Defaults to last 7 days.
   string from_date = 1;
   string to_date = 2;
 }
 
-// ---------------------------------------------------------------------------
-// Leaderboards
-// ---------------------------------------------------------------------------
-
 message GetLeaderboardRequest {
-  // Either a competition board, or a standalone geographic board when
-  // competition_id is empty.
   string competition_id = 1;
   fitness.v1.types.enums.CompetitionScope scope = 2;
   string state_code = 3;
   string district_code = 4;
   fitness.v1.types.enums.LeaderboardPeriod period = 5 [(validate.rules).enum = {defined_only: true}];
-  // Explicit bucket, e.g. 2026-W34. Empty means the current one.
   string period_key = 6;
   int64 page_number = 7;
   int64 page_size = 8 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
-  // Include the caller's own row even when it falls outside the page.
   bool include_me = 9;
 }
 
 message GetRegionStandingsRequest {
-  // DISTRICT ranks districts, STATE ranks states.
   fitness.v1.types.enums.CompetitionScope scope = 1 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
-  // Narrows district standings to one state.
   string state_code = 2;
   fitness.v1.types.enums.LeaderboardPeriod period = 3;
   string period_key = 4;
-  // Rank by average per participant instead of raw total.
   bool by_average = 5;
   int64 page_number = 6;
   int64 page_size = 7 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
 }
-
-// ---------------------------------------------------------------------------
-// Points and gifts
-// ---------------------------------------------------------------------------
 
 message GetMyPointsBalanceRequest {}
 
@@ -236,7 +194,6 @@ message ListMyPointsLedgerRequest {
 
 message ListGiftsRequest {
   string category = 1;
-  // Only gifts the caller can currently afford.
   bool affordable_only = 2;
   int64 page_number = 3;
   int64 page_size = 4 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
@@ -248,7 +205,6 @@ message GetGiftRequest {
 
 message RedeemGiftRequest {
   string gift_id = 1 [(validate.rules).string.min_len = 1];
-  // Required: without it a double-tap can spend points twice.
   string idempotency_key = 2 [
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string.min_len = 8
@@ -266,12 +222,6 @@ message CancelRedemptionRequest {
   string redemption_id = 1 [(validate.rules).string.min_len = 1];
 }
 
-// ---------------------------------------------------------------------------
-// Administration (USER_TYPE_ADMIN only)
-// ---------------------------------------------------------------------------
-
-// Only fields that are set are changed. Limits stay editable mid-run so an
-// abused competition can be tightened without cancelling it.
 message UpdateCompetitionRequest {
   string competition_id = 1 [(validate.rules).string.min_len = 1];
   optional string title = 2 [(validate.rules).string = {ignore_empty: true, min_len: 3}];
@@ -285,8 +235,6 @@ message UpdateCompetitionRequest {
   optional int64 daily_points_cap = 10 [(validate.rules).int64.gte = 0];
   optional bool enforce_geofence = 11;
   optional double max_speed_mps = 12 [(validate.rules).double = {ignore_empty: true, gt: 0, lte: 20}];
-  // Replaces the whole gallery when replace_images is set, so an edit cannot
-  // half-apply. Leave unset to keep the existing images.
   repeated fitness.v1.request.CompetitionImageInput images = 13 [(validate.rules).repeated = {max_items: 10}];
   bool replace_images = 14;
 }
@@ -320,7 +268,6 @@ message CreateGiftRequest {
   int64 stock_total = 5 [(validate.rules).int64.gte = 0];
   int32 per_user_limit = 6 [(validate.rules).int32.gte = 0];
   string category = 7 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
-  // Restricts the gift to one state, for state-sponsored rewards.
   string state_code = 8;
   google.protobuf.Timestamp available_until = 9;
 }
@@ -331,7 +278,6 @@ message UpdateGiftRequest {
   optional string description = 3;
   optional string image_url = 4;
   optional int64 points_cost = 5 [(validate.rules).int64.gt = 0];
-  // Absolute stock level, not a delta, so concurrent edits cannot drift.
   optional int64 stock_remaining = 6 [(validate.rules).int64.gte = 0];
   optional int32 per_user_limit = 7 [(validate.rules).int32.gte = 0];
   optional fitness.v1.types.enums.GiftStatus status = 8 [(validate.rules).enum = {defined_only: true}];
@@ -340,15 +286,11 @@ message UpdateGiftRequest {
 
 message FulfilRedemptionRequest {
   string redemption_id = 1 [(validate.rules).string.min_len = 1];
-  // Target state: APPROVED, FULFILLED or REJECTED. Rejecting refunds the
-  // reserved points through a compensating ledger entry.
   fitness.v1.types.enums.RedemptionStatus status = 2 [(validate.rules).enum = {defined_only: true, not_in: [0]}];
-  // Voucher code or tracking reference, surfaced to the user when fulfilled.
   string fulfilment_code = 3 [(validate.rules).string = {ignore_empty: true, max_len: 256}];
   string note = 4 [(validate.rules).string = {ignore_empty: true, max_len: 512}];
 }
 
-// Presigned direct-to-storage upload, so image bytes never transit the API.
 message CreateCompetitionImageUploadRequest {
   string content_type = 1 [
     (google.api.field_behavior) = REQUIRED,
@@ -365,10 +307,6 @@ message ListAllRedemptionsRequest {
   int64 page_size = 5 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
 }
 
-// ---------------------------------------------------------------------------
-// Moderation
-// ---------------------------------------------------------------------------
-
 message ListFlaggedSessionsRequest {
   string competition_id = 1;
   string user_id = 2;
@@ -377,13 +315,9 @@ message ListFlaggedSessionsRequest {
   int64 page_size = 5 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
 }
 
-// Confirming fraud writes a reversing ledger entry rather than editing the
-// original credit, keeping the audit trail intact.
 message ReviewSessionRequest {
   string session_id = 1 [(validate.rules).string.min_len = 1];
-  // True upholds the session and makes its points final.
   bool approve = 2;
   string note = 3 [(validate.rules).string = {ignore_empty: true, max_len: 512}];
-  // Suspend the user from earning, for repeat offenders.
   bool suspend_user = 4;
 }

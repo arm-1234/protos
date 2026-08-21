@@ -11,20 +11,12 @@ option go_package = "github.com/arm-1234/protos/identity/v1/request;request";
 
 message RegisterUserRequest {
   string name = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
-  // Optional since the fitness app signs users up by email. At least one of
-  // phone or email must be present; the backend enforces that pair rule, as
-  // protoc-gen-validate cannot express it.
   string phone = 2 [(validate.rules).string = {ignore_empty: true, min_len: 8, max_len: 15}];
   string email = 3 [(validate.rules).string = {ignore_empty: true, email: true}];
   string password = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
-  // Which app the account belongs to. Defaults to USER; registering an ADMIN
-  // is refused over this endpoint and must be provisioned out of band.
   identity.v1.types.enums.UserType user_type = 5;
 }
 
-// Login with either an email or a phone number plus a password. Mirrors the
-// generic identifier that RequestOtp and VerifyOtp already take, so password
-// and OTP login share one shape.
 message LoginWithIdentifierRequest {
   string identifier = 1 [
     (google.api.field_behavior) = REQUIRED,
@@ -34,8 +26,6 @@ message LoginWithIdentifierRequest {
     (google.api.field_behavior) = REQUIRED,
     (validate.rules).string = {min_len: 1, max_len: 128}
   ];
-  // Guards against a walker's credentials logging into the admin console, and
-  // vice versa. Rejected with IDENTITY_WRONG_APP on mismatch.
   identity.v1.types.enums.UserType expected_user_type = 3;
 }
 
@@ -47,7 +37,6 @@ message RegisterMerchantRequest {
   string description = 5;
   string logo_url = 6;
   string address = 7;
-  // Optional: blank means the backend generates a store address.
   string upi_vpa = 8 [(validate.rules).string = {
     ignore_empty: true,
     pattern: "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
@@ -65,12 +54,9 @@ message LoginWithPhoneRequest {
 }
 
 message SetPasswordRequest {
-  // Legacy phone-keyed field. Prefer identifier, which also accepts an email.
   string phone = 1 [(validate.rules).string = {ignore_empty: true, min_len: 8, max_len: 15}];
   string new_password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 128}];
   string current_password = 3;
-  // Email or phone. Takes precedence over phone when both are set, letting an
-  // OTP-only user add a password later.
   string identifier = 4 [(validate.rules).string = {ignore_empty: true, min_len: 3, max_len: 320}];
 }
 

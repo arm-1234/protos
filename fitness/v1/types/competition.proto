@@ -10,33 +10,19 @@ import "fitness/v1/types/enums/competition_metric.proto";
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
 
-// Rules that bound how much a user may earn inside a competition. Held on the
-// competition rather than global config so a promo event can loosen limits
-// without weakening the defaults everywhere else.
 message CompetitionRules {
-  // Challenges a user may start per day. Attempts count from start, so
-  // abandoning does not refund one.
   int32 daily_challenge_limit = 1;
-  // Ceiling on steps that earn credit per day, regardless of challenge count.
-  // This is the check that stops one huge fabricated session.
   int64 daily_step_cap = 2;
-  // Minimum gap between finishing one challenge and starting the next.
   int32 challenge_cooldown_seconds = 3;
-  // Points awarded per `points_per_unit_divisor` units of the metric.
   int64 points_per_unit = 4;
   int64 points_per_unit_divisor = 5;
-  // Hard ceiling on points earnable per day from this competition.
   int64 daily_points_cap = 6;
-  // Require session GPS to fall inside the user's declared district.
   bool enforce_geofence = 7;
-  // Fastest sustained pace still treated as human walking, in m/s.
   double max_speed_mps = 8;
   int32 min_session_duration_seconds = 9;
   int32 max_session_duration_seconds = 10;
 }
 
-// Ordered gallery image. position drives display order so images can be
-// reordered without touching URLs.
 message CompetitionImage {
   string image_id = 1;
   string image_url = 2;
@@ -50,8 +36,6 @@ message CompetitionInfo {
   string description = 3;
   string banner_url = 4;
   fitness.v1.types.enums.CompetitionScope scope = 5;
-  // Populated according to scope: STATE fills state_code, DISTRICT fills both,
-  // NATIONAL leaves both empty.
   fitness.v1.types.Region region = 6;
   fitness.v1.types.enums.CompetitionMetric metric = 7;
   fitness.v1.types.enums.CompetitionStatus status = 8;
@@ -59,12 +43,10 @@ message CompetitionInfo {
   google.protobuf.Timestamp ends_at = 10;
   fitness.v1.types.CompetitionRules rules = 11;
   int64 participant_count = 12;
-  // Set when the caller has joined, describing their own standing.
   bool is_joined = 13;
   int64 my_score = 14;
   int64 my_rank = 15;
   google.protobuf.Timestamp created_at = 16;
   google.protobuf.Timestamp updated_at = 17;
-  // banner_url stays the single hero image; these are the gallery.
   repeated fitness.v1.types.CompetitionImage images = 18;
 }

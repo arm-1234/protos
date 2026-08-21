@@ -42,8 +42,6 @@ service Order {
     };
   }
 
-  // Subresource paths rather than a {var}:verb custom verb: the router cannot
-  // split a path variable from a literal suffix in the same segment.
   rpc CancelOrder (order.v1.request.CancelOrderRequest) returns (order.v1.response.CancelOrderResponse) {
     option (google.api.http) = {
       post: "/v1/orders/{order_id}/cancellation"

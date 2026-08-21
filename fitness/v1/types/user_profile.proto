@@ -7,15 +7,11 @@ import "fitness/v1/types/geo.proto";
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types;types";
 
-// Fitness-side profile for a user who already exists in identity.v1. The
-// user_id is the identity subject; this service never owns credentials.
 message UserProfileInfo {
   string user_id = 1;
   string display_name = 2;
   string avatar_url = 3;
   fitness.v1.types.Region home_region = 4;
-  // Physical attributes feed stride-length estimation, which the step-to-
-  // distance plausibility check depends on.
   int32 height_cm = 5;
   int32 weight_kg = 6;
   int32 birth_year = 7;
@@ -24,7 +20,6 @@ message UserProfileInfo {
   int64 lifetime_points_earned = 10;
   int32 current_streak_days = 11;
   int32 longest_streak_days = 12;
-  // Set when the user is barred from earning after repeated fraud verdicts.
   bool is_suspended = 13;
   string suspension_reason = 14;
   google.protobuf.Timestamp region_locked_until = 15;

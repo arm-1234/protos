@@ -4,8 +4,6 @@ package fitness.v1.types.enums;
 
 option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
 
-// Why a points ledger entry exists. The ledger is append-only: a correction is
-// a new opposing entry, never an edit, so balance history stays auditable.
 enum PointsReason {
   POINTS_REASON_UNSPECIFIED = 0;
   POINTS_REASON_CHALLENGE_COMPLETED = 1;
@@ -13,11 +11,8 @@ enum PointsReason {
   POINTS_REASON_STREAK_BONUS = 3;
   POINTS_REASON_REFERRAL = 4;
   POINTS_REASON_MANUAL_ADJUSTMENT = 5;
-  // Points held when a redemption is requested.
   POINTS_REASON_REDEMPTION_RESERVED = 6;
-  // Hold released because the redemption was rejected or cancelled.
   POINTS_REASON_REDEMPTION_REFUNDED = 7;
-  // Clawback of points credited for a session later judged fraudulent.
   POINTS_REASON_FRAUD_REVERSAL = 8;
   POINTS_REASON_EXPIRY = 9;
 }

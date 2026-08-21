@@ -68,7 +68,6 @@ message ListProductsRequest {
   int64 page_number = 5;
   int64 page_size = 6;
   string query = 7 [(validate.rules).string = {ignore_empty: true, max_len: 128}];
-  // Bounds for the price slider, so the client doesn't guess the range.
   bool include_price_bounds = 8;
 }
 

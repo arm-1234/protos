@@ -6,7 +6,6 @@ option go_package = "github.com/arm-1234/protos/fitness/v1/types/enums;enums";
 
 enum RedemptionStatus {
   REDEMPTION_STATUS_UNSPECIFIED = 0;
-  // Points reserved, awaiting fulfilment.
   REDEMPTION_STATUS_PENDING = 1;
   REDEMPTION_STATUS_APPROVED = 2;
   REDEMPTION_STATUS_FULFILLED = 3;

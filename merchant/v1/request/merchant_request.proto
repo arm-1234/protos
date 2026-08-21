@@ -24,7 +24,6 @@ message OnboardMerchantRequest {
   string description = 4;
   string logo_url = 5;
   string address = 6;
-  // Optional: blank means the backend generates a store address.
   string upi_vpa = 7 [(validate.rules).string = {
     ignore_empty: true,
     pattern: "^[a-zA-Z0-9.\\-_]{2,256}@[a-zA-Z]{2,64}$"
@@ -48,7 +47,6 @@ message UpdateMerchantRequest {
   double latitude = 8 [(validate.rules).double = {gte: -90, lte: 90}];
   double longitude = 9 [(validate.rules).double = {gte: -180, lte: 180}];
   optional double max_order_distance_m = 10 [(validate.rules).double = {gte: 0, lte: 100000}];
-  // Emailed code, required only when location or order radius changes.
   string code = 11 [(validate.rules).string = {ignore_empty: true, min_len: 4, max_len: 10}];
 }
 
@@ -56,15 +54,11 @@ message RequestStoreUpdateOtpRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
 }
 
-// Replaces the whole weekly schedule: send every open day. An empty list clears
-// the schedule, which leaves the store always orderable.
 message SetStoreHoursRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
   repeated merchant.v1.types.DayHours days = 2 [(validate.rules).repeated = {max_items: 7}];
 }
 
-// The manual switch. Closing pauses orders until the next scheduled opening;
-// opening clears an active pause.
 message SetStoreOpenRequest {
   string merchant_id = 1 [(validate.rules).string.min_len = 1];
   bool open = 2;
