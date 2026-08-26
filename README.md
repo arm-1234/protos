@@ -36,6 +36,7 @@ make api svc_dir=catalog
 | payment  | `github.com/arm-1234/protos/payment/v1`  |
 | review   | `github.com/arm-1234/protos/review/v1`    |
 | fitness  | `github.com/arm-1234/protos/fitness/v1`  |
+| wishes   | `github.com/arm-1234/protos/wishes/v1`   |
 
 ## Backend usage
 

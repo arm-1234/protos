@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package wishes.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types/enums;enums";
+
+enum WishSortBy {
+  WISH_SORT_BY_UNSPECIFIED = 0;
+  WISH_SORT_BY_CREATED_AT_DESC = 1;
+  WISH_SORT_BY_CREATED_AT_ASC = 2;
+  WISH_SORT_BY_EXPIRES_AT_ASC = 3;
+  WISH_SORT_BY_LAST_RESPONSE_DESC = 4;
+}

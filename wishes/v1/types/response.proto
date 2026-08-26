@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package wishes.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "wishes/v1/types/enums/response_kind.proto";
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types;types";
+
+message WishResponseInfo {
+  string response_id = 1;
+  string wish_id = 2;
+  wishes.v1.types.enums.ResponseKind kind = 3;
+  string value = 4;
+  string message = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp seen_at = 7;
+}

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package wishes.v1.request;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "validate/validate.proto";
+import "wishes/v1/types/enums/wish_status.proto";
+import "wishes/v1/types/enums/wish_sort_by.proto";
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/request;request";
+
+message CreateWishRequest {
+  string template = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}];
+  google.protobuf.Struct config = 2;
+  int32 expiry_days = 3 [(validate.rules).int32 = {ignore_empty: true, gte: 1, lte: 14}];
+  string from_label = 4 [(validate.rules).string = {ignore_empty: true, max_len: 128}];
+  string to_email = 5 [(validate.rules).string = {ignore_empty: true, email: true}];
+}
+
+message ListMyWishesRequest {
+  repeated wishes.v1.types.enums.WishStatus statuses = 1;
+  string template = 2 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+  wishes.v1.types.enums.WishSortBy sort_by = 3;
+  int64 page_number = 4;
+  int64 page_size = 5 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message GetWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+}
+
+message UpdateWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  google.protobuf.Struct config = 2;
+}
+
+message ExtendWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  int32 expiry_days = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 14}];
+}
+
+message RevokeWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+}
+
+message SendWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string to_email = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.email = true];
+  string from_label = 3 [(validate.rules).string = {ignore_empty: true, max_len: 128}];
+}
+
+message ListWishResponsesRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  int64 page_number = 2;
+  int64 page_size = 3 [(validate.rules).int64 = {ignore_empty: true, lte: 100}];
+}
+
+message MarkResponsesSeenRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+}
+
+message GetWishStatsRequest {}
+
+message ListTemplatesRequest {}

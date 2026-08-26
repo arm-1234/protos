@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package wishes.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "wishes/v1/request/wishes_request.proto";
+import "wishes/v1/response/wishes_response.proto";
+
+option go_package = "github.com/arm-1234/protos/wishes/v1;v1";
+
+service Wishes {
+  rpc CreateWish (wishes.v1.request.CreateWishRequest) returns (wishes.v1.response.CreateWishResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes"
+      body: "*"
+    };
+  }
+
+  rpc ListMyWishes (wishes.v1.request.ListMyWishesRequest) returns (wishes.v1.response.ListMyWishesResponse) {
+    option (google.api.http) = {
+      get: "/v1/wishes"
+    };
+  }
+
+  rpc GetWishStats (wishes.v1.request.GetWishStatsRequest) returns (wishes.v1.response.GetWishStatsResponse) {
+    option (google.api.http) = {
+      get: "/v1/wishes:stats"
+    };
+  }
+
+  rpc ListTemplates (wishes.v1.request.ListTemplatesRequest) returns (wishes.v1.response.ListTemplatesResponse) {
+    option (google.api.http) = {
+      get: "/v1/wishes:templates"
+    };
+  }
+
+  rpc GetWish (wishes.v1.request.GetWishRequest) returns (wishes.v1.response.GetWishResponse) {
+    option (google.api.http) = {
+      get: "/v1/wishes/{wish_id}"
+    };
+  }
+
+  rpc UpdateWish (wishes.v1.request.UpdateWishRequest) returns (wishes.v1.response.UpdateWishResponse) {
+    option (google.api.http) = {
+      patch: "/v1/wishes/{wish_id}"
+      body: "*"
+    };
+  }
+
+  rpc ExtendWish (wishes.v1.request.ExtendWishRequest) returns (wishes.v1.response.ExtendWishResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}:extend"
+      body: "*"
+    };
+  }
+
+  rpc RevokeWish (wishes.v1.request.RevokeWishRequest) returns (wishes.v1.response.RevokeWishResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}:revoke"
+      body: "*"
+    };
+  }
+
+  rpc SendWish (wishes.v1.request.SendWishRequest) returns (wishes.v1.response.SendWishResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}:send"
+      body: "*"
+    };
+  }
+
+  rpc ListWishResponses (wishes.v1.request.ListWishResponsesRequest) returns (wishes.v1.response.ListWishResponsesResponse) {
+    option (google.api.http) = {
+      get: "/v1/wishes/{wish_id}/responses"
+    };
+  }
+
+  rpc MarkResponsesSeen (wishes.v1.request.MarkResponsesSeenRequest) returns (wishes.v1.response.MarkResponsesSeenResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}/responses:seen"
+      body: "*"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+
+  WISHES_UNSPECIFIED = 0 [(errors.code) = 500];
+  WISHES_INVALID_REQUEST = 1 [(errors.code) = 400];
+  WISHES_UNAUTHENTICATED = 2 [(errors.code) = 401];
+  WISHES_FORBIDDEN = 3 [(errors.code) = 403];
+
+  WISH_NOT_FOUND = 10 [(errors.code) = 404];
+  WISH_NOT_OWNED = 11 [(errors.code) = 403];
+  WISH_ALREADY_REVOKED = 12 [(errors.code) = 409];
+  WISH_EXPIRED = 13 [(errors.code) = 410];
+  WISH_LIMIT_REACHED = 14 [(errors.code) = 429];
+
+  TEMPLATE_NOT_FOUND = 20 [(errors.code) = 404];
+  TEMPLATE_CONFIG_INVALID = 21 [(errors.code) = 400];
+
+  DELIVERY_FAILED = 30 [(errors.code) = 502];
+  DELIVERY_RATE_LIMITED = 31 [(errors.code) = 429];
+
+  RENDERER_UNAVAILABLE = 40 [(errors.code) = 503];
+}

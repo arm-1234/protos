@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package wishes.v1.response;
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "wishes/v1/types/wish.proto";
+import "wishes/v1/types/response.proto";
+import "wishes/v1/types/template.proto";
+import "wishes/v1/types/enums/delivery_status.proto";
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/response;response";
+
+message PageInfo {
+  int64 page_number = 1;
+  int64 page_size = 2;
+  int64 total_pages = 3;
+  int64 total_records = 4;
+}
+
+message CreateWishResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
+
+message ListMyWishesResponse {
+  repeated wishes.v1.types.WishInfo wishes = 1;
+  wishes.v1.response.PageInfo page = 2;
+}
+
+message GetWishResponse {
+  wishes.v1.types.WishInfo wish = 1;
+  google.protobuf.Struct config = 2;
+}
+
+message UpdateWishResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
+
+message ExtendWishResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
+
+message RevokeWishResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
+
+message SendWishResponse {
+  wishes.v1.types.enums.DeliveryStatus delivery_status = 1;
+  google.protobuf.Timestamp delivered_at = 2;
+}
+
+message ListWishResponsesResponse {
+  repeated wishes.v1.types.WishResponseInfo responses = 1;
+  wishes.v1.response.PageInfo page = 2;
+}
+
+message MarkResponsesSeenResponse {
+  int64 marked = 1;
+}
+
+message GetWishStatsResponse {
+  int64 total = 1;
+  int64 live = 2;
+  int64 expired = 3;
+  int64 revoked = 4;
+  int64 opened = 5;
+  int64 responses_received = 6;
+  int64 awaiting_response = 7;
+}
+
+message ListTemplatesResponse {
+  repeated wishes.v1.types.TemplateInfo templates = 1;
+}

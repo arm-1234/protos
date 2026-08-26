@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package wishes.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types/enums;enums";
+
+enum ResponseKind {
+  RESPONSE_KIND_UNSPECIFIED = 0;
+  RESPONSE_KIND_MOMENT = 1;
+  RESPONSE_KIND_REPLY = 2;
+  RESPONSE_KIND_DECLINE = 3;
+}

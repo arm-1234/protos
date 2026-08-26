@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package wishes.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types/enums;enums";
+
+enum WishStatus {
+  WISH_STATUS_UNSPECIFIED = 0;
+  WISH_STATUS_LIVE = 1;
+  WISH_STATUS_EXPIRED = 2;
+  WISH_STATUS_REVOKED = 3;
+}

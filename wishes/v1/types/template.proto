@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package wishes.v1.types;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types;types";
+
+message TemplateInfo {
+  string template = 1;
+  string title = 2;
+  string name = 3;
+  string tagline = 4;
+  string blurb = 5;
+  string glyph = 6;
+  string accent = 7;
+  repeated string tags = 8;
+  double crop = 9;
+}

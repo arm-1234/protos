@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package wishes.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types/enums;enums";
+
+enum DeliveryStatus {
+  DELIVERY_STATUS_UNSPECIFIED = 0;
+  DELIVERY_STATUS_NOT_SENT = 1;
+  DELIVERY_STATUS_QUEUED = 2;
+  DELIVERY_STATUS_SENT = 3;
+  DELIVERY_STATUS_FAILED = 4;
+}
