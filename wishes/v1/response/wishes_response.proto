@@ -66,6 +66,7 @@ message GetWishStatsResponse {
   int64 opened = 5;
   int64 responses_received = 6;
   int64 awaiting_response = 7;
+  int64 drafts = 8;
 }
 
 message ListTemplatesResponse {

@@ -530,6 +530,7 @@ type GetWishStatsResponse struct {
 	Opened            int64                  `protobuf:"varint,5,opt,name=opened,proto3" json:"opened,omitempty"`
 	ResponsesReceived int64                  `protobuf:"varint,6,opt,name=responses_received,json=responsesReceived,proto3" json:"responses_received,omitempty"`
 	AwaitingResponse  int64                  `protobuf:"varint,7,opt,name=awaiting_response,json=awaitingResponse,proto3" json:"awaiting_response,omitempty"`
+	Drafts            int64                  `protobuf:"varint,8,opt,name=drafts,proto3" json:"drafts,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -609,6 +610,13 @@ func (x *GetWishStatsResponse) GetResponsesReceived() int64 {
 func (x *GetWishStatsResponse) GetAwaitingResponse() int64 {
 	if x != nil {
 		return x.AwaitingResponse
+	}
+	return 0
+}
+
+func (x *GetWishStatsResponse) GetDrafts() int64 {
+	if x != nil {
+		return x.Drafts
 	}
 	return 0
 }
@@ -822,7 +830,7 @@ const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\tresponses\x18\x01 \x03(\v2!.wishes.v1.types.WishResponseInfoR\tresponses\x120\n" +
 	"\x04page\x18\x02 \x01(\v2\x1c.wishes.v1.response.PageInfoR\x04page\"3\n" +
 	"\x19MarkResponsesSeenResponse\x12\x16\n" +
-	"\x06marked\x18\x01 \x01(\x03R\x06marked\"\xe8\x01\n" +
+	"\x06marked\x18\x01 \x01(\x03R\x06marked\"\x80\x02\n" +
 	"\x14GetWishStatsResponse\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x03R\x05total\x12\x12\n" +
 	"\x04live\x18\x02 \x01(\x03R\x04live\x12\x18\n" +
@@ -830,7 +838,8 @@ const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\arevoked\x18\x04 \x01(\x03R\arevoked\x12\x16\n" +
 	"\x06opened\x18\x05 \x01(\x03R\x06opened\x12-\n" +
 	"\x12responses_received\x18\x06 \x01(\x03R\x11responsesReceived\x12+\n" +
-	"\x11awaiting_response\x18\a \x01(\x03R\x10awaitingResponse\"T\n" +
+	"\x11awaiting_response\x18\a \x01(\x03R\x10awaitingResponse\x12\x16\n" +
+	"\x06drafts\x18\b \x01(\x03R\x06drafts\"T\n" +
 	"\x15ListTemplatesResponse\x12;\n" +
 	"\ttemplates\x18\x01 \x03(\v2\x1d.wishes.v1.types.TemplateInfoR\ttemplates\"B\n" +
 	"\x11SaveDraftResponse\x12-\n" +

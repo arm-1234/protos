@@ -1429,6 +1429,8 @@ func (m *GetWishStatsResponse) validate(all bool) error {
 
 	// no validation rules for AwaitingResponse
 
+	// no validation rules for Drafts
+
 	if len(errors) > 0 {
 		return GetWishStatsResponseMultiError(errors)
 	}
