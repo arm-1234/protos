@@ -36,4 +36,13 @@ message WishInfo {
   google.protobuf.Timestamp revoked_at = 15;
   wishes.v1.types.WishState state = 16;
   string step = 17;
+  repeated wishes.v1.types.WishPhoto photos = 18;
+}
+
+message WishPhoto {
+  int32 idx = 1;
+  string mime = 2;
+  int32 width = 3;
+  int32 height = 4;
+  string url = 5;
 }

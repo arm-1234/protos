@@ -785,6 +785,134 @@ func (x *DeleteWishRequest) GetWishId() string {
 	return ""
 }
 
+type UploadWishPhotoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WishId        string                 `protobuf:"bytes,1,opt,name=wish_id,json=wishId,proto3" json:"wish_id,omitempty"`
+	Idx           int32                  `protobuf:"varint,2,opt,name=idx,proto3" json:"idx,omitempty"`
+	DataUrl       string                 `protobuf:"bytes,3,opt,name=data_url,json=dataUrl,proto3" json:"data_url,omitempty"`
+	Width         int32                  `protobuf:"varint,4,opt,name=width,proto3" json:"width,omitempty"`
+	Height        int32                  `protobuf:"varint,5,opt,name=height,proto3" json:"height,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadWishPhotoRequest) Reset() {
+	*x = UploadWishPhotoRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadWishPhotoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadWishPhotoRequest) ProtoMessage() {}
+
+func (x *UploadWishPhotoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadWishPhotoRequest.ProtoReflect.Descriptor instead.
+func (*UploadWishPhotoRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *UploadWishPhotoRequest) GetWishId() string {
+	if x != nil {
+		return x.WishId
+	}
+	return ""
+}
+
+func (x *UploadWishPhotoRequest) GetIdx() int32 {
+	if x != nil {
+		return x.Idx
+	}
+	return 0
+}
+
+func (x *UploadWishPhotoRequest) GetDataUrl() string {
+	if x != nil {
+		return x.DataUrl
+	}
+	return ""
+}
+
+func (x *UploadWishPhotoRequest) GetWidth() int32 {
+	if x != nil {
+		return x.Width
+	}
+	return 0
+}
+
+func (x *UploadWishPhotoRequest) GetHeight() int32 {
+	if x != nil {
+		return x.Height
+	}
+	return 0
+}
+
+type DeleteWishPhotoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WishId        string                 `protobuf:"bytes,1,opt,name=wish_id,json=wishId,proto3" json:"wish_id,omitempty"`
+	Idx           int32                  `protobuf:"varint,2,opt,name=idx,proto3" json:"idx,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteWishPhotoRequest) Reset() {
+	*x = DeleteWishPhotoRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteWishPhotoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteWishPhotoRequest) ProtoMessage() {}
+
+func (x *DeleteWishPhotoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteWishPhotoRequest.ProtoReflect.Descriptor instead.
+func (*DeleteWishPhotoRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *DeleteWishPhotoRequest) GetWishId() string {
+	if x != nil {
+		return x.WishId
+	}
+	return ""
+}
+
+func (x *DeleteWishPhotoRequest) GetIdx() int32 {
+	if x != nil {
+		return x.Idx
+	}
+	return 0
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
@@ -848,7 +976,16 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x12PublishWishRequest\x12$\n" +
 	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\"9\n" +
 	"\x11DeleteWishRequest\x12$\n" +
-	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishIdB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\"\xb5\x01\n" +
+	"\x16UploadWishPhotoRequest\x12$\n" +
+	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\x12\x1b\n" +
+	"\x03idx\x18\x02 \x01(\x05B\t\xfaB\x06\x1a\x04\x18\x02(\x00R\x03idx\x12*\n" +
+	"\bdata_url\x18\x03 \x01(\tB\x0f\xe2A\x01\x02\xfaB\br\x06\x10 \x18\xe0\xdc*R\adataUrl\x12\x14\n" +
+	"\x05width\x18\x04 \x01(\x05R\x05width\x12\x16\n" +
+	"\x06height\x18\x05 \x01(\x05R\x06height\"[\n" +
+	"\x16DeleteWishPhotoRequest\x12$\n" +
+	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\x12\x1b\n" +
+	"\x03idx\x18\x02 \x01(\x05B\t\xfaB\x06\x1a\x04\x18\x02(\x00R\x03idxB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -862,7 +999,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),        // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),      // 1: wishes.v1.request.ListMyWishesRequest
@@ -878,16 +1015,18 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*SaveDraftRequest)(nil),         // 11: wishes.v1.request.SaveDraftRequest
 	(*PublishWishRequest)(nil),       // 12: wishes.v1.request.PublishWishRequest
 	(*DeleteWishRequest)(nil),        // 13: wishes.v1.request.DeleteWishRequest
-	(*structpb.Struct)(nil),          // 14: google.protobuf.Struct
-	(enums.WishStatus)(0),            // 15: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),            // 16: wishes.v1.types.enums.WishSortBy
+	(*UploadWishPhotoRequest)(nil),   // 14: wishes.v1.request.UploadWishPhotoRequest
+	(*DeleteWishPhotoRequest)(nil),   // 15: wishes.v1.request.DeleteWishPhotoRequest
+	(*structpb.Struct)(nil),          // 16: google.protobuf.Struct
+	(enums.WishStatus)(0),            // 17: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),            // 18: wishes.v1.types.enums.WishSortBy
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	14, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	15, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	16, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	14, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	14, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	16, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	17, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	18, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	16, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	16, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
 	5,  // [5:5] is the sub-list for method output_type
 	5,  // [5:5] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
@@ -906,7 +1045,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

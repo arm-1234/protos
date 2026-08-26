@@ -23,6 +23,7 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationWishesCreateWish = "/wishes.v1.Wishes/CreateWish"
 const OperationWishesDeleteWish = "/wishes.v1.Wishes/DeleteWish"
+const OperationWishesDeleteWishPhoto = "/wishes.v1.Wishes/DeleteWishPhoto"
 const OperationWishesExtendWish = "/wishes.v1.Wishes/ExtendWish"
 const OperationWishesGetWish = "/wishes.v1.Wishes/GetWish"
 const OperationWishesGetWishStats = "/wishes.v1.Wishes/GetWishStats"
@@ -35,10 +36,12 @@ const OperationWishesRevokeWish = "/wishes.v1.Wishes/RevokeWish"
 const OperationWishesSaveDraft = "/wishes.v1.Wishes/SaveDraft"
 const OperationWishesSendWish = "/wishes.v1.Wishes/SendWish"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
+const OperationWishesUploadWishPhoto = "/wishes.v1.Wishes/UploadWishPhoto"
 
 type WishesHTTPServer interface {
 	CreateWish(context.Context, *request.CreateWishRequest) (*response.CreateWishResponse, error)
 	DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error)
+	DeleteWishPhoto(context.Context, *request.DeleteWishPhotoRequest) (*response.DeleteWishPhotoResponse, error)
 	ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error)
 	GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
@@ -51,6 +54,7 @@ type WishesHTTPServer interface {
 	SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error)
 	SendWish(context.Context, *request.SendWishRequest) (*response.SendWishResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
+	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
 }
 
 func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
@@ -64,6 +68,8 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.PATCH("/v1/wishes/{wish_id}", _Wishes_UpdateWish0_HTTP_Handler(srv))
 	r.POST("/v1/wishes/{wish_id}:publish", _Wishes_PublishWish0_HTTP_Handler(srv))
 	r.DELETE("/v1/wishes/{wish_id}", _Wishes_DeleteWish0_HTTP_Handler(srv))
+	r.POST("/v1/wishes/{wish_id}/photos", _Wishes_UploadWishPhoto0_HTTP_Handler(srv))
+	r.DELETE("/v1/wishes/{wish_id}/photos/{idx}", _Wishes_DeleteWishPhoto0_HTTP_Handler(srv))
 	r.POST("/v1/wishes/{wish_id}:extend", _Wishes_ExtendWish0_HTTP_Handler(srv))
 	r.POST("/v1/wishes/{wish_id}:revoke", _Wishes_RevokeWish0_HTTP_Handler(srv))
 	r.POST("/v1/wishes/{wish_id}:send", _Wishes_SendWish0_HTTP_Handler(srv))
@@ -266,6 +272,53 @@ func _Wishes_DeleteWish0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Contex
 	}
 }
 
+func _Wishes_UploadWishPhoto0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UploadWishPhotoRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesUploadWishPhoto)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UploadWishPhoto(ctx, req.(*request.UploadWishPhotoRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UploadWishPhotoResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_DeleteWishPhoto0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.DeleteWishPhotoRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesDeleteWishPhoto)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteWishPhoto(ctx, req.(*request.DeleteWishPhotoRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.DeleteWishPhotoResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Wishes_ExtendWish0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.ExtendWishRequest
@@ -391,6 +444,7 @@ func _Wishes_MarkResponsesSeen0_HTTP_Handler(srv WishesHTTPServer) func(ctx http
 type WishesHTTPClient interface {
 	CreateWish(ctx context.Context, req *request.CreateWishRequest, opts ...http.CallOption) (rsp *response.CreateWishResponse, err error)
 	DeleteWish(ctx context.Context, req *request.DeleteWishRequest, opts ...http.CallOption) (rsp *response.DeleteWishResponse, err error)
+	DeleteWishPhoto(ctx context.Context, req *request.DeleteWishPhotoRequest, opts ...http.CallOption) (rsp *response.DeleteWishPhotoResponse, err error)
 	ExtendWish(ctx context.Context, req *request.ExtendWishRequest, opts ...http.CallOption) (rsp *response.ExtendWishResponse, err error)
 	GetWish(ctx context.Context, req *request.GetWishRequest, opts ...http.CallOption) (rsp *response.GetWishResponse, err error)
 	GetWishStats(ctx context.Context, req *request.GetWishStatsRequest, opts ...http.CallOption) (rsp *response.GetWishStatsResponse, err error)
@@ -403,6 +457,7 @@ type WishesHTTPClient interface {
 	SaveDraft(ctx context.Context, req *request.SaveDraftRequest, opts ...http.CallOption) (rsp *response.SaveDraftResponse, err error)
 	SendWish(ctx context.Context, req *request.SendWishRequest, opts ...http.CallOption) (rsp *response.SendWishResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
+	UploadWishPhoto(ctx context.Context, req *request.UploadWishPhotoRequest, opts ...http.CallOption) (rsp *response.UploadWishPhotoResponse, err error)
 }
 
 type WishesHTTPClientImpl struct {
@@ -431,6 +486,19 @@ func (c *WishesHTTPClientImpl) DeleteWish(ctx context.Context, in *request.Delet
 	pattern := "/v1/wishes/{wish_id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationWishesDeleteWish))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) DeleteWishPhoto(ctx context.Context, in *request.DeleteWishPhotoRequest, opts ...http.CallOption) (*response.DeleteWishPhotoResponse, error) {
+	var out response.DeleteWishPhotoResponse
+	pattern := "/v1/wishes/{wish_id}/photos/{idx}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesDeleteWishPhoto))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
@@ -589,6 +657,19 @@ func (c *WishesHTTPClientImpl) UpdateWish(ctx context.Context, in *request.Updat
 	opts = append(opts, http.Operation(OperationWishesUpdateWish))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) UploadWishPhoto(ctx context.Context, in *request.UploadWishPhotoRequest, opts ...http.CallOption) (*response.UploadWishPhotoResponse, error) {
+	var out response.UploadWishPhotoResponse
+	pattern := "/v1/wishes/{wish_id}/photos"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesUploadWishPhoto))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

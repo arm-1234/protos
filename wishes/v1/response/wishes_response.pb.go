@@ -797,6 +797,94 @@ func (x *DeleteWishResponse) GetDeleted() bool {
 	return false
 }
 
+type UploadWishPhotoResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Wish          *types.WishInfo        `protobuf:"bytes,1,opt,name=wish,proto3" json:"wish,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadWishPhotoResponse) Reset() {
+	*x = UploadWishPhotoResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadWishPhotoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadWishPhotoResponse) ProtoMessage() {}
+
+func (x *UploadWishPhotoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadWishPhotoResponse.ProtoReflect.Descriptor instead.
+func (*UploadWishPhotoResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *UploadWishPhotoResponse) GetWish() *types.WishInfo {
+	if x != nil {
+		return x.Wish
+	}
+	return nil
+}
+
+type DeleteWishPhotoResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Wish          *types.WishInfo        `protobuf:"bytes,1,opt,name=wish,proto3" json:"wish,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteWishPhotoResponse) Reset() {
+	*x = DeleteWishPhotoResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteWishPhotoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteWishPhotoResponse) ProtoMessage() {}
+
+func (x *DeleteWishPhotoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteWishPhotoResponse.ProtoReflect.Descriptor instead.
+func (*DeleteWishPhotoResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *DeleteWishPhotoResponse) GetWish() *types.WishInfo {
+	if x != nil {
+		return x.Wish
+	}
+	return nil
+}
+
 var File_wishes_v1_response_wishes_response_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
@@ -847,7 +935,11 @@ const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\x13PublishWishResponse\x12-\n" +
 	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wish\".\n" +
 	"\x12DeleteWishResponse\x12\x18\n" +
-	"\adeleted\x18\x01 \x01(\bR\adeletedB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
+	"\adeleted\x18\x01 \x01(\bR\adeleted\"H\n" +
+	"\x17UploadWishPhotoResponse\x12-\n" +
+	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wish\"H\n" +
+	"\x17DeleteWishPhotoResponse\x12-\n" +
+	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wishB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
 
 var (
 	file_wishes_v1_response_wishes_response_proto_rawDescOnce sync.Once
@@ -861,7 +953,7 @@ func file_wishes_v1_response_wishes_response_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_response_wishes_response_proto_rawDescData
 }
 
-var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*PageInfo)(nil),                  // 0: wishes.v1.response.PageInfo
 	(*CreateWishResponse)(nil),        // 1: wishes.v1.response.CreateWishResponse
@@ -878,34 +970,38 @@ var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*SaveDraftResponse)(nil),         // 12: wishes.v1.response.SaveDraftResponse
 	(*PublishWishResponse)(nil),       // 13: wishes.v1.response.PublishWishResponse
 	(*DeleteWishResponse)(nil),        // 14: wishes.v1.response.DeleteWishResponse
-	(*types.WishInfo)(nil),            // 15: wishes.v1.types.WishInfo
-	(*structpb.Struct)(nil),           // 16: google.protobuf.Struct
-	(enums.DeliveryStatus)(0),         // 17: wishes.v1.types.enums.DeliveryStatus
-	(*timestamppb.Timestamp)(nil),     // 18: google.protobuf.Timestamp
-	(*types.WishResponseInfo)(nil),    // 19: wishes.v1.types.WishResponseInfo
-	(*types.TemplateInfo)(nil),        // 20: wishes.v1.types.TemplateInfo
+	(*UploadWishPhotoResponse)(nil),   // 15: wishes.v1.response.UploadWishPhotoResponse
+	(*DeleteWishPhotoResponse)(nil),   // 16: wishes.v1.response.DeleteWishPhotoResponse
+	(*types.WishInfo)(nil),            // 17: wishes.v1.types.WishInfo
+	(*structpb.Struct)(nil),           // 18: google.protobuf.Struct
+	(enums.DeliveryStatus)(0),         // 19: wishes.v1.types.enums.DeliveryStatus
+	(*timestamppb.Timestamp)(nil),     // 20: google.protobuf.Timestamp
+	(*types.WishResponseInfo)(nil),    // 21: wishes.v1.types.WishResponseInfo
+	(*types.TemplateInfo)(nil),        // 22: wishes.v1.types.TemplateInfo
 }
 var file_wishes_v1_response_wishes_response_proto_depIdxs = []int32{
-	15, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	15, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
+	17, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
 	0,  // 2: wishes.v1.response.ListMyWishesResponse.page:type_name -> wishes.v1.response.PageInfo
-	15, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	16, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
-	15, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	15, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	15, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
-	18, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
-	19, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
+	17, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	18, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
+	17, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	19, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
+	20, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
+	21, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
 	0,  // 11: wishes.v1.response.ListWishResponsesResponse.page:type_name -> wishes.v1.response.PageInfo
-	20, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
-	15, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
-	15, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	22, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
+	17, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_response_wishes_response_proto_init() }
@@ -919,7 +1015,7 @@ func file_wishes_v1_response_wishes_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_response_wishes_response_proto_rawDesc), len(file_wishes_v1_response_wishes_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   15,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

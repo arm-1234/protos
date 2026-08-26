@@ -2055,3 +2055,266 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteWishRequestValidationError{}
+
+// Validate checks the field values on UploadWishPhotoRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UploadWishPhotoRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UploadWishPhotoRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UploadWishPhotoRequestMultiError, or nil if none found.
+func (m *UploadWishPhotoRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UploadWishPhotoRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetWishId()) < 1 {
+		err := UploadWishPhotoRequestValidationError{
+			field:  "WishId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if val := m.GetIdx(); val < 0 || val > 2 {
+		err := UploadWishPhotoRequestValidationError{
+			field:  "Idx",
+			reason: "value must be inside range [0, 2]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetDataUrl()); l < 32 || l > 700000 {
+		err := UploadWishPhotoRequestValidationError{
+			field:  "DataUrl",
+			reason: "value length must be between 32 and 700000 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Width
+
+	// no validation rules for Height
+
+	if len(errors) > 0 {
+		return UploadWishPhotoRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UploadWishPhotoRequestMultiError is an error wrapping multiple validation
+// errors returned by UploadWishPhotoRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UploadWishPhotoRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UploadWishPhotoRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UploadWishPhotoRequestMultiError) AllErrors() []error { return m }
+
+// UploadWishPhotoRequestValidationError is the validation error returned by
+// UploadWishPhotoRequest.Validate if the designated constraints aren't met.
+type UploadWishPhotoRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UploadWishPhotoRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UploadWishPhotoRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UploadWishPhotoRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UploadWishPhotoRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UploadWishPhotoRequestValidationError) ErrorName() string {
+	return "UploadWishPhotoRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UploadWishPhotoRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUploadWishPhotoRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UploadWishPhotoRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UploadWishPhotoRequestValidationError{}
+
+// Validate checks the field values on DeleteWishPhotoRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteWishPhotoRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteWishPhotoRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteWishPhotoRequestMultiError, or nil if none found.
+func (m *DeleteWishPhotoRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteWishPhotoRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetWishId()) < 1 {
+		err := DeleteWishPhotoRequestValidationError{
+			field:  "WishId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if val := m.GetIdx(); val < 0 || val > 2 {
+		err := DeleteWishPhotoRequestValidationError{
+			field:  "Idx",
+			reason: "value must be inside range [0, 2]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteWishPhotoRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteWishPhotoRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteWishPhotoRequest.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteWishPhotoRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteWishPhotoRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteWishPhotoRequestMultiError) AllErrors() []error { return m }
+
+// DeleteWishPhotoRequestValidationError is the validation error returned by
+// DeleteWishPhotoRequest.Validate if the designated constraints aren't met.
+type DeleteWishPhotoRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteWishPhotoRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteWishPhotoRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteWishPhotoRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteWishPhotoRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteWishPhotoRequestValidationError) ErrorName() string {
+	return "DeleteWishPhotoRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteWishPhotoRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteWishPhotoRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteWishPhotoRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteWishPhotoRequestValidationError{}

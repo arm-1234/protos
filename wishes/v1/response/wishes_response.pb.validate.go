@@ -2012,3 +2012,265 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteWishResponseValidationError{}
+
+// Validate checks the field values on UploadWishPhotoResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UploadWishPhotoResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UploadWishPhotoResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UploadWishPhotoResponseMultiError, or nil if none found.
+func (m *UploadWishPhotoResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UploadWishPhotoResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWish()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UploadWishPhotoResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UploadWishPhotoResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWish()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UploadWishPhotoResponseValidationError{
+				field:  "Wish",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UploadWishPhotoResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UploadWishPhotoResponseMultiError is an error wrapping multiple validation
+// errors returned by UploadWishPhotoResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UploadWishPhotoResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UploadWishPhotoResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UploadWishPhotoResponseMultiError) AllErrors() []error { return m }
+
+// UploadWishPhotoResponseValidationError is the validation error returned by
+// UploadWishPhotoResponse.Validate if the designated constraints aren't met.
+type UploadWishPhotoResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UploadWishPhotoResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UploadWishPhotoResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UploadWishPhotoResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UploadWishPhotoResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UploadWishPhotoResponseValidationError) ErrorName() string {
+	return "UploadWishPhotoResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UploadWishPhotoResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUploadWishPhotoResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UploadWishPhotoResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UploadWishPhotoResponseValidationError{}
+
+// Validate checks the field values on DeleteWishPhotoResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteWishPhotoResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteWishPhotoResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteWishPhotoResponseMultiError, or nil if none found.
+func (m *DeleteWishPhotoResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteWishPhotoResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWish()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeleteWishPhotoResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeleteWishPhotoResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWish()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeleteWishPhotoResponseValidationError{
+				field:  "Wish",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return DeleteWishPhotoResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteWishPhotoResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteWishPhotoResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteWishPhotoResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteWishPhotoResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteWishPhotoResponseMultiError) AllErrors() []error { return m }
+
+// DeleteWishPhotoResponseValidationError is the validation error returned by
+// DeleteWishPhotoResponse.Validate if the designated constraints aren't met.
+type DeleteWishPhotoResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteWishPhotoResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteWishPhotoResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteWishPhotoResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteWishPhotoResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteWishPhotoResponseValidationError) ErrorName() string {
+	return "DeleteWishPhotoResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteWishPhotoResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteWishPhotoResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteWishPhotoResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteWishPhotoResponseValidationError{}

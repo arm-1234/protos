@@ -167,6 +167,30 @@ func ErrorTemplateConfigInvalid(format string, args ...interface{}) *errors.Erro
 	return errors.New(400, ErrorReason_TEMPLATE_CONFIG_INVALID.String(), fmt.Sprintf(format, args...))
 }
 
+func IsPhotoRejected(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PHOTO_REJECTED.String() && e.Code == 422
+}
+
+func ErrorPhotoRejected(format string, args ...interface{}) *errors.Error {
+	return errors.New(422, ErrorReason_PHOTO_REJECTED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPhotoTooLarge(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PHOTO_TOO_LARGE.String() && e.Code == 413
+}
+
+func ErrorPhotoTooLarge(format string, args ...interface{}) *errors.Error {
+	return errors.New(413, ErrorReason_PHOTO_TOO_LARGE.String(), fmt.Sprintf(format, args...))
+}
+
 func IsDeliveryFailed(err error) bool {
 	if err == nil {
 		return false

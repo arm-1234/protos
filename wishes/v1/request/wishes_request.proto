@@ -81,3 +81,16 @@ message PublishWishRequest {
 message DeleteWishRequest {
   string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
 }
+
+message UploadWishPhotoRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  int32 idx = 2 [(validate.rules).int32 = {gte: 0, lte: 2}];
+  string data_url = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 32, max_len: 700000}];
+  int32 width = 4;
+  int32 height = 5;
+}
+
+message DeleteWishPhotoRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  int32 idx = 2 [(validate.rules).int32 = {gte: 0, lte: 2}];
+}

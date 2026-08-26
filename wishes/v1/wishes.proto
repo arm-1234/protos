@@ -68,6 +68,19 @@ service Wishes {
     };
   }
 
+  rpc UploadWishPhoto (wishes.v1.request.UploadWishPhotoRequest) returns (wishes.v1.response.UploadWishPhotoResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}/photos"
+      body: "*"
+    };
+  }
+
+  rpc DeleteWishPhoto (wishes.v1.request.DeleteWishPhotoRequest) returns (wishes.v1.response.DeleteWishPhotoResponse) {
+    option (google.api.http) = {
+      delete: "/v1/wishes/{wish_id}/photos/{idx}"
+    };
+  }
+
   rpc ExtendWish (wishes.v1.request.ExtendWishRequest) returns (wishes.v1.response.ExtendWishResponse) {
     option (google.api.http) = {
       post: "/v1/wishes/{wish_id}:extend"
@@ -121,6 +134,8 @@ enum ErrorReason {
 
   TEMPLATE_NOT_FOUND = 20 [(errors.code) = 404];
   TEMPLATE_CONFIG_INVALID = 21 [(errors.code) = 400];
+  PHOTO_REJECTED = 22 [(errors.code) = 422];
+  PHOTO_TOO_LARGE = 23 [(errors.code) = 413];
 
   DELIVERY_FAILED = 30 [(errors.code) = 502];
   DELIVERY_RATE_LIMITED = 31 [(errors.code) = 429];

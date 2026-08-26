@@ -134,6 +134,7 @@ type WishInfo struct {
 	RevokedAt     *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=revoked_at,json=revokedAt,proto3" json:"revoked_at,omitempty"`
 	State         *WishState             `protobuf:"bytes,16,opt,name=state,proto3" json:"state,omitempty"`
 	Step          string                 `protobuf:"bytes,17,opt,name=step,proto3" json:"step,omitempty"`
+	Photos        []*WishPhoto           `protobuf:"bytes,18,rep,name=photos,proto3" json:"photos,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -287,6 +288,89 @@ func (x *WishInfo) GetStep() string {
 	return ""
 }
 
+func (x *WishInfo) GetPhotos() []*WishPhoto {
+	if x != nil {
+		return x.Photos
+	}
+	return nil
+}
+
+type WishPhoto struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Idx           int32                  `protobuf:"varint,1,opt,name=idx,proto3" json:"idx,omitempty"`
+	Mime          string                 `protobuf:"bytes,2,opt,name=mime,proto3" json:"mime,omitempty"`
+	Width         int32                  `protobuf:"varint,3,opt,name=width,proto3" json:"width,omitempty"`
+	Height        int32                  `protobuf:"varint,4,opt,name=height,proto3" json:"height,omitempty"`
+	Url           string                 `protobuf:"bytes,5,opt,name=url,proto3" json:"url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WishPhoto) Reset() {
+	*x = WishPhoto{}
+	mi := &file_wishes_v1_types_wish_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WishPhoto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WishPhoto) ProtoMessage() {}
+
+func (x *WishPhoto) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_types_wish_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WishPhoto.ProtoReflect.Descriptor instead.
+func (*WishPhoto) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_types_wish_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *WishPhoto) GetIdx() int32 {
+	if x != nil {
+		return x.Idx
+	}
+	return 0
+}
+
+func (x *WishPhoto) GetMime() string {
+	if x != nil {
+		return x.Mime
+	}
+	return ""
+}
+
+func (x *WishPhoto) GetWidth() int32 {
+	if x != nil {
+		return x.Width
+	}
+	return 0
+}
+
+func (x *WishPhoto) GetHeight() int32 {
+	if x != nil {
+		return x.Height
+	}
+	return 0
+}
+
+func (x *WishPhoto) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
 var File_wishes_v1_types_wish_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_wish_proto_rawDesc = "" +
@@ -300,7 +384,7 @@ const file_wishes_v1_types_wish_proto_rawDesc = "" +
 	"\x15unseen_response_count\x18\x04 \x01(\x03R\x13unseenResponseCount\x12D\n" +
 	"\x10last_response_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\x0elastResponseAt\x12N\n" +
 	"\x0fdelivery_status\x18\x06 \x01(\x0e2%.wishes.v1.types.enums.DeliveryStatusR\x0edeliveryStatus\x12=\n" +
-	"\fdelivered_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\vdeliveredAt\"\x94\x05\n" +
+	"\fdelivered_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\vdeliveredAt\"\xc8\x05\n" +
 	"\bWishInfo\x12\x17\n" +
 	"\awish_id\x18\x01 \x01(\tR\x06wishId\x12\x17\n" +
 	"\acard_id\x18\x02 \x01(\tR\x06cardId\x12\"\n" +
@@ -326,7 +410,14 @@ const file_wishes_v1_types_wish_proto_rawDesc = "" +
 	"\n" +
 	"revoked_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampR\trevokedAt\x120\n" +
 	"\x05state\x18\x10 \x01(\v2\x1a.wishes.v1.types.WishStateR\x05state\x12\x12\n" +
-	"\x04step\x18\x11 \x01(\tR\x04stepB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
+	"\x04step\x18\x11 \x01(\tR\x04step\x122\n" +
+	"\x06photos\x18\x12 \x03(\v2\x1a.wishes.v1.types.WishPhotoR\x06photos\"q\n" +
+	"\tWishPhoto\x12\x10\n" +
+	"\x03idx\x18\x01 \x01(\x05R\x03idx\x12\x12\n" +
+	"\x04mime\x18\x02 \x01(\tR\x04mime\x12\x14\n" +
+	"\x05width\x18\x03 \x01(\x05R\x05width\x12\x16\n" +
+	"\x06height\x18\x04 \x01(\x05R\x06height\x12\x10\n" +
+	"\x03url\x18\x05 \x01(\tR\x03urlB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
 
 var (
 	file_wishes_v1_types_wish_proto_rawDescOnce sync.Once
@@ -340,30 +431,32 @@ func file_wishes_v1_types_wish_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_types_wish_proto_rawDescData
 }
 
-var file_wishes_v1_types_wish_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_wishes_v1_types_wish_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_wishes_v1_types_wish_proto_goTypes = []any{
 	(*WishState)(nil),             // 0: wishes.v1.types.WishState
 	(*WishInfo)(nil),              // 1: wishes.v1.types.WishInfo
-	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
-	(enums.DeliveryStatus)(0),     // 3: wishes.v1.types.enums.DeliveryStatus
-	(enums.WishStatus)(0),         // 4: wishes.v1.types.enums.WishStatus
+	(*WishPhoto)(nil),             // 2: wishes.v1.types.WishPhoto
+	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(enums.DeliveryStatus)(0),     // 4: wishes.v1.types.enums.DeliveryStatus
+	(enums.WishStatus)(0),         // 5: wishes.v1.types.enums.WishStatus
 }
 var file_wishes_v1_types_wish_proto_depIdxs = []int32{
-	2,  // 0: wishes.v1.types.WishState.first_open_at:type_name -> google.protobuf.Timestamp
-	2,  // 1: wishes.v1.types.WishState.last_response_at:type_name -> google.protobuf.Timestamp
-	3,  // 2: wishes.v1.types.WishState.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
-	2,  // 3: wishes.v1.types.WishState.delivered_at:type_name -> google.protobuf.Timestamp
-	4,  // 4: wishes.v1.types.WishInfo.status:type_name -> wishes.v1.types.enums.WishStatus
-	2,  // 5: wishes.v1.types.WishInfo.created_at:type_name -> google.protobuf.Timestamp
-	2,  // 6: wishes.v1.types.WishInfo.updated_at:type_name -> google.protobuf.Timestamp
-	2,  // 7: wishes.v1.types.WishInfo.expires_at:type_name -> google.protobuf.Timestamp
-	2,  // 8: wishes.v1.types.WishInfo.revoked_at:type_name -> google.protobuf.Timestamp
+	3,  // 0: wishes.v1.types.WishState.first_open_at:type_name -> google.protobuf.Timestamp
+	3,  // 1: wishes.v1.types.WishState.last_response_at:type_name -> google.protobuf.Timestamp
+	4,  // 2: wishes.v1.types.WishState.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
+	3,  // 3: wishes.v1.types.WishState.delivered_at:type_name -> google.protobuf.Timestamp
+	5,  // 4: wishes.v1.types.WishInfo.status:type_name -> wishes.v1.types.enums.WishStatus
+	3,  // 5: wishes.v1.types.WishInfo.created_at:type_name -> google.protobuf.Timestamp
+	3,  // 6: wishes.v1.types.WishInfo.updated_at:type_name -> google.protobuf.Timestamp
+	3,  // 7: wishes.v1.types.WishInfo.expires_at:type_name -> google.protobuf.Timestamp
+	3,  // 8: wishes.v1.types.WishInfo.revoked_at:type_name -> google.protobuf.Timestamp
 	0,  // 9: wishes.v1.types.WishInfo.state:type_name -> wishes.v1.types.WishState
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	2,  // 10: wishes.v1.types.WishInfo.photos:type_name -> wishes.v1.types.WishPhoto
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_types_wish_proto_init() }
@@ -377,7 +470,7 @@ func file_wishes_v1_types_wish_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_types_wish_proto_rawDesc), len(file_wishes_v1_types_wish_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

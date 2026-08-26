@@ -30,6 +30,8 @@ const (
 	Wishes_UpdateWish_FullMethodName        = "/wishes.v1.Wishes/UpdateWish"
 	Wishes_PublishWish_FullMethodName       = "/wishes.v1.Wishes/PublishWish"
 	Wishes_DeleteWish_FullMethodName        = "/wishes.v1.Wishes/DeleteWish"
+	Wishes_UploadWishPhoto_FullMethodName   = "/wishes.v1.Wishes/UploadWishPhoto"
+	Wishes_DeleteWishPhoto_FullMethodName   = "/wishes.v1.Wishes/DeleteWishPhoto"
 	Wishes_ExtendWish_FullMethodName        = "/wishes.v1.Wishes/ExtendWish"
 	Wishes_RevokeWish_FullMethodName        = "/wishes.v1.Wishes/RevokeWish"
 	Wishes_SendWish_FullMethodName          = "/wishes.v1.Wishes/SendWish"
@@ -50,6 +52,8 @@ type WishesClient interface {
 	UpdateWish(ctx context.Context, in *request.UpdateWishRequest, opts ...grpc.CallOption) (*response.UpdateWishResponse, error)
 	PublishWish(ctx context.Context, in *request.PublishWishRequest, opts ...grpc.CallOption) (*response.PublishWishResponse, error)
 	DeleteWish(ctx context.Context, in *request.DeleteWishRequest, opts ...grpc.CallOption) (*response.DeleteWishResponse, error)
+	UploadWishPhoto(ctx context.Context, in *request.UploadWishPhotoRequest, opts ...grpc.CallOption) (*response.UploadWishPhotoResponse, error)
+	DeleteWishPhoto(ctx context.Context, in *request.DeleteWishPhotoRequest, opts ...grpc.CallOption) (*response.DeleteWishPhotoResponse, error)
 	ExtendWish(ctx context.Context, in *request.ExtendWishRequest, opts ...grpc.CallOption) (*response.ExtendWishResponse, error)
 	RevokeWish(ctx context.Context, in *request.RevokeWishRequest, opts ...grpc.CallOption) (*response.RevokeWishResponse, error)
 	SendWish(ctx context.Context, in *request.SendWishRequest, opts ...grpc.CallOption) (*response.SendWishResponse, error)
@@ -155,6 +159,26 @@ func (c *wishesClient) DeleteWish(ctx context.Context, in *request.DeleteWishReq
 	return out, nil
 }
 
+func (c *wishesClient) UploadWishPhoto(ctx context.Context, in *request.UploadWishPhotoRequest, opts ...grpc.CallOption) (*response.UploadWishPhotoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.UploadWishPhotoResponse)
+	err := c.cc.Invoke(ctx, Wishes_UploadWishPhoto_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) DeleteWishPhoto(ctx context.Context, in *request.DeleteWishPhotoRequest, opts ...grpc.CallOption) (*response.DeleteWishPhotoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.DeleteWishPhotoResponse)
+	err := c.cc.Invoke(ctx, Wishes_DeleteWishPhoto_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *wishesClient) ExtendWish(ctx context.Context, in *request.ExtendWishRequest, opts ...grpc.CallOption) (*response.ExtendWishResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.ExtendWishResponse)
@@ -218,6 +242,8 @@ type WishesServer interface {
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
 	PublishWish(context.Context, *request.PublishWishRequest) (*response.PublishWishResponse, error)
 	DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error)
+	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
+	DeleteWishPhoto(context.Context, *request.DeleteWishPhotoRequest) (*response.DeleteWishPhotoResponse, error)
 	ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error)
 	RevokeWish(context.Context, *request.RevokeWishRequest) (*response.RevokeWishResponse, error)
 	SendWish(context.Context, *request.SendWishRequest) (*response.SendWishResponse, error)
@@ -259,6 +285,12 @@ func (UnimplementedWishesServer) PublishWish(context.Context, *request.PublishWi
 }
 func (UnimplementedWishesServer) DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteWish not implemented")
+}
+func (UnimplementedWishesServer) UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UploadWishPhoto not implemented")
+}
+func (UnimplementedWishesServer) DeleteWishPhoto(context.Context, *request.DeleteWishPhotoRequest) (*response.DeleteWishPhotoResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteWishPhoto not implemented")
 }
 func (UnimplementedWishesServer) ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ExtendWish not implemented")
@@ -458,6 +490,42 @@ func _Wishes_DeleteWish_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wishes_UploadWishPhoto_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UploadWishPhotoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).UploadWishPhoto(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_UploadWishPhoto_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).UploadWishPhoto(ctx, req.(*request.UploadWishPhotoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_DeleteWishPhoto_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DeleteWishPhotoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).DeleteWishPhoto(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_DeleteWishPhoto_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).DeleteWishPhoto(ctx, req.(*request.DeleteWishPhotoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Wishes_ExtendWish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.ExtendWishRequest)
 	if err := dec(in); err != nil {
@@ -590,6 +658,14 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteWish",
 			Handler:    _Wishes_DeleteWish_Handler,
+		},
+		{
+			MethodName: "UploadWishPhoto",
+			Handler:    _Wishes_UploadWishPhoto_Handler,
+		},
+		{
+			MethodName: "DeleteWishPhoto",
+			Handler:    _Wishes_DeleteWishPhoto_Handler,
 		},
 		{
 			MethodName: "ExtendWish",
