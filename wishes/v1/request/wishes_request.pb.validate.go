@@ -2318,3 +2318,393 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteWishPhotoRequestValidationError{}
+
+// Validate checks the field values on SubmitResponseRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SubmitResponseRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SubmitResponseRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SubmitResponseRequestMultiError, or nil if none found.
+func (m *SubmitResponseRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SubmitResponseRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetCardId()); l < 6 || l > 64 {
+		err := SubmitResponseRequestValidationError{
+			field:  "CardId",
+			reason: "value length must be between 6 and 64 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Kind
+
+	if m.GetValue() != "" {
+
+		if utf8.RuneCountInString(m.GetValue()) > 64 {
+			err := SubmitResponseRequestValidationError{
+				field:  "Value",
+				reason: "value length must be at most 64 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetMessage() != "" {
+
+		if utf8.RuneCountInString(m.GetMessage()) > 400 {
+			err := SubmitResponseRequestValidationError{
+				field:  "Message",
+				reason: "value length must be at most 400 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SubmitResponseRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SubmitResponseRequestMultiError is an error wrapping multiple validation
+// errors returned by SubmitResponseRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SubmitResponseRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SubmitResponseRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SubmitResponseRequestMultiError) AllErrors() []error { return m }
+
+// SubmitResponseRequestValidationError is the validation error returned by
+// SubmitResponseRequest.Validate if the designated constraints aren't met.
+type SubmitResponseRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SubmitResponseRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SubmitResponseRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SubmitResponseRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SubmitResponseRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SubmitResponseRequestValidationError) ErrorName() string {
+	return "SubmitResponseRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SubmitResponseRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSubmitResponseRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SubmitResponseRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SubmitResponseRequestValidationError{}
+
+// Validate checks the field values on ReportCardRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ReportCardRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReportCardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReportCardRequestMultiError, or nil if none found.
+func (m *ReportCardRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReportCardRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetCardId()); l < 6 || l > 64 {
+		err := ReportCardRequestValidationError{
+			field:  "CardId",
+			reason: "value length must be between 6 and 64 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetReason() != "" {
+
+		if utf8.RuneCountInString(m.GetReason()) > 1000 {
+			err := ReportCardRequestValidationError{
+				field:  "Reason",
+				reason: "value length must be at most 1000 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetReporter() != "" {
+
+		if utf8.RuneCountInString(m.GetReporter()) > 320 {
+			err := ReportCardRequestValidationError{
+				field:  "Reporter",
+				reason: "value length must be at most 320 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ReportCardRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReportCardRequestMultiError is an error wrapping multiple validation errors
+// returned by ReportCardRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ReportCardRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReportCardRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReportCardRequestMultiError) AllErrors() []error { return m }
+
+// ReportCardRequestValidationError is the validation error returned by
+// ReportCardRequest.Validate if the designated constraints aren't met.
+type ReportCardRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReportCardRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReportCardRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReportCardRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReportCardRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReportCardRequestValidationError) ErrorName() string {
+	return "ReportCardRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReportCardRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReportCardRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReportCardRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReportCardRequestValidationError{}
+
+// Validate checks the field values on GetTemplateSchemaRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTemplateSchemaRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTemplateSchemaRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetTemplateSchemaRequestMultiError, or nil if none found.
+func (m *GetTemplateSchemaRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTemplateSchemaRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetTemplateSchemaRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTemplateSchemaRequestMultiError is an error wrapping multiple validation
+// errors returned by GetTemplateSchemaRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetTemplateSchemaRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTemplateSchemaRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTemplateSchemaRequestMultiError) AllErrors() []error { return m }
+
+// GetTemplateSchemaRequestValidationError is the validation error returned by
+// GetTemplateSchemaRequest.Validate if the designated constraints aren't met.
+type GetTemplateSchemaRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTemplateSchemaRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTemplateSchemaRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTemplateSchemaRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTemplateSchemaRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTemplateSchemaRequestValidationError) ErrorName() string {
+	return "GetTemplateSchemaRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTemplateSchemaRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTemplateSchemaRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTemplateSchemaRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTemplateSchemaRequestValidationError{}

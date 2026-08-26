@@ -885,6 +885,154 @@ func (x *DeleteWishPhotoResponse) GetWish() *types.WishInfo {
 	return nil
 }
 
+type SubmitResponseResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Recorded      bool                   `protobuf:"varint,1,opt,name=recorded,proto3" json:"recorded,omitempty"`
+	Label         string                 `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+	Note          string                 `protobuf:"bytes,3,opt,name=note,proto3" json:"note,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubmitResponseResponse) Reset() {
+	*x = SubmitResponseResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubmitResponseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubmitResponseResponse) ProtoMessage() {}
+
+func (x *SubmitResponseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubmitResponseResponse.ProtoReflect.Descriptor instead.
+func (*SubmitResponseResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SubmitResponseResponse) GetRecorded() bool {
+	if x != nil {
+		return x.Recorded
+	}
+	return false
+}
+
+func (x *SubmitResponseResponse) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *SubmitResponseResponse) GetNote() string {
+	if x != nil {
+		return x.Note
+	}
+	return ""
+}
+
+type ReportCardResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Received      bool                   `protobuf:"varint,1,opt,name=received,proto3" json:"received,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReportCardResponse) Reset() {
+	*x = ReportCardResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReportCardResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportCardResponse) ProtoMessage() {}
+
+func (x *ReportCardResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportCardResponse.ProtoReflect.Descriptor instead.
+func (*ReportCardResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *ReportCardResponse) GetReceived() bool {
+	if x != nil {
+		return x.Received
+	}
+	return false
+}
+
+type GetTemplateSchemaResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Schema        *structpb.Struct       `protobuf:"bytes,1,opt,name=schema,proto3" json:"schema,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTemplateSchemaResponse) Reset() {
+	*x = GetTemplateSchemaResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTemplateSchemaResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTemplateSchemaResponse) ProtoMessage() {}
+
+func (x *GetTemplateSchemaResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTemplateSchemaResponse.ProtoReflect.Descriptor instead.
+func (*GetTemplateSchemaResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GetTemplateSchemaResponse) GetSchema() *structpb.Struct {
+	if x != nil {
+		return x.Schema
+	}
+	return nil
+}
+
 var File_wishes_v1_response_wishes_response_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
@@ -939,7 +1087,15 @@ const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\x17UploadWishPhotoResponse\x12-\n" +
 	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wish\"H\n" +
 	"\x17DeleteWishPhotoResponse\x12-\n" +
-	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wishB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
+	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wish\"^\n" +
+	"\x16SubmitResponseResponse\x12\x1a\n" +
+	"\brecorded\x18\x01 \x01(\bR\brecorded\x12\x14\n" +
+	"\x05label\x18\x02 \x01(\tR\x05label\x12\x12\n" +
+	"\x04note\x18\x03 \x01(\tR\x04note\"0\n" +
+	"\x12ReportCardResponse\x12\x1a\n" +
+	"\breceived\x18\x01 \x01(\bR\breceived\"L\n" +
+	"\x19GetTemplateSchemaResponse\x12/\n" +
+	"\x06schema\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06schemaB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
 
 var (
 	file_wishes_v1_response_wishes_response_proto_rawDescOnce sync.Once
@@ -953,7 +1109,7 @@ func file_wishes_v1_response_wishes_response_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_response_wishes_response_proto_rawDescData
 }
 
-var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*PageInfo)(nil),                  // 0: wishes.v1.response.PageInfo
 	(*CreateWishResponse)(nil),        // 1: wishes.v1.response.CreateWishResponse
@@ -972,36 +1128,40 @@ var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*DeleteWishResponse)(nil),        // 14: wishes.v1.response.DeleteWishResponse
 	(*UploadWishPhotoResponse)(nil),   // 15: wishes.v1.response.UploadWishPhotoResponse
 	(*DeleteWishPhotoResponse)(nil),   // 16: wishes.v1.response.DeleteWishPhotoResponse
-	(*types.WishInfo)(nil),            // 17: wishes.v1.types.WishInfo
-	(*structpb.Struct)(nil),           // 18: google.protobuf.Struct
-	(enums.DeliveryStatus)(0),         // 19: wishes.v1.types.enums.DeliveryStatus
-	(*timestamppb.Timestamp)(nil),     // 20: google.protobuf.Timestamp
-	(*types.WishResponseInfo)(nil),    // 21: wishes.v1.types.WishResponseInfo
-	(*types.TemplateInfo)(nil),        // 22: wishes.v1.types.TemplateInfo
+	(*SubmitResponseResponse)(nil),    // 17: wishes.v1.response.SubmitResponseResponse
+	(*ReportCardResponse)(nil),        // 18: wishes.v1.response.ReportCardResponse
+	(*GetTemplateSchemaResponse)(nil), // 19: wishes.v1.response.GetTemplateSchemaResponse
+	(*types.WishInfo)(nil),            // 20: wishes.v1.types.WishInfo
+	(*structpb.Struct)(nil),           // 21: google.protobuf.Struct
+	(enums.DeliveryStatus)(0),         // 22: wishes.v1.types.enums.DeliveryStatus
+	(*timestamppb.Timestamp)(nil),     // 23: google.protobuf.Timestamp
+	(*types.WishResponseInfo)(nil),    // 24: wishes.v1.types.WishResponseInfo
+	(*types.TemplateInfo)(nil),        // 25: wishes.v1.types.TemplateInfo
 }
 var file_wishes_v1_response_wishes_response_proto_depIdxs = []int32{
-	17, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
+	20, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	20, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
 	0,  // 2: wishes.v1.response.ListMyWishesResponse.page:type_name -> wishes.v1.response.PageInfo
-	17, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	18, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
-	17, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	19, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
-	20, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
-	21, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
+	20, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	21, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
+	20, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	20, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	20, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	22, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
+	23, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
+	24, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
 	0,  // 11: wishes.v1.response.ListWishResponsesResponse.page:type_name -> wishes.v1.response.PageInfo
-	22, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
-	17, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
-	17, // [17:17] is the sub-list for method output_type
-	17, // [17:17] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	25, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
+	20, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
+	20, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	20, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	20, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	21, // 17: wishes.v1.response.GetTemplateSchemaResponse.schema:type_name -> google.protobuf.Struct
+	18, // [18:18] is the sub-list for method output_type
+	18, // [18:18] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_response_wishes_response_proto_init() }
@@ -1015,7 +1175,7 @@ func file_wishes_v1_response_wishes_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_response_wishes_response_proto_rawDesc), len(file_wishes_v1_response_wishes_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

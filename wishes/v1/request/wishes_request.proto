@@ -7,6 +7,7 @@ import "google/protobuf/struct.proto";
 import "validate/validate.proto";
 import "wishes/v1/types/enums/wish_status.proto";
 import "wishes/v1/types/enums/wish_sort_by.proto";
+import "wishes/v1/types/enums/response_kind.proto";
 
 option go_package = "github.com/arm-1234/protos/wishes/v1/request;request";
 
@@ -94,3 +95,18 @@ message DeleteWishPhotoRequest {
   string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
   int32 idx = 2 [(validate.rules).int32 = {gte: 0, lte: 2}];
 }
+
+message SubmitResponseRequest {
+  string card_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 64}];
+  wishes.v1.types.enums.ResponseKind kind = 2 [(google.api.field_behavior) = REQUIRED];
+  string value = 3 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+  string message = 4 [(validate.rules).string = {ignore_empty: true, max_len: 400}];
+}
+
+message ReportCardRequest {
+  string card_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 64}];
+  string reason = 2 [(validate.rules).string = {ignore_empty: true, max_len: 1000}];
+  string reporter = 3 [(validate.rules).string = {ignore_empty: true, max_len: 320}];
+}
+
+message GetTemplateSchemaRequest {}

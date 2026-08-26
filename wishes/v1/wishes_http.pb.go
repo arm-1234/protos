@@ -25,6 +25,7 @@ const OperationWishesCreateWish = "/wishes.v1.Wishes/CreateWish"
 const OperationWishesDeleteWish = "/wishes.v1.Wishes/DeleteWish"
 const OperationWishesDeleteWishPhoto = "/wishes.v1.Wishes/DeleteWishPhoto"
 const OperationWishesExtendWish = "/wishes.v1.Wishes/ExtendWish"
+const OperationWishesGetTemplateSchema = "/wishes.v1.Wishes/GetTemplateSchema"
 const OperationWishesGetWish = "/wishes.v1.Wishes/GetWish"
 const OperationWishesGetWishStats = "/wishes.v1.Wishes/GetWishStats"
 const OperationWishesListMyWishes = "/wishes.v1.Wishes/ListMyWishes"
@@ -32,9 +33,11 @@ const OperationWishesListTemplates = "/wishes.v1.Wishes/ListTemplates"
 const OperationWishesListWishResponses = "/wishes.v1.Wishes/ListWishResponses"
 const OperationWishesMarkResponsesSeen = "/wishes.v1.Wishes/MarkResponsesSeen"
 const OperationWishesPublishWish = "/wishes.v1.Wishes/PublishWish"
+const OperationWishesReportCard = "/wishes.v1.Wishes/ReportCard"
 const OperationWishesRevokeWish = "/wishes.v1.Wishes/RevokeWish"
 const OperationWishesSaveDraft = "/wishes.v1.Wishes/SaveDraft"
 const OperationWishesSendWish = "/wishes.v1.Wishes/SendWish"
+const OperationWishesSubmitResponse = "/wishes.v1.Wishes/SubmitResponse"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
 const OperationWishesUploadWishPhoto = "/wishes.v1.Wishes/UploadWishPhoto"
 
@@ -43,6 +46,7 @@ type WishesHTTPServer interface {
 	DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error)
 	DeleteWishPhoto(context.Context, *request.DeleteWishPhotoRequest) (*response.DeleteWishPhotoResponse, error)
 	ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error)
+	GetTemplateSchema(context.Context, *request.GetTemplateSchemaRequest) (*response.GetTemplateSchemaResponse, error)
 	GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
@@ -50,9 +54,11 @@ type WishesHTTPServer interface {
 	ListWishResponses(context.Context, *request.ListWishResponsesRequest) (*response.ListWishResponsesResponse, error)
 	MarkResponsesSeen(context.Context, *request.MarkResponsesSeenRequest) (*response.MarkResponsesSeenResponse, error)
 	PublishWish(context.Context, *request.PublishWishRequest) (*response.PublishWishResponse, error)
+	ReportCard(context.Context, *request.ReportCardRequest) (*response.ReportCardResponse, error)
 	RevokeWish(context.Context, *request.RevokeWishRequest) (*response.RevokeWishResponse, error)
 	SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error)
 	SendWish(context.Context, *request.SendWishRequest) (*response.SendWishResponse, error)
+	SubmitResponse(context.Context, *request.SubmitResponseRequest) (*response.SubmitResponseResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
 	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
 }
@@ -62,6 +68,9 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.POST("/v1/wishes", _Wishes_CreateWish0_HTTP_Handler(srv))
 	r.GET("/v1/wishes", _Wishes_ListMyWishes0_HTTP_Handler(srv))
 	r.GET("/v1/wishes:stats", _Wishes_GetWishStats0_HTTP_Handler(srv))
+	r.GET("/v1/wishes:schema", _Wishes_GetTemplateSchema0_HTTP_Handler(srv))
+	r.POST("/v1/cards/{card_id}:respond", _Wishes_SubmitResponse0_HTTP_Handler(srv))
+	r.POST("/v1/cards/{card_id}:report", _Wishes_ReportCard0_HTTP_Handler(srv))
 	r.GET("/v1/wishes:templates", _Wishes_ListTemplates0_HTTP_Handler(srv))
 	r.POST("/v1/wishes:draft", _Wishes_SaveDraft0_HTTP_Handler(srv))
 	r.GET("/v1/wishes/{wish_id}", _Wishes_GetWish0_HTTP_Handler(srv))
@@ -133,6 +142,75 @@ func _Wishes_GetWishStats0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Cont
 			return err
 		}
 		reply := out.(*response.GetWishStatsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_GetTemplateSchema0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetTemplateSchemaRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesGetTemplateSchema)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetTemplateSchema(ctx, req.(*request.GetTemplateSchemaRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetTemplateSchemaResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_SubmitResponse0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.SubmitResponseRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesSubmitResponse)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SubmitResponse(ctx, req.(*request.SubmitResponseRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.SubmitResponseResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_ReportCard0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ReportCardRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesReportCard)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ReportCard(ctx, req.(*request.ReportCardRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ReportCardResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -446,6 +524,7 @@ type WishesHTTPClient interface {
 	DeleteWish(ctx context.Context, req *request.DeleteWishRequest, opts ...http.CallOption) (rsp *response.DeleteWishResponse, err error)
 	DeleteWishPhoto(ctx context.Context, req *request.DeleteWishPhotoRequest, opts ...http.CallOption) (rsp *response.DeleteWishPhotoResponse, err error)
 	ExtendWish(ctx context.Context, req *request.ExtendWishRequest, opts ...http.CallOption) (rsp *response.ExtendWishResponse, err error)
+	GetTemplateSchema(ctx context.Context, req *request.GetTemplateSchemaRequest, opts ...http.CallOption) (rsp *response.GetTemplateSchemaResponse, err error)
 	GetWish(ctx context.Context, req *request.GetWishRequest, opts ...http.CallOption) (rsp *response.GetWishResponse, err error)
 	GetWishStats(ctx context.Context, req *request.GetWishStatsRequest, opts ...http.CallOption) (rsp *response.GetWishStatsResponse, err error)
 	ListMyWishes(ctx context.Context, req *request.ListMyWishesRequest, opts ...http.CallOption) (rsp *response.ListMyWishesResponse, err error)
@@ -453,9 +532,11 @@ type WishesHTTPClient interface {
 	ListWishResponses(ctx context.Context, req *request.ListWishResponsesRequest, opts ...http.CallOption) (rsp *response.ListWishResponsesResponse, err error)
 	MarkResponsesSeen(ctx context.Context, req *request.MarkResponsesSeenRequest, opts ...http.CallOption) (rsp *response.MarkResponsesSeenResponse, err error)
 	PublishWish(ctx context.Context, req *request.PublishWishRequest, opts ...http.CallOption) (rsp *response.PublishWishResponse, err error)
+	ReportCard(ctx context.Context, req *request.ReportCardRequest, opts ...http.CallOption) (rsp *response.ReportCardResponse, err error)
 	RevokeWish(ctx context.Context, req *request.RevokeWishRequest, opts ...http.CallOption) (rsp *response.RevokeWishResponse, err error)
 	SaveDraft(ctx context.Context, req *request.SaveDraftRequest, opts ...http.CallOption) (rsp *response.SaveDraftResponse, err error)
 	SendWish(ctx context.Context, req *request.SendWishRequest, opts ...http.CallOption) (rsp *response.SendWishResponse, err error)
+	SubmitResponse(ctx context.Context, req *request.SubmitResponseRequest, opts ...http.CallOption) (rsp *response.SubmitResponseResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
 	UploadWishPhoto(ctx context.Context, req *request.UploadWishPhotoRequest, opts ...http.CallOption) (rsp *response.UploadWishPhotoResponse, err error)
 }
@@ -514,6 +595,19 @@ func (c *WishesHTTPClientImpl) ExtendWish(ctx context.Context, in *request.Exten
 	opts = append(opts, http.Operation(OperationWishesExtendWish))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) GetTemplateSchema(ctx context.Context, in *request.GetTemplateSchemaRequest, opts ...http.CallOption) (*response.GetTemplateSchemaResponse, error) {
+	var out response.GetTemplateSchemaResponse
+	pattern := "/v1/wishes:schema"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesGetTemplateSchema))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -611,6 +705,19 @@ func (c *WishesHTTPClientImpl) PublishWish(ctx context.Context, in *request.Publ
 	return &out, nil
 }
 
+func (c *WishesHTTPClientImpl) ReportCard(ctx context.Context, in *request.ReportCardRequest, opts ...http.CallOption) (*response.ReportCardResponse, error) {
+	var out response.ReportCardResponse
+	pattern := "/v1/cards/{card_id}:report"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesReportCard))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *WishesHTTPClientImpl) RevokeWish(ctx context.Context, in *request.RevokeWishRequest, opts ...http.CallOption) (*response.RevokeWishResponse, error) {
 	var out response.RevokeWishResponse
 	pattern := "/v1/wishes/{wish_id}:revoke"
@@ -642,6 +749,19 @@ func (c *WishesHTTPClientImpl) SendWish(ctx context.Context, in *request.SendWis
 	pattern := "/v1/wishes/{wish_id}:send"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationWishesSendWish))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) SubmitResponse(ctx context.Context, in *request.SubmitResponseRequest, opts ...http.CallOption) (*response.SubmitResponseResponse, error) {
+	var out response.SubmitResponseResponse
+	pattern := "/v1/cards/{card_id}:respond"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesSubmitResponse))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

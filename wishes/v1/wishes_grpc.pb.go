@@ -24,6 +24,9 @@ const (
 	Wishes_CreateWish_FullMethodName        = "/wishes.v1.Wishes/CreateWish"
 	Wishes_ListMyWishes_FullMethodName      = "/wishes.v1.Wishes/ListMyWishes"
 	Wishes_GetWishStats_FullMethodName      = "/wishes.v1.Wishes/GetWishStats"
+	Wishes_GetTemplateSchema_FullMethodName = "/wishes.v1.Wishes/GetTemplateSchema"
+	Wishes_SubmitResponse_FullMethodName    = "/wishes.v1.Wishes/SubmitResponse"
+	Wishes_ReportCard_FullMethodName        = "/wishes.v1.Wishes/ReportCard"
 	Wishes_ListTemplates_FullMethodName     = "/wishes.v1.Wishes/ListTemplates"
 	Wishes_SaveDraft_FullMethodName         = "/wishes.v1.Wishes/SaveDraft"
 	Wishes_GetWish_FullMethodName           = "/wishes.v1.Wishes/GetWish"
@@ -46,6 +49,9 @@ type WishesClient interface {
 	CreateWish(ctx context.Context, in *request.CreateWishRequest, opts ...grpc.CallOption) (*response.CreateWishResponse, error)
 	ListMyWishes(ctx context.Context, in *request.ListMyWishesRequest, opts ...grpc.CallOption) (*response.ListMyWishesResponse, error)
 	GetWishStats(ctx context.Context, in *request.GetWishStatsRequest, opts ...grpc.CallOption) (*response.GetWishStatsResponse, error)
+	GetTemplateSchema(ctx context.Context, in *request.GetTemplateSchemaRequest, opts ...grpc.CallOption) (*response.GetTemplateSchemaResponse, error)
+	SubmitResponse(ctx context.Context, in *request.SubmitResponseRequest, opts ...grpc.CallOption) (*response.SubmitResponseResponse, error)
+	ReportCard(ctx context.Context, in *request.ReportCardRequest, opts ...grpc.CallOption) (*response.ReportCardResponse, error)
 	ListTemplates(ctx context.Context, in *request.ListTemplatesRequest, opts ...grpc.CallOption) (*response.ListTemplatesResponse, error)
 	SaveDraft(ctx context.Context, in *request.SaveDraftRequest, opts ...grpc.CallOption) (*response.SaveDraftResponse, error)
 	GetWish(ctx context.Context, in *request.GetWishRequest, opts ...grpc.CallOption) (*response.GetWishResponse, error)
@@ -93,6 +99,36 @@ func (c *wishesClient) GetWishStats(ctx context.Context, in *request.GetWishStat
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.GetWishStatsResponse)
 	err := c.cc.Invoke(ctx, Wishes_GetWishStats_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) GetTemplateSchema(ctx context.Context, in *request.GetTemplateSchemaRequest, opts ...grpc.CallOption) (*response.GetTemplateSchemaResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetTemplateSchemaResponse)
+	err := c.cc.Invoke(ctx, Wishes_GetTemplateSchema_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) SubmitResponse(ctx context.Context, in *request.SubmitResponseRequest, opts ...grpc.CallOption) (*response.SubmitResponseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.SubmitResponseResponse)
+	err := c.cc.Invoke(ctx, Wishes_SubmitResponse_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) ReportCard(ctx context.Context, in *request.ReportCardRequest, opts ...grpc.CallOption) (*response.ReportCardResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ReportCardResponse)
+	err := c.cc.Invoke(ctx, Wishes_ReportCard_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -236,6 +272,9 @@ type WishesServer interface {
 	CreateWish(context.Context, *request.CreateWishRequest) (*response.CreateWishResponse, error)
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
+	GetTemplateSchema(context.Context, *request.GetTemplateSchemaRequest) (*response.GetTemplateSchemaResponse, error)
+	SubmitResponse(context.Context, *request.SubmitResponseRequest) (*response.SubmitResponseResponse, error)
+	ReportCard(context.Context, *request.ReportCardRequest) (*response.ReportCardResponse, error)
 	ListTemplates(context.Context, *request.ListTemplatesRequest) (*response.ListTemplatesResponse, error)
 	SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error)
 	GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error)
@@ -267,6 +306,15 @@ func (UnimplementedWishesServer) ListMyWishes(context.Context, *request.ListMyWi
 }
 func (UnimplementedWishesServer) GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetWishStats not implemented")
+}
+func (UnimplementedWishesServer) GetTemplateSchema(context.Context, *request.GetTemplateSchemaRequest) (*response.GetTemplateSchemaResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTemplateSchema not implemented")
+}
+func (UnimplementedWishesServer) SubmitResponse(context.Context, *request.SubmitResponseRequest) (*response.SubmitResponseResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SubmitResponse not implemented")
+}
+func (UnimplementedWishesServer) ReportCard(context.Context, *request.ReportCardRequest) (*response.ReportCardResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ReportCard not implemented")
 }
 func (UnimplementedWishesServer) ListTemplates(context.Context, *request.ListTemplatesRequest) (*response.ListTemplatesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListTemplates not implemented")
@@ -378,6 +426,60 @@ func _Wishes_GetWishStats_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WishesServer).GetWishStats(ctx, req.(*request.GetWishStatsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_GetTemplateSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetTemplateSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).GetTemplateSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_GetTemplateSchema_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).GetTemplateSchema(ctx, req.(*request.GetTemplateSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_SubmitResponse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.SubmitResponseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).SubmitResponse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_SubmitResponse_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).SubmitResponse(ctx, req.(*request.SubmitResponseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_ReportCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ReportCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).ReportCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_ReportCard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).ReportCard(ctx, req.(*request.ReportCardRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -634,6 +736,18 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWishStats",
 			Handler:    _Wishes_GetWishStats_Handler,
+		},
+		{
+			MethodName: "GetTemplateSchema",
+			Handler:    _Wishes_GetTemplateSchema_Handler,
+		},
+		{
+			MethodName: "SubmitResponse",
+			Handler:    _Wishes_SubmitResponse_Handler,
+		},
+		{
+			MethodName: "ReportCard",
+			Handler:    _Wishes_ReportCard_Handler,
 		},
 		{
 			MethodName: "ListTemplates",

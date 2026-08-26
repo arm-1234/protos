@@ -913,11 +913,175 @@ func (x *DeleteWishPhotoRequest) GetIdx() int32 {
 	return 0
 }
 
+type SubmitResponseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CardId        string                 `protobuf:"bytes,1,opt,name=card_id,json=cardId,proto3" json:"card_id,omitempty"`
+	Kind          enums.ResponseKind     `protobuf:"varint,2,opt,name=kind,proto3,enum=wishes.v1.types.enums.ResponseKind" json:"kind,omitempty"`
+	Value         string                 `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Message       string                 `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubmitResponseRequest) Reset() {
+	*x = SubmitResponseRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubmitResponseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubmitResponseRequest) ProtoMessage() {}
+
+func (x *SubmitResponseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubmitResponseRequest.ProtoReflect.Descriptor instead.
+func (*SubmitResponseRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *SubmitResponseRequest) GetCardId() string {
+	if x != nil {
+		return x.CardId
+	}
+	return ""
+}
+
+func (x *SubmitResponseRequest) GetKind() enums.ResponseKind {
+	if x != nil {
+		return x.Kind
+	}
+	return enums.ResponseKind(0)
+}
+
+func (x *SubmitResponseRequest) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *SubmitResponseRequest) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type ReportCardRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CardId        string                 `protobuf:"bytes,1,opt,name=card_id,json=cardId,proto3" json:"card_id,omitempty"`
+	Reason        string                 `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	Reporter      string                 `protobuf:"bytes,3,opt,name=reporter,proto3" json:"reporter,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReportCardRequest) Reset() {
+	*x = ReportCardRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReportCardRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportCardRequest) ProtoMessage() {}
+
+func (x *ReportCardRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportCardRequest.ProtoReflect.Descriptor instead.
+func (*ReportCardRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *ReportCardRequest) GetCardId() string {
+	if x != nil {
+		return x.CardId
+	}
+	return ""
+}
+
+func (x *ReportCardRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *ReportCardRequest) GetReporter() string {
+	if x != nil {
+		return x.Reporter
+	}
+	return ""
+}
+
+type GetTemplateSchemaRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTemplateSchemaRequest) Reset() {
+	*x = GetTemplateSchemaRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTemplateSchemaRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTemplateSchemaRequest) ProtoMessage() {}
+
+func (x *GetTemplateSchemaRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTemplateSchemaRequest.ProtoReflect.Descriptor instead.
+func (*GetTemplateSchemaRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{18}
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\n" +
-	"&wishes/v1/request/wishes_request.proto\x12\x11wishes.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x17validate/validate.proto\x1a'wishes/v1/types/enums/wish_status.proto\x1a(wishes/v1/types/enums/wish_sort_by.proto\"\x83\x02\n" +
+	"&wishes/v1/request/wishes_request.proto\x12\x11wishes.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x17validate/validate.proto\x1a'wishes/v1/types/enums/wish_status.proto\x1a(wishes/v1/types/enums/wish_sort_by.proto\x1a)wishes/v1/types/enums/response_kind.proto\"\x83\x02\n" +
 	"\x11CreateWishRequest\x12<\n" +
 	"\btemplate\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\btemplate\x12/\n" +
 	"\x06config\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x06config\x12,\n" +
@@ -985,7 +1149,18 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x06height\x18\x05 \x01(\x05R\x06height\"[\n" +
 	"\x16DeleteWishPhotoRequest\x12$\n" +
 	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\x12\x1b\n" +
-	"\x03idx\x18\x02 \x01(\x05B\t\xfaB\x06\x1a\x04\x18\x02(\x00R\x03idxB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\x03idx\x18\x02 \x01(\x05B\t\xfaB\x06\x1a\x04\x18\x02(\x00R\x03idx\"\xc7\x01\n" +
+	"\x15SubmitResponseRequest\x12&\n" +
+	"\acard_id\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18@R\x06cardId\x12=\n" +
+	"\x04kind\x18\x02 \x01(\x0e2#.wishes.v1.types.enums.ResponseKindB\x04\xe2A\x01\x02R\x04kind\x12 \n" +
+	"\x05value\x18\x03 \x01(\tB\n" +
+	"\xfaB\ar\x05\x18@\xd0\x01\x01R\x05value\x12%\n" +
+	"\amessage\x18\x04 \x01(\tB\v\xfaB\br\x06\x18\x90\x03\xd0\x01\x01R\amessage\"\x89\x01\n" +
+	"\x11ReportCardRequest\x12&\n" +
+	"\acard_id\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18@R\x06cardId\x12#\n" +
+	"\x06reason\x18\x02 \x01(\tB\v\xfaB\br\x06\x18\xe8\a\xd0\x01\x01R\x06reason\x12'\n" +
+	"\breporter\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc0\x02\xd0\x01\x01R\breporter\"\x1a\n" +
+	"\x18GetTemplateSchemaRequestB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -999,7 +1174,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),        // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),      // 1: wishes.v1.request.ListMyWishesRequest
@@ -1017,21 +1192,26 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*DeleteWishRequest)(nil),        // 13: wishes.v1.request.DeleteWishRequest
 	(*UploadWishPhotoRequest)(nil),   // 14: wishes.v1.request.UploadWishPhotoRequest
 	(*DeleteWishPhotoRequest)(nil),   // 15: wishes.v1.request.DeleteWishPhotoRequest
-	(*structpb.Struct)(nil),          // 16: google.protobuf.Struct
-	(enums.WishStatus)(0),            // 17: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),            // 18: wishes.v1.types.enums.WishSortBy
+	(*SubmitResponseRequest)(nil),    // 16: wishes.v1.request.SubmitResponseRequest
+	(*ReportCardRequest)(nil),        // 17: wishes.v1.request.ReportCardRequest
+	(*GetTemplateSchemaRequest)(nil), // 18: wishes.v1.request.GetTemplateSchemaRequest
+	(*structpb.Struct)(nil),          // 19: google.protobuf.Struct
+	(enums.WishStatus)(0),            // 20: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),            // 21: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),          // 22: wishes.v1.types.enums.ResponseKind
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	16, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	17, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	18, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	16, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	16, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	5,  // [5:5] is the sub-list for method output_type
-	5,  // [5:5] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	19, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	20, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	21, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	19, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	19, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	22, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	6,  // [6:6] is the sub-list for method output_type
+	6,  // [6:6] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_request_wishes_request_proto_init() }
@@ -1045,7 +1225,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

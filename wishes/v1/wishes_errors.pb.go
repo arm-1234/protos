@@ -191,6 +191,30 @@ func ErrorPhotoTooLarge(format string, args ...interface{}) *errors.Error {
 	return errors.New(413, ErrorReason_PHOTO_TOO_LARGE.String(), fmt.Sprintf(format, args...))
 }
 
+func IsResponseNotAllowed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_RESPONSE_NOT_ALLOWED.String() && e.Code == 409
+}
+
+func ErrorResponseNotAllowed(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_RESPONSE_NOT_ALLOWED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsResponseRateLimited(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_RESPONSE_RATE_LIMITED.String() && e.Code == 429
+}
+
+func ErrorResponseRateLimited(format string, args ...interface{}) *errors.Error {
+	return errors.New(429, ErrorReason_RESPONSE_RATE_LIMITED.String(), fmt.Sprintf(format, args...))
+}
+
 func IsDeliveryFailed(err error) bool {
 	if err == nil {
 		return false

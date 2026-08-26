@@ -92,3 +92,17 @@ message UploadWishPhotoResponse {
 message DeleteWishPhotoResponse {
   wishes.v1.types.WishInfo wish = 1;
 }
+
+message SubmitResponseResponse {
+  bool recorded = 1;
+  string label = 2;
+  string note = 3;
+}
+
+message ReportCardResponse {
+  bool received = 1;
+}
+
+message GetTemplateSchemaResponse {
+  google.protobuf.Struct schema = 1;
+}

@@ -29,6 +29,26 @@ service Wishes {
     };
   }
 
+  rpc GetTemplateSchema (wishes.v1.request.GetTemplateSchemaRequest) returns (wishes.v1.response.GetTemplateSchemaResponse) {
+    option (google.api.http) = {
+      get: "/v1/wishes:schema"
+    };
+  }
+
+  rpc SubmitResponse (wishes.v1.request.SubmitResponseRequest) returns (wishes.v1.response.SubmitResponseResponse) {
+    option (google.api.http) = {
+      post: "/v1/cards/{card_id}:respond"
+      body: "*"
+    };
+  }
+
+  rpc ReportCard (wishes.v1.request.ReportCardRequest) returns (wishes.v1.response.ReportCardResponse) {
+    option (google.api.http) = {
+      post: "/v1/cards/{card_id}:report"
+      body: "*"
+    };
+  }
+
   rpc ListTemplates (wishes.v1.request.ListTemplatesRequest) returns (wishes.v1.response.ListTemplatesResponse) {
     option (google.api.http) = {
       get: "/v1/wishes:templates"
@@ -136,6 +156,9 @@ enum ErrorReason {
   TEMPLATE_CONFIG_INVALID = 21 [(errors.code) = 400];
   PHOTO_REJECTED = 22 [(errors.code) = 422];
   PHOTO_TOO_LARGE = 23 [(errors.code) = 413];
+
+  RESPONSE_NOT_ALLOWED = 32 [(errors.code) = 409];
+  RESPONSE_RATE_LIMITED = 33 [(errors.code) = 429];
 
   DELIVERY_FAILED = 30 [(errors.code) = 502];
   DELIVERY_RATE_LIMITED = 31 [(errors.code) = 429];

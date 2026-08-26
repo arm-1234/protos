@@ -2274,3 +2274,346 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteWishPhotoResponseValidationError{}
+
+// Validate checks the field values on SubmitResponseResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SubmitResponseResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SubmitResponseResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SubmitResponseResponseMultiError, or nil if none found.
+func (m *SubmitResponseResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SubmitResponseResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Recorded
+
+	// no validation rules for Label
+
+	// no validation rules for Note
+
+	if len(errors) > 0 {
+		return SubmitResponseResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SubmitResponseResponseMultiError is an error wrapping multiple validation
+// errors returned by SubmitResponseResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SubmitResponseResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SubmitResponseResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SubmitResponseResponseMultiError) AllErrors() []error { return m }
+
+// SubmitResponseResponseValidationError is the validation error returned by
+// SubmitResponseResponse.Validate if the designated constraints aren't met.
+type SubmitResponseResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SubmitResponseResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SubmitResponseResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SubmitResponseResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SubmitResponseResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SubmitResponseResponseValidationError) ErrorName() string {
+	return "SubmitResponseResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SubmitResponseResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSubmitResponseResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SubmitResponseResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SubmitResponseResponseValidationError{}
+
+// Validate checks the field values on ReportCardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReportCardResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReportCardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReportCardResponseMultiError, or nil if none found.
+func (m *ReportCardResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReportCardResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Received
+
+	if len(errors) > 0 {
+		return ReportCardResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReportCardResponseMultiError is an error wrapping multiple validation errors
+// returned by ReportCardResponse.ValidateAll() if the designated constraints
+// aren't met.
+type ReportCardResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReportCardResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReportCardResponseMultiError) AllErrors() []error { return m }
+
+// ReportCardResponseValidationError is the validation error returned by
+// ReportCardResponse.Validate if the designated constraints aren't met.
+type ReportCardResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReportCardResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReportCardResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReportCardResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReportCardResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReportCardResponseValidationError) ErrorName() string {
+	return "ReportCardResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReportCardResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReportCardResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReportCardResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReportCardResponseValidationError{}
+
+// Validate checks the field values on GetTemplateSchemaResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTemplateSchemaResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTemplateSchemaResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetTemplateSchemaResponseMultiError, or nil if none found.
+func (m *GetTemplateSchemaResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTemplateSchemaResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetSchema()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetTemplateSchemaResponseValidationError{
+					field:  "Schema",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetTemplateSchemaResponseValidationError{
+					field:  "Schema",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSchema()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetTemplateSchemaResponseValidationError{
+				field:  "Schema",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetTemplateSchemaResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTemplateSchemaResponseMultiError is an error wrapping multiple validation
+// errors returned by GetTemplateSchemaResponse.ValidateAll() if the
+// designated constraints aren't met.
+type GetTemplateSchemaResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTemplateSchemaResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTemplateSchemaResponseMultiError) AllErrors() []error { return m }
+
+// GetTemplateSchemaResponseValidationError is the validation error returned by
+// GetTemplateSchemaResponse.Validate if the designated constraints aren't met.
+type GetTemplateSchemaResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTemplateSchemaResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTemplateSchemaResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTemplateSchemaResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTemplateSchemaResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTemplateSchemaResponseValidationError) ErrorName() string {
+	return "GetTemplateSchemaResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTemplateSchemaResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTemplateSchemaResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTemplateSchemaResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTemplateSchemaResponseValidationError{}
