@@ -63,3 +63,21 @@ message MarkResponsesSeenRequest {
 message GetWishStatsRequest {}
 
 message ListTemplatesRequest {}
+
+message SaveDraftRequest {
+  string wish_id = 1 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+  string template = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}];
+  google.protobuf.Struct config = 3;
+  int32 expiry_days = 4 [(validate.rules).int32 = {ignore_empty: true, gte: 1, lte: 14}];
+  string from_label = 5 [(validate.rules).string = {ignore_empty: true, max_len: 128}];
+  string to_email = 6 [(validate.rules).string = {ignore_empty: true, email: true}];
+  string step = 7 [(validate.rules).string = {ignore_empty: true, max_len: 64}];
+}
+
+message PublishWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+}
+
+message DeleteWishRequest {
+  string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+}

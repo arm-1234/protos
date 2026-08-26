@@ -71,3 +71,15 @@ message GetWishStatsResponse {
 message ListTemplatesResponse {
   repeated wishes.v1.types.TemplateInfo templates = 1;
 }
+
+message SaveDraftResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
+
+message PublishWishResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
+
+message DeleteWishResponse {
+  bool deleted = 1;
+}

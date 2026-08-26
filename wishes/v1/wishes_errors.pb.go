@@ -119,6 +119,30 @@ func ErrorWishLimitReached(format string, args ...interface{}) *errors.Error {
 	return errors.New(429, ErrorReason_WISH_LIMIT_REACHED.String(), fmt.Sprintf(format, args...))
 }
 
+func IsWishNotDraft(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_WISH_NOT_DRAFT.String() && e.Code == 409
+}
+
+func ErrorWishNotDraft(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_WISH_NOT_DRAFT.String(), fmt.Sprintf(format, args...))
+}
+
+func IsWishAlreadyPublished(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_WISH_ALREADY_PUBLISHED.String() && e.Code == 409
+}
+
+func ErrorWishAlreadyPublished(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_WISH_ALREADY_PUBLISHED.String(), fmt.Sprintf(format, args...))
+}
+
 func IsTemplateNotFound(err error) bool {
 	if err == nil {
 		return false

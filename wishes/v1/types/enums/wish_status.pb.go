@@ -28,6 +28,7 @@ const (
 	WishStatus_WISH_STATUS_LIVE        WishStatus = 1
 	WishStatus_WISH_STATUS_EXPIRED     WishStatus = 2
 	WishStatus_WISH_STATUS_REVOKED     WishStatus = 3
+	WishStatus_WISH_STATUS_DRAFT       WishStatus = 4
 )
 
 // Enum value maps for WishStatus.
@@ -37,12 +38,14 @@ var (
 		1: "WISH_STATUS_LIVE",
 		2: "WISH_STATUS_EXPIRED",
 		3: "WISH_STATUS_REVOKED",
+		4: "WISH_STATUS_DRAFT",
 	}
 	WishStatus_value = map[string]int32{
 		"WISH_STATUS_UNSPECIFIED": 0,
 		"WISH_STATUS_LIVE":        1,
 		"WISH_STATUS_EXPIRED":     2,
 		"WISH_STATUS_REVOKED":     3,
+		"WISH_STATUS_DRAFT":       4,
 	}
 )
 
@@ -77,13 +80,14 @@ var File_wishes_v1_types_enums_wish_status_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_enums_wish_status_proto_rawDesc = "" +
 	"\n" +
-	"'wishes/v1/types/enums/wish_status.proto\x12\x15wishes.v1.types.enums*q\n" +
+	"'wishes/v1/types/enums/wish_status.proto\x12\x15wishes.v1.types.enums*\x88\x01\n" +
 	"\n" +
 	"WishStatus\x12\x1b\n" +
 	"\x17WISH_STATUS_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10WISH_STATUS_LIVE\x10\x01\x12\x17\n" +
 	"\x13WISH_STATUS_EXPIRED\x10\x02\x12\x17\n" +
-	"\x13WISH_STATUS_REVOKED\x10\x03B8Z6github.com/arm-1234/protos/wishes/v1/types/enums;enumsb\x06proto3"
+	"\x13WISH_STATUS_REVOKED\x10\x03\x12\x15\n" +
+	"\x11WISH_STATUS_DRAFT\x10\x04B8Z6github.com/arm-1234/protos/wishes/v1/types/enums;enumsb\x06proto3"
 
 var (
 	file_wishes_v1_types_enums_wish_status_proto_rawDescOnce sync.Once

@@ -35,6 +35,13 @@ service Wishes {
     };
   }
 
+  rpc SaveDraft (wishes.v1.request.SaveDraftRequest) returns (wishes.v1.response.SaveDraftResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes:draft"
+      body: "*"
+    };
+  }
+
   rpc GetWish (wishes.v1.request.GetWishRequest) returns (wishes.v1.response.GetWishResponse) {
     option (google.api.http) = {
       get: "/v1/wishes/{wish_id}"
@@ -45,6 +52,19 @@ service Wishes {
     option (google.api.http) = {
       patch: "/v1/wishes/{wish_id}"
       body: "*"
+    };
+  }
+
+  rpc PublishWish (wishes.v1.request.PublishWishRequest) returns (wishes.v1.response.PublishWishResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}:publish"
+      body: "*"
+    };
+  }
+
+  rpc DeleteWish (wishes.v1.request.DeleteWishRequest) returns (wishes.v1.response.DeleteWishResponse) {
+    option (google.api.http) = {
+      delete: "/v1/wishes/{wish_id}"
     };
   }
 
@@ -96,6 +116,8 @@ enum ErrorReason {
   WISH_ALREADY_REVOKED = 12 [(errors.code) = 409];
   WISH_EXPIRED = 13 [(errors.code) = 410];
   WISH_LIMIT_REACHED = 14 [(errors.code) = 429];
+  WISH_NOT_DRAFT = 15 [(errors.code) = 409];
+  WISH_ALREADY_PUBLISHED = 16 [(errors.code) = 409];
 
   TEMPLATE_NOT_FOUND = 20 [(errors.code) = 404];
   TEMPLATE_CONFIG_INVALID = 21 [(errors.code) = 400];

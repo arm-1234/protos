@@ -422,6 +422,8 @@ func (m *WishInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Step
+
 	if len(errors) > 0 {
 		return WishInfoMultiError(errors)
 	}

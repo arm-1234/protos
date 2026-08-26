@@ -25,8 +25,11 @@ const (
 	Wishes_ListMyWishes_FullMethodName      = "/wishes.v1.Wishes/ListMyWishes"
 	Wishes_GetWishStats_FullMethodName      = "/wishes.v1.Wishes/GetWishStats"
 	Wishes_ListTemplates_FullMethodName     = "/wishes.v1.Wishes/ListTemplates"
+	Wishes_SaveDraft_FullMethodName         = "/wishes.v1.Wishes/SaveDraft"
 	Wishes_GetWish_FullMethodName           = "/wishes.v1.Wishes/GetWish"
 	Wishes_UpdateWish_FullMethodName        = "/wishes.v1.Wishes/UpdateWish"
+	Wishes_PublishWish_FullMethodName       = "/wishes.v1.Wishes/PublishWish"
+	Wishes_DeleteWish_FullMethodName        = "/wishes.v1.Wishes/DeleteWish"
 	Wishes_ExtendWish_FullMethodName        = "/wishes.v1.Wishes/ExtendWish"
 	Wishes_RevokeWish_FullMethodName        = "/wishes.v1.Wishes/RevokeWish"
 	Wishes_SendWish_FullMethodName          = "/wishes.v1.Wishes/SendWish"
@@ -42,8 +45,11 @@ type WishesClient interface {
 	ListMyWishes(ctx context.Context, in *request.ListMyWishesRequest, opts ...grpc.CallOption) (*response.ListMyWishesResponse, error)
 	GetWishStats(ctx context.Context, in *request.GetWishStatsRequest, opts ...grpc.CallOption) (*response.GetWishStatsResponse, error)
 	ListTemplates(ctx context.Context, in *request.ListTemplatesRequest, opts ...grpc.CallOption) (*response.ListTemplatesResponse, error)
+	SaveDraft(ctx context.Context, in *request.SaveDraftRequest, opts ...grpc.CallOption) (*response.SaveDraftResponse, error)
 	GetWish(ctx context.Context, in *request.GetWishRequest, opts ...grpc.CallOption) (*response.GetWishResponse, error)
 	UpdateWish(ctx context.Context, in *request.UpdateWishRequest, opts ...grpc.CallOption) (*response.UpdateWishResponse, error)
+	PublishWish(ctx context.Context, in *request.PublishWishRequest, opts ...grpc.CallOption) (*response.PublishWishResponse, error)
+	DeleteWish(ctx context.Context, in *request.DeleteWishRequest, opts ...grpc.CallOption) (*response.DeleteWishResponse, error)
 	ExtendWish(ctx context.Context, in *request.ExtendWishRequest, opts ...grpc.CallOption) (*response.ExtendWishResponse, error)
 	RevokeWish(ctx context.Context, in *request.RevokeWishRequest, opts ...grpc.CallOption) (*response.RevokeWishResponse, error)
 	SendWish(ctx context.Context, in *request.SendWishRequest, opts ...grpc.CallOption) (*response.SendWishResponse, error)
@@ -99,6 +105,16 @@ func (c *wishesClient) ListTemplates(ctx context.Context, in *request.ListTempla
 	return out, nil
 }
 
+func (c *wishesClient) SaveDraft(ctx context.Context, in *request.SaveDraftRequest, opts ...grpc.CallOption) (*response.SaveDraftResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.SaveDraftResponse)
+	err := c.cc.Invoke(ctx, Wishes_SaveDraft_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *wishesClient) GetWish(ctx context.Context, in *request.GetWishRequest, opts ...grpc.CallOption) (*response.GetWishResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.GetWishResponse)
@@ -113,6 +129,26 @@ func (c *wishesClient) UpdateWish(ctx context.Context, in *request.UpdateWishReq
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.UpdateWishResponse)
 	err := c.cc.Invoke(ctx, Wishes_UpdateWish_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) PublishWish(ctx context.Context, in *request.PublishWishRequest, opts ...grpc.CallOption) (*response.PublishWishResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.PublishWishResponse)
+	err := c.cc.Invoke(ctx, Wishes_PublishWish_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) DeleteWish(ctx context.Context, in *request.DeleteWishRequest, opts ...grpc.CallOption) (*response.DeleteWishResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.DeleteWishResponse)
+	err := c.cc.Invoke(ctx, Wishes_DeleteWish_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -177,8 +213,11 @@ type WishesServer interface {
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
 	ListTemplates(context.Context, *request.ListTemplatesRequest) (*response.ListTemplatesResponse, error)
+	SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error)
 	GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
+	PublishWish(context.Context, *request.PublishWishRequest) (*response.PublishWishResponse, error)
+	DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error)
 	ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error)
 	RevokeWish(context.Context, *request.RevokeWishRequest) (*response.RevokeWishResponse, error)
 	SendWish(context.Context, *request.SendWishRequest) (*response.SendWishResponse, error)
@@ -206,11 +245,20 @@ func (UnimplementedWishesServer) GetWishStats(context.Context, *request.GetWishS
 func (UnimplementedWishesServer) ListTemplates(context.Context, *request.ListTemplatesRequest) (*response.ListTemplatesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListTemplates not implemented")
 }
+func (UnimplementedWishesServer) SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SaveDraft not implemented")
+}
 func (UnimplementedWishesServer) GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetWish not implemented")
 }
 func (UnimplementedWishesServer) UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateWish not implemented")
+}
+func (UnimplementedWishesServer) PublishWish(context.Context, *request.PublishWishRequest) (*response.PublishWishResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method PublishWish not implemented")
+}
+func (UnimplementedWishesServer) DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteWish not implemented")
 }
 func (UnimplementedWishesServer) ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ExtendWish not implemented")
@@ -320,6 +368,24 @@ func _Wishes_ListTemplates_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wishes_SaveDraft_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.SaveDraftRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).SaveDraft(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_SaveDraft_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).SaveDraft(ctx, req.(*request.SaveDraftRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Wishes_GetWish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.GetWishRequest)
 	if err := dec(in); err != nil {
@@ -352,6 +418,42 @@ func _Wishes_UpdateWish_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WishesServer).UpdateWish(ctx, req.(*request.UpdateWishRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_PublishWish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.PublishWishRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).PublishWish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_PublishWish_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).PublishWish(ctx, req.(*request.PublishWishRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_DeleteWish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DeleteWishRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).DeleteWish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_DeleteWish_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).DeleteWish(ctx, req.(*request.DeleteWishRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -470,12 +572,24 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Wishes_ListTemplates_Handler,
 		},
 		{
+			MethodName: "SaveDraft",
+			Handler:    _Wishes_SaveDraft_Handler,
+		},
+		{
 			MethodName: "GetWish",
 			Handler:    _Wishes_GetWish_Handler,
 		},
 		{
 			MethodName: "UpdateWish",
 			Handler:    _Wishes_UpdateWish_Handler,
+		},
+		{
+			MethodName: "PublishWish",
+			Handler:    _Wishes_PublishWish_Handler,
+		},
+		{
+			MethodName: "DeleteWish",
+			Handler:    _Wishes_DeleteWish_Handler,
 		},
 		{
 			MethodName: "ExtendWish",

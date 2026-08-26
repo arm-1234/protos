@@ -37,6 +37,8 @@ const (
 	ErrorReason_WISH_ALREADY_REVOKED    ErrorReason = 12
 	ErrorReason_WISH_EXPIRED            ErrorReason = 13
 	ErrorReason_WISH_LIMIT_REACHED      ErrorReason = 14
+	ErrorReason_WISH_NOT_DRAFT          ErrorReason = 15
+	ErrorReason_WISH_ALREADY_PUBLISHED  ErrorReason = 16
 	ErrorReason_TEMPLATE_NOT_FOUND      ErrorReason = 20
 	ErrorReason_TEMPLATE_CONFIG_INVALID ErrorReason = 21
 	ErrorReason_DELIVERY_FAILED         ErrorReason = 30
@@ -56,6 +58,8 @@ var (
 		12: "WISH_ALREADY_REVOKED",
 		13: "WISH_EXPIRED",
 		14: "WISH_LIMIT_REACHED",
+		15: "WISH_NOT_DRAFT",
+		16: "WISH_ALREADY_PUBLISHED",
 		20: "TEMPLATE_NOT_FOUND",
 		21: "TEMPLATE_CONFIG_INVALID",
 		30: "DELIVERY_FAILED",
@@ -72,6 +76,8 @@ var (
 		"WISH_ALREADY_REVOKED":    12,
 		"WISH_EXPIRED":            13,
 		"WISH_LIMIT_REACHED":      14,
+		"WISH_NOT_DRAFT":          15,
+		"WISH_ALREADY_PUBLISHED":  16,
 		"TEMPLATE_NOT_FOUND":      20,
 		"TEMPLATE_CONFIG_INVALID": 21,
 		"DELIVERY_FAILED":         30,
@@ -111,7 +117,7 @@ var File_wishes_v1_wishes_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\n" +
-	"\x16wishes/v1/wishes.proto\x12\twishes.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a&wishes/v1/request/wishes_request.proto\x1a(wishes/v1/response/wishes_response.proto*\xb8\x03\n" +
+	"\x16wishes/v1/wishes.proto\x12\twishes.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a&wishes/v1/request/wishes_request.proto\x1a(wishes/v1/response/wishes_response.proto*\xf4\x03\n" +
 	"\vErrorReason\x12\x1c\n" +
 	"\x12WISHES_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12 \n" +
 	"\x16WISHES_INVALID_REQUEST\x10\x01\x1a\x04\xa8E\x90\x03\x12 \n" +
@@ -122,12 +128,14 @@ const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\x0eWISH_NOT_OWNED\x10\v\x1a\x04\xa8E\x93\x03\x12\x1e\n" +
 	"\x14WISH_ALREADY_REVOKED\x10\f\x1a\x04\xa8E\x99\x03\x12\x16\n" +
 	"\fWISH_EXPIRED\x10\r\x1a\x04\xa8E\x9a\x03\x12\x1c\n" +
-	"\x12WISH_LIMIT_REACHED\x10\x0e\x1a\x04\xa8E\xad\x03\x12\x1c\n" +
+	"\x12WISH_LIMIT_REACHED\x10\x0e\x1a\x04\xa8E\xad\x03\x12\x18\n" +
+	"\x0eWISH_NOT_DRAFT\x10\x0f\x1a\x04\xa8E\x99\x03\x12 \n" +
+	"\x16WISH_ALREADY_PUBLISHED\x10\x10\x1a\x04\xa8E\x99\x03\x12\x1c\n" +
 	"\x12TEMPLATE_NOT_FOUND\x10\x14\x1a\x04\xa8E\x94\x03\x12!\n" +
 	"\x17TEMPLATE_CONFIG_INVALID\x10\x15\x1a\x04\xa8E\x90\x03\x12\x19\n" +
 	"\x0fDELIVERY_FAILED\x10\x1e\x1a\x04\xa8E\xf6\x03\x12\x1f\n" +
 	"\x15DELIVERY_RATE_LIMITED\x10\x1f\x1a\x04\xa8E\xad\x03\x12\x1e\n" +
-	"\x14RENDERER_UNAVAILABLE\x10(\x1a\x04\xa8E\xf7\x03\x1a\x04\xa0E\xf4\x032\xa1\v\n" +
+	"\x14RENDERER_UNAVAILABLE\x10(\x1a\x04\xa8E\xf7\x03\x1a\x04\xa0E\xf4\x032\x9a\x0e\n" +
 	"\x06Wishes\x12q\n" +
 	"\n" +
 	"CreateWish\x12$.wishes.v1.request.CreateWishRequest\x1a&.wishes.v1.response.CreateWishResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
@@ -135,10 +143,14 @@ const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\fListMyWishes\x12&.wishes.v1.request.ListMyWishesRequest\x1a(.wishes.v1.response.ListMyWishesResponse\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
 	"/v1/wishes\x12z\n" +
 	"\fGetWishStats\x12&.wishes.v1.request.GetWishStatsRequest\x1a(.wishes.v1.response.GetWishStatsResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/wishes:stats\x12\x81\x01\n" +
-	"\rListTemplates\x12'.wishes.v1.request.ListTemplatesRequest\x1a).wishes.v1.response.ListTemplatesResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/wishes:templates\x12o\n" +
+	"\rListTemplates\x12'.wishes.v1.request.ListTemplatesRequest\x1a).wishes.v1.response.ListTemplatesResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/wishes:templates\x12t\n" +
+	"\tSaveDraft\x12#.wishes.v1.request.SaveDraftRequest\x1a%.wishes.v1.response.SaveDraftResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/wishes:draft\x12o\n" +
 	"\aGetWish\x12!.wishes.v1.request.GetWishRequest\x1a#.wishes.v1.response.GetWishResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/wishes/{wish_id}\x12{\n" +
 	"\n" +
-	"UpdateWish\x12$.wishes.v1.request.UpdateWishRequest\x1a&.wishes.v1.response.UpdateWishResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*2\x14/v1/wishes/{wish_id}\x12\x82\x01\n" +
+	"UpdateWish\x12$.wishes.v1.request.UpdateWishRequest\x1a&.wishes.v1.response.UpdateWishResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*2\x14/v1/wishes/{wish_id}\x12\x86\x01\n" +
+	"\vPublishWish\x12%.wishes.v1.request.PublishWishRequest\x1a'.wishes.v1.response.PublishWishResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/v1/wishes/{wish_id}:publish\x12x\n" +
+	"\n" +
+	"DeleteWish\x12$.wishes.v1.request.DeleteWishRequest\x1a&.wishes.v1.response.DeleteWishResponse\"\x1c\x82\xd3\xe4\x93\x02\x16*\x14/v1/wishes/{wish_id}\x12\x82\x01\n" +
 	"\n" +
 	"ExtendWish\x12$.wishes.v1.request.ExtendWishRequest\x1a&.wishes.v1.response.ExtendWishResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/wishes/{wish_id}:extend\x12\x82\x01\n" +
 	"\n" +
@@ -166,50 +178,62 @@ var file_wishes_v1_wishes_proto_goTypes = []any{
 	(*request.ListMyWishesRequest)(nil),        // 2: wishes.v1.request.ListMyWishesRequest
 	(*request.GetWishStatsRequest)(nil),        // 3: wishes.v1.request.GetWishStatsRequest
 	(*request.ListTemplatesRequest)(nil),       // 4: wishes.v1.request.ListTemplatesRequest
-	(*request.GetWishRequest)(nil),             // 5: wishes.v1.request.GetWishRequest
-	(*request.UpdateWishRequest)(nil),          // 6: wishes.v1.request.UpdateWishRequest
-	(*request.ExtendWishRequest)(nil),          // 7: wishes.v1.request.ExtendWishRequest
-	(*request.RevokeWishRequest)(nil),          // 8: wishes.v1.request.RevokeWishRequest
-	(*request.SendWishRequest)(nil),            // 9: wishes.v1.request.SendWishRequest
-	(*request.ListWishResponsesRequest)(nil),   // 10: wishes.v1.request.ListWishResponsesRequest
-	(*request.MarkResponsesSeenRequest)(nil),   // 11: wishes.v1.request.MarkResponsesSeenRequest
-	(*response.CreateWishResponse)(nil),        // 12: wishes.v1.response.CreateWishResponse
-	(*response.ListMyWishesResponse)(nil),      // 13: wishes.v1.response.ListMyWishesResponse
-	(*response.GetWishStatsResponse)(nil),      // 14: wishes.v1.response.GetWishStatsResponse
-	(*response.ListTemplatesResponse)(nil),     // 15: wishes.v1.response.ListTemplatesResponse
-	(*response.GetWishResponse)(nil),           // 16: wishes.v1.response.GetWishResponse
-	(*response.UpdateWishResponse)(nil),        // 17: wishes.v1.response.UpdateWishResponse
-	(*response.ExtendWishResponse)(nil),        // 18: wishes.v1.response.ExtendWishResponse
-	(*response.RevokeWishResponse)(nil),        // 19: wishes.v1.response.RevokeWishResponse
-	(*response.SendWishResponse)(nil),          // 20: wishes.v1.response.SendWishResponse
-	(*response.ListWishResponsesResponse)(nil), // 21: wishes.v1.response.ListWishResponsesResponse
-	(*response.MarkResponsesSeenResponse)(nil), // 22: wishes.v1.response.MarkResponsesSeenResponse
+	(*request.SaveDraftRequest)(nil),           // 5: wishes.v1.request.SaveDraftRequest
+	(*request.GetWishRequest)(nil),             // 6: wishes.v1.request.GetWishRequest
+	(*request.UpdateWishRequest)(nil),          // 7: wishes.v1.request.UpdateWishRequest
+	(*request.PublishWishRequest)(nil),         // 8: wishes.v1.request.PublishWishRequest
+	(*request.DeleteWishRequest)(nil),          // 9: wishes.v1.request.DeleteWishRequest
+	(*request.ExtendWishRequest)(nil),          // 10: wishes.v1.request.ExtendWishRequest
+	(*request.RevokeWishRequest)(nil),          // 11: wishes.v1.request.RevokeWishRequest
+	(*request.SendWishRequest)(nil),            // 12: wishes.v1.request.SendWishRequest
+	(*request.ListWishResponsesRequest)(nil),   // 13: wishes.v1.request.ListWishResponsesRequest
+	(*request.MarkResponsesSeenRequest)(nil),   // 14: wishes.v1.request.MarkResponsesSeenRequest
+	(*response.CreateWishResponse)(nil),        // 15: wishes.v1.response.CreateWishResponse
+	(*response.ListMyWishesResponse)(nil),      // 16: wishes.v1.response.ListMyWishesResponse
+	(*response.GetWishStatsResponse)(nil),      // 17: wishes.v1.response.GetWishStatsResponse
+	(*response.ListTemplatesResponse)(nil),     // 18: wishes.v1.response.ListTemplatesResponse
+	(*response.SaveDraftResponse)(nil),         // 19: wishes.v1.response.SaveDraftResponse
+	(*response.GetWishResponse)(nil),           // 20: wishes.v1.response.GetWishResponse
+	(*response.UpdateWishResponse)(nil),        // 21: wishes.v1.response.UpdateWishResponse
+	(*response.PublishWishResponse)(nil),       // 22: wishes.v1.response.PublishWishResponse
+	(*response.DeleteWishResponse)(nil),        // 23: wishes.v1.response.DeleteWishResponse
+	(*response.ExtendWishResponse)(nil),        // 24: wishes.v1.response.ExtendWishResponse
+	(*response.RevokeWishResponse)(nil),        // 25: wishes.v1.response.RevokeWishResponse
+	(*response.SendWishResponse)(nil),          // 26: wishes.v1.response.SendWishResponse
+	(*response.ListWishResponsesResponse)(nil), // 27: wishes.v1.response.ListWishResponsesResponse
+	(*response.MarkResponsesSeenResponse)(nil), // 28: wishes.v1.response.MarkResponsesSeenResponse
 }
 var file_wishes_v1_wishes_proto_depIdxs = []int32{
 	1,  // 0: wishes.v1.Wishes.CreateWish:input_type -> wishes.v1.request.CreateWishRequest
 	2,  // 1: wishes.v1.Wishes.ListMyWishes:input_type -> wishes.v1.request.ListMyWishesRequest
 	3,  // 2: wishes.v1.Wishes.GetWishStats:input_type -> wishes.v1.request.GetWishStatsRequest
 	4,  // 3: wishes.v1.Wishes.ListTemplates:input_type -> wishes.v1.request.ListTemplatesRequest
-	5,  // 4: wishes.v1.Wishes.GetWish:input_type -> wishes.v1.request.GetWishRequest
-	6,  // 5: wishes.v1.Wishes.UpdateWish:input_type -> wishes.v1.request.UpdateWishRequest
-	7,  // 6: wishes.v1.Wishes.ExtendWish:input_type -> wishes.v1.request.ExtendWishRequest
-	8,  // 7: wishes.v1.Wishes.RevokeWish:input_type -> wishes.v1.request.RevokeWishRequest
-	9,  // 8: wishes.v1.Wishes.SendWish:input_type -> wishes.v1.request.SendWishRequest
-	10, // 9: wishes.v1.Wishes.ListWishResponses:input_type -> wishes.v1.request.ListWishResponsesRequest
-	11, // 10: wishes.v1.Wishes.MarkResponsesSeen:input_type -> wishes.v1.request.MarkResponsesSeenRequest
-	12, // 11: wishes.v1.Wishes.CreateWish:output_type -> wishes.v1.response.CreateWishResponse
-	13, // 12: wishes.v1.Wishes.ListMyWishes:output_type -> wishes.v1.response.ListMyWishesResponse
-	14, // 13: wishes.v1.Wishes.GetWishStats:output_type -> wishes.v1.response.GetWishStatsResponse
-	15, // 14: wishes.v1.Wishes.ListTemplates:output_type -> wishes.v1.response.ListTemplatesResponse
-	16, // 15: wishes.v1.Wishes.GetWish:output_type -> wishes.v1.response.GetWishResponse
-	17, // 16: wishes.v1.Wishes.UpdateWish:output_type -> wishes.v1.response.UpdateWishResponse
-	18, // 17: wishes.v1.Wishes.ExtendWish:output_type -> wishes.v1.response.ExtendWishResponse
-	19, // 18: wishes.v1.Wishes.RevokeWish:output_type -> wishes.v1.response.RevokeWishResponse
-	20, // 19: wishes.v1.Wishes.SendWish:output_type -> wishes.v1.response.SendWishResponse
-	21, // 20: wishes.v1.Wishes.ListWishResponses:output_type -> wishes.v1.response.ListWishResponsesResponse
-	22, // 21: wishes.v1.Wishes.MarkResponsesSeen:output_type -> wishes.v1.response.MarkResponsesSeenResponse
-	11, // [11:22] is the sub-list for method output_type
-	0,  // [0:11] is the sub-list for method input_type
+	5,  // 4: wishes.v1.Wishes.SaveDraft:input_type -> wishes.v1.request.SaveDraftRequest
+	6,  // 5: wishes.v1.Wishes.GetWish:input_type -> wishes.v1.request.GetWishRequest
+	7,  // 6: wishes.v1.Wishes.UpdateWish:input_type -> wishes.v1.request.UpdateWishRequest
+	8,  // 7: wishes.v1.Wishes.PublishWish:input_type -> wishes.v1.request.PublishWishRequest
+	9,  // 8: wishes.v1.Wishes.DeleteWish:input_type -> wishes.v1.request.DeleteWishRequest
+	10, // 9: wishes.v1.Wishes.ExtendWish:input_type -> wishes.v1.request.ExtendWishRequest
+	11, // 10: wishes.v1.Wishes.RevokeWish:input_type -> wishes.v1.request.RevokeWishRequest
+	12, // 11: wishes.v1.Wishes.SendWish:input_type -> wishes.v1.request.SendWishRequest
+	13, // 12: wishes.v1.Wishes.ListWishResponses:input_type -> wishes.v1.request.ListWishResponsesRequest
+	14, // 13: wishes.v1.Wishes.MarkResponsesSeen:input_type -> wishes.v1.request.MarkResponsesSeenRequest
+	15, // 14: wishes.v1.Wishes.CreateWish:output_type -> wishes.v1.response.CreateWishResponse
+	16, // 15: wishes.v1.Wishes.ListMyWishes:output_type -> wishes.v1.response.ListMyWishesResponse
+	17, // 16: wishes.v1.Wishes.GetWishStats:output_type -> wishes.v1.response.GetWishStatsResponse
+	18, // 17: wishes.v1.Wishes.ListTemplates:output_type -> wishes.v1.response.ListTemplatesResponse
+	19, // 18: wishes.v1.Wishes.SaveDraft:output_type -> wishes.v1.response.SaveDraftResponse
+	20, // 19: wishes.v1.Wishes.GetWish:output_type -> wishes.v1.response.GetWishResponse
+	21, // 20: wishes.v1.Wishes.UpdateWish:output_type -> wishes.v1.response.UpdateWishResponse
+	22, // 21: wishes.v1.Wishes.PublishWish:output_type -> wishes.v1.response.PublishWishResponse
+	23, // 22: wishes.v1.Wishes.DeleteWish:output_type -> wishes.v1.response.DeleteWishResponse
+	24, // 23: wishes.v1.Wishes.ExtendWish:output_type -> wishes.v1.response.ExtendWishResponse
+	25, // 24: wishes.v1.Wishes.RevokeWish:output_type -> wishes.v1.response.RevokeWishResponse
+	26, // 25: wishes.v1.Wishes.SendWish:output_type -> wishes.v1.response.SendWishResponse
+	27, // 26: wishes.v1.Wishes.ListWishResponses:output_type -> wishes.v1.response.ListWishResponsesResponse
+	28, // 27: wishes.v1.Wishes.MarkResponsesSeen:output_type -> wishes.v1.response.MarkResponsesSeenResponse
+	14, // [14:28] is the sub-list for method output_type
+	0,  // [0:14] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

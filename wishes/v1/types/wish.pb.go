@@ -133,6 +133,7 @@ type WishInfo struct {
 	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
 	RevokedAt     *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=revoked_at,json=revokedAt,proto3" json:"revoked_at,omitempty"`
 	State         *WishState             `protobuf:"bytes,16,opt,name=state,proto3" json:"state,omitempty"`
+	Step          string                 `protobuf:"bytes,17,opt,name=step,proto3" json:"step,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -279,6 +280,13 @@ func (x *WishInfo) GetState() *WishState {
 	return nil
 }
 
+func (x *WishInfo) GetStep() string {
+	if x != nil {
+		return x.Step
+	}
+	return ""
+}
+
 var File_wishes_v1_types_wish_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_wish_proto_rawDesc = "" +
@@ -292,7 +300,7 @@ const file_wishes_v1_types_wish_proto_rawDesc = "" +
 	"\x15unseen_response_count\x18\x04 \x01(\x03R\x13unseenResponseCount\x12D\n" +
 	"\x10last_response_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\x0elastResponseAt\x12N\n" +
 	"\x0fdelivery_status\x18\x06 \x01(\x0e2%.wishes.v1.types.enums.DeliveryStatusR\x0edeliveryStatus\x12=\n" +
-	"\fdelivered_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\vdeliveredAt\"\x80\x05\n" +
+	"\fdelivered_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\vdeliveredAt\"\x94\x05\n" +
 	"\bWishInfo\x12\x17\n" +
 	"\awish_id\x18\x01 \x01(\tR\x06wishId\x12\x17\n" +
 	"\acard_id\x18\x02 \x01(\tR\x06cardId\x12\"\n" +
@@ -317,7 +325,8 @@ const file_wishes_v1_types_wish_proto_rawDesc = "" +
 	"expires_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x129\n" +
 	"\n" +
 	"revoked_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampR\trevokedAt\x120\n" +
-	"\x05state\x18\x10 \x01(\v2\x1a.wishes.v1.types.WishStateR\x05stateB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
+	"\x05state\x18\x10 \x01(\v2\x1a.wishes.v1.types.WishStateR\x05state\x12\x12\n" +
+	"\x04step\x18\x11 \x01(\tR\x04stepB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
 
 var (
 	file_wishes_v1_types_wish_proto_rawDescOnce sync.Once

@@ -35,4 +35,5 @@ message WishInfo {
   google.protobuf.Timestamp expires_at = 14;
   google.protobuf.Timestamp revoked_at = 15;
   wishes.v1.types.WishState state = 16;
+  string step = 17;
 }

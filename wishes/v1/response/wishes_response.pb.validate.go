@@ -1644,3 +1644,369 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListTemplatesResponseValidationError{}
+
+// Validate checks the field values on SaveDraftResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SaveDraftResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SaveDraftResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SaveDraftResponseMultiError, or nil if none found.
+func (m *SaveDraftResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SaveDraftResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWish()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SaveDraftResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SaveDraftResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWish()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SaveDraftResponseValidationError{
+				field:  "Wish",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SaveDraftResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SaveDraftResponseMultiError is an error wrapping multiple validation errors
+// returned by SaveDraftResponse.ValidateAll() if the designated constraints
+// aren't met.
+type SaveDraftResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SaveDraftResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SaveDraftResponseMultiError) AllErrors() []error { return m }
+
+// SaveDraftResponseValidationError is the validation error returned by
+// SaveDraftResponse.Validate if the designated constraints aren't met.
+type SaveDraftResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SaveDraftResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SaveDraftResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SaveDraftResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SaveDraftResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SaveDraftResponseValidationError) ErrorName() string {
+	return "SaveDraftResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SaveDraftResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSaveDraftResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SaveDraftResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SaveDraftResponseValidationError{}
+
+// Validate checks the field values on PublishWishResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PublishWishResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PublishWishResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PublishWishResponseMultiError, or nil if none found.
+func (m *PublishWishResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PublishWishResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetWish()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PublishWishResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PublishWishResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWish()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PublishWishResponseValidationError{
+				field:  "Wish",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PublishWishResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// PublishWishResponseMultiError is an error wrapping multiple validation
+// errors returned by PublishWishResponse.ValidateAll() if the designated
+// constraints aren't met.
+type PublishWishResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PublishWishResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PublishWishResponseMultiError) AllErrors() []error { return m }
+
+// PublishWishResponseValidationError is the validation error returned by
+// PublishWishResponse.Validate if the designated constraints aren't met.
+type PublishWishResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PublishWishResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PublishWishResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PublishWishResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PublishWishResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PublishWishResponseValidationError) ErrorName() string {
+	return "PublishWishResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PublishWishResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPublishWishResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PublishWishResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PublishWishResponseValidationError{}
+
+// Validate checks the field values on DeleteWishResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteWishResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteWishResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteWishResponseMultiError, or nil if none found.
+func (m *DeleteWishResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteWishResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Deleted
+
+	if len(errors) > 0 {
+		return DeleteWishResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteWishResponseMultiError is an error wrapping multiple validation errors
+// returned by DeleteWishResponse.ValidateAll() if the designated constraints
+// aren't met.
+type DeleteWishResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteWishResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteWishResponseMultiError) AllErrors() []error { return m }
+
+// DeleteWishResponseValidationError is the validation error returned by
+// DeleteWishResponse.Validate if the designated constraints aren't met.
+type DeleteWishResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteWishResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteWishResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteWishResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteWishResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteWishResponseValidationError) ErrorName() string {
+	return "DeleteWishResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteWishResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteWishResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteWishResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteWishResponseValidationError{}
