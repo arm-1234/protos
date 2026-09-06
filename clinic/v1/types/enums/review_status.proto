@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package clinic.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/clinic/v1/types/enums;enums";
+
+// Patient reviews are moderated before they appear on the public site.
+enum ReviewStatus {
+  REVIEW_STATUS_UNSPECIFIED = 0;
+  REVIEW_STATUS_PENDING = 1;
+  REVIEW_STATUS_APPROVED = 2;
+  REVIEW_STATUS_REJECTED = 3;
+}

@@ -1,0 +1,224 @@
+syntax = "proto3";
+
+package clinic.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "clinic/v1/request/clinic_request.proto";
+import "clinic/v1/response/clinic_response.proto";
+
+option go_package = "github.com/arm-1234/protos/clinic/v1;v1";
+
+// Clinic exposes everything the public Dr. Voice website needs: the service
+// catalog, practitioners, branches, appointment booking, patient reviews and
+// the media gallery. No authentication is required on these endpoints.
+service Clinic {
+  rpc ListServices (clinic.v1.request.ListServicesRequest) returns (clinic.v1.response.ListServicesResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/services"
+    };
+  }
+
+  rpc GetService (clinic.v1.request.GetServiceRequest) returns (clinic.v1.response.GetServiceResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/services/{identifier}"
+    };
+  }
+
+  rpc ListDoctors (clinic.v1.request.ListDoctorsRequest) returns (clinic.v1.response.ListDoctorsResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/doctors"
+    };
+  }
+
+  rpc GetDoctor (clinic.v1.request.GetDoctorRequest) returns (clinic.v1.response.GetDoctorResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/doctors/{identifier}"
+    };
+  }
+
+  rpc ListBranches (clinic.v1.request.ListBranchesRequest) returns (clinic.v1.response.ListBranchesResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/branches"
+    };
+  }
+
+  rpc ListAvailableSlots (clinic.v1.request.ListAvailableSlotsRequest) returns (clinic.v1.response.ListAvailableSlotsResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/slots"
+    };
+  }
+
+  rpc BookAppointment (clinic.v1.request.BookAppointmentRequest) returns (clinic.v1.response.BookAppointmentResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/appointments"
+      body: "*"
+    };
+  }
+
+  rpc GetAppointment (clinic.v1.request.GetAppointmentRequest) returns (clinic.v1.response.GetAppointmentResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/appointments/{reference_code}"
+    };
+  }
+
+  rpc CancelAppointment (clinic.v1.request.CancelAppointmentRequest) returns (clinic.v1.response.CancelAppointmentResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/appointments/{reference_code}:cancel"
+      body: "*"
+    };
+  }
+
+  rpc SubmitReview (clinic.v1.request.SubmitReviewRequest) returns (clinic.v1.response.SubmitReviewResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/reviews"
+      body: "*"
+    };
+  }
+
+  rpc ListReviews (clinic.v1.request.ListReviewsRequest) returns (clinic.v1.response.ListReviewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/reviews"
+    };
+  }
+
+  rpc GetRatingSummary (clinic.v1.request.GetRatingSummaryRequest) returns (clinic.v1.response.GetRatingSummaryResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/reviews:summary"
+    };
+  }
+
+  rpc ListMedia (clinic.v1.request.ListMediaRequest) returns (clinic.v1.response.ListMediaResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/media"
+    };
+  }
+
+  rpc SubmitEnquiry (clinic.v1.request.SubmitEnquiryRequest) returns (clinic.v1.response.SubmitEnquiryResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/enquiries"
+      body: "*"
+    };
+  }
+}
+
+// ClinicAdmin backs the staff dashboard. Every RPC except AdminLogin requires
+// a bearer token issued by AdminLogin.
+service ClinicAdmin {
+  rpc AdminLogin (clinic.v1.request.AdminLoginRequest) returns (clinic.v1.response.AdminLoginResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/admin/auth:login"
+      body: "*"
+    };
+  }
+
+  rpc GetAdminProfile (clinic.v1.request.GetAdminProfileRequest) returns (clinic.v1.response.GetAdminProfileResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/admin/me"
+    };
+  }
+
+  rpc ListAppointments (clinic.v1.request.ListAppointmentsRequest) returns (clinic.v1.response.ListAppointmentsResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/admin/appointments"
+    };
+  }
+
+  rpc UpdateAppointmentStatus (clinic.v1.request.UpdateAppointmentStatusRequest) returns (clinic.v1.response.AppointmentResponse) {
+    option (google.api.http) = {
+      patch: "/v1/clinic/admin/appointments/{appointment_id}/status"
+      body: "*"
+    };
+  }
+
+  rpc RescheduleAppointment (clinic.v1.request.RescheduleAppointmentRequest) returns (clinic.v1.response.AppointmentResponse) {
+    option (google.api.http) = {
+      patch: "/v1/clinic/admin/appointments/{appointment_id}/schedule"
+      body: "*"
+    };
+  }
+
+  rpc ListPendingReviews (clinic.v1.request.ListPendingReviewsRequest) returns (clinic.v1.response.ListPendingReviewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/admin/reviews"
+    };
+  }
+
+  rpc ModerateReview (clinic.v1.request.ModerateReviewRequest) returns (clinic.v1.response.ModerateReviewResponse) {
+    option (google.api.http) = {
+      patch: "/v1/clinic/admin/reviews/{review_id}"
+      body: "*"
+    };
+  }
+
+  rpc CreateMedia (clinic.v1.request.CreateMediaRequest) returns (clinic.v1.response.MediaResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/admin/media"
+      body: "*"
+    };
+  }
+
+  rpc UpdateMedia (clinic.v1.request.UpdateMediaRequest) returns (clinic.v1.response.MediaResponse) {
+    option (google.api.http) = {
+      patch: "/v1/clinic/admin/media/{media_id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteMedia (clinic.v1.request.DeleteMediaRequest) returns (clinic.v1.response.DeleteMediaResponse) {
+    option (google.api.http) = {
+      delete: "/v1/clinic/admin/media/{media_id}"
+    };
+  }
+
+  rpc UpsertService (clinic.v1.request.UpsertServiceRequest) returns (clinic.v1.response.UpsertServiceResponse) {
+    option (google.api.http) = {
+      put: "/v1/clinic/admin/services"
+      body: "*"
+    };
+  }
+
+  rpc ListEnquiries (clinic.v1.request.ListEnquiriesRequest) returns (clinic.v1.response.ListEnquiriesResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/admin/enquiries"
+    };
+  }
+
+  rpc ResolveEnquiry (clinic.v1.request.ResolveEnquiryRequest) returns (clinic.v1.response.ResolveEnquiryResponse) {
+    option (google.api.http) = {
+      patch: "/v1/clinic/admin/enquiries/{enquiry_id}"
+      body: "*"
+    };
+  }
+
+  rpc GetDashboardStats (clinic.v1.request.GetDashboardStatsRequest) returns (clinic.v1.response.GetDashboardStatsResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/admin/dashboard"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+
+  CLINIC_UNSPECIFIED = 0 [(errors.code) = 500];
+  CLINIC_INVALID_REQUEST = 1 [(errors.code) = 400];
+  CLINIC_SERVICE_NOT_FOUND = 2 [(errors.code) = 404];
+  CLINIC_DOCTOR_NOT_FOUND = 3 [(errors.code) = 404];
+  CLINIC_BRANCH_NOT_FOUND = 4 [(errors.code) = 404];
+  CLINIC_APPOINTMENT_NOT_FOUND = 5 [(errors.code) = 404];
+  CLINIC_REVIEW_NOT_FOUND = 6 [(errors.code) = 404];
+  CLINIC_MEDIA_NOT_FOUND = 7 [(errors.code) = 404];
+  CLINIC_ENQUIRY_NOT_FOUND = 8 [(errors.code) = 404];
+  // The requested slot was taken between rendering the form and submitting it.
+  CLINIC_SLOT_UNAVAILABLE = 9 [(errors.code) = 409];
+  // Booking falls outside the branch's opening hours or in the past.
+  CLINIC_SLOT_OUT_OF_HOURS = 10 [(errors.code) = 400];
+  CLINIC_DUPLICATE_BOOKING = 11 [(errors.code) = 409];
+  // Appointment is already completed or cancelled, so it cannot change state.
+  CLINIC_APPOINTMENT_NOT_MODIFIABLE = 12 [(errors.code) = 409];
+  CLINIC_UNAUTHENTICATED = 13 [(errors.code) = 401];
+  CLINIC_PERMISSION_DENIED = 14 [(errors.code) = 403];
+  CLINIC_REVIEW_ALREADY_SUBMITTED = 15 [(errors.code) = 409];
+  CLINIC_RATE_LIMITED = 16 [(errors.code) = 429];
+}

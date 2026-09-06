@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package clinic.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/clinic/v1/types/enums;enums";
+
+enum AppointmentStatus {
+  APPOINTMENT_STATUS_UNSPECIFIED = 0;
+  // Patient submitted the booking; the clinic has not confirmed it yet.
+  APPOINTMENT_STATUS_REQUESTED = 1;
+  // Clinic staff confirmed the slot.
+  APPOINTMENT_STATUS_CONFIRMED = 2;
+  // Patient attended and the session is finished.
+  APPOINTMENT_STATUS_COMPLETED = 3;
+  APPOINTMENT_STATUS_CANCELLED = 4;
+  // Confirmed slot the patient did not attend.
+  APPOINTMENT_STATUS_NO_SHOW = 5;
+  // Moved to a different slot; superseded by a newer appointment.
+  APPOINTMENT_STATUS_RESCHEDULED = 6;
+}

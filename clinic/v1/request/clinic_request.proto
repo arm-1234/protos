@@ -1,0 +1,403 @@
+syntax = "proto3";
+
+package clinic.v1.request;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+import "clinic/v1/types/enums/appointment_status.proto";
+import "clinic/v1/types/enums/consultation_mode.proto";
+import "clinic/v1/types/enums/media_type.proto";
+import "clinic/v1/types/enums/review_status.proto";
+import "clinic/v1/types/enums/service_category.proto";
+
+option go_package = "github.com/arm-1234/protos/clinic/v1/request;request";
+
+// ---------------------------------------------------------------------------
+// Catalog
+// ---------------------------------------------------------------------------
+
+message ListServicesRequest {
+  // Filter to a single category. Leave unspecified to return every category.
+  clinic.v1.types.enums.ServiceCategory category = 1;
+  // Return only services flagged for the homepage.
+  bool featured_only = 2;
+  // Free-text search across name, short code and summary.
+  string query = 3 [(validate.rules).string.max_len = 120];
+  int64 page_number = 4 [(validate.rules).int64.gte = 0];
+  int64 page_size = 5 [(validate.rules).int64 = {gte: 0, lte: 100}];
+}
+
+message GetServiceRequest {
+  // Accepts either the service id or its slug.
+  string identifier = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+}
+
+message ListDoctorsRequest {
+  // Restrict to practitioners who offer this service.
+  string service_id = 1;
+  string branch_id = 2;
+  int64 page_number = 3 [(validate.rules).int64.gte = 0];
+  int64 page_size = 4 [(validate.rules).int64 = {gte: 0, lte: 100}];
+}
+
+message GetDoctorRequest {
+  string identifier = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+}
+
+message ListBranchesRequest {
+  string city = 1 [(validate.rules).string.max_len = 80];
+}
+
+// ---------------------------------------------------------------------------
+// Appointments
+// ---------------------------------------------------------------------------
+
+message ListAvailableSlotsRequest {
+  string service_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  // Optional; when empty the clinic assigns any available practitioner.
+  string doctor_id = 2;
+  string branch_id = 3;
+  // Local clinic date to inspect, formatted "YYYY-MM-DD".
+  string date = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.pattern = "^\\d{4}-\\d{2}-\\d{2}$"
+  ];
+  clinic.v1.types.enums.ConsultationMode mode = 5;
+}
+
+message BookAppointmentRequest {
+  string service_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  string doctor_id = 2;
+  string branch_id = 3;
+  google.protobuf.Timestamp scheduled_at = 4 [(google.api.field_behavior) = REQUIRED];
+  clinic.v1.types.enums.ConsultationMode mode = 5;
+
+  string full_name = 6 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 2, max_len: 120}
+  ];
+  // Indian mobile number, with or without the +91 country code.
+  string phone = 7 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.pattern = "^(\\+91)?[6-9]\\d{9}$"
+  ];
+  string email = 8 [(validate.rules).string = {ignore_empty: true, email: true}];
+  int32 age = 9 [(validate.rules).int32 = {gte: 0, lte: 120}];
+  string gender = 10 [(validate.rules).string.max_len = 32];
+  string referred_by = 11 [(validate.rules).string.max_len = 160];
+  string notes = 12 [(validate.rules).string.max_len = 2000];
+  // Echoed back by the client to make retries safe.
+  string idempotency_key = 13 [(validate.rules).string.max_len = 64];
+}
+
+// Patients look up their own booking with the reference code plus the phone
+// number they booked with, so no login is required.
+message GetAppointmentRequest {
+  string reference_code = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 4
+  ];
+  string phone = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.pattern = "^(\\+91)?[6-9]\\d{9}$"
+  ];
+}
+
+message CancelAppointmentRequest {
+  string reference_code = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 4
+  ];
+  string phone = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.pattern = "^(\\+91)?[6-9]\\d{9}$"
+  ];
+  string reason = 3 [(validate.rules).string.max_len = 500];
+}
+
+// ---------------------------------------------------------------------------
+// Reviews
+// ---------------------------------------------------------------------------
+
+message SubmitReviewRequest {
+  // Supplying a reference code and matching phone marks the review "verified".
+  string appointment_reference_code = 1 [(validate.rules).string.max_len = 32];
+  string phone = 2 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^(\\+91)?[6-9]\\d{9}$"
+  }];
+  string service_id = 3;
+  string doctor_id = 4;
+  string patient_name = 5 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 2, max_len: 120}
+  ];
+  string patient_city = 6 [(validate.rules).string.max_len = 80];
+  int32 rating = 7 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).int32 = {gte: 1, lte: 5}
+  ];
+  string title = 8 [(validate.rules).string.max_len = 160];
+  string comment = 9 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 10, max_len: 2000}
+  ];
+}
+
+message ListReviewsRequest {
+  string service_id = 1;
+  string doctor_id = 2;
+  // Return only reviews with this exact star value; 0 returns all.
+  int32 rating = 3 [(validate.rules).int32 = {gte: 0, lte: 5}];
+  bool featured_only = 4;
+  bool verified_only = 5;
+  int64 page_number = 6 [(validate.rules).int64.gte = 0];
+  int64 page_size = 7 [(validate.rules).int64 = {gte: 0, lte: 100}];
+}
+
+message GetRatingSummaryRequest {
+  string service_id = 1;
+  string doctor_id = 2;
+}
+
+// ---------------------------------------------------------------------------
+// Media gallery
+// ---------------------------------------------------------------------------
+
+message ListMediaRequest {
+  clinic.v1.types.enums.MediaType media_type = 1;
+  string album = 2 [(validate.rules).string.max_len = 80];
+  string service_id = 3;
+  bool featured_only = 4;
+  int64 page_number = 5 [(validate.rules).int64.gte = 0];
+  int64 page_size = 6 [(validate.rules).int64 = {gte: 0, lte: 100}];
+}
+
+// ---------------------------------------------------------------------------
+// Enquiries
+// ---------------------------------------------------------------------------
+
+message SubmitEnquiryRequest {
+  string full_name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 2, max_len: 120}
+  ];
+  string phone = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.pattern = "^(\\+91)?[6-9]\\d{9}$"
+  ];
+  string email = 3 [(validate.rules).string = {ignore_empty: true, email: true}];
+  string subject = 4 [(validate.rules).string.max_len = 160];
+  string message = 5 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 5, max_len: 2000}
+  ];
+  string source = 6 [(validate.rules).string.max_len = 80];
+}
+
+// ---------------------------------------------------------------------------
+// Admin — authentication
+// ---------------------------------------------------------------------------
+
+message AdminLoginRequest {
+  string email = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.email = true
+  ];
+  string password = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 8, max_len: 128}
+  ];
+}
+
+message GetAdminProfileRequest {}
+
+// ---------------------------------------------------------------------------
+// Admin — appointments
+// ---------------------------------------------------------------------------
+
+message ListAppointmentsRequest {
+  clinic.v1.types.enums.AppointmentStatus status = 1;
+  string service_id = 2;
+  string doctor_id = 3;
+  string branch_id = 4;
+  // Inclusive lower bound on scheduled_at, "YYYY-MM-DD" in clinic local time.
+  string from_date = 5 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+  }];
+  string to_date = 6 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+  }];
+  // Matches patient name, phone or reference code.
+  string query = 7 [(validate.rules).string.max_len = 120];
+  int64 page_number = 8 [(validate.rules).int64.gte = 0];
+  int64 page_size = 9 [(validate.rules).int64 = {gte: 0, lte: 200}];
+}
+
+message UpdateAppointmentStatusRequest {
+  string appointment_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  clinic.v1.types.enums.AppointmentStatus status = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum = {defined_only: true, not_in: [0]}
+  ];
+  string staff_notes = 3 [(validate.rules).string.max_len = 2000];
+  string cancellation_reason = 4 [(validate.rules).string.max_len = 500];
+}
+
+message RescheduleAppointmentRequest {
+  string appointment_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  google.protobuf.Timestamp scheduled_at = 2 [(google.api.field_behavior) = REQUIRED];
+  string doctor_id = 3;
+}
+
+// ---------------------------------------------------------------------------
+// Admin — review moderation
+// ---------------------------------------------------------------------------
+
+message ListPendingReviewsRequest {
+  clinic.v1.types.enums.ReviewStatus status = 1;
+  int64 page_number = 2 [(validate.rules).int64.gte = 0];
+  int64 page_size = 3 [(validate.rules).int64 = {gte: 0, lte: 200}];
+}
+
+message ModerateReviewRequest {
+  string review_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  clinic.v1.types.enums.ReviewStatus status = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum = {defined_only: true, not_in: [0]}
+  ];
+  bool is_featured = 3;
+  // Public reply shown beneath the review.
+  string clinic_reply = 4 [(validate.rules).string.max_len = 1000];
+}
+
+// ---------------------------------------------------------------------------
+// Admin — media
+// ---------------------------------------------------------------------------
+
+message CreateMediaRequest {
+  clinic.v1.types.enums.MediaType media_type = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).enum = {defined_only: true, not_in: [0]}
+  ];
+  string title = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 1, max_len: 160}
+  ];
+  string description = 3 [(validate.rules).string.max_len = 1000];
+  string url = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 1, max_len: 1000}
+  ];
+  string thumbnail_url = 5 [(validate.rules).string.max_len = 1000];
+  string album = 6 [(validate.rules).string.max_len = 80];
+  string alt_text = 7 [(validate.rules).string.max_len = 300];
+  int32 width = 8 [(validate.rules).int32.gte = 0];
+  int32 height = 9 [(validate.rules).int32.gte = 0];
+  int32 duration_seconds = 10 [(validate.rules).int32.gte = 0];
+  string service_id = 11;
+  bool is_featured = 12;
+  int32 display_order = 13;
+}
+
+message UpdateMediaRequest {
+  string media_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  string title = 2 [(validate.rules).string.max_len = 160];
+  string description = 3 [(validate.rules).string.max_len = 1000];
+  string album = 4 [(validate.rules).string.max_len = 80];
+  string alt_text = 5 [(validate.rules).string.max_len = 300];
+  bool is_featured = 6;
+  bool is_active = 7;
+  int32 display_order = 8;
+}
+
+message DeleteMediaRequest {
+  string media_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+}
+
+// ---------------------------------------------------------------------------
+// Admin — catalog authoring
+// ---------------------------------------------------------------------------
+
+message UpsertServiceRequest {
+  // Empty creates a new service; set to update an existing one.
+  string service_id = 1;
+  string slug = 2 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+  }];
+  string name = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string = {min_len: 2, max_len: 160}
+  ];
+  string short_code = 4 [(validate.rules).string.max_len = 32];
+  clinic.v1.types.enums.ServiceCategory category = 5 [
+    (validate.rules).enum.defined_only = true
+  ];
+  string summary = 6 [(validate.rules).string.max_len = 300];
+  string description = 7 [(validate.rules).string.max_len = 8000];
+  repeated string preparation_steps = 8;
+  int32 duration_minutes = 9 [(validate.rules).int32 = {gte: 0, lte: 600}];
+  int64 price_amount = 10 [(validate.rules).int64.gte = 0];
+  string currency = 11 [(validate.rules).string.max_len = 3];
+  repeated clinic.v1.types.enums.ConsultationMode supported_modes = 12;
+  string image_url = 13 [(validate.rules).string.max_len = 1000];
+  string icon = 14 [(validate.rules).string.max_len = 64];
+  bool is_featured = 15;
+  bool is_active = 16;
+  int32 display_order = 17;
+}
+
+// ---------------------------------------------------------------------------
+// Admin — enquiries and dashboard
+// ---------------------------------------------------------------------------
+
+message ListEnquiriesRequest {
+  // When true, return only enquiries still awaiting a response.
+  bool unresolved_only = 1;
+  int64 page_number = 2 [(validate.rules).int64.gte = 0];
+  int64 page_size = 3 [(validate.rules).int64 = {gte: 0, lte: 200}];
+}
+
+message ResolveEnquiryRequest {
+  string enquiry_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  bool is_resolved = 2;
+}
+
+message GetDashboardStatsRequest {
+  // Rolling window used for the trend counters. Defaults to 30 when zero.
+  int32 window_days = 1 [(validate.rules).int32 = {gte: 0, lte: 365}];
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package clinic.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/clinic/v1/types/enums;enums";
+
+enum MediaType {
+  MEDIA_TYPE_UNSPECIFIED = 0;
+  MEDIA_TYPE_IMAGE = 1;
+  // Self-hosted video file served from the clinic's own storage.
+  MEDIA_TYPE_VIDEO = 2;
+  // Embedded third-party video (YouTube, Vimeo) referenced by URL.
+  MEDIA_TYPE_VIDEO_EMBED = 3;
+}

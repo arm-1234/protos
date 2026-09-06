@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package clinic.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "clinic/v1/types/enums/media_type.proto";
+
+option go_package = "github.com/arm-1234/protos/clinic/v1/types;types";
+
+// An image or video in the clinic's public showcase gallery.
+message MediaInfo {
+  string media_id = 1;
+  clinic.v1.types.enums.MediaType media_type = 2;
+  string title = 3;
+  string description = 4;
+  // Canonical URL of the asset, or the embed URL for MEDIA_TYPE_VIDEO_EMBED.
+  string url = 5;
+  // Poster image for videos; for images this is a smaller variant.
+  string thumbnail_url = 6;
+  // Gallery grouping, e.g. "Clinic Tour", "Patient Stories", "Equipment".
+  string album = 7;
+  // Alt text for accessibility.
+  string alt_text = 8;
+  int32 width = 9;
+  int32 height = 10;
+  // Video length in seconds; zero for images.
+  int32 duration_seconds = 11;
+  // Optional link back to the service this media illustrates.
+  string service_id = 12;
+  bool is_featured = 13;
+  bool is_active = 14;
+  int32 display_order = 15;
+  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp updated_at = 17;
+}

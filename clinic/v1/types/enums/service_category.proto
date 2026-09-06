@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package clinic.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/clinic/v1/types/enums;enums";
+
+// Groups the clinic's service catalog into the buckets used for site
+// navigation and appointment routing.
+enum ServiceCategory {
+  SERVICE_CATEGORY_UNSPECIFIED = 0;
+  // PTA, speech audiometry, immittance, aided audiometry, special tests.
+  SERVICE_CATEGORY_DIAGNOSTIC_AUDIOLOGY = 1;
+  // BOA/VRA, BERA, CAEP and other infant/child hearing assessments.
+  SERVICE_CATEGORY_PEDIATRIC_AUDIOLOGY = 2;
+  // Balance and dizziness work-ups including C-VEMP/O-VEMP.
+  SERVICE_CATEGORY_VESTIBULAR = 3;
+  // Tinnitus evaluation and retraining therapy.
+  SERVICE_CATEGORY_TINNITUS = 4;
+  // Hearing aid trial, fitting, programming and after-care.
+  SERVICE_CATEGORY_HEARING_AID = 5;
+  // Cochlear implant candidacy, mapping and troubleshooting.
+  SERVICE_CATEGORY_COCHLEAR_IMPLANT = 6;
+  // Speech and language evaluation and therapy.
+  SERVICE_CATEGORY_SPEECH_LANGUAGE = 7;
+  // Voice and swallowing (dysphagia) therapy.
+  SERVICE_CATEGORY_VOICE_SWALLOWING = 8;
+  // Central auditory processing disorder testing.
+  SERVICE_CATEGORY_CAPD = 9;
+  // General & allied healthcare services.
+  SERVICE_CATEGORY_GENERAL = 10;
+}
