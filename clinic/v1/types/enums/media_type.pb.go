@@ -26,9 +26,7 @@ type MediaType int32
 const (
 	MediaType_MEDIA_TYPE_UNSPECIFIED MediaType = 0
 	MediaType_MEDIA_TYPE_IMAGE       MediaType = 1
-	// Self-hosted video file served from the clinic's own storage.
-	MediaType_MEDIA_TYPE_VIDEO MediaType = 2
-	// Embedded third-party video (YouTube, Vimeo) referenced by URL.
+	MediaType_MEDIA_TYPE_VIDEO       MediaType = 2
 	MediaType_MEDIA_TYPE_VIDEO_EMBED MediaType = 3
 )
 

@@ -23,8 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Pagination envelope repeated across every list response, matching the
-// platform convention.
 type PageInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PageNumber    int64                  `protobuf:"varint,1,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
@@ -93,14 +91,11 @@ func (x *PageInfo) GetTotalRecords() int64 {
 	return 0
 }
 
-// Services grouped under their category, so the site can render one section
-// per category without regrouping on the client.
 type ServiceCategoryGroup struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	Category enums.ServiceCategory  `protobuf:"varint,1,opt,name=category,proto3,enum=clinic.v1.types.enums.ServiceCategory" json:"category,omitempty"`
-	// Human-readable category label, e.g. "Diagnostic Audiology".
-	Label         string               `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
-	Services      []*types.ServiceInfo `protobuf:"bytes,3,rep,name=services,proto3" json:"services,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Category      enums.ServiceCategory  `protobuf:"varint,1,opt,name=category,proto3,enum=clinic.v1.types.enums.ServiceCategory" json:"category,omitempty"`
+	Label         string                 `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+	Services      []*types.ServiceInfo   `protobuf:"bytes,3,rep,name=services,proto3" json:"services,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -217,13 +212,11 @@ func (x *ListServicesResponse) GetPage() *PageInfo {
 }
 
 type GetServiceResponse struct {
-	state   protoimpl.MessageState `protogen:"open.v1"`
-	Service *types.ServiceInfo     `protobuf:"bytes,1,opt,name=service,proto3" json:"service,omitempty"`
-	// Practitioners who can be booked for this service.
-	Doctors []*types.DoctorInfo `protobuf:"bytes,2,rep,name=doctors,proto3" json:"doctors,omitempty"`
-	// Other services in the same category, for cross-linking.
-	RelatedServices []*types.ServiceInfo `protobuf:"bytes,3,rep,name=related_services,json=relatedServices,proto3" json:"related_services,omitempty"`
-	RatingSummary   *types.RatingSummary `protobuf:"bytes,4,opt,name=rating_summary,json=ratingSummary,proto3" json:"rating_summary,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Service         *types.ServiceInfo     `protobuf:"bytes,1,opt,name=service,proto3" json:"service,omitempty"`
+	Doctors         []*types.DoctorInfo    `protobuf:"bytes,2,rep,name=doctors,proto3" json:"doctors,omitempty"`
+	RelatedServices []*types.ServiceInfo   `protobuf:"bytes,3,rep,name=related_services,json=relatedServices,proto3" json:"related_services,omitempty"`
+	RatingSummary   *types.RatingSummary   `protobuf:"bytes,4,opt,name=rating_summary,json=ratingSummary,proto3" json:"rating_summary,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -451,13 +444,11 @@ func (x *ListBranchesResponse) GetBranches() []*types.BranchInfo {
 }
 
 type ListAvailableSlotsResponse struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	Date     string                 `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
-	Timezone string                 `protobuf:"bytes,2,opt,name=timezone,proto3" json:"timezone,omitempty"`
-	Slots    []*types.SlotInfo      `protobuf:"bytes,3,rep,name=slots,proto3" json:"slots,omitempty"`
-	// True when the branch is shut that day, so the UI can say so explicitly
-	// instead of showing an empty slot grid.
-	IsClosed      bool `protobuf:"varint,4,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Date          string                 `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+	Timezone      string                 `protobuf:"bytes,2,opt,name=timezone,proto3" json:"timezone,omitempty"`
+	Slots         []*types.SlotInfo      `protobuf:"bytes,3,rep,name=slots,proto3" json:"slots,omitempty"`
+	IsClosed      bool                   `protobuf:"varint,4,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -521,11 +512,10 @@ func (x *ListAvailableSlotsResponse) GetIsClosed() bool {
 }
 
 type BookAppointmentResponse struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	Appointment *types.AppointmentInfo `protobuf:"bytes,1,opt,name=appointment,proto3" json:"appointment,omitempty"`
-	// Repeated here for convenience; the frontend shows it on the success screen.
-	ReferenceCode string `protobuf:"bytes,2,opt,name=reference_code,json=referenceCode,proto3" json:"reference_code,omitempty"`
-	Message       string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Appointment   *types.AppointmentInfo `protobuf:"bytes,1,opt,name=appointment,proto3" json:"appointment,omitempty"`
+	ReferenceCode string                 `protobuf:"bytes,2,opt,name=reference_code,json=referenceCode,proto3" json:"reference_code,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -678,11 +668,9 @@ func (x *CancelAppointmentResponse) GetMessage() string {
 }
 
 type SubmitReviewResponse struct {
-	state  protoimpl.MessageState `protogen:"open.v1"`
-	Review *types.ReviewInfo      `protobuf:"bytes,1,opt,name=review,proto3" json:"review,omitempty"`
-	// Reviews are held for moderation, so the UI must not expect it to appear
-	// in the public list straight away.
-	Message       string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Review        *types.ReviewInfo      `protobuf:"bytes,1,opt,name=review,proto3" json:"review,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -836,11 +824,10 @@ func (x *GetRatingSummaryResponse) GetRatingSummary() *types.RatingSummary {
 }
 
 type ListMediaResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Media []*types.MediaInfo     `protobuf:"bytes,1,rep,name=media,proto3" json:"media,omitempty"`
-	// Distinct album names present in the gallery, for the filter chips.
-	Albums        []string  `protobuf:"bytes,2,rep,name=albums,proto3" json:"albums,omitempty"`
-	Page          *PageInfo `protobuf:"bytes,3,opt,name=page,proto3" json:"page,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Media         []*types.MediaInfo     `protobuf:"bytes,1,rep,name=media,proto3" json:"media,omitempty"`
+	Albums        []string               `protobuf:"bytes,2,rep,name=albums,proto3" json:"albums,omitempty"`
+	Page          *PageInfo              `protobuf:"bytes,3,opt,name=page,proto3" json:"page,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1133,12 +1120,11 @@ func (x *ResolveEnquiryResponse) GetEnquiry() *types.EnquiryInfo {
 }
 
 type AdminProfile struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	AdminId  string                 `protobuf:"bytes,1,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
-	Email    string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
-	FullName string                 `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
-	// "owner" or "staff"; owners may manage other admins.
-	Role          string `protobuf:"bytes,4,opt,name=role,proto3" json:"role,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AdminId       string                 `protobuf:"bytes,1,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	FullName      string                 `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	Role          string                 `protobuf:"bytes,4,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1202,11 +1188,10 @@ func (x *AdminProfile) GetRole() string {
 }
 
 type AdminLoginResponse struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	// Seconds until access_token expires.
-	ExpiresIn     int64         `protobuf:"varint,2,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
-	Profile       *AdminProfile `protobuf:"bytes,3,opt,name=profile,proto3" json:"profile,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	ExpiresIn     int64                  `protobuf:"varint,2,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
+	Profile       *AdminProfile          `protobuf:"bytes,3,opt,name=profile,proto3" json:"profile,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1542,7 +1527,6 @@ func (x *UpsertServiceResponse) GetService() *types.ServiceInfo {
 	return nil
 }
 
-// A single day's appointment count, used for the dashboard trend chart.
 type DailyCount struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Date          string                 `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
@@ -1605,10 +1589,9 @@ type GetDashboardStatsResponse struct {
 	AverageRating        float64                `protobuf:"fixed64,6,opt,name=average_rating,json=averageRating,proto3" json:"average_rating,omitempty"`
 	TotalReviews         int64                  `protobuf:"varint,7,opt,name=total_reviews,json=totalReviews,proto3" json:"total_reviews,omitempty"`
 	AppointmentsTrend    []*DailyCount          `protobuf:"bytes,8,rep,name=appointments_trend,json=appointmentsTrend,proto3" json:"appointments_trend,omitempty"`
-	// Most-booked services within the requested window, highest first.
-	TopServices   []*ServicePopularity `protobuf:"bytes,9,rep,name=top_services,json=topServices,proto3" json:"top_services,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	TopServices          []*ServicePopularity   `protobuf:"bytes,9,rep,name=top_services,json=topServices,proto3" json:"top_services,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *GetDashboardStatsResponse) Reset() {

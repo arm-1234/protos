@@ -13,8 +13,6 @@ import "clinic/v1/types/enums/service_category.proto";
 
 option go_package = "github.com/arm-1234/protos/clinic/v1/response;response";
 
-// Pagination envelope repeated across every list response, matching the
-// platform convention.
 message PageInfo {
   int64 page_number = 1;
   int64 page_size = 2;
@@ -22,15 +20,8 @@ message PageInfo {
   int64 total_records = 4;
 }
 
-// ---------------------------------------------------------------------------
-// Catalog
-// ---------------------------------------------------------------------------
-
-// Services grouped under their category, so the site can render one section
-// per category without regrouping on the client.
 message ServiceCategoryGroup {
   clinic.v1.types.enums.ServiceCategory category = 1;
-  // Human-readable category label, e.g. "Diagnostic Audiology".
   string label = 2;
   repeated clinic.v1.types.ServiceInfo services = 3;
 }
@@ -43,9 +34,7 @@ message ListServicesResponse {
 
 message GetServiceResponse {
   clinic.v1.types.ServiceInfo service = 1;
-  // Practitioners who can be booked for this service.
   repeated clinic.v1.types.DoctorInfo doctors = 2;
-  // Other services in the same category, for cross-linking.
   repeated clinic.v1.types.ServiceInfo related_services = 3;
   clinic.v1.types.RatingSummary rating_summary = 4;
 }
@@ -66,22 +55,15 @@ message ListBranchesResponse {
   repeated clinic.v1.types.BranchInfo branches = 1;
 }
 
-// ---------------------------------------------------------------------------
-// Appointments
-// ---------------------------------------------------------------------------
-
 message ListAvailableSlotsResponse {
   string date = 1;
   string timezone = 2;
   repeated clinic.v1.types.SlotInfo slots = 3;
-  // True when the branch is shut that day, so the UI can say so explicitly
-  // instead of showing an empty slot grid.
   bool is_closed = 4;
 }
 
 message BookAppointmentResponse {
   clinic.v1.types.AppointmentInfo appointment = 1;
-  // Repeated here for convenience; the frontend shows it on the success screen.
   string reference_code = 2;
   string message = 3;
 }
@@ -95,14 +77,8 @@ message CancelAppointmentResponse {
   string message = 2;
 }
 
-// ---------------------------------------------------------------------------
-// Reviews
-// ---------------------------------------------------------------------------
-
 message SubmitReviewResponse {
   clinic.v1.types.ReviewInfo review = 1;
-  // Reviews are held for moderation, so the UI must not expect it to appear
-  // in the public list straight away.
   string message = 2;
 }
 
@@ -116,13 +92,8 @@ message GetRatingSummaryResponse {
   clinic.v1.types.RatingSummary rating_summary = 1;
 }
 
-// ---------------------------------------------------------------------------
-// Media gallery
-// ---------------------------------------------------------------------------
-
 message ListMediaResponse {
   repeated clinic.v1.types.MediaInfo media = 1;
-  // Distinct album names present in the gallery, for the filter chips.
   repeated string albums = 2;
   PageInfo page = 3;
 }
@@ -134,10 +105,6 @@ message MediaResponse {
 message DeleteMediaResponse {
   bool success = 1;
 }
-
-// ---------------------------------------------------------------------------
-// Enquiries
-// ---------------------------------------------------------------------------
 
 message SubmitEnquiryResponse {
   clinic.v1.types.EnquiryInfo enquiry = 1;
@@ -153,21 +120,15 @@ message ResolveEnquiryResponse {
   clinic.v1.types.EnquiryInfo enquiry = 1;
 }
 
-// ---------------------------------------------------------------------------
-// Admin
-// ---------------------------------------------------------------------------
-
 message AdminProfile {
   string admin_id = 1;
   string email = 2;
   string full_name = 3;
-  // "owner" or "staff"; owners may manage other admins.
   string role = 4;
 }
 
 message AdminLoginResponse {
   string access_token = 1;
-  // Seconds until access_token expires.
   int64 expires_in = 2;
   AdminProfile profile = 3;
 }
@@ -198,7 +159,6 @@ message UpsertServiceResponse {
   clinic.v1.types.ServiceInfo service = 1;
 }
 
-// A single day's appointment count, used for the dashboard trend chart.
 message DailyCount {
   string date = 1;
   int64 count = 2;
@@ -213,7 +173,6 @@ message GetDashboardStatsResponse {
   double average_rating = 6;
   int64 total_reviews = 7;
   repeated DailyCount appointments_trend = 8;
-  // Most-booked services within the requested window, highest first.
   repeated ServicePopularity top_services = 9;
 }
 

@@ -26,15 +26,12 @@ const (
 )
 
 type ListServicesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Filter to a single category. Leave unspecified to return every category.
-	Category enums.ServiceCategory `protobuf:"varint,1,opt,name=category,proto3,enum=clinic.v1.types.enums.ServiceCategory" json:"category,omitempty"`
-	// Return only services flagged for the homepage.
-	FeaturedOnly bool `protobuf:"varint,2,opt,name=featured_only,json=featuredOnly,proto3" json:"featured_only,omitempty"`
-	// Free-text search across name, short code and summary.
-	Query         string `protobuf:"bytes,3,opt,name=query,proto3" json:"query,omitempty"`
-	PageNumber    int64  `protobuf:"varint,4,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize      int64  `protobuf:"varint,5,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Category      enums.ServiceCategory  `protobuf:"varint,1,opt,name=category,proto3,enum=clinic.v1.types.enums.ServiceCategory" json:"category,omitempty"`
+	FeaturedOnly  bool                   `protobuf:"varint,2,opt,name=featured_only,json=featuredOnly,proto3" json:"featured_only,omitempty"`
+	Query         string                 `protobuf:"bytes,3,opt,name=query,proto3" json:"query,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,4,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,5,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -105,9 +102,8 @@ func (x *ListServicesRequest) GetPageSize() int64 {
 }
 
 type GetServiceRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Accepts either the service id or its slug.
-	Identifier    string `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -150,12 +146,11 @@ func (x *GetServiceRequest) GetIdentifier() string {
 }
 
 type ListDoctorsRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Restrict to practitioners who offer this service.
-	ServiceId     string `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	BranchId      string `protobuf:"bytes,2,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	PageNumber    int64  `protobuf:"varint,3,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize      int64  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId     string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	BranchId      string                 `protobuf:"bytes,2,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,3,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -307,12 +302,10 @@ func (x *ListBranchesRequest) GetCity() string {
 }
 
 type ListAvailableSlotsRequest struct {
-	state     protoimpl.MessageState `protogen:"open.v1"`
-	ServiceId string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	// Optional; when empty the clinic assigns any available practitioner.
-	DoctorId string `protobuf:"bytes,2,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	BranchId string `protobuf:"bytes,3,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	// Local clinic date to inspect, formatted "YYYY-MM-DD".
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId     string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	DoctorId      string                 `protobuf:"bytes,2,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	BranchId      string                 `protobuf:"bytes,3,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
 	Date          string                 `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`
 	Mode          enums.ConsultationMode `protobuf:"varint,5,opt,name=mode,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"mode,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -385,22 +378,20 @@ func (x *ListAvailableSlotsRequest) GetMode() enums.ConsultationMode {
 }
 
 type BookAppointmentRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	ServiceId   string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	DoctorId    string                 `protobuf:"bytes,2,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	BranchId    string                 `protobuf:"bytes,3,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	ScheduledAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=scheduled_at,json=scheduledAt,proto3" json:"scheduled_at,omitempty"`
-	Mode        enums.ConsultationMode `protobuf:"varint,5,opt,name=mode,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"mode,omitempty"`
-	FullName    string                 `protobuf:"bytes,6,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
-	// Indian mobile number, with or without the +91 country code.
-	Phone      string `protobuf:"bytes,7,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email      string `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
-	Age        int32  `protobuf:"varint,9,opt,name=age,proto3" json:"age,omitempty"`
-	Gender     string `protobuf:"bytes,10,opt,name=gender,proto3" json:"gender,omitempty"`
-	ReferredBy string `protobuf:"bytes,11,opt,name=referred_by,json=referredBy,proto3" json:"referred_by,omitempty"`
-	Notes      string `protobuf:"bytes,12,opt,name=notes,proto3" json:"notes,omitempty"`
-	// Echoed back by the client to make retries safe.
-	IdempotencyKey string `protobuf:"bytes,13,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId      string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	DoctorId       string                 `protobuf:"bytes,2,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	BranchId       string                 `protobuf:"bytes,3,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	ScheduledAt    *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=scheduled_at,json=scheduledAt,proto3" json:"scheduled_at,omitempty"`
+	Mode           enums.ConsultationMode `protobuf:"varint,5,opt,name=mode,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"mode,omitempty"`
+	FullName       string                 `protobuf:"bytes,6,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	Phone          string                 `protobuf:"bytes,7,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email          string                 `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
+	Age            int32                  `protobuf:"varint,9,opt,name=age,proto3" json:"age,omitempty"`
+	Gender         string                 `protobuf:"bytes,10,opt,name=gender,proto3" json:"gender,omitempty"`
+	ReferredBy     string                 `protobuf:"bytes,11,opt,name=referred_by,json=referredBy,proto3" json:"referred_by,omitempty"`
+	Notes          string                 `protobuf:"bytes,12,opt,name=notes,proto3" json:"notes,omitempty"`
+	IdempotencyKey string                 `protobuf:"bytes,13,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -526,8 +517,6 @@ func (x *BookAppointmentRequest) GetIdempotencyKey() string {
 	return ""
 }
 
-// Patients look up their own booking with the reference code plus the phone
-// number they booked with, so no login is required.
 type GetAppointmentRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ReferenceCode string                 `protobuf:"bytes,1,opt,name=reference_code,json=referenceCode,proto3" json:"reference_code,omitempty"`
@@ -641,17 +630,16 @@ func (x *CancelAppointmentRequest) GetReason() string {
 }
 
 type SubmitReviewRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Supplying a reference code and matching phone marks the review "verified".
-	AppointmentReferenceCode string `protobuf:"bytes,1,opt,name=appointment_reference_code,json=appointmentReferenceCode,proto3" json:"appointment_reference_code,omitempty"`
-	Phone                    string `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	ServiceId                string `protobuf:"bytes,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	DoctorId                 string `protobuf:"bytes,4,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	PatientName              string `protobuf:"bytes,5,opt,name=patient_name,json=patientName,proto3" json:"patient_name,omitempty"`
-	PatientCity              string `protobuf:"bytes,6,opt,name=patient_city,json=patientCity,proto3" json:"patient_city,omitempty"`
-	Rating                   int32  `protobuf:"varint,7,opt,name=rating,proto3" json:"rating,omitempty"`
-	Title                    string `protobuf:"bytes,8,opt,name=title,proto3" json:"title,omitempty"`
-	Comment                  string `protobuf:"bytes,9,opt,name=comment,proto3" json:"comment,omitempty"`
+	state                    protoimpl.MessageState `protogen:"open.v1"`
+	AppointmentReferenceCode string                 `protobuf:"bytes,1,opt,name=appointment_reference_code,json=appointmentReferenceCode,proto3" json:"appointment_reference_code,omitempty"`
+	Phone                    string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	ServiceId                string                 `protobuf:"bytes,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	DoctorId                 string                 `protobuf:"bytes,4,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	PatientName              string                 `protobuf:"bytes,5,opt,name=patient_name,json=patientName,proto3" json:"patient_name,omitempty"`
+	PatientCity              string                 `protobuf:"bytes,6,opt,name=patient_city,json=patientCity,proto3" json:"patient_city,omitempty"`
+	Rating                   int32                  `protobuf:"varint,7,opt,name=rating,proto3" json:"rating,omitempty"`
+	Title                    string                 `protobuf:"bytes,8,opt,name=title,proto3" json:"title,omitempty"`
+	Comment                  string                 `protobuf:"bytes,9,opt,name=comment,proto3" json:"comment,omitempty"`
 	unknownFields            protoimpl.UnknownFields
 	sizeCache                protoimpl.SizeCache
 }
@@ -750,15 +738,14 @@ func (x *SubmitReviewRequest) GetComment() string {
 }
 
 type ListReviewsRequest struct {
-	state     protoimpl.MessageState `protogen:"open.v1"`
-	ServiceId string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	DoctorId  string                 `protobuf:"bytes,2,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	// Return only reviews with this exact star value; 0 returns all.
-	Rating        int32 `protobuf:"varint,3,opt,name=rating,proto3" json:"rating,omitempty"`
-	FeaturedOnly  bool  `protobuf:"varint,4,opt,name=featured_only,json=featuredOnly,proto3" json:"featured_only,omitempty"`
-	VerifiedOnly  bool  `protobuf:"varint,5,opt,name=verified_only,json=verifiedOnly,proto3" json:"verified_only,omitempty"`
-	PageNumber    int64 `protobuf:"varint,6,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize      int64 `protobuf:"varint,7,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId     string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	DoctorId      string                 `protobuf:"bytes,2,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	Rating        int32                  `protobuf:"varint,3,opt,name=rating,proto3" json:"rating,omitempty"`
+	FeaturedOnly  bool                   `protobuf:"varint,4,opt,name=featured_only,json=featuredOnly,proto3" json:"featured_only,omitempty"`
+	VerifiedOnly  bool                   `protobuf:"varint,5,opt,name=verified_only,json=verifiedOnly,proto3" json:"verified_only,omitempty"`
+	PageNumber    int64                  `protobuf:"varint,6,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                  `protobuf:"varint,7,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1151,18 +1138,16 @@ func (*GetAdminProfileRequest) Descriptor() ([]byte, []int) {
 }
 
 type ListAppointmentsRequest struct {
-	state     protoimpl.MessageState  `protogen:"open.v1"`
-	Status    enums.AppointmentStatus `protobuf:"varint,1,opt,name=status,proto3,enum=clinic.v1.types.enums.AppointmentStatus" json:"status,omitempty"`
-	ServiceId string                  `protobuf:"bytes,2,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	DoctorId  string                  `protobuf:"bytes,3,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	BranchId  string                  `protobuf:"bytes,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	// Inclusive lower bound on scheduled_at, "YYYY-MM-DD" in clinic local time.
-	FromDate string `protobuf:"bytes,5,opt,name=from_date,json=fromDate,proto3" json:"from_date,omitempty"`
-	ToDate   string `protobuf:"bytes,6,opt,name=to_date,json=toDate,proto3" json:"to_date,omitempty"`
-	// Matches patient name, phone or reference code.
-	Query         string `protobuf:"bytes,7,opt,name=query,proto3" json:"query,omitempty"`
-	PageNumber    int64  `protobuf:"varint,8,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize      int64  `protobuf:"varint,9,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Status        enums.AppointmentStatus `protobuf:"varint,1,opt,name=status,proto3,enum=clinic.v1.types.enums.AppointmentStatus" json:"status,omitempty"`
+	ServiceId     string                  `protobuf:"bytes,2,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	DoctorId      string                  `protobuf:"bytes,3,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	BranchId      string                  `protobuf:"bytes,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	FromDate      string                  `protobuf:"bytes,5,opt,name=from_date,json=fromDate,proto3" json:"from_date,omitempty"`
+	ToDate        string                  `protobuf:"bytes,6,opt,name=to_date,json=toDate,proto3" json:"to_date,omitempty"`
+	Query         string                  `protobuf:"bytes,7,opt,name=query,proto3" json:"query,omitempty"`
+	PageNumber    int64                   `protobuf:"varint,8,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize      int64                   `protobuf:"varint,9,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1449,12 +1434,11 @@ func (x *ListPendingReviewsRequest) GetPageSize() int64 {
 }
 
 type ModerateReviewRequest struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	ReviewId   string                 `protobuf:"bytes,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
-	Status     enums.ReviewStatus     `protobuf:"varint,2,opt,name=status,proto3,enum=clinic.v1.types.enums.ReviewStatus" json:"status,omitempty"`
-	IsFeatured bool                   `protobuf:"varint,3,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
-	// Public reply shown beneath the review.
-	ClinicReply   string `protobuf:"bytes,4,opt,name=clinic_reply,json=clinicReply,proto3" json:"clinic_reply,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ReviewId      string                 `protobuf:"bytes,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
+	Status        enums.ReviewStatus     `protobuf:"varint,2,opt,name=status,proto3,enum=clinic.v1.types.enums.ReviewStatus" json:"status,omitempty"`
+	IsFeatured    bool                   `protobuf:"varint,3,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
+	ClinicReply   string                 `protobuf:"bytes,4,opt,name=clinic_reply,json=clinicReply,proto3" json:"clinic_reply,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1802,8 +1786,7 @@ func (x *DeleteMediaRequest) GetMediaId() string {
 }
 
 type UpsertServiceRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Empty creates a new service; set to update an existing one.
+	state            protoimpl.MessageState   `protogen:"open.v1"`
 	ServiceId        string                   `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
 	Slug             string                   `protobuf:"bytes,2,opt,name=slug,proto3" json:"slug,omitempty"`
 	Name             string                   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
@@ -1975,11 +1958,10 @@ func (x *UpsertServiceRequest) GetDisplayOrder() int32 {
 }
 
 type ListEnquiriesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// When true, return only enquiries still awaiting a response.
-	UnresolvedOnly bool  `protobuf:"varint,1,opt,name=unresolved_only,json=unresolvedOnly,proto3" json:"unresolved_only,omitempty"`
-	PageNumber     int64 `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	PageSize       int64 `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	UnresolvedOnly bool                   `protobuf:"varint,1,opt,name=unresolved_only,json=unresolvedOnly,proto3" json:"unresolved_only,omitempty"`
+	PageNumber     int64                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
+	PageSize       int64                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -2088,9 +2070,8 @@ func (x *ResolveEnquiryRequest) GetIsResolved() bool {
 }
 
 type GetDashboardStatsRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Rolling window used for the trend counters. Defaults to 30 when zero.
-	WindowDays    int32 `protobuf:"varint,1,opt,name=window_days,json=windowDays,proto3" json:"window_days,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WindowDays    int32                  `protobuf:"varint,1,opt,name=window_days,json=windowDays,proto3" json:"window_days,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

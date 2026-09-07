@@ -28,21 +28,18 @@ const (
 type ErrorReason int32
 
 const (
-	ErrorReason_CLINIC_UNSPECIFIED           ErrorReason = 0
-	ErrorReason_CLINIC_INVALID_REQUEST       ErrorReason = 1
-	ErrorReason_CLINIC_SERVICE_NOT_FOUND     ErrorReason = 2
-	ErrorReason_CLINIC_DOCTOR_NOT_FOUND      ErrorReason = 3
-	ErrorReason_CLINIC_BRANCH_NOT_FOUND      ErrorReason = 4
-	ErrorReason_CLINIC_APPOINTMENT_NOT_FOUND ErrorReason = 5
-	ErrorReason_CLINIC_REVIEW_NOT_FOUND      ErrorReason = 6
-	ErrorReason_CLINIC_MEDIA_NOT_FOUND       ErrorReason = 7
-	ErrorReason_CLINIC_ENQUIRY_NOT_FOUND     ErrorReason = 8
-	// The requested slot was taken between rendering the form and submitting it.
-	ErrorReason_CLINIC_SLOT_UNAVAILABLE ErrorReason = 9
-	// Booking falls outside the branch's opening hours or in the past.
-	ErrorReason_CLINIC_SLOT_OUT_OF_HOURS ErrorReason = 10
-	ErrorReason_CLINIC_DUPLICATE_BOOKING ErrorReason = 11
-	// Appointment is already completed or cancelled, so it cannot change state.
+	ErrorReason_CLINIC_UNSPECIFIED                ErrorReason = 0
+	ErrorReason_CLINIC_INVALID_REQUEST            ErrorReason = 1
+	ErrorReason_CLINIC_SERVICE_NOT_FOUND          ErrorReason = 2
+	ErrorReason_CLINIC_DOCTOR_NOT_FOUND           ErrorReason = 3
+	ErrorReason_CLINIC_BRANCH_NOT_FOUND           ErrorReason = 4
+	ErrorReason_CLINIC_APPOINTMENT_NOT_FOUND      ErrorReason = 5
+	ErrorReason_CLINIC_REVIEW_NOT_FOUND           ErrorReason = 6
+	ErrorReason_CLINIC_MEDIA_NOT_FOUND            ErrorReason = 7
+	ErrorReason_CLINIC_ENQUIRY_NOT_FOUND          ErrorReason = 8
+	ErrorReason_CLINIC_SLOT_UNAVAILABLE           ErrorReason = 9
+	ErrorReason_CLINIC_SLOT_OUT_OF_HOURS          ErrorReason = 10
+	ErrorReason_CLINIC_DUPLICATE_BOOKING          ErrorReason = 11
 	ErrorReason_CLINIC_APPOINTMENT_NOT_MODIFIABLE ErrorReason = 12
 	ErrorReason_CLINIC_UNAUTHENTICATED            ErrorReason = 13
 	ErrorReason_CLINIC_PERMISSION_DENIED          ErrorReason = 14

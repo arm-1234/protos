@@ -23,40 +23,29 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// A bookable service from the clinic's catalog, e.g. "Pure Tone Audiometry
-// (PTA)" or "Voice & Swallowing Therapy".
 type ServiceInfo struct {
-	state     protoimpl.MessageState `protogen:"open.v1"`
-	ServiceId string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	// URL-safe identifier used by the website, e.g. "pure-tone-audiometry".
-	Slug string `protobuf:"bytes,2,opt,name=slug,proto3" json:"slug,omitempty"`
-	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	// Clinical short form shown alongside the name, e.g. "PTA", "BERA".
-	ShortCode string                `protobuf:"bytes,4,opt,name=short_code,json=shortCode,proto3" json:"short_code,omitempty"`
-	Category  enums.ServiceCategory `protobuf:"varint,5,opt,name=category,proto3,enum=clinic.v1.types.enums.ServiceCategory" json:"category,omitempty"`
-	// One-line summary used on cards and listings.
-	Summary string `protobuf:"bytes,6,opt,name=summary,proto3" json:"summary,omitempty"`
-	// Long-form description rendered on the service detail page.
-	Description string `protobuf:"bytes,7,opt,name=description,proto3" json:"description,omitempty"`
-	// What the patient should expect during the session, one step per entry.
-	PreparationSteps []string `protobuf:"bytes,8,rep,name=preparation_steps,json=preparationSteps,proto3" json:"preparation_steps,omitempty"`
-	DurationMinutes  int32    `protobuf:"varint,9,opt,name=duration_minutes,json=durationMinutes,proto3" json:"duration_minutes,omitempty"`
-	// Price in paise to avoid floating point rounding. Zero means "on request".
-	PriceAmount    int64                    `protobuf:"varint,10,opt,name=price_amount,json=priceAmount,proto3" json:"price_amount,omitempty"`
-	Currency       string                   `protobuf:"bytes,11,opt,name=currency,proto3" json:"currency,omitempty"`
-	SupportedModes []enums.ConsultationMode `protobuf:"varint,12,rep,packed,name=supported_modes,json=supportedModes,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"supported_modes,omitempty"`
-	ImageUrl       string                   `protobuf:"bytes,13,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	// Lucide icon name used by the frontend when no image is set.
-	Icon string `protobuf:"bytes,14,opt,name=icon,proto3" json:"icon,omitempty"`
-	// Whether the service is surfaced on the homepage.
-	IsFeatured bool `protobuf:"varint,15,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
-	IsActive   bool `protobuf:"varint,16,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	// Ascending display order within a category.
-	DisplayOrder  int32                  `protobuf:"varint,17,opt,name=display_order,json=displayOrder,proto3" json:"display_order,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState   `protogen:"open.v1"`
+	ServiceId        string                   `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	Slug             string                   `protobuf:"bytes,2,opt,name=slug,proto3" json:"slug,omitempty"`
+	Name             string                   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	ShortCode        string                   `protobuf:"bytes,4,opt,name=short_code,json=shortCode,proto3" json:"short_code,omitempty"`
+	Category         enums.ServiceCategory    `protobuf:"varint,5,opt,name=category,proto3,enum=clinic.v1.types.enums.ServiceCategory" json:"category,omitempty"`
+	Summary          string                   `protobuf:"bytes,6,opt,name=summary,proto3" json:"summary,omitempty"`
+	Description      string                   `protobuf:"bytes,7,opt,name=description,proto3" json:"description,omitempty"`
+	PreparationSteps []string                 `protobuf:"bytes,8,rep,name=preparation_steps,json=preparationSteps,proto3" json:"preparation_steps,omitempty"`
+	DurationMinutes  int32                    `protobuf:"varint,9,opt,name=duration_minutes,json=durationMinutes,proto3" json:"duration_minutes,omitempty"`
+	PriceAmount      int64                    `protobuf:"varint,10,opt,name=price_amount,json=priceAmount,proto3" json:"price_amount,omitempty"`
+	Currency         string                   `protobuf:"bytes,11,opt,name=currency,proto3" json:"currency,omitempty"`
+	SupportedModes   []enums.ConsultationMode `protobuf:"varint,12,rep,packed,name=supported_modes,json=supportedModes,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"supported_modes,omitempty"`
+	ImageUrl         string                   `protobuf:"bytes,13,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Icon             string                   `protobuf:"bytes,14,opt,name=icon,proto3" json:"icon,omitempty"`
+	IsFeatured       bool                     `protobuf:"varint,15,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
+	IsActive         bool                     `protobuf:"varint,16,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	DisplayOrder     int32                    `protobuf:"varint,17,opt,name=display_order,json=displayOrder,proto3" json:"display_order,omitempty"`
+	CreatedAt        *timestamppb.Timestamp   `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt        *timestamppb.Timestamp   `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *ServiceInfo) Reset() {

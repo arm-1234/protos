@@ -119,7 +119,6 @@ func ErrorClinicEnquiryNotFound(format string, args ...interface{}) *errors.Erro
 	return errors.New(404, ErrorReason_CLINIC_ENQUIRY_NOT_FOUND.String(), fmt.Sprintf(format, args...))
 }
 
-// The requested slot was taken between rendering the form and submitting it.
 func IsClinicSlotUnavailable(err error) bool {
 	if err == nil {
 		return false
@@ -128,12 +127,10 @@ func IsClinicSlotUnavailable(err error) bool {
 	return e.Reason == ErrorReason_CLINIC_SLOT_UNAVAILABLE.String() && e.Code == 409
 }
 
-// The requested slot was taken between rendering the form and submitting it.
 func ErrorClinicSlotUnavailable(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_CLINIC_SLOT_UNAVAILABLE.String(), fmt.Sprintf(format, args...))
 }
 
-// Booking falls outside the branch's opening hours or in the past.
 func IsClinicSlotOutOfHours(err error) bool {
 	if err == nil {
 		return false
@@ -142,7 +139,6 @@ func IsClinicSlotOutOfHours(err error) bool {
 	return e.Reason == ErrorReason_CLINIC_SLOT_OUT_OF_HOURS.String() && e.Code == 400
 }
 
-// Booking falls outside the branch's opening hours or in the past.
 func ErrorClinicSlotOutOfHours(format string, args ...interface{}) *errors.Error {
 	return errors.New(400, ErrorReason_CLINIC_SLOT_OUT_OF_HOURS.String(), fmt.Sprintf(format, args...))
 }
@@ -159,7 +155,6 @@ func ErrorClinicDuplicateBooking(format string, args ...interface{}) *errors.Err
 	return errors.New(409, ErrorReason_CLINIC_DUPLICATE_BOOKING.String(), fmt.Sprintf(format, args...))
 }
 
-// Appointment is already completed or cancelled, so it cannot change state.
 func IsClinicAppointmentNotModifiable(err error) bool {
 	if err == nil {
 		return false
@@ -168,7 +163,6 @@ func IsClinicAppointmentNotModifiable(err error) bool {
 	return e.Reason == ErrorReason_CLINIC_APPOINTMENT_NOT_MODIFIABLE.String() && e.Code == 409
 }
 
-// Appointment is already completed or cancelled, so it cannot change state.
 func ErrorClinicAppointmentNotModifiable(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_CLINIC_APPOINTMENT_NOT_MODIFIABLE.String(), fmt.Sprintf(format, args...))
 }

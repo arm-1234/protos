@@ -21,7 +21,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Patient reviews are moderated before they appear on the public site.
 type ReviewStatus int32
 
 const (

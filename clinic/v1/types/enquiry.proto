@@ -6,7 +6,6 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/arm-1234/protos/clinic/v1/types;types";
 
-// A "contact us" / callback request submitted from the website.
 message EnquiryInfo {
   string enquiry_id = 1;
   string full_name = 2;
@@ -14,7 +13,6 @@ message EnquiryInfo {
   string email = 4;
   string subject = 5;
   string message = 6;
-  // Which page or campaign the enquiry came from.
   string source = 7;
   bool is_resolved = 8;
   google.protobuf.Timestamp created_at = 9;

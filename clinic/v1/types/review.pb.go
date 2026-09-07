@@ -24,26 +24,21 @@ const (
 )
 
 type ReviewInfo struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	ReviewId string                 `protobuf:"bytes,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
-	// Set when the review is tied to a completed appointment, which is what
-	// earns the "Verified patient" badge on the site.
-	AppointmentId string `protobuf:"bytes,2,opt,name=appointment_id,json=appointmentId,proto3" json:"appointment_id,omitempty"`
-	ServiceId     string `protobuf:"bytes,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	ServiceName   string `protobuf:"bytes,4,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	DoctorId      string `protobuf:"bytes,5,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	DoctorName    string `protobuf:"bytes,6,opt,name=doctor_name,json=doctorName,proto3" json:"doctor_name,omitempty"`
-	PatientName   string `protobuf:"bytes,7,opt,name=patient_name,json=patientName,proto3" json:"patient_name,omitempty"`
-	PatientCity   string `protobuf:"bytes,8,opt,name=patient_city,json=patientCity,proto3" json:"patient_city,omitempty"`
-	// 1 to 5 inclusive.
-	Rating     int32              `protobuf:"varint,9,opt,name=rating,proto3" json:"rating,omitempty"`
-	Title      string             `protobuf:"bytes,10,opt,name=title,proto3" json:"title,omitempty"`
-	Comment    string             `protobuf:"bytes,11,opt,name=comment,proto3" json:"comment,omitempty"`
-	Status     enums.ReviewStatus `protobuf:"varint,12,opt,name=status,proto3,enum=clinic.v1.types.enums.ReviewStatus" json:"status,omitempty"`
-	IsVerified bool               `protobuf:"varint,13,opt,name=is_verified,json=isVerified,proto3" json:"is_verified,omitempty"`
-	// Highlighted on the homepage testimonial carousel.
-	IsFeatured bool `protobuf:"varint,14,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
-	// Public reply written by clinic staff.
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ReviewId      string                 `protobuf:"bytes,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
+	AppointmentId string                 `protobuf:"bytes,2,opt,name=appointment_id,json=appointmentId,proto3" json:"appointment_id,omitempty"`
+	ServiceId     string                 `protobuf:"bytes,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	ServiceName   string                 `protobuf:"bytes,4,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	DoctorId      string                 `protobuf:"bytes,5,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	DoctorName    string                 `protobuf:"bytes,6,opt,name=doctor_name,json=doctorName,proto3" json:"doctor_name,omitempty"`
+	PatientName   string                 `protobuf:"bytes,7,opt,name=patient_name,json=patientName,proto3" json:"patient_name,omitempty"`
+	PatientCity   string                 `protobuf:"bytes,8,opt,name=patient_city,json=patientCity,proto3" json:"patient_city,omitempty"`
+	Rating        int32                  `protobuf:"varint,9,opt,name=rating,proto3" json:"rating,omitempty"`
+	Title         string                 `protobuf:"bytes,10,opt,name=title,proto3" json:"title,omitempty"`
+	Comment       string                 `protobuf:"bytes,11,opt,name=comment,proto3" json:"comment,omitempty"`
+	Status        enums.ReviewStatus     `protobuf:"varint,12,opt,name=status,proto3,enum=clinic.v1.types.enums.ReviewStatus" json:"status,omitempty"`
+	IsVerified    bool                   `protobuf:"varint,13,opt,name=is_verified,json=isVerified,proto3" json:"is_verified,omitempty"`
+	IsFeatured    bool                   `protobuf:"varint,14,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
 	ClinicReply   string                 `protobuf:"bytes,15,opt,name=clinic_reply,json=clinicReply,proto3" json:"clinic_reply,omitempty"`
 	RepliedAt     *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=replied_at,json=repliedAt,proto3" json:"replied_at,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
@@ -208,8 +203,6 @@ func (x *ReviewInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-// Number of reviews holding each star value, used to draw the ratings bar
-// chart on the reviews page.
 type RatingBucket struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Rating        int32                  `protobuf:"varint,1,opt,name=rating,proto3" json:"rating,omitempty"`

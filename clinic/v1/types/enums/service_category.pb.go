@@ -21,32 +21,20 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Groups the clinic's service catalog into the buckets used for site
-// navigation and appointment routing.
 type ServiceCategory int32
 
 const (
-	ServiceCategory_SERVICE_CATEGORY_UNSPECIFIED ServiceCategory = 0
-	// PTA, speech audiometry, immittance, aided audiometry, special tests.
+	ServiceCategory_SERVICE_CATEGORY_UNSPECIFIED          ServiceCategory = 0
 	ServiceCategory_SERVICE_CATEGORY_DIAGNOSTIC_AUDIOLOGY ServiceCategory = 1
-	// BOA/VRA, BERA, CAEP and other infant/child hearing assessments.
-	ServiceCategory_SERVICE_CATEGORY_PEDIATRIC_AUDIOLOGY ServiceCategory = 2
-	// Balance and dizziness work-ups including C-VEMP/O-VEMP.
-	ServiceCategory_SERVICE_CATEGORY_VESTIBULAR ServiceCategory = 3
-	// Tinnitus evaluation and retraining therapy.
-	ServiceCategory_SERVICE_CATEGORY_TINNITUS ServiceCategory = 4
-	// Hearing aid trial, fitting, programming and after-care.
-	ServiceCategory_SERVICE_CATEGORY_HEARING_AID ServiceCategory = 5
-	// Cochlear implant candidacy, mapping and troubleshooting.
-	ServiceCategory_SERVICE_CATEGORY_COCHLEAR_IMPLANT ServiceCategory = 6
-	// Speech and language evaluation and therapy.
-	ServiceCategory_SERVICE_CATEGORY_SPEECH_LANGUAGE ServiceCategory = 7
-	// Voice and swallowing (dysphagia) therapy.
-	ServiceCategory_SERVICE_CATEGORY_VOICE_SWALLOWING ServiceCategory = 8
-	// Central auditory processing disorder testing.
-	ServiceCategory_SERVICE_CATEGORY_CAPD ServiceCategory = 9
-	// General & allied healthcare services.
-	ServiceCategory_SERVICE_CATEGORY_GENERAL ServiceCategory = 10
+	ServiceCategory_SERVICE_CATEGORY_PEDIATRIC_AUDIOLOGY  ServiceCategory = 2
+	ServiceCategory_SERVICE_CATEGORY_VESTIBULAR           ServiceCategory = 3
+	ServiceCategory_SERVICE_CATEGORY_TINNITUS             ServiceCategory = 4
+	ServiceCategory_SERVICE_CATEGORY_HEARING_AID          ServiceCategory = 5
+	ServiceCategory_SERVICE_CATEGORY_COCHLEAR_IMPLANT     ServiceCategory = 6
+	ServiceCategory_SERVICE_CATEGORY_SPEECH_LANGUAGE      ServiceCategory = 7
+	ServiceCategory_SERVICE_CATEGORY_VOICE_SWALLOWING     ServiceCategory = 8
+	ServiceCategory_SERVICE_CATEGORY_CAPD                 ServiceCategory = 9
+	ServiceCategory_SERVICE_CATEGORY_GENERAL              ServiceCategory = 10
 )
 
 // Enum value maps for ServiceCategory.

@@ -9,8 +9,6 @@ option go_package = "github.com/arm-1234/protos/clinic/v1/types;types";
 
 message ReviewInfo {
   string review_id = 1;
-  // Set when the review is tied to a completed appointment, which is what
-  // earns the "Verified patient" badge on the site.
   string appointment_id = 2;
   string service_id = 3;
   string service_name = 4;
@@ -18,23 +16,18 @@ message ReviewInfo {
   string doctor_name = 6;
   string patient_name = 7;
   string patient_city = 8;
-  // 1 to 5 inclusive.
   int32 rating = 9;
   string title = 10;
   string comment = 11;
   clinic.v1.types.enums.ReviewStatus status = 12;
   bool is_verified = 13;
-  // Highlighted on the homepage testimonial carousel.
   bool is_featured = 14;
-  // Public reply written by clinic staff.
   string clinic_reply = 15;
   google.protobuf.Timestamp replied_at = 16;
   google.protobuf.Timestamp created_at = 17;
   google.protobuf.Timestamp updated_at = 18;
 }
 
-// Number of reviews holding each star value, used to draw the ratings bar
-// chart on the reviews page.
 message RatingBucket {
   int32 rating = 1;
   int64 count = 2;

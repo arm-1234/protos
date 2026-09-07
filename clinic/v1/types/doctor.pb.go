@@ -22,31 +22,26 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// A practising audiologist or speech-language pathologist at the clinic.
 type DoctorInfo struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	DoctorId string                 `protobuf:"bytes,1,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	Slug     string                 `protobuf:"bytes,2,opt,name=slug,proto3" json:"slug,omitempty"`
-	FullName string                 `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
-	// Post-nominal qualifications, e.g. "M.Sc. (Audiology & SLP), RCI Reg.".
-	Qualifications string `protobuf:"bytes,4,opt,name=qualifications,proto3" json:"qualifications,omitempty"`
-	// Role line shown under the name, e.g. "Consultant Audiologist".
-	Designation       string `protobuf:"bytes,5,opt,name=designation,proto3" json:"designation,omitempty"`
-	YearsOfExperience int32  `protobuf:"varint,6,opt,name=years_of_experience,json=yearsOfExperience,proto3" json:"years_of_experience,omitempty"`
-	// Registration number with the Rehabilitation Council of India.
-	RciRegistrationNumber string   `protobuf:"bytes,7,opt,name=rci_registration_number,json=rciRegistrationNumber,proto3" json:"rci_registration_number,omitempty"`
-	Bio                   string   `protobuf:"bytes,8,opt,name=bio,proto3" json:"bio,omitempty"`
-	PhotoUrl              string   `protobuf:"bytes,9,opt,name=photo_url,json=photoUrl,proto3" json:"photo_url,omitempty"`
-	Specialities          []string `protobuf:"bytes,10,rep,name=specialities,proto3" json:"specialities,omitempty"`
-	Languages             []string `protobuf:"bytes,11,rep,name=languages,proto3" json:"languages,omitempty"`
-	// Services this practitioner can be booked for.
-	ServiceIds    []string               `protobuf:"bytes,12,rep,name=service_ids,json=serviceIds,proto3" json:"service_ids,omitempty"`
-	IsActive      bool                   `protobuf:"varint,13,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	DisplayOrder  int32                  `protobuf:"varint,14,opt,name=display_order,json=displayOrder,proto3" json:"display_order,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                 protoimpl.MessageState `protogen:"open.v1"`
+	DoctorId              string                 `protobuf:"bytes,1,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	Slug                  string                 `protobuf:"bytes,2,opt,name=slug,proto3" json:"slug,omitempty"`
+	FullName              string                 `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	Qualifications        string                 `protobuf:"bytes,4,opt,name=qualifications,proto3" json:"qualifications,omitempty"`
+	Designation           string                 `protobuf:"bytes,5,opt,name=designation,proto3" json:"designation,omitempty"`
+	YearsOfExperience     int32                  `protobuf:"varint,6,opt,name=years_of_experience,json=yearsOfExperience,proto3" json:"years_of_experience,omitempty"`
+	RciRegistrationNumber string                 `protobuf:"bytes,7,opt,name=rci_registration_number,json=rciRegistrationNumber,proto3" json:"rci_registration_number,omitempty"`
+	Bio                   string                 `protobuf:"bytes,8,opt,name=bio,proto3" json:"bio,omitempty"`
+	PhotoUrl              string                 `protobuf:"bytes,9,opt,name=photo_url,json=photoUrl,proto3" json:"photo_url,omitempty"`
+	Specialities          []string               `protobuf:"bytes,10,rep,name=specialities,proto3" json:"specialities,omitempty"`
+	Languages             []string               `protobuf:"bytes,11,rep,name=languages,proto3" json:"languages,omitempty"`
+	ServiceIds            []string               `protobuf:"bytes,12,rep,name=service_ids,json=serviceIds,proto3" json:"service_ids,omitempty"`
+	IsActive              bool                   `protobuf:"varint,13,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	DisplayOrder          int32                  `protobuf:"varint,14,opt,name=display_order,json=displayOrder,proto3" json:"display_order,omitempty"`
+	CreatedAt             *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt             *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
 }
 
 func (x *DoctorInfo) Reset() {

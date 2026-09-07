@@ -22,16 +22,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// A "contact us" / callback request submitted from the website.
 type EnquiryInfo struct {
-	state     protoimpl.MessageState `protogen:"open.v1"`
-	EnquiryId string                 `protobuf:"bytes,1,opt,name=enquiry_id,json=enquiryId,proto3" json:"enquiry_id,omitempty"`
-	FullName  string                 `protobuf:"bytes,2,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
-	Phone     string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email     string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
-	Subject   string                 `protobuf:"bytes,5,opt,name=subject,proto3" json:"subject,omitempty"`
-	Message   string                 `protobuf:"bytes,6,opt,name=message,proto3" json:"message,omitempty"`
-	// Which page or campaign the enquiry came from.
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	EnquiryId     string                 `protobuf:"bytes,1,opt,name=enquiry_id,json=enquiryId,proto3" json:"enquiry_id,omitempty"`
+	FullName      string                 `protobuf:"bytes,2,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	Phone         string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
+	Subject       string                 `protobuf:"bytes,5,opt,name=subject,proto3" json:"subject,omitempty"`
+	Message       string                 `protobuf:"bytes,6,opt,name=message,proto3" json:"message,omitempty"`
 	Source        string                 `protobuf:"bytes,7,opt,name=source,proto3" json:"source,omitempty"`
 	IsResolved    bool                   `protobuf:"varint,8,opt,name=is_resolved,json=isResolved,proto3" json:"is_resolved,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`

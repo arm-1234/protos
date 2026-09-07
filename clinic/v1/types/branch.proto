@@ -6,17 +6,13 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/arm-1234/protos/clinic/v1/types;types";
 
-// Opening hours for a single day of the week at a branch.
 message OpeningHours {
-  // 0 = Sunday through 6 = Saturday, matching time.Weekday.
   int32 weekday = 1;
-  // Local clinic time in 24h "HH:MM" form.
   string opens_at = 2;
   string closes_at = 3;
   bool is_closed = 4;
 }
 
-// A physical clinic location.
 message BranchInfo {
   string branch_id = 1;
   string slug = 2;
@@ -32,7 +28,6 @@ message BranchInfo {
   double longitude = 12;
   string google_maps_url = 13;
   repeated OpeningHours opening_hours = 14;
-  // IANA timezone the branch operates in, e.g. "Asia/Kolkata".
   string timezone = 15;
   bool is_active = 16;
   bool is_primary = 17;

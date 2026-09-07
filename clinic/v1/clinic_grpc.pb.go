@@ -40,10 +40,6 @@ const (
 // ClinicClient is the client API for Clinic service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-//
-// Clinic exposes everything the public Dr. Voice website needs: the service
-// catalog, practitioners, branches, appointment booking, patient reviews and
-// the media gallery. No authentication is required on these endpoints.
 type ClinicClient interface {
 	ListServices(ctx context.Context, in *request.ListServicesRequest, opts ...grpc.CallOption) (*response.ListServicesResponse, error)
 	GetService(ctx context.Context, in *request.GetServiceRequest, opts ...grpc.CallOption) (*response.GetServiceResponse, error)
@@ -212,10 +208,6 @@ func (c *clinicClient) SubmitEnquiry(ctx context.Context, in *request.SubmitEnqu
 // ClinicServer is the server API for Clinic service.
 // All implementations must embed UnimplementedClinicServer
 // for forward compatibility.
-//
-// Clinic exposes everything the public Dr. Voice website needs: the service
-// catalog, practitioners, branches, appointment booking, patient reviews and
-// the media gallery. No authentication is required on these endpoints.
 type ClinicServer interface {
 	ListServices(context.Context, *request.ListServicesRequest) (*response.ListServicesResponse, error)
 	GetService(context.Context, *request.GetServiceRequest) (*response.GetServiceResponse, error)
@@ -644,9 +636,6 @@ const (
 // ClinicAdminClient is the client API for ClinicAdmin service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-//
-// ClinicAdmin backs the staff dashboard. Every RPC except AdminLogin requires
-// a bearer token issued by AdminLogin.
 type ClinicAdminClient interface {
 	AdminLogin(ctx context.Context, in *request.AdminLoginRequest, opts ...grpc.CallOption) (*response.AdminLoginResponse, error)
 	GetAdminProfile(ctx context.Context, in *request.GetAdminProfileRequest, opts ...grpc.CallOption) (*response.GetAdminProfileResponse, error)
@@ -815,9 +804,6 @@ func (c *clinicAdminClient) GetDashboardStats(ctx context.Context, in *request.G
 // ClinicAdminServer is the server API for ClinicAdmin service.
 // All implementations must embed UnimplementedClinicAdminServer
 // for forward compatibility.
-//
-// ClinicAdmin backs the staff dashboard. Every RPC except AdminLogin requires
-// a bearer token issued by AdminLogin.
 type ClinicAdminServer interface {
 	AdminLogin(context.Context, *request.AdminLoginRequest) (*response.AdminLoginResponse, error)
 	GetAdminProfile(context.Context, *request.GetAdminProfileRequest) (*response.GetAdminProfileResponse, error)

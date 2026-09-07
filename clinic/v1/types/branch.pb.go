@@ -22,15 +22,12 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Opening hours for a single day of the week at a branch.
 type OpeningHours struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 0 = Sunday through 6 = Saturday, matching time.Weekday.
-	Weekday int32 `protobuf:"varint,1,opt,name=weekday,proto3" json:"weekday,omitempty"`
-	// Local clinic time in 24h "HH:MM" form.
-	OpensAt       string `protobuf:"bytes,2,opt,name=opens_at,json=opensAt,proto3" json:"opens_at,omitempty"`
-	ClosesAt      string `protobuf:"bytes,3,opt,name=closes_at,json=closesAt,proto3" json:"closes_at,omitempty"`
-	IsClosed      bool   `protobuf:"varint,4,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Weekday       int32                  `protobuf:"varint,1,opt,name=weekday,proto3" json:"weekday,omitempty"`
+	OpensAt       string                 `protobuf:"bytes,2,opt,name=opens_at,json=opensAt,proto3" json:"opens_at,omitempty"`
+	ClosesAt      string                 `protobuf:"bytes,3,opt,name=closes_at,json=closesAt,proto3" json:"closes_at,omitempty"`
+	IsClosed      bool                   `protobuf:"varint,4,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -93,7 +90,6 @@ func (x *OpeningHours) GetIsClosed() bool {
 	return false
 }
 
-// A physical clinic location.
 type BranchInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	BranchId      string                 `protobuf:"bytes,1,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
@@ -110,7 +106,6 @@ type BranchInfo struct {
 	Longitude     float64                `protobuf:"fixed64,12,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	GoogleMapsUrl string                 `protobuf:"bytes,13,opt,name=google_maps_url,json=googleMapsUrl,proto3" json:"google_maps_url,omitempty"`
 	OpeningHours  []*OpeningHours        `protobuf:"bytes,14,rep,name=opening_hours,json=openingHours,proto3" json:"opening_hours,omitempty"`
-	// IANA timezone the branch operates in, e.g. "Asia/Kolkata".
 	Timezone      string                 `protobuf:"bytes,15,opt,name=timezone,proto3" json:"timezone,omitempty"`
 	IsActive      bool                   `protobuf:"varint,16,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	IsPrimary     bool                   `protobuf:"varint,17,opt,name=is_primary,json=isPrimary,proto3" json:"is_primary,omitempty"`

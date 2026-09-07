@@ -23,34 +23,27 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// An image or video in the clinic's public showcase gallery.
 type MediaInfo struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	MediaId     string                 `protobuf:"bytes,1,opt,name=media_id,json=mediaId,proto3" json:"media_id,omitempty"`
-	MediaType   enums.MediaType        `protobuf:"varint,2,opt,name=media_type,json=mediaType,proto3,enum=clinic.v1.types.enums.MediaType" json:"media_type,omitempty"`
-	Title       string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
-	Description string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	// Canonical URL of the asset, or the embed URL for MEDIA_TYPE_VIDEO_EMBED.
-	Url string `protobuf:"bytes,5,opt,name=url,proto3" json:"url,omitempty"`
-	// Poster image for videos; for images this is a smaller variant.
-	ThumbnailUrl string `protobuf:"bytes,6,opt,name=thumbnail_url,json=thumbnailUrl,proto3" json:"thumbnail_url,omitempty"`
-	// Gallery grouping, e.g. "Clinic Tour", "Patient Stories", "Equipment".
-	Album string `protobuf:"bytes,7,opt,name=album,proto3" json:"album,omitempty"`
-	// Alt text for accessibility.
-	AltText string `protobuf:"bytes,8,opt,name=alt_text,json=altText,proto3" json:"alt_text,omitempty"`
-	Width   int32  `protobuf:"varint,9,opt,name=width,proto3" json:"width,omitempty"`
-	Height  int32  `protobuf:"varint,10,opt,name=height,proto3" json:"height,omitempty"`
-	// Video length in seconds; zero for images.
-	DurationSeconds int32 `protobuf:"varint,11,opt,name=duration_seconds,json=durationSeconds,proto3" json:"duration_seconds,omitempty"`
-	// Optional link back to the service this media illustrates.
-	ServiceId     string                 `protobuf:"bytes,12,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	IsFeatured    bool                   `protobuf:"varint,13,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
-	IsActive      bool                   `protobuf:"varint,14,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	DisplayOrder  int32                  `protobuf:"varint,15,opt,name=display_order,json=displayOrder,proto3" json:"display_order,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	MediaId         string                 `protobuf:"bytes,1,opt,name=media_id,json=mediaId,proto3" json:"media_id,omitempty"`
+	MediaType       enums.MediaType        `protobuf:"varint,2,opt,name=media_type,json=mediaType,proto3,enum=clinic.v1.types.enums.MediaType" json:"media_type,omitempty"`
+	Title           string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Description     string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Url             string                 `protobuf:"bytes,5,opt,name=url,proto3" json:"url,omitempty"`
+	ThumbnailUrl    string                 `protobuf:"bytes,6,opt,name=thumbnail_url,json=thumbnailUrl,proto3" json:"thumbnail_url,omitempty"`
+	Album           string                 `protobuf:"bytes,7,opt,name=album,proto3" json:"album,omitempty"`
+	AltText         string                 `protobuf:"bytes,8,opt,name=alt_text,json=altText,proto3" json:"alt_text,omitempty"`
+	Width           int32                  `protobuf:"varint,9,opt,name=width,proto3" json:"width,omitempty"`
+	Height          int32                  `protobuf:"varint,10,opt,name=height,proto3" json:"height,omitempty"`
+	DurationSeconds int32                  `protobuf:"varint,11,opt,name=duration_seconds,json=durationSeconds,proto3" json:"duration_seconds,omitempty"`
+	ServiceId       string                 `protobuf:"bytes,12,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	IsFeatured      bool                   `protobuf:"varint,13,opt,name=is_featured,json=isFeatured,proto3" json:"is_featured,omitempty"`
+	IsActive        bool                   `protobuf:"varint,14,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	DisplayOrder    int32                  `protobuf:"varint,15,opt,name=display_order,json=displayOrder,proto3" json:"display_order,omitempty"`
+	CreatedAt       *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt       *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *MediaInfo) Reset() {

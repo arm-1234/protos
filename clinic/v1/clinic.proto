@@ -9,9 +9,6 @@ import "clinic/v1/response/clinic_response.proto";
 
 option go_package = "github.com/arm-1234/protos/clinic/v1;v1";
 
-// Clinic exposes everything the public Dr. Voice website needs: the service
-// catalog, practitioners, branches, appointment booking, patient reviews and
-// the media gallery. No authentication is required on these endpoints.
 service Clinic {
   rpc ListServices (clinic.v1.request.ListServicesRequest) returns (clinic.v1.response.ListServicesResponse) {
     option (google.api.http) = {
@@ -102,8 +99,6 @@ service Clinic {
   }
 }
 
-// ClinicAdmin backs the staff dashboard. Every RPC except AdminLogin requires
-// a bearer token issued by AdminLogin.
 service ClinicAdmin {
   rpc AdminLogin (clinic.v1.request.AdminLoginRequest) returns (clinic.v1.response.AdminLoginResponse) {
     option (google.api.http) = {
@@ -210,12 +205,9 @@ enum ErrorReason {
   CLINIC_REVIEW_NOT_FOUND = 6 [(errors.code) = 404];
   CLINIC_MEDIA_NOT_FOUND = 7 [(errors.code) = 404];
   CLINIC_ENQUIRY_NOT_FOUND = 8 [(errors.code) = 404];
-  // The requested slot was taken between rendering the form and submitting it.
   CLINIC_SLOT_UNAVAILABLE = 9 [(errors.code) = 409];
-  // Booking falls outside the branch's opening hours or in the past.
   CLINIC_SLOT_OUT_OF_HOURS = 10 [(errors.code) = 400];
   CLINIC_DUPLICATE_BOOKING = 11 [(errors.code) = 409];
-  // Appointment is already completed or cancelled, so it cannot change state.
   CLINIC_APPOINTMENT_NOT_MODIFIABLE = 12 [(errors.code) = 409];
   CLINIC_UNAUTHENTICATED = 13 [(errors.code) = 401];
   CLINIC_PERMISSION_DENIED = 14 [(errors.code) = 403];

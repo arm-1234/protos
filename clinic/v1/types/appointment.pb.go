@@ -23,15 +23,12 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// A bookable time window returned by ListAvailableSlots.
 type SlotInfo struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	StartsAt *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
-	EndsAt   *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=ends_at,json=endsAt,proto3" json:"ends_at,omitempty"`
-	// False when the slot is already taken or blocked by staff.
-	IsAvailable bool `protobuf:"varint,3,opt,name=is_available,json=isAvailable,proto3" json:"is_available,omitempty"`
-	// Remaining capacity; a branch may run parallel chairs for a service.
-	RemainingCapacity int32 `protobuf:"varint,4,opt,name=remaining_capacity,json=remainingCapacity,proto3" json:"remaining_capacity,omitempty"`
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	StartsAt          *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	EndsAt            *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=ends_at,json=endsAt,proto3" json:"ends_at,omitempty"`
+	IsAvailable       bool                   `protobuf:"varint,3,opt,name=is_available,json=isAvailable,proto3" json:"is_available,omitempty"`
+	RemainingCapacity int32                  `protobuf:"varint,4,opt,name=remaining_capacity,json=remainingCapacity,proto3" json:"remaining_capacity,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -94,19 +91,15 @@ func (x *SlotInfo) GetRemainingCapacity() int32 {
 	return 0
 }
 
-// Patient-supplied details captured at booking time. The clinic identifies
-// patients by phone number rather than requiring an account.
 type PatientDetails struct {
-	state    protoimpl.MessageState `protogen:"open.v1"`
-	FullName string                 `protobuf:"bytes,1,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
-	Phone    string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email    string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	Age      int32                  `protobuf:"varint,4,opt,name=age,proto3" json:"age,omitempty"`
-	Gender   string                 `protobuf:"bytes,5,opt,name=gender,proto3" json:"gender,omitempty"`
-	// Free-text referral source from the intake slip ("Referred By").
-	ReferredBy string `protobuf:"bytes,6,opt,name=referred_by,json=referredBy,proto3" json:"referred_by,omitempty"`
-	// Symptoms or reason for visit supplied by the patient.
-	Notes         string `protobuf:"bytes,7,opt,name=notes,proto3" json:"notes,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FullName      string                 `protobuf:"bytes,1,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	Phone         string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	Age           int32                  `protobuf:"varint,4,opt,name=age,proto3" json:"age,omitempty"`
+	Gender        string                 `protobuf:"bytes,5,opt,name=gender,proto3" json:"gender,omitempty"`
+	ReferredBy    string                 `protobuf:"bytes,6,opt,name=referred_by,json=referredBy,proto3" json:"referred_by,omitempty"`
+	Notes         string                 `protobuf:"bytes,7,opt,name=notes,proto3" json:"notes,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -191,26 +184,24 @@ func (x *PatientDetails) GetNotes() string {
 }
 
 type AppointmentInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AppointmentId string                 `protobuf:"bytes,1,opt,name=appointment_id,json=appointmentId,proto3" json:"appointment_id,omitempty"`
-	// Short human-friendly code shared with the patient, e.g. "DV-8F3K2Q".
-	ReferenceCode   string                  `protobuf:"bytes,2,opt,name=reference_code,json=referenceCode,proto3" json:"reference_code,omitempty"`
-	ServiceId       string                  `protobuf:"bytes,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
-	ServiceName     string                  `protobuf:"bytes,4,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	DoctorId        string                  `protobuf:"bytes,5,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
-	DoctorName      string                  `protobuf:"bytes,6,opt,name=doctor_name,json=doctorName,proto3" json:"doctor_name,omitempty"`
-	BranchId        string                  `protobuf:"bytes,7,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	BranchName      string                  `protobuf:"bytes,8,opt,name=branch_name,json=branchName,proto3" json:"branch_name,omitempty"`
-	Patient         *PatientDetails         `protobuf:"bytes,9,opt,name=patient,proto3" json:"patient,omitempty"`
-	ScheduledAt     *timestamppb.Timestamp  `protobuf:"bytes,10,opt,name=scheduled_at,json=scheduledAt,proto3" json:"scheduled_at,omitempty"`
-	DurationMinutes int32                   `protobuf:"varint,11,opt,name=duration_minutes,json=durationMinutes,proto3" json:"duration_minutes,omitempty"`
-	Mode            enums.ConsultationMode  `protobuf:"varint,12,opt,name=mode,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"mode,omitempty"`
-	Status          enums.AppointmentStatus `protobuf:"varint,13,opt,name=status,proto3,enum=clinic.v1.types.enums.AppointmentStatus" json:"status,omitempty"`
-	// Internal staff-only notes; never returned on public endpoints.
-	StaffNotes         string                 `protobuf:"bytes,14,opt,name=staff_notes,json=staffNotes,proto3" json:"staff_notes,omitempty"`
-	CancellationReason string                 `protobuf:"bytes,15,opt,name=cancellation_reason,json=cancellationReason,proto3" json:"cancellation_reason,omitempty"`
-	CreatedAt          *timestamppb.Timestamp `protobuf:"bytes,16,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt          *timestamppb.Timestamp `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	state              protoimpl.MessageState  `protogen:"open.v1"`
+	AppointmentId      string                  `protobuf:"bytes,1,opt,name=appointment_id,json=appointmentId,proto3" json:"appointment_id,omitempty"`
+	ReferenceCode      string                  `protobuf:"bytes,2,opt,name=reference_code,json=referenceCode,proto3" json:"reference_code,omitempty"`
+	ServiceId          string                  `protobuf:"bytes,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	ServiceName        string                  `protobuf:"bytes,4,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	DoctorId           string                  `protobuf:"bytes,5,opt,name=doctor_id,json=doctorId,proto3" json:"doctor_id,omitempty"`
+	DoctorName         string                  `protobuf:"bytes,6,opt,name=doctor_name,json=doctorName,proto3" json:"doctor_name,omitempty"`
+	BranchId           string                  `protobuf:"bytes,7,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	BranchName         string                  `protobuf:"bytes,8,opt,name=branch_name,json=branchName,proto3" json:"branch_name,omitempty"`
+	Patient            *PatientDetails         `protobuf:"bytes,9,opt,name=patient,proto3" json:"patient,omitempty"`
+	ScheduledAt        *timestamppb.Timestamp  `protobuf:"bytes,10,opt,name=scheduled_at,json=scheduledAt,proto3" json:"scheduled_at,omitempty"`
+	DurationMinutes    int32                   `protobuf:"varint,11,opt,name=duration_minutes,json=durationMinutes,proto3" json:"duration_minutes,omitempty"`
+	Mode               enums.ConsultationMode  `protobuf:"varint,12,opt,name=mode,proto3,enum=clinic.v1.types.enums.ConsultationMode" json:"mode,omitempty"`
+	Status             enums.AppointmentStatus `protobuf:"varint,13,opt,name=status,proto3,enum=clinic.v1.types.enums.AppointmentStatus" json:"status,omitempty"`
+	StaffNotes         string                  `protobuf:"bytes,14,opt,name=staff_notes,json=staffNotes,proto3" json:"staff_notes,omitempty"`
+	CancellationReason string                  `protobuf:"bytes,15,opt,name=cancellation_reason,json=cancellationReason,proto3" json:"cancellation_reason,omitempty"`
+	CreatedAt          *timestamppb.Timestamp  `protobuf:"bytes,16,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt          *timestamppb.Timestamp  `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }

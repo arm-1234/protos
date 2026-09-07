@@ -6,23 +6,18 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/arm-1234/protos/clinic/v1/types;types";
 
-// A practising audiologist or speech-language pathologist at the clinic.
 message DoctorInfo {
   string doctor_id = 1;
   string slug = 2;
   string full_name = 3;
-  // Post-nominal qualifications, e.g. "M.Sc. (Audiology & SLP), RCI Reg.".
   string qualifications = 4;
-  // Role line shown under the name, e.g. "Consultant Audiologist".
   string designation = 5;
   int32 years_of_experience = 6;
-  // Registration number with the Rehabilitation Council of India.
   string rci_registration_number = 7;
   string bio = 8;
   string photo_url = 9;
   repeated string specialities = 10;
   repeated string languages = 11;
-  // Services this practitioner can be booked for.
   repeated string service_ids = 12;
   bool is_active = 13;
   int32 display_order = 14;

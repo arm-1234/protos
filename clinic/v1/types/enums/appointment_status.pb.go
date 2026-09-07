@@ -25,16 +25,11 @@ type AppointmentStatus int32
 
 const (
 	AppointmentStatus_APPOINTMENT_STATUS_UNSPECIFIED AppointmentStatus = 0
-	// Patient submitted the booking; the clinic has not confirmed it yet.
-	AppointmentStatus_APPOINTMENT_STATUS_REQUESTED AppointmentStatus = 1
-	// Clinic staff confirmed the slot.
-	AppointmentStatus_APPOINTMENT_STATUS_CONFIRMED AppointmentStatus = 2
-	// Patient attended and the session is finished.
-	AppointmentStatus_APPOINTMENT_STATUS_COMPLETED AppointmentStatus = 3
-	AppointmentStatus_APPOINTMENT_STATUS_CANCELLED AppointmentStatus = 4
-	// Confirmed slot the patient did not attend.
-	AppointmentStatus_APPOINTMENT_STATUS_NO_SHOW AppointmentStatus = 5
-	// Moved to a different slot; superseded by a newer appointment.
+	AppointmentStatus_APPOINTMENT_STATUS_REQUESTED   AppointmentStatus = 1
+	AppointmentStatus_APPOINTMENT_STATUS_CONFIRMED   AppointmentStatus = 2
+	AppointmentStatus_APPOINTMENT_STATUS_COMPLETED   AppointmentStatus = 3
+	AppointmentStatus_APPOINTMENT_STATUS_CANCELLED   AppointmentStatus = 4
+	AppointmentStatus_APPOINTMENT_STATUS_NO_SHOW     AppointmentStatus = 5
 	AppointmentStatus_APPOINTMENT_STATUS_RESCHEDULED AppointmentStatus = 6
 )
 
