@@ -1747,6 +1747,162 @@ func (x *ServicePopularity) GetBookingCount() int64 {
 	return 0
 }
 
+type DeleteServiceResponse struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Success            bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	SoftDeleted        bool                   `protobuf:"varint,2,opt,name=soft_deleted,json=softDeleted,proto3" json:"soft_deleted,omitempty"`
+	PermanentlyDeleted bool                   `protobuf:"varint,3,opt,name=permanently_deleted,json=permanentlyDeleted,proto3" json:"permanently_deleted,omitempty"`
+	Message            string                 `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *DeleteServiceResponse) Reset() {
+	*x = DeleteServiceResponse{}
+	mi := &file_clinic_v1_response_clinic_response_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteServiceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteServiceResponse) ProtoMessage() {}
+
+func (x *DeleteServiceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_response_clinic_response_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteServiceResponse.ProtoReflect.Descriptor instead.
+func (*DeleteServiceResponse) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_response_clinic_response_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *DeleteServiceResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *DeleteServiceResponse) GetSoftDeleted() bool {
+	if x != nil {
+		return x.SoftDeleted
+	}
+	return false
+}
+
+func (x *DeleteServiceResponse) GetPermanentlyDeleted() bool {
+	if x != nil {
+		return x.PermanentlyDeleted
+	}
+	return false
+}
+
+func (x *DeleteServiceResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type UpdateTimingsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateTimingsResponse) Reset() {
+	*x = UpdateTimingsResponse{}
+	mi := &file_clinic_v1_response_clinic_response_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateTimingsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTimingsResponse) ProtoMessage() {}
+
+func (x *UpdateTimingsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_response_clinic_response_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTimingsResponse.ProtoReflect.Descriptor instead.
+func (*UpdateTimingsResponse) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_response_clinic_response_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *UpdateTimingsResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type UpdateContactResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateContactResponse) Reset() {
+	*x = UpdateContactResponse{}
+	mi := &file_clinic_v1_response_clinic_response_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateContactResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateContactResponse) ProtoMessage() {}
+
+func (x *UpdateContactResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_response_clinic_response_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateContactResponse.ProtoReflect.Descriptor instead.
+func (*UpdateContactResponse) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_response_clinic_response_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *UpdateContactResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_clinic_v1_response_clinic_response_proto protoreflect.FileDescriptor
 
 const file_clinic_v1_response_clinic_response_proto_rawDesc = "" +
@@ -1863,7 +2019,16 @@ const file_clinic_v1_response_clinic_response_proto_rawDesc = "" +
 	"\n" +
 	"service_id\x18\x01 \x01(\tR\tserviceId\x12!\n" +
 	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x12#\n" +
-	"\rbooking_count\x18\x03 \x01(\x03R\fbookingCountB8Z6github.com/arm-1234/protos/clinic/v1/response;responseb\x06proto3"
+	"\rbooking_count\x18\x03 \x01(\x03R\fbookingCount\"\x9f\x01\n" +
+	"\x15DeleteServiceResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12!\n" +
+	"\fsoft_deleted\x18\x02 \x01(\bR\vsoftDeleted\x12/\n" +
+	"\x13permanently_deleted\x18\x03 \x01(\bR\x12permanentlyDeleted\x12\x18\n" +
+	"\amessage\x18\x04 \x01(\tR\amessage\"1\n" +
+	"\x15UpdateTimingsResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"1\n" +
+	"\x15UpdateContactResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccessB8Z6github.com/arm-1234/protos/clinic/v1/response;responseb\x06proto3"
 
 var (
 	file_clinic_v1_response_clinic_response_proto_rawDescOnce sync.Once
@@ -1877,7 +2042,7 @@ func file_clinic_v1_response_clinic_response_proto_rawDescGZIP() []byte {
 	return file_clinic_v1_response_clinic_response_proto_rawDescData
 }
 
-var file_clinic_v1_response_clinic_response_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
+var file_clinic_v1_response_clinic_response_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_clinic_v1_response_clinic_response_proto_goTypes = []any{
 	(*PageInfo)(nil),                   // 0: clinic.v1.response.PageInfo
 	(*ServiceCategoryGroup)(nil),       // 1: clinic.v1.response.ServiceCategoryGroup
@@ -1910,59 +2075,62 @@ var file_clinic_v1_response_clinic_response_proto_goTypes = []any{
 	(*DailyCount)(nil),                 // 28: clinic.v1.response.DailyCount
 	(*GetDashboardStatsResponse)(nil),  // 29: clinic.v1.response.GetDashboardStatsResponse
 	(*ServicePopularity)(nil),          // 30: clinic.v1.response.ServicePopularity
-	(enums.ServiceCategory)(0),         // 31: clinic.v1.types.enums.ServiceCategory
-	(*types.ServiceInfo)(nil),          // 32: clinic.v1.types.ServiceInfo
-	(*types.DoctorInfo)(nil),           // 33: clinic.v1.types.DoctorInfo
-	(*types.RatingSummary)(nil),        // 34: clinic.v1.types.RatingSummary
-	(*types.ReviewInfo)(nil),           // 35: clinic.v1.types.ReviewInfo
-	(*types.BranchInfo)(nil),           // 36: clinic.v1.types.BranchInfo
-	(*types.SlotInfo)(nil),             // 37: clinic.v1.types.SlotInfo
-	(*types.AppointmentInfo)(nil),      // 38: clinic.v1.types.AppointmentInfo
-	(*types.MediaInfo)(nil),            // 39: clinic.v1.types.MediaInfo
-	(*types.EnquiryInfo)(nil),          // 40: clinic.v1.types.EnquiryInfo
+	(*DeleteServiceResponse)(nil),      // 31: clinic.v1.response.DeleteServiceResponse
+	(*UpdateTimingsResponse)(nil),      // 32: clinic.v1.response.UpdateTimingsResponse
+	(*UpdateContactResponse)(nil),      // 33: clinic.v1.response.UpdateContactResponse
+	(enums.ServiceCategory)(0),         // 34: clinic.v1.types.enums.ServiceCategory
+	(*types.ServiceInfo)(nil),          // 35: clinic.v1.types.ServiceInfo
+	(*types.DoctorInfo)(nil),           // 36: clinic.v1.types.DoctorInfo
+	(*types.RatingSummary)(nil),        // 37: clinic.v1.types.RatingSummary
+	(*types.ReviewInfo)(nil),           // 38: clinic.v1.types.ReviewInfo
+	(*types.BranchInfo)(nil),           // 39: clinic.v1.types.BranchInfo
+	(*types.SlotInfo)(nil),             // 40: clinic.v1.types.SlotInfo
+	(*types.AppointmentInfo)(nil),      // 41: clinic.v1.types.AppointmentInfo
+	(*types.MediaInfo)(nil),            // 42: clinic.v1.types.MediaInfo
+	(*types.EnquiryInfo)(nil),          // 43: clinic.v1.types.EnquiryInfo
 }
 var file_clinic_v1_response_clinic_response_proto_depIdxs = []int32{
-	31, // 0: clinic.v1.response.ServiceCategoryGroup.category:type_name -> clinic.v1.types.enums.ServiceCategory
-	32, // 1: clinic.v1.response.ServiceCategoryGroup.services:type_name -> clinic.v1.types.ServiceInfo
-	32, // 2: clinic.v1.response.ListServicesResponse.services:type_name -> clinic.v1.types.ServiceInfo
+	34, // 0: clinic.v1.response.ServiceCategoryGroup.category:type_name -> clinic.v1.types.enums.ServiceCategory
+	35, // 1: clinic.v1.response.ServiceCategoryGroup.services:type_name -> clinic.v1.types.ServiceInfo
+	35, // 2: clinic.v1.response.ListServicesResponse.services:type_name -> clinic.v1.types.ServiceInfo
 	1,  // 3: clinic.v1.response.ListServicesResponse.groups:type_name -> clinic.v1.response.ServiceCategoryGroup
 	0,  // 4: clinic.v1.response.ListServicesResponse.page:type_name -> clinic.v1.response.PageInfo
-	32, // 5: clinic.v1.response.GetServiceResponse.service:type_name -> clinic.v1.types.ServiceInfo
-	33, // 6: clinic.v1.response.GetServiceResponse.doctors:type_name -> clinic.v1.types.DoctorInfo
-	32, // 7: clinic.v1.response.GetServiceResponse.related_services:type_name -> clinic.v1.types.ServiceInfo
-	34, // 8: clinic.v1.response.GetServiceResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
-	33, // 9: clinic.v1.response.ListDoctorsResponse.doctors:type_name -> clinic.v1.types.DoctorInfo
+	35, // 5: clinic.v1.response.GetServiceResponse.service:type_name -> clinic.v1.types.ServiceInfo
+	36, // 6: clinic.v1.response.GetServiceResponse.doctors:type_name -> clinic.v1.types.DoctorInfo
+	35, // 7: clinic.v1.response.GetServiceResponse.related_services:type_name -> clinic.v1.types.ServiceInfo
+	37, // 8: clinic.v1.response.GetServiceResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
+	36, // 9: clinic.v1.response.ListDoctorsResponse.doctors:type_name -> clinic.v1.types.DoctorInfo
 	0,  // 10: clinic.v1.response.ListDoctorsResponse.page:type_name -> clinic.v1.response.PageInfo
-	33, // 11: clinic.v1.response.GetDoctorResponse.doctor:type_name -> clinic.v1.types.DoctorInfo
-	32, // 12: clinic.v1.response.GetDoctorResponse.services:type_name -> clinic.v1.types.ServiceInfo
-	34, // 13: clinic.v1.response.GetDoctorResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
-	35, // 14: clinic.v1.response.GetDoctorResponse.recent_reviews:type_name -> clinic.v1.types.ReviewInfo
-	36, // 15: clinic.v1.response.ListBranchesResponse.branches:type_name -> clinic.v1.types.BranchInfo
-	37, // 16: clinic.v1.response.ListAvailableSlotsResponse.slots:type_name -> clinic.v1.types.SlotInfo
-	38, // 17: clinic.v1.response.BookAppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
-	38, // 18: clinic.v1.response.GetAppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
-	38, // 19: clinic.v1.response.CancelAppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
-	35, // 20: clinic.v1.response.SubmitReviewResponse.review:type_name -> clinic.v1.types.ReviewInfo
-	35, // 21: clinic.v1.response.ListReviewsResponse.reviews:type_name -> clinic.v1.types.ReviewInfo
-	34, // 22: clinic.v1.response.ListReviewsResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
+	36, // 11: clinic.v1.response.GetDoctorResponse.doctor:type_name -> clinic.v1.types.DoctorInfo
+	35, // 12: clinic.v1.response.GetDoctorResponse.services:type_name -> clinic.v1.types.ServiceInfo
+	37, // 13: clinic.v1.response.GetDoctorResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
+	38, // 14: clinic.v1.response.GetDoctorResponse.recent_reviews:type_name -> clinic.v1.types.ReviewInfo
+	39, // 15: clinic.v1.response.ListBranchesResponse.branches:type_name -> clinic.v1.types.BranchInfo
+	40, // 16: clinic.v1.response.ListAvailableSlotsResponse.slots:type_name -> clinic.v1.types.SlotInfo
+	41, // 17: clinic.v1.response.BookAppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
+	41, // 18: clinic.v1.response.GetAppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
+	41, // 19: clinic.v1.response.CancelAppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
+	38, // 20: clinic.v1.response.SubmitReviewResponse.review:type_name -> clinic.v1.types.ReviewInfo
+	38, // 21: clinic.v1.response.ListReviewsResponse.reviews:type_name -> clinic.v1.types.ReviewInfo
+	37, // 22: clinic.v1.response.ListReviewsResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
 	0,  // 23: clinic.v1.response.ListReviewsResponse.page:type_name -> clinic.v1.response.PageInfo
-	34, // 24: clinic.v1.response.GetRatingSummaryResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
-	39, // 25: clinic.v1.response.ListMediaResponse.media:type_name -> clinic.v1.types.MediaInfo
+	37, // 24: clinic.v1.response.GetRatingSummaryResponse.rating_summary:type_name -> clinic.v1.types.RatingSummary
+	42, // 25: clinic.v1.response.ListMediaResponse.media:type_name -> clinic.v1.types.MediaInfo
 	0,  // 26: clinic.v1.response.ListMediaResponse.page:type_name -> clinic.v1.response.PageInfo
-	39, // 27: clinic.v1.response.MediaResponse.media:type_name -> clinic.v1.types.MediaInfo
-	40, // 28: clinic.v1.response.SubmitEnquiryResponse.enquiry:type_name -> clinic.v1.types.EnquiryInfo
-	40, // 29: clinic.v1.response.ListEnquiriesResponse.enquiries:type_name -> clinic.v1.types.EnquiryInfo
+	42, // 27: clinic.v1.response.MediaResponse.media:type_name -> clinic.v1.types.MediaInfo
+	43, // 28: clinic.v1.response.SubmitEnquiryResponse.enquiry:type_name -> clinic.v1.types.EnquiryInfo
+	43, // 29: clinic.v1.response.ListEnquiriesResponse.enquiries:type_name -> clinic.v1.types.EnquiryInfo
 	0,  // 30: clinic.v1.response.ListEnquiriesResponse.page:type_name -> clinic.v1.response.PageInfo
-	40, // 31: clinic.v1.response.ResolveEnquiryResponse.enquiry:type_name -> clinic.v1.types.EnquiryInfo
+	43, // 31: clinic.v1.response.ResolveEnquiryResponse.enquiry:type_name -> clinic.v1.types.EnquiryInfo
 	20, // 32: clinic.v1.response.AdminLoginResponse.profile:type_name -> clinic.v1.response.AdminProfile
 	20, // 33: clinic.v1.response.GetAdminProfileResponse.profile:type_name -> clinic.v1.response.AdminProfile
-	38, // 34: clinic.v1.response.ListAppointmentsResponse.appointments:type_name -> clinic.v1.types.AppointmentInfo
+	41, // 34: clinic.v1.response.ListAppointmentsResponse.appointments:type_name -> clinic.v1.types.AppointmentInfo
 	0,  // 35: clinic.v1.response.ListAppointmentsResponse.page:type_name -> clinic.v1.response.PageInfo
-	38, // 36: clinic.v1.response.AppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
-	35, // 37: clinic.v1.response.ListPendingReviewsResponse.reviews:type_name -> clinic.v1.types.ReviewInfo
+	41, // 36: clinic.v1.response.AppointmentResponse.appointment:type_name -> clinic.v1.types.AppointmentInfo
+	38, // 37: clinic.v1.response.ListPendingReviewsResponse.reviews:type_name -> clinic.v1.types.ReviewInfo
 	0,  // 38: clinic.v1.response.ListPendingReviewsResponse.page:type_name -> clinic.v1.response.PageInfo
-	35, // 39: clinic.v1.response.ModerateReviewResponse.review:type_name -> clinic.v1.types.ReviewInfo
-	32, // 40: clinic.v1.response.UpsertServiceResponse.service:type_name -> clinic.v1.types.ServiceInfo
+	38, // 39: clinic.v1.response.ModerateReviewResponse.review:type_name -> clinic.v1.types.ReviewInfo
+	35, // 40: clinic.v1.response.UpsertServiceResponse.service:type_name -> clinic.v1.types.ServiceInfo
 	28, // 41: clinic.v1.response.GetDashboardStatsResponse.appointments_trend:type_name -> clinic.v1.response.DailyCount
 	30, // 42: clinic.v1.response.GetDashboardStatsResponse.top_services:type_name -> clinic.v1.response.ServicePopularity
 	43, // [43:43] is the sub-list for method output_type
@@ -1983,7 +2151,7 @@ func file_clinic_v1_response_clinic_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_clinic_v1_response_clinic_response_proto_rawDesc), len(file_clinic_v1_response_clinic_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   31,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

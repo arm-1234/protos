@@ -571,8 +571,10 @@ func (c *ClinicHTTPClientImpl) SubmitReview(ctx context.Context, in *request.Sub
 const OperationClinicAdminAdminLogin = "/clinic.v1.ClinicAdmin/AdminLogin"
 const OperationClinicAdminCreateMedia = "/clinic.v1.ClinicAdmin/CreateMedia"
 const OperationClinicAdminDeleteMedia = "/clinic.v1.ClinicAdmin/DeleteMedia"
+const OperationClinicAdminDeleteService = "/clinic.v1.ClinicAdmin/DeleteService"
 const OperationClinicAdminGetAdminProfile = "/clinic.v1.ClinicAdmin/GetAdminProfile"
 const OperationClinicAdminGetDashboardStats = "/clinic.v1.ClinicAdmin/GetDashboardStats"
+const OperationClinicAdminListAllServices = "/clinic.v1.ClinicAdmin/ListAllServices"
 const OperationClinicAdminListAppointments = "/clinic.v1.ClinicAdmin/ListAppointments"
 const OperationClinicAdminListEnquiries = "/clinic.v1.ClinicAdmin/ListEnquiries"
 const OperationClinicAdminListPendingReviews = "/clinic.v1.ClinicAdmin/ListPendingReviews"
@@ -580,15 +582,19 @@ const OperationClinicAdminModerateReview = "/clinic.v1.ClinicAdmin/ModerateRevie
 const OperationClinicAdminRescheduleAppointment = "/clinic.v1.ClinicAdmin/RescheduleAppointment"
 const OperationClinicAdminResolveEnquiry = "/clinic.v1.ClinicAdmin/ResolveEnquiry"
 const OperationClinicAdminUpdateAppointmentStatus = "/clinic.v1.ClinicAdmin/UpdateAppointmentStatus"
+const OperationClinicAdminUpdateContact = "/clinic.v1.ClinicAdmin/UpdateContact"
 const OperationClinicAdminUpdateMedia = "/clinic.v1.ClinicAdmin/UpdateMedia"
+const OperationClinicAdminUpdateTimings = "/clinic.v1.ClinicAdmin/UpdateTimings"
 const OperationClinicAdminUpsertService = "/clinic.v1.ClinicAdmin/UpsertService"
 
 type ClinicAdminHTTPServer interface {
 	AdminLogin(context.Context, *request.AdminLoginRequest) (*response.AdminLoginResponse, error)
 	CreateMedia(context.Context, *request.CreateMediaRequest) (*response.MediaResponse, error)
 	DeleteMedia(context.Context, *request.DeleteMediaRequest) (*response.DeleteMediaResponse, error)
+	DeleteService(context.Context, *request.DeleteServiceRequest) (*response.DeleteServiceResponse, error)
 	GetAdminProfile(context.Context, *request.GetAdminProfileRequest) (*response.GetAdminProfileResponse, error)
 	GetDashboardStats(context.Context, *request.GetDashboardStatsRequest) (*response.GetDashboardStatsResponse, error)
+	ListAllServices(context.Context, *request.ListAllServicesRequest) (*response.ListServicesResponse, error)
 	ListAppointments(context.Context, *request.ListAppointmentsRequest) (*response.ListAppointmentsResponse, error)
 	ListEnquiries(context.Context, *request.ListEnquiriesRequest) (*response.ListEnquiriesResponse, error)
 	ListPendingReviews(context.Context, *request.ListPendingReviewsRequest) (*response.ListPendingReviewsResponse, error)
@@ -596,7 +602,9 @@ type ClinicAdminHTTPServer interface {
 	RescheduleAppointment(context.Context, *request.RescheduleAppointmentRequest) (*response.AppointmentResponse, error)
 	ResolveEnquiry(context.Context, *request.ResolveEnquiryRequest) (*response.ResolveEnquiryResponse, error)
 	UpdateAppointmentStatus(context.Context, *request.UpdateAppointmentStatusRequest) (*response.AppointmentResponse, error)
+	UpdateContact(context.Context, *request.UpdateContactRequest) (*response.UpdateContactResponse, error)
 	UpdateMedia(context.Context, *request.UpdateMediaRequest) (*response.MediaResponse, error)
+	UpdateTimings(context.Context, *request.UpdateTimingsRequest) (*response.UpdateTimingsResponse, error)
 	UpsertService(context.Context, *request.UpsertServiceRequest) (*response.UpsertServiceResponse, error)
 }
 
@@ -613,6 +621,10 @@ func RegisterClinicAdminHTTPServer(s *http.Server, srv ClinicAdminHTTPServer) {
 	r.PATCH("/v1/clinic/admin/media/{media_id}", _ClinicAdmin_UpdateMedia0_HTTP_Handler(srv))
 	r.DELETE("/v1/clinic/admin/media/{media_id}", _ClinicAdmin_DeleteMedia0_HTTP_Handler(srv))
 	r.PUT("/v1/clinic/admin/services", _ClinicAdmin_UpsertService0_HTTP_Handler(srv))
+	r.GET("/v1/clinic/admin/services", _ClinicAdmin_ListAllServices0_HTTP_Handler(srv))
+	r.DELETE("/v1/clinic/admin/services/{service_id}", _ClinicAdmin_DeleteService0_HTTP_Handler(srv))
+	r.POST("/v1/clinic/admin/timings", _ClinicAdmin_UpdateTimings0_HTTP_Handler(srv))
+	r.POST("/v1/clinic/admin/contact", _ClinicAdmin_UpdateContact0_HTTP_Handler(srv))
 	r.GET("/v1/clinic/admin/enquiries", _ClinicAdmin_ListEnquiries0_HTTP_Handler(srv))
 	r.PATCH("/v1/clinic/admin/enquiries/{enquiry_id}", _ClinicAdmin_ResolveEnquiry0_HTTP_Handler(srv))
 	r.GET("/v1/clinic/admin/dashboard", _ClinicAdmin_GetDashboardStats0_HTTP_Handler(srv))
@@ -863,6 +875,91 @@ func _ClinicAdmin_UpsertService0_HTTP_Handler(srv ClinicAdminHTTPServer) func(ct
 	}
 }
 
+func _ClinicAdmin_ListAllServices0_HTTP_Handler(srv ClinicAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListAllServicesRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationClinicAdminListAllServices)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListAllServices(ctx, req.(*request.ListAllServicesRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListServicesResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ClinicAdmin_DeleteService0_HTTP_Handler(srv ClinicAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.DeleteServiceRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationClinicAdminDeleteService)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteService(ctx, req.(*request.DeleteServiceRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.DeleteServiceResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ClinicAdmin_UpdateTimings0_HTTP_Handler(srv ClinicAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateTimingsRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationClinicAdminUpdateTimings)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateTimings(ctx, req.(*request.UpdateTimingsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateTimingsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ClinicAdmin_UpdateContact0_HTTP_Handler(srv ClinicAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateContactRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationClinicAdminUpdateContact)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateContact(ctx, req.(*request.UpdateContactRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateContactResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _ClinicAdmin_ListEnquiries0_HTTP_Handler(srv ClinicAdminHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.ListEnquiriesRequest
@@ -930,8 +1027,10 @@ type ClinicAdminHTTPClient interface {
 	AdminLogin(ctx context.Context, req *request.AdminLoginRequest, opts ...http.CallOption) (rsp *response.AdminLoginResponse, err error)
 	CreateMedia(ctx context.Context, req *request.CreateMediaRequest, opts ...http.CallOption) (rsp *response.MediaResponse, err error)
 	DeleteMedia(ctx context.Context, req *request.DeleteMediaRequest, opts ...http.CallOption) (rsp *response.DeleteMediaResponse, err error)
+	DeleteService(ctx context.Context, req *request.DeleteServiceRequest, opts ...http.CallOption) (rsp *response.DeleteServiceResponse, err error)
 	GetAdminProfile(ctx context.Context, req *request.GetAdminProfileRequest, opts ...http.CallOption) (rsp *response.GetAdminProfileResponse, err error)
 	GetDashboardStats(ctx context.Context, req *request.GetDashboardStatsRequest, opts ...http.CallOption) (rsp *response.GetDashboardStatsResponse, err error)
+	ListAllServices(ctx context.Context, req *request.ListAllServicesRequest, opts ...http.CallOption) (rsp *response.ListServicesResponse, err error)
 	ListAppointments(ctx context.Context, req *request.ListAppointmentsRequest, opts ...http.CallOption) (rsp *response.ListAppointmentsResponse, err error)
 	ListEnquiries(ctx context.Context, req *request.ListEnquiriesRequest, opts ...http.CallOption) (rsp *response.ListEnquiriesResponse, err error)
 	ListPendingReviews(ctx context.Context, req *request.ListPendingReviewsRequest, opts ...http.CallOption) (rsp *response.ListPendingReviewsResponse, err error)
@@ -939,7 +1038,9 @@ type ClinicAdminHTTPClient interface {
 	RescheduleAppointment(ctx context.Context, req *request.RescheduleAppointmentRequest, opts ...http.CallOption) (rsp *response.AppointmentResponse, err error)
 	ResolveEnquiry(ctx context.Context, req *request.ResolveEnquiryRequest, opts ...http.CallOption) (rsp *response.ResolveEnquiryResponse, err error)
 	UpdateAppointmentStatus(ctx context.Context, req *request.UpdateAppointmentStatusRequest, opts ...http.CallOption) (rsp *response.AppointmentResponse, err error)
+	UpdateContact(ctx context.Context, req *request.UpdateContactRequest, opts ...http.CallOption) (rsp *response.UpdateContactResponse, err error)
 	UpdateMedia(ctx context.Context, req *request.UpdateMediaRequest, opts ...http.CallOption) (rsp *response.MediaResponse, err error)
+	UpdateTimings(ctx context.Context, req *request.UpdateTimingsRequest, opts ...http.CallOption) (rsp *response.UpdateTimingsResponse, err error)
 	UpsertService(ctx context.Context, req *request.UpsertServiceRequest, opts ...http.CallOption) (rsp *response.UpsertServiceResponse, err error)
 }
 
@@ -990,6 +1091,19 @@ func (c *ClinicAdminHTTPClientImpl) DeleteMedia(ctx context.Context, in *request
 	return &out, nil
 }
 
+func (c *ClinicAdminHTTPClientImpl) DeleteService(ctx context.Context, in *request.DeleteServiceRequest, opts ...http.CallOption) (*response.DeleteServiceResponse, error) {
+	var out response.DeleteServiceResponse
+	pattern := "/v1/clinic/admin/services/{service_id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationClinicAdminDeleteService))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *ClinicAdminHTTPClientImpl) GetAdminProfile(ctx context.Context, in *request.GetAdminProfileRequest, opts ...http.CallOption) (*response.GetAdminProfileResponse, error) {
 	var out response.GetAdminProfileResponse
 	pattern := "/v1/clinic/admin/me"
@@ -1008,6 +1122,19 @@ func (c *ClinicAdminHTTPClientImpl) GetDashboardStats(ctx context.Context, in *r
 	pattern := "/v1/clinic/admin/dashboard"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationClinicAdminGetDashboardStats))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *ClinicAdminHTTPClientImpl) ListAllServices(ctx context.Context, in *request.ListAllServicesRequest, opts ...http.CallOption) (*response.ListServicesResponse, error) {
+	var out response.ListServicesResponse
+	pattern := "/v1/clinic/admin/services"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationClinicAdminListAllServices))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -1107,6 +1234,19 @@ func (c *ClinicAdminHTTPClientImpl) UpdateAppointmentStatus(ctx context.Context,
 	return &out, nil
 }
 
+func (c *ClinicAdminHTTPClientImpl) UpdateContact(ctx context.Context, in *request.UpdateContactRequest, opts ...http.CallOption) (*response.UpdateContactResponse, error) {
+	var out response.UpdateContactResponse
+	pattern := "/v1/clinic/admin/contact"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationClinicAdminUpdateContact))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *ClinicAdminHTTPClientImpl) UpdateMedia(ctx context.Context, in *request.UpdateMediaRequest, opts ...http.CallOption) (*response.MediaResponse, error) {
 	var out response.MediaResponse
 	pattern := "/v1/clinic/admin/media/{media_id}"
@@ -1114,6 +1254,19 @@ func (c *ClinicAdminHTTPClientImpl) UpdateMedia(ctx context.Context, in *request
 	opts = append(opts, http.Operation(OperationClinicAdminUpdateMedia))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *ClinicAdminHTTPClientImpl) UpdateTimings(ctx context.Context, in *request.UpdateTimingsRequest, opts ...http.CallOption) (*response.UpdateTimingsResponse, error) {
+	var out response.UpdateTimingsResponse
+	pattern := "/v1/clinic/admin/timings"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationClinicAdminUpdateTimings))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

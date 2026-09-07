@@ -173,6 +173,32 @@ service ClinicAdmin {
     };
   }
 
+  rpc ListAllServices (clinic.v1.request.ListAllServicesRequest) returns (clinic.v1.response.ListServicesResponse) {
+    option (google.api.http) = {
+      get: "/v1/clinic/admin/services"
+    };
+  }
+
+  rpc DeleteService (clinic.v1.request.DeleteServiceRequest) returns (clinic.v1.response.DeleteServiceResponse) {
+    option (google.api.http) = {
+      delete: "/v1/clinic/admin/services/{service_id}"
+    };
+  }
+
+  rpc UpdateTimings (clinic.v1.request.UpdateTimingsRequest) returns (clinic.v1.response.UpdateTimingsResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/admin/timings"
+      body: "*"
+    };
+  }
+
+  rpc UpdateContact (clinic.v1.request.UpdateContactRequest) returns (clinic.v1.response.UpdateContactResponse) {
+    option (google.api.http) = {
+      post: "/v1/clinic/admin/contact"
+      body: "*"
+    };
+  }
+
   rpc ListEnquiries (clinic.v1.request.ListEnquiriesRequest) returns (clinic.v1.response.ListEnquiriesResponse) {
     option (google.api.http) = {
       get: "/v1/clinic/admin/enquiries"

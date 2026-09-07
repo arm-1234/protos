@@ -4558,3 +4558,321 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ServicePopularityValidationError{}
+
+// Validate checks the field values on DeleteServiceResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteServiceResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteServiceResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteServiceResponseMultiError, or nil if none found.
+func (m *DeleteServiceResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteServiceResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Success
+
+	// no validation rules for SoftDeleted
+
+	// no validation rules for PermanentlyDeleted
+
+	// no validation rules for Message
+
+	if len(errors) > 0 {
+		return DeleteServiceResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteServiceResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteServiceResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteServiceResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteServiceResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteServiceResponseMultiError) AllErrors() []error { return m }
+
+// DeleteServiceResponseValidationError is the validation error returned by
+// DeleteServiceResponse.Validate if the designated constraints aren't met.
+type DeleteServiceResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteServiceResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteServiceResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteServiceResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteServiceResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteServiceResponseValidationError) ErrorName() string {
+	return "DeleteServiceResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteServiceResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteServiceResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteServiceResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteServiceResponseValidationError{}
+
+// Validate checks the field values on UpdateTimingsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateTimingsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateTimingsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateTimingsResponseMultiError, or nil if none found.
+func (m *UpdateTimingsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateTimingsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Success
+
+	if len(errors) > 0 {
+		return UpdateTimingsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateTimingsResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdateTimingsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateTimingsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateTimingsResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateTimingsResponseMultiError) AllErrors() []error { return m }
+
+// UpdateTimingsResponseValidationError is the validation error returned by
+// UpdateTimingsResponse.Validate if the designated constraints aren't met.
+type UpdateTimingsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateTimingsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateTimingsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateTimingsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateTimingsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateTimingsResponseValidationError) ErrorName() string {
+	return "UpdateTimingsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateTimingsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateTimingsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateTimingsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateTimingsResponseValidationError{}
+
+// Validate checks the field values on UpdateContactResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateContactResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateContactResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateContactResponseMultiError, or nil if none found.
+func (m *UpdateContactResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateContactResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Success
+
+	if len(errors) > 0 {
+		return UpdateContactResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateContactResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdateContactResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateContactResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateContactResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateContactResponseMultiError) AllErrors() []error { return m }
+
+// UpdateContactResponseValidationError is the validation error returned by
+// UpdateContactResponse.Validate if the designated constraints aren't met.
+type UpdateContactResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateContactResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateContactResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateContactResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateContactResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateContactResponseValidationError) ErrorName() string {
+	return "UpdateContactResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateContactResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateContactResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateContactResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateContactResponseValidationError{}

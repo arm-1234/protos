@@ -7,6 +7,7 @@
 package request
 
 import (
+	types "github.com/arm-1234/protos/clinic/v1/types"
 	enums "github.com/arm-1234/protos/clinic/v1/types/enums"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
@@ -2113,11 +2114,203 @@ func (x *GetDashboardStatsRequest) GetWindowDays() int32 {
 	return 0
 }
 
+type ListAllServicesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListAllServicesRequest) Reset() {
+	*x = ListAllServicesRequest{}
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListAllServicesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListAllServicesRequest) ProtoMessage() {}
+
+func (x *ListAllServicesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListAllServicesRequest.ProtoReflect.Descriptor instead.
+func (*ListAllServicesRequest) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_request_clinic_request_proto_rawDescGZIP(), []int{28}
+}
+
+type DeleteServiceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId     string                 `protobuf:"bytes,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	Force         bool                   `protobuf:"varint,2,opt,name=force,proto3" json:"force,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteServiceRequest) Reset() {
+	*x = DeleteServiceRequest{}
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteServiceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteServiceRequest) ProtoMessage() {}
+
+func (x *DeleteServiceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteServiceRequest.ProtoReflect.Descriptor instead.
+func (*DeleteServiceRequest) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_request_clinic_request_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *DeleteServiceRequest) GetServiceId() string {
+	if x != nil {
+		return x.ServiceId
+	}
+	return ""
+}
+
+func (x *DeleteServiceRequest) GetForce() bool {
+	if x != nil {
+		return x.Force
+	}
+	return false
+}
+
+type UpdateTimingsRequest struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Days             []*types.OpeningHours  `protobuf:"bytes,1,rep,name=days,proto3" json:"days,omitempty"`
+	OpeningHoursJson string                 `protobuf:"bytes,2,opt,name=opening_hours_json,json=openingHoursJson,proto3" json:"opening_hours_json,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *UpdateTimingsRequest) Reset() {
+	*x = UpdateTimingsRequest{}
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateTimingsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTimingsRequest) ProtoMessage() {}
+
+func (x *UpdateTimingsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTimingsRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTimingsRequest) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_request_clinic_request_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *UpdateTimingsRequest) GetDays() []*types.OpeningHours {
+	if x != nil {
+		return x.Days
+	}
+	return nil
+}
+
+func (x *UpdateTimingsRequest) GetOpeningHoursJson() string {
+	if x != nil {
+		return x.OpeningHoursJson
+	}
+	return ""
+}
+
+type UpdateContactRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Phone         string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateContactRequest) Reset() {
+	*x = UpdateContactRequest{}
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateContactRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateContactRequest) ProtoMessage() {}
+
+func (x *UpdateContactRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_clinic_v1_request_clinic_request_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateContactRequest.ProtoReflect.Descriptor instead.
+func (*UpdateContactRequest) Descriptor() ([]byte, []int) {
+	return file_clinic_v1_request_clinic_request_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *UpdateContactRequest) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *UpdateContactRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
 var File_clinic_v1_request_clinic_request_proto protoreflect.FileDescriptor
 
 const file_clinic_v1_request_clinic_request_proto_rawDesc = "" +
 	"\n" +
-	"&clinic/v1/request/clinic_request.proto\x12\x11clinic.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a.clinic/v1/types/enums/appointment_status.proto\x1a-clinic/v1/types/enums/consultation_mode.proto\x1a&clinic/v1/types/enums/media_type.proto\x1a)clinic/v1/types/enums/review_status.proto\x1a,clinic/v1/types/enums/service_category.proto\"\xef\x01\n" +
+	"&clinic/v1/request/clinic_request.proto\x12\x11clinic.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a\x1cclinic/v1/types/branch.proto\x1a.clinic/v1/types/enums/appointment_status.proto\x1a-clinic/v1/types/enums/consultation_mode.proto\x1a&clinic/v1/types/enums/media_type.proto\x1a)clinic/v1/types/enums/review_status.proto\x1a,clinic/v1/types/enums/service_category.proto\"\xef\x01\n" +
 	"\x13ListServicesRequest\x12B\n" +
 	"\bcategory\x18\x01 \x01(\x0e2&.clinic.v1.types.enums.ServiceCategoryR\bcategory\x12#\n" +
 	"\rfeatured_only\x18\x02 \x01(\bR\ffeaturedOnly\x12\x1d\n" +
@@ -2324,7 +2517,19 @@ const file_clinic_v1_request_clinic_request_proto_rawDesc = "" +
 	"\x18GetDashboardStatsRequest\x12+\n" +
 	"\vwindow_days\x18\x01 \x01(\x05B\n" +
 	"\xfaB\a\x1a\x05\x18\xed\x02(\x00R\n" +
-	"windowDaysB6Z4github.com/arm-1234/protos/clinic/v1/request;requestb\x06proto3"
+	"windowDays\"\x18\n" +
+	"\x16ListAllServicesRequest\"X\n" +
+	"\x14DeleteServiceRequest\x12*\n" +
+	"\n" +
+	"service_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\tserviceId\x12\x14\n" +
+	"\x05force\x18\x02 \x01(\bR\x05force\"\x81\x01\n" +
+	"\x14UpdateTimingsRequest\x121\n" +
+	"\x04days\x18\x01 \x03(\v2\x1d.clinic.v1.types.OpeningHoursR\x04days\x126\n" +
+	"\x12opening_hours_json\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x18\xc0>R\x10openingHoursJson\"m\n" +
+	"\x14UpdateContactRequest\x123\n" +
+	"\x05phone\x18\x01 \x01(\tB\x1d\xfaB\x1ar\x182\x13^(\\+91)?[6-9]\\d{9}$\xd0\x01\x01R\x05phone\x12 \n" +
+	"\x05email\x18\x02 \x01(\tB\n" +
+	"\xfaB\ar\x05\xd0\x01\x01`\x01R\x05emailB6Z4github.com/arm-1234/protos/clinic/v1/request;requestb\x06proto3"
 
 var (
 	file_clinic_v1_request_clinic_request_proto_rawDescOnce sync.Once
@@ -2338,7 +2543,7 @@ func file_clinic_v1_request_clinic_request_proto_rawDescGZIP() []byte {
 	return file_clinic_v1_request_clinic_request_proto_rawDescData
 }
 
-var file_clinic_v1_request_clinic_request_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_clinic_v1_request_clinic_request_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
 var file_clinic_v1_request_clinic_request_proto_goTypes = []any{
 	(*ListServicesRequest)(nil),            // 0: clinic.v1.request.ListServicesRequest
 	(*GetServiceRequest)(nil),              // 1: clinic.v1.request.GetServiceRequest
@@ -2368,32 +2573,38 @@ var file_clinic_v1_request_clinic_request_proto_goTypes = []any{
 	(*ListEnquiriesRequest)(nil),           // 25: clinic.v1.request.ListEnquiriesRequest
 	(*ResolveEnquiryRequest)(nil),          // 26: clinic.v1.request.ResolveEnquiryRequest
 	(*GetDashboardStatsRequest)(nil),       // 27: clinic.v1.request.GetDashboardStatsRequest
-	(enums.ServiceCategory)(0),             // 28: clinic.v1.types.enums.ServiceCategory
-	(enums.ConsultationMode)(0),            // 29: clinic.v1.types.enums.ConsultationMode
-	(*timestamppb.Timestamp)(nil),          // 30: google.protobuf.Timestamp
-	(enums.MediaType)(0),                   // 31: clinic.v1.types.enums.MediaType
-	(enums.AppointmentStatus)(0),           // 32: clinic.v1.types.enums.AppointmentStatus
-	(enums.ReviewStatus)(0),                // 33: clinic.v1.types.enums.ReviewStatus
+	(*ListAllServicesRequest)(nil),         // 28: clinic.v1.request.ListAllServicesRequest
+	(*DeleteServiceRequest)(nil),           // 29: clinic.v1.request.DeleteServiceRequest
+	(*UpdateTimingsRequest)(nil),           // 30: clinic.v1.request.UpdateTimingsRequest
+	(*UpdateContactRequest)(nil),           // 31: clinic.v1.request.UpdateContactRequest
+	(enums.ServiceCategory)(0),             // 32: clinic.v1.types.enums.ServiceCategory
+	(enums.ConsultationMode)(0),            // 33: clinic.v1.types.enums.ConsultationMode
+	(*timestamppb.Timestamp)(nil),          // 34: google.protobuf.Timestamp
+	(enums.MediaType)(0),                   // 35: clinic.v1.types.enums.MediaType
+	(enums.AppointmentStatus)(0),           // 36: clinic.v1.types.enums.AppointmentStatus
+	(enums.ReviewStatus)(0),                // 37: clinic.v1.types.enums.ReviewStatus
+	(*types.OpeningHours)(nil),             // 38: clinic.v1.types.OpeningHours
 }
 var file_clinic_v1_request_clinic_request_proto_depIdxs = []int32{
-	28, // 0: clinic.v1.request.ListServicesRequest.category:type_name -> clinic.v1.types.enums.ServiceCategory
-	29, // 1: clinic.v1.request.ListAvailableSlotsRequest.mode:type_name -> clinic.v1.types.enums.ConsultationMode
-	30, // 2: clinic.v1.request.BookAppointmentRequest.scheduled_at:type_name -> google.protobuf.Timestamp
-	29, // 3: clinic.v1.request.BookAppointmentRequest.mode:type_name -> clinic.v1.types.enums.ConsultationMode
-	31, // 4: clinic.v1.request.ListMediaRequest.media_type:type_name -> clinic.v1.types.enums.MediaType
-	32, // 5: clinic.v1.request.ListAppointmentsRequest.status:type_name -> clinic.v1.types.enums.AppointmentStatus
-	32, // 6: clinic.v1.request.UpdateAppointmentStatusRequest.status:type_name -> clinic.v1.types.enums.AppointmentStatus
-	30, // 7: clinic.v1.request.RescheduleAppointmentRequest.scheduled_at:type_name -> google.protobuf.Timestamp
-	33, // 8: clinic.v1.request.ListPendingReviewsRequest.status:type_name -> clinic.v1.types.enums.ReviewStatus
-	33, // 9: clinic.v1.request.ModerateReviewRequest.status:type_name -> clinic.v1.types.enums.ReviewStatus
-	31, // 10: clinic.v1.request.CreateMediaRequest.media_type:type_name -> clinic.v1.types.enums.MediaType
-	28, // 11: clinic.v1.request.UpsertServiceRequest.category:type_name -> clinic.v1.types.enums.ServiceCategory
-	29, // 12: clinic.v1.request.UpsertServiceRequest.supported_modes:type_name -> clinic.v1.types.enums.ConsultationMode
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	32, // 0: clinic.v1.request.ListServicesRequest.category:type_name -> clinic.v1.types.enums.ServiceCategory
+	33, // 1: clinic.v1.request.ListAvailableSlotsRequest.mode:type_name -> clinic.v1.types.enums.ConsultationMode
+	34, // 2: clinic.v1.request.BookAppointmentRequest.scheduled_at:type_name -> google.protobuf.Timestamp
+	33, // 3: clinic.v1.request.BookAppointmentRequest.mode:type_name -> clinic.v1.types.enums.ConsultationMode
+	35, // 4: clinic.v1.request.ListMediaRequest.media_type:type_name -> clinic.v1.types.enums.MediaType
+	36, // 5: clinic.v1.request.ListAppointmentsRequest.status:type_name -> clinic.v1.types.enums.AppointmentStatus
+	36, // 6: clinic.v1.request.UpdateAppointmentStatusRequest.status:type_name -> clinic.v1.types.enums.AppointmentStatus
+	34, // 7: clinic.v1.request.RescheduleAppointmentRequest.scheduled_at:type_name -> google.protobuf.Timestamp
+	37, // 8: clinic.v1.request.ListPendingReviewsRequest.status:type_name -> clinic.v1.types.enums.ReviewStatus
+	37, // 9: clinic.v1.request.ModerateReviewRequest.status:type_name -> clinic.v1.types.enums.ReviewStatus
+	35, // 10: clinic.v1.request.CreateMediaRequest.media_type:type_name -> clinic.v1.types.enums.MediaType
+	32, // 11: clinic.v1.request.UpsertServiceRequest.category:type_name -> clinic.v1.types.enums.ServiceCategory
+	33, // 12: clinic.v1.request.UpsertServiceRequest.supported_modes:type_name -> clinic.v1.types.enums.ConsultationMode
+	38, // 13: clinic.v1.request.UpdateTimingsRequest.days:type_name -> clinic.v1.types.OpeningHours
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_clinic_v1_request_clinic_request_proto_init() }
@@ -2407,7 +2618,7 @@ func file_clinic_v1_request_clinic_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_clinic_v1_request_clinic_request_proto_rawDesc), len(file_clinic_v1_request_clinic_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   28,
+			NumMessages:   32,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

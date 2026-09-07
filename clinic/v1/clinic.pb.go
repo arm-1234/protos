@@ -155,7 +155,7 @@ const file_clinic_v1_clinic_proto_rawDesc = "" +
 	"\vListReviews\x12%.clinic.v1.request.ListReviewsRequest\x1a'.clinic.v1.response.ListReviewsResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/clinic/reviews\x12\x90\x01\n" +
 	"\x10GetRatingSummary\x12*.clinic.v1.request.GetRatingSummaryRequest\x1a,.clinic.v1.response.GetRatingSummaryResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/v1/clinic/reviews:summary\x12q\n" +
 	"\tListMedia\x12#.clinic.v1.request.ListMediaRequest\x1a%.clinic.v1.response.ListMediaResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/v1/clinic/media\x12\x84\x01\n" +
-	"\rSubmitEnquiry\x12'.clinic.v1.request.SubmitEnquiryRequest\x1a).clinic.v1.response.SubmitEnquiryResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/clinic/enquiries2\xac\x10\n" +
+	"\rSubmitEnquiry\x12'.clinic.v1.request.SubmitEnquiryRequest\x1a).clinic.v1.response.SubmitEnquiryResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/clinic/enquiries2\xe4\x14\n" +
 	"\vClinicAdmin\x12\x82\x01\n" +
 	"\n" +
 	"AdminLogin\x12$.clinic.v1.request.AdminLoginRequest\x1a&.clinic.v1.response.AdminLoginResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/clinic/admin/auth:login\x12\x86\x01\n" +
@@ -168,7 +168,11 @@ const file_clinic_v1_clinic_proto_rawDesc = "" +
 	"\vCreateMedia\x12%.clinic.v1.request.CreateMediaRequest\x1a!.clinic.v1.response.MediaResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/v1/clinic/admin/media\x12\x85\x01\n" +
 	"\vUpdateMedia\x12%.clinic.v1.request.UpdateMediaRequest\x1a!.clinic.v1.response.MediaResponse\",\x82\xd3\xe4\x93\x02&:\x01*2!/v1/clinic/admin/media/{media_id}\x12\x88\x01\n" +
 	"\vDeleteMedia\x12%.clinic.v1.request.DeleteMediaRequest\x1a'.clinic.v1.response.DeleteMediaResponse\")\x82\xd3\xe4\x93\x02#*!/v1/clinic/admin/media/{media_id}\x12\x89\x01\n" +
-	"\rUpsertService\x12'.clinic.v1.request.UpsertServiceRequest\x1a).clinic.v1.response.UpsertServiceResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\x1a\x19/v1/clinic/admin/services\x12\x87\x01\n" +
+	"\rUpsertService\x12'.clinic.v1.request.UpsertServiceRequest\x1a).clinic.v1.response.UpsertServiceResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\x1a\x19/v1/clinic/admin/services\x12\x89\x01\n" +
+	"\x0fListAllServices\x12).clinic.v1.request.ListAllServicesRequest\x1a(.clinic.v1.response.ListServicesResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/clinic/admin/services\x12\x93\x01\n" +
+	"\rDeleteService\x12'.clinic.v1.request.DeleteServiceRequest\x1a).clinic.v1.response.DeleteServiceResponse\".\x82\xd3\xe4\x93\x02(*&/v1/clinic/admin/services/{service_id}\x12\x88\x01\n" +
+	"\rUpdateTimings\x12'.clinic.v1.request.UpdateTimingsRequest\x1a).clinic.v1.response.UpdateTimingsResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/clinic/admin/timings\x12\x88\x01\n" +
+	"\rUpdateContact\x12'.clinic.v1.request.UpdateContactRequest\x1a).clinic.v1.response.UpdateContactResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/clinic/admin/contact\x12\x87\x01\n" +
 	"\rListEnquiries\x12'.clinic.v1.request.ListEnquiriesRequest\x1a).clinic.v1.response.ListEnquiriesResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/v1/clinic/admin/enquiries\x12\x9a\x01\n" +
 	"\x0eResolveEnquiry\x12(.clinic.v1.request.ResolveEnquiryRequest\x1a*.clinic.v1.response.ResolveEnquiryResponse\"2\x82\xd3\xe4\x93\x02,:\x01*2'/v1/clinic/admin/enquiries/{enquiry_id}\x12\x93\x01\n" +
 	"\x11GetDashboardStats\x12+.clinic.v1.request.GetDashboardStatsRequest\x1a-.clinic.v1.response.GetDashboardStatsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/v1/clinic/admin/dashboardB)Z'github.com/arm-1234/protos/clinic/v1;v1b\x06proto3"
@@ -213,35 +217,42 @@ var file_clinic_v1_clinic_proto_goTypes = []any{
 	(*request.UpdateMediaRequest)(nil),             // 23: clinic.v1.request.UpdateMediaRequest
 	(*request.DeleteMediaRequest)(nil),             // 24: clinic.v1.request.DeleteMediaRequest
 	(*request.UpsertServiceRequest)(nil),           // 25: clinic.v1.request.UpsertServiceRequest
-	(*request.ListEnquiriesRequest)(nil),           // 26: clinic.v1.request.ListEnquiriesRequest
-	(*request.ResolveEnquiryRequest)(nil),          // 27: clinic.v1.request.ResolveEnquiryRequest
-	(*request.GetDashboardStatsRequest)(nil),       // 28: clinic.v1.request.GetDashboardStatsRequest
-	(*response.ListServicesResponse)(nil),          // 29: clinic.v1.response.ListServicesResponse
-	(*response.GetServiceResponse)(nil),            // 30: clinic.v1.response.GetServiceResponse
-	(*response.ListDoctorsResponse)(nil),           // 31: clinic.v1.response.ListDoctorsResponse
-	(*response.GetDoctorResponse)(nil),             // 32: clinic.v1.response.GetDoctorResponse
-	(*response.ListBranchesResponse)(nil),          // 33: clinic.v1.response.ListBranchesResponse
-	(*response.ListAvailableSlotsResponse)(nil),    // 34: clinic.v1.response.ListAvailableSlotsResponse
-	(*response.BookAppointmentResponse)(nil),       // 35: clinic.v1.response.BookAppointmentResponse
-	(*response.GetAppointmentResponse)(nil),        // 36: clinic.v1.response.GetAppointmentResponse
-	(*response.CancelAppointmentResponse)(nil),     // 37: clinic.v1.response.CancelAppointmentResponse
-	(*response.SubmitReviewResponse)(nil),          // 38: clinic.v1.response.SubmitReviewResponse
-	(*response.ListReviewsResponse)(nil),           // 39: clinic.v1.response.ListReviewsResponse
-	(*response.GetRatingSummaryResponse)(nil),      // 40: clinic.v1.response.GetRatingSummaryResponse
-	(*response.ListMediaResponse)(nil),             // 41: clinic.v1.response.ListMediaResponse
-	(*response.SubmitEnquiryResponse)(nil),         // 42: clinic.v1.response.SubmitEnquiryResponse
-	(*response.AdminLoginResponse)(nil),            // 43: clinic.v1.response.AdminLoginResponse
-	(*response.GetAdminProfileResponse)(nil),       // 44: clinic.v1.response.GetAdminProfileResponse
-	(*response.ListAppointmentsResponse)(nil),      // 45: clinic.v1.response.ListAppointmentsResponse
-	(*response.AppointmentResponse)(nil),           // 46: clinic.v1.response.AppointmentResponse
-	(*response.ListPendingReviewsResponse)(nil),    // 47: clinic.v1.response.ListPendingReviewsResponse
-	(*response.ModerateReviewResponse)(nil),        // 48: clinic.v1.response.ModerateReviewResponse
-	(*response.MediaResponse)(nil),                 // 49: clinic.v1.response.MediaResponse
-	(*response.DeleteMediaResponse)(nil),           // 50: clinic.v1.response.DeleteMediaResponse
-	(*response.UpsertServiceResponse)(nil),         // 51: clinic.v1.response.UpsertServiceResponse
-	(*response.ListEnquiriesResponse)(nil),         // 52: clinic.v1.response.ListEnquiriesResponse
-	(*response.ResolveEnquiryResponse)(nil),        // 53: clinic.v1.response.ResolveEnquiryResponse
-	(*response.GetDashboardStatsResponse)(nil),     // 54: clinic.v1.response.GetDashboardStatsResponse
+	(*request.ListAllServicesRequest)(nil),         // 26: clinic.v1.request.ListAllServicesRequest
+	(*request.DeleteServiceRequest)(nil),           // 27: clinic.v1.request.DeleteServiceRequest
+	(*request.UpdateTimingsRequest)(nil),           // 28: clinic.v1.request.UpdateTimingsRequest
+	(*request.UpdateContactRequest)(nil),           // 29: clinic.v1.request.UpdateContactRequest
+	(*request.ListEnquiriesRequest)(nil),           // 30: clinic.v1.request.ListEnquiriesRequest
+	(*request.ResolveEnquiryRequest)(nil),          // 31: clinic.v1.request.ResolveEnquiryRequest
+	(*request.GetDashboardStatsRequest)(nil),       // 32: clinic.v1.request.GetDashboardStatsRequest
+	(*response.ListServicesResponse)(nil),          // 33: clinic.v1.response.ListServicesResponse
+	(*response.GetServiceResponse)(nil),            // 34: clinic.v1.response.GetServiceResponse
+	(*response.ListDoctorsResponse)(nil),           // 35: clinic.v1.response.ListDoctorsResponse
+	(*response.GetDoctorResponse)(nil),             // 36: clinic.v1.response.GetDoctorResponse
+	(*response.ListBranchesResponse)(nil),          // 37: clinic.v1.response.ListBranchesResponse
+	(*response.ListAvailableSlotsResponse)(nil),    // 38: clinic.v1.response.ListAvailableSlotsResponse
+	(*response.BookAppointmentResponse)(nil),       // 39: clinic.v1.response.BookAppointmentResponse
+	(*response.GetAppointmentResponse)(nil),        // 40: clinic.v1.response.GetAppointmentResponse
+	(*response.CancelAppointmentResponse)(nil),     // 41: clinic.v1.response.CancelAppointmentResponse
+	(*response.SubmitReviewResponse)(nil),          // 42: clinic.v1.response.SubmitReviewResponse
+	(*response.ListReviewsResponse)(nil),           // 43: clinic.v1.response.ListReviewsResponse
+	(*response.GetRatingSummaryResponse)(nil),      // 44: clinic.v1.response.GetRatingSummaryResponse
+	(*response.ListMediaResponse)(nil),             // 45: clinic.v1.response.ListMediaResponse
+	(*response.SubmitEnquiryResponse)(nil),         // 46: clinic.v1.response.SubmitEnquiryResponse
+	(*response.AdminLoginResponse)(nil),            // 47: clinic.v1.response.AdminLoginResponse
+	(*response.GetAdminProfileResponse)(nil),       // 48: clinic.v1.response.GetAdminProfileResponse
+	(*response.ListAppointmentsResponse)(nil),      // 49: clinic.v1.response.ListAppointmentsResponse
+	(*response.AppointmentResponse)(nil),           // 50: clinic.v1.response.AppointmentResponse
+	(*response.ListPendingReviewsResponse)(nil),    // 51: clinic.v1.response.ListPendingReviewsResponse
+	(*response.ModerateReviewResponse)(nil),        // 52: clinic.v1.response.ModerateReviewResponse
+	(*response.MediaResponse)(nil),                 // 53: clinic.v1.response.MediaResponse
+	(*response.DeleteMediaResponse)(nil),           // 54: clinic.v1.response.DeleteMediaResponse
+	(*response.UpsertServiceResponse)(nil),         // 55: clinic.v1.response.UpsertServiceResponse
+	(*response.DeleteServiceResponse)(nil),         // 56: clinic.v1.response.DeleteServiceResponse
+	(*response.UpdateTimingsResponse)(nil),         // 57: clinic.v1.response.UpdateTimingsResponse
+	(*response.UpdateContactResponse)(nil),         // 58: clinic.v1.response.UpdateContactResponse
+	(*response.ListEnquiriesResponse)(nil),         // 59: clinic.v1.response.ListEnquiriesResponse
+	(*response.ResolveEnquiryResponse)(nil),        // 60: clinic.v1.response.ResolveEnquiryResponse
+	(*response.GetDashboardStatsResponse)(nil),     // 61: clinic.v1.response.GetDashboardStatsResponse
 }
 var file_clinic_v1_clinic_proto_depIdxs = []int32{
 	1,  // 0: clinic.v1.Clinic.ListServices:input_type -> clinic.v1.request.ListServicesRequest
@@ -269,39 +280,47 @@ var file_clinic_v1_clinic_proto_depIdxs = []int32{
 	23, // 22: clinic.v1.ClinicAdmin.UpdateMedia:input_type -> clinic.v1.request.UpdateMediaRequest
 	24, // 23: clinic.v1.ClinicAdmin.DeleteMedia:input_type -> clinic.v1.request.DeleteMediaRequest
 	25, // 24: clinic.v1.ClinicAdmin.UpsertService:input_type -> clinic.v1.request.UpsertServiceRequest
-	26, // 25: clinic.v1.ClinicAdmin.ListEnquiries:input_type -> clinic.v1.request.ListEnquiriesRequest
-	27, // 26: clinic.v1.ClinicAdmin.ResolveEnquiry:input_type -> clinic.v1.request.ResolveEnquiryRequest
-	28, // 27: clinic.v1.ClinicAdmin.GetDashboardStats:input_type -> clinic.v1.request.GetDashboardStatsRequest
-	29, // 28: clinic.v1.Clinic.ListServices:output_type -> clinic.v1.response.ListServicesResponse
-	30, // 29: clinic.v1.Clinic.GetService:output_type -> clinic.v1.response.GetServiceResponse
-	31, // 30: clinic.v1.Clinic.ListDoctors:output_type -> clinic.v1.response.ListDoctorsResponse
-	32, // 31: clinic.v1.Clinic.GetDoctor:output_type -> clinic.v1.response.GetDoctorResponse
-	33, // 32: clinic.v1.Clinic.ListBranches:output_type -> clinic.v1.response.ListBranchesResponse
-	34, // 33: clinic.v1.Clinic.ListAvailableSlots:output_type -> clinic.v1.response.ListAvailableSlotsResponse
-	35, // 34: clinic.v1.Clinic.BookAppointment:output_type -> clinic.v1.response.BookAppointmentResponse
-	36, // 35: clinic.v1.Clinic.GetAppointment:output_type -> clinic.v1.response.GetAppointmentResponse
-	37, // 36: clinic.v1.Clinic.CancelAppointment:output_type -> clinic.v1.response.CancelAppointmentResponse
-	38, // 37: clinic.v1.Clinic.SubmitReview:output_type -> clinic.v1.response.SubmitReviewResponse
-	39, // 38: clinic.v1.Clinic.ListReviews:output_type -> clinic.v1.response.ListReviewsResponse
-	40, // 39: clinic.v1.Clinic.GetRatingSummary:output_type -> clinic.v1.response.GetRatingSummaryResponse
-	41, // 40: clinic.v1.Clinic.ListMedia:output_type -> clinic.v1.response.ListMediaResponse
-	42, // 41: clinic.v1.Clinic.SubmitEnquiry:output_type -> clinic.v1.response.SubmitEnquiryResponse
-	43, // 42: clinic.v1.ClinicAdmin.AdminLogin:output_type -> clinic.v1.response.AdminLoginResponse
-	44, // 43: clinic.v1.ClinicAdmin.GetAdminProfile:output_type -> clinic.v1.response.GetAdminProfileResponse
-	45, // 44: clinic.v1.ClinicAdmin.ListAppointments:output_type -> clinic.v1.response.ListAppointmentsResponse
-	46, // 45: clinic.v1.ClinicAdmin.UpdateAppointmentStatus:output_type -> clinic.v1.response.AppointmentResponse
-	46, // 46: clinic.v1.ClinicAdmin.RescheduleAppointment:output_type -> clinic.v1.response.AppointmentResponse
-	47, // 47: clinic.v1.ClinicAdmin.ListPendingReviews:output_type -> clinic.v1.response.ListPendingReviewsResponse
-	48, // 48: clinic.v1.ClinicAdmin.ModerateReview:output_type -> clinic.v1.response.ModerateReviewResponse
-	49, // 49: clinic.v1.ClinicAdmin.CreateMedia:output_type -> clinic.v1.response.MediaResponse
-	49, // 50: clinic.v1.ClinicAdmin.UpdateMedia:output_type -> clinic.v1.response.MediaResponse
-	50, // 51: clinic.v1.ClinicAdmin.DeleteMedia:output_type -> clinic.v1.response.DeleteMediaResponse
-	51, // 52: clinic.v1.ClinicAdmin.UpsertService:output_type -> clinic.v1.response.UpsertServiceResponse
-	52, // 53: clinic.v1.ClinicAdmin.ListEnquiries:output_type -> clinic.v1.response.ListEnquiriesResponse
-	53, // 54: clinic.v1.ClinicAdmin.ResolveEnquiry:output_type -> clinic.v1.response.ResolveEnquiryResponse
-	54, // 55: clinic.v1.ClinicAdmin.GetDashboardStats:output_type -> clinic.v1.response.GetDashboardStatsResponse
-	28, // [28:56] is the sub-list for method output_type
-	0,  // [0:28] is the sub-list for method input_type
+	26, // 25: clinic.v1.ClinicAdmin.ListAllServices:input_type -> clinic.v1.request.ListAllServicesRequest
+	27, // 26: clinic.v1.ClinicAdmin.DeleteService:input_type -> clinic.v1.request.DeleteServiceRequest
+	28, // 27: clinic.v1.ClinicAdmin.UpdateTimings:input_type -> clinic.v1.request.UpdateTimingsRequest
+	29, // 28: clinic.v1.ClinicAdmin.UpdateContact:input_type -> clinic.v1.request.UpdateContactRequest
+	30, // 29: clinic.v1.ClinicAdmin.ListEnquiries:input_type -> clinic.v1.request.ListEnquiriesRequest
+	31, // 30: clinic.v1.ClinicAdmin.ResolveEnquiry:input_type -> clinic.v1.request.ResolveEnquiryRequest
+	32, // 31: clinic.v1.ClinicAdmin.GetDashboardStats:input_type -> clinic.v1.request.GetDashboardStatsRequest
+	33, // 32: clinic.v1.Clinic.ListServices:output_type -> clinic.v1.response.ListServicesResponse
+	34, // 33: clinic.v1.Clinic.GetService:output_type -> clinic.v1.response.GetServiceResponse
+	35, // 34: clinic.v1.Clinic.ListDoctors:output_type -> clinic.v1.response.ListDoctorsResponse
+	36, // 35: clinic.v1.Clinic.GetDoctor:output_type -> clinic.v1.response.GetDoctorResponse
+	37, // 36: clinic.v1.Clinic.ListBranches:output_type -> clinic.v1.response.ListBranchesResponse
+	38, // 37: clinic.v1.Clinic.ListAvailableSlots:output_type -> clinic.v1.response.ListAvailableSlotsResponse
+	39, // 38: clinic.v1.Clinic.BookAppointment:output_type -> clinic.v1.response.BookAppointmentResponse
+	40, // 39: clinic.v1.Clinic.GetAppointment:output_type -> clinic.v1.response.GetAppointmentResponse
+	41, // 40: clinic.v1.Clinic.CancelAppointment:output_type -> clinic.v1.response.CancelAppointmentResponse
+	42, // 41: clinic.v1.Clinic.SubmitReview:output_type -> clinic.v1.response.SubmitReviewResponse
+	43, // 42: clinic.v1.Clinic.ListReviews:output_type -> clinic.v1.response.ListReviewsResponse
+	44, // 43: clinic.v1.Clinic.GetRatingSummary:output_type -> clinic.v1.response.GetRatingSummaryResponse
+	45, // 44: clinic.v1.Clinic.ListMedia:output_type -> clinic.v1.response.ListMediaResponse
+	46, // 45: clinic.v1.Clinic.SubmitEnquiry:output_type -> clinic.v1.response.SubmitEnquiryResponse
+	47, // 46: clinic.v1.ClinicAdmin.AdminLogin:output_type -> clinic.v1.response.AdminLoginResponse
+	48, // 47: clinic.v1.ClinicAdmin.GetAdminProfile:output_type -> clinic.v1.response.GetAdminProfileResponse
+	49, // 48: clinic.v1.ClinicAdmin.ListAppointments:output_type -> clinic.v1.response.ListAppointmentsResponse
+	50, // 49: clinic.v1.ClinicAdmin.UpdateAppointmentStatus:output_type -> clinic.v1.response.AppointmentResponse
+	50, // 50: clinic.v1.ClinicAdmin.RescheduleAppointment:output_type -> clinic.v1.response.AppointmentResponse
+	51, // 51: clinic.v1.ClinicAdmin.ListPendingReviews:output_type -> clinic.v1.response.ListPendingReviewsResponse
+	52, // 52: clinic.v1.ClinicAdmin.ModerateReview:output_type -> clinic.v1.response.ModerateReviewResponse
+	53, // 53: clinic.v1.ClinicAdmin.CreateMedia:output_type -> clinic.v1.response.MediaResponse
+	53, // 54: clinic.v1.ClinicAdmin.UpdateMedia:output_type -> clinic.v1.response.MediaResponse
+	54, // 55: clinic.v1.ClinicAdmin.DeleteMedia:output_type -> clinic.v1.response.DeleteMediaResponse
+	55, // 56: clinic.v1.ClinicAdmin.UpsertService:output_type -> clinic.v1.response.UpsertServiceResponse
+	33, // 57: clinic.v1.ClinicAdmin.ListAllServices:output_type -> clinic.v1.response.ListServicesResponse
+	56, // 58: clinic.v1.ClinicAdmin.DeleteService:output_type -> clinic.v1.response.DeleteServiceResponse
+	57, // 59: clinic.v1.ClinicAdmin.UpdateTimings:output_type -> clinic.v1.response.UpdateTimingsResponse
+	58, // 60: clinic.v1.ClinicAdmin.UpdateContact:output_type -> clinic.v1.response.UpdateContactResponse
+	59, // 61: clinic.v1.ClinicAdmin.ListEnquiries:output_type -> clinic.v1.response.ListEnquiriesResponse
+	60, // 62: clinic.v1.ClinicAdmin.ResolveEnquiry:output_type -> clinic.v1.response.ResolveEnquiryResponse
+	61, // 63: clinic.v1.ClinicAdmin.GetDashboardStats:output_type -> clinic.v1.response.GetDashboardStatsResponse
+	32, // [32:64] is the sub-list for method output_type
+	0,  // [0:32] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

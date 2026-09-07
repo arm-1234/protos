@@ -628,6 +628,10 @@ const (
 	ClinicAdmin_UpdateMedia_FullMethodName             = "/clinic.v1.ClinicAdmin/UpdateMedia"
 	ClinicAdmin_DeleteMedia_FullMethodName             = "/clinic.v1.ClinicAdmin/DeleteMedia"
 	ClinicAdmin_UpsertService_FullMethodName           = "/clinic.v1.ClinicAdmin/UpsertService"
+	ClinicAdmin_ListAllServices_FullMethodName         = "/clinic.v1.ClinicAdmin/ListAllServices"
+	ClinicAdmin_DeleteService_FullMethodName           = "/clinic.v1.ClinicAdmin/DeleteService"
+	ClinicAdmin_UpdateTimings_FullMethodName           = "/clinic.v1.ClinicAdmin/UpdateTimings"
+	ClinicAdmin_UpdateContact_FullMethodName           = "/clinic.v1.ClinicAdmin/UpdateContact"
 	ClinicAdmin_ListEnquiries_FullMethodName           = "/clinic.v1.ClinicAdmin/ListEnquiries"
 	ClinicAdmin_ResolveEnquiry_FullMethodName          = "/clinic.v1.ClinicAdmin/ResolveEnquiry"
 	ClinicAdmin_GetDashboardStats_FullMethodName       = "/clinic.v1.ClinicAdmin/GetDashboardStats"
@@ -648,6 +652,10 @@ type ClinicAdminClient interface {
 	UpdateMedia(ctx context.Context, in *request.UpdateMediaRequest, opts ...grpc.CallOption) (*response.MediaResponse, error)
 	DeleteMedia(ctx context.Context, in *request.DeleteMediaRequest, opts ...grpc.CallOption) (*response.DeleteMediaResponse, error)
 	UpsertService(ctx context.Context, in *request.UpsertServiceRequest, opts ...grpc.CallOption) (*response.UpsertServiceResponse, error)
+	ListAllServices(ctx context.Context, in *request.ListAllServicesRequest, opts ...grpc.CallOption) (*response.ListServicesResponse, error)
+	DeleteService(ctx context.Context, in *request.DeleteServiceRequest, opts ...grpc.CallOption) (*response.DeleteServiceResponse, error)
+	UpdateTimings(ctx context.Context, in *request.UpdateTimingsRequest, opts ...grpc.CallOption) (*response.UpdateTimingsResponse, error)
+	UpdateContact(ctx context.Context, in *request.UpdateContactRequest, opts ...grpc.CallOption) (*response.UpdateContactResponse, error)
 	ListEnquiries(ctx context.Context, in *request.ListEnquiriesRequest, opts ...grpc.CallOption) (*response.ListEnquiriesResponse, error)
 	ResolveEnquiry(ctx context.Context, in *request.ResolveEnquiryRequest, opts ...grpc.CallOption) (*response.ResolveEnquiryResponse, error)
 	GetDashboardStats(ctx context.Context, in *request.GetDashboardStatsRequest, opts ...grpc.CallOption) (*response.GetDashboardStatsResponse, error)
@@ -771,6 +779,46 @@ func (c *clinicAdminClient) UpsertService(ctx context.Context, in *request.Upser
 	return out, nil
 }
 
+func (c *clinicAdminClient) ListAllServices(ctx context.Context, in *request.ListAllServicesRequest, opts ...grpc.CallOption) (*response.ListServicesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListServicesResponse)
+	err := c.cc.Invoke(ctx, ClinicAdmin_ListAllServices_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clinicAdminClient) DeleteService(ctx context.Context, in *request.DeleteServiceRequest, opts ...grpc.CallOption) (*response.DeleteServiceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.DeleteServiceResponse)
+	err := c.cc.Invoke(ctx, ClinicAdmin_DeleteService_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clinicAdminClient) UpdateTimings(ctx context.Context, in *request.UpdateTimingsRequest, opts ...grpc.CallOption) (*response.UpdateTimingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.UpdateTimingsResponse)
+	err := c.cc.Invoke(ctx, ClinicAdmin_UpdateTimings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clinicAdminClient) UpdateContact(ctx context.Context, in *request.UpdateContactRequest, opts ...grpc.CallOption) (*response.UpdateContactResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.UpdateContactResponse)
+	err := c.cc.Invoke(ctx, ClinicAdmin_UpdateContact_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *clinicAdminClient) ListEnquiries(ctx context.Context, in *request.ListEnquiriesRequest, opts ...grpc.CallOption) (*response.ListEnquiriesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.ListEnquiriesResponse)
@@ -816,6 +864,10 @@ type ClinicAdminServer interface {
 	UpdateMedia(context.Context, *request.UpdateMediaRequest) (*response.MediaResponse, error)
 	DeleteMedia(context.Context, *request.DeleteMediaRequest) (*response.DeleteMediaResponse, error)
 	UpsertService(context.Context, *request.UpsertServiceRequest) (*response.UpsertServiceResponse, error)
+	ListAllServices(context.Context, *request.ListAllServicesRequest) (*response.ListServicesResponse, error)
+	DeleteService(context.Context, *request.DeleteServiceRequest) (*response.DeleteServiceResponse, error)
+	UpdateTimings(context.Context, *request.UpdateTimingsRequest) (*response.UpdateTimingsResponse, error)
+	UpdateContact(context.Context, *request.UpdateContactRequest) (*response.UpdateContactResponse, error)
 	ListEnquiries(context.Context, *request.ListEnquiriesRequest) (*response.ListEnquiriesResponse, error)
 	ResolveEnquiry(context.Context, *request.ResolveEnquiryRequest) (*response.ResolveEnquiryResponse, error)
 	GetDashboardStats(context.Context, *request.GetDashboardStatsRequest) (*response.GetDashboardStatsResponse, error)
@@ -861,6 +913,18 @@ func (UnimplementedClinicAdminServer) DeleteMedia(context.Context, *request.Dele
 }
 func (UnimplementedClinicAdminServer) UpsertService(context.Context, *request.UpsertServiceRequest) (*response.UpsertServiceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpsertService not implemented")
+}
+func (UnimplementedClinicAdminServer) ListAllServices(context.Context, *request.ListAllServicesRequest) (*response.ListServicesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListAllServices not implemented")
+}
+func (UnimplementedClinicAdminServer) DeleteService(context.Context, *request.DeleteServiceRequest) (*response.DeleteServiceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteService not implemented")
+}
+func (UnimplementedClinicAdminServer) UpdateTimings(context.Context, *request.UpdateTimingsRequest) (*response.UpdateTimingsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateTimings not implemented")
+}
+func (UnimplementedClinicAdminServer) UpdateContact(context.Context, *request.UpdateContactRequest) (*response.UpdateContactResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateContact not implemented")
 }
 func (UnimplementedClinicAdminServer) ListEnquiries(context.Context, *request.ListEnquiriesRequest) (*response.ListEnquiriesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListEnquiries not implemented")
@@ -1090,6 +1154,78 @@ func _ClinicAdmin_UpsertService_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ClinicAdmin_ListAllServices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListAllServicesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClinicAdminServer).ListAllServices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClinicAdmin_ListAllServices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClinicAdminServer).ListAllServices(ctx, req.(*request.ListAllServicesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClinicAdmin_DeleteService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DeleteServiceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClinicAdminServer).DeleteService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClinicAdmin_DeleteService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClinicAdminServer).DeleteService(ctx, req.(*request.DeleteServiceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClinicAdmin_UpdateTimings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateTimingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClinicAdminServer).UpdateTimings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClinicAdmin_UpdateTimings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClinicAdminServer).UpdateTimings(ctx, req.(*request.UpdateTimingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClinicAdmin_UpdateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateContactRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClinicAdminServer).UpdateContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClinicAdmin_UpdateContact_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClinicAdminServer).UpdateContact(ctx, req.(*request.UpdateContactRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ClinicAdmin_ListEnquiries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.ListEnquiriesRequest)
 	if err := dec(in); err != nil {
@@ -1194,6 +1330,22 @@ var ClinicAdmin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpsertService",
 			Handler:    _ClinicAdmin_UpsertService_Handler,
+		},
+		{
+			MethodName: "ListAllServices",
+			Handler:    _ClinicAdmin_ListAllServices_Handler,
+		},
+		{
+			MethodName: "DeleteService",
+			Handler:    _ClinicAdmin_DeleteService_Handler,
+		},
+		{
+			MethodName: "UpdateTimings",
+			Handler:    _ClinicAdmin_UpdateTimings_Handler,
+		},
+		{
+			MethodName: "UpdateContact",
+			Handler:    _ClinicAdmin_UpdateContact_Handler,
 		},
 		{
 			MethodName: "ListEnquiries",

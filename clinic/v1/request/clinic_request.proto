@@ -5,6 +5,7 @@ package clinic.v1.request;
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "clinic/v1/types/branch.proto";
 import "clinic/v1/types/enums/appointment_status.proto";
 import "clinic/v1/types/enums/consultation_mode.proto";
 import "clinic/v1/types/enums/media_type.proto";
@@ -337,4 +338,27 @@ message ResolveEnquiryRequest {
 
 message GetDashboardStatsRequest {
   int32 window_days = 1 [(validate.rules).int32 = {gte: 0, lte: 365}];
+}
+
+message ListAllServicesRequest {}
+
+message DeleteServiceRequest {
+  string service_id = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (validate.rules).string.min_len = 1
+  ];
+  bool force = 2;
+}
+
+message UpdateTimingsRequest {
+  repeated clinic.v1.types.OpeningHours days = 1;
+  string opening_hours_json = 2 [(validate.rules).string.max_len = 8000];
+}
+
+message UpdateContactRequest {
+  string phone = 1 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^(\\+91)?[6-9]\\d{9}$"
+  }];
+  string email = 2 [(validate.rules).string = {ignore_empty: true, email: true}];
 }

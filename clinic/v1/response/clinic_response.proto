@@ -181,3 +181,18 @@ message ServicePopularity {
   string service_name = 2;
   int64 booking_count = 3;
 }
+
+message DeleteServiceResponse {
+  bool success = 1;
+  bool soft_deleted = 2;
+  bool permanently_deleted = 3;
+  string message = 4;
+}
+
+message UpdateTimingsResponse {
+  bool success = 1;
+}
+
+message UpdateContactResponse {
+  bool success = 1;
+}
