@@ -288,6 +288,10 @@ func (m *BranchInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for SeasonNotice
+
+	// no validation rules for TimingsPreset
+
 	if len(errors) > 0 {
 		return BranchInfoMultiError(errors)
 	}

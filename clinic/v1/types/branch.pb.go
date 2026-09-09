@@ -111,6 +111,8 @@ type BranchInfo struct {
 	IsPrimary     bool                   `protobuf:"varint,17,opt,name=is_primary,json=isPrimary,proto3" json:"is_primary,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	SeasonNotice  string                 `protobuf:"bytes,20,opt,name=season_notice,json=seasonNotice,proto3" json:"season_notice,omitempty"`
+	TimingsPreset string                 `protobuf:"bytes,21,opt,name=timings_preset,json=timingsPreset,proto3" json:"timings_preset,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -278,6 +280,20 @@ func (x *BranchInfo) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *BranchInfo) GetSeasonNotice() string {
+	if x != nil {
+		return x.SeasonNotice
+	}
+	return ""
+}
+
+func (x *BranchInfo) GetTimingsPreset() string {
+	if x != nil {
+		return x.TimingsPreset
+	}
+	return ""
+}
+
 var File_clinic_v1_types_branch_proto protoreflect.FileDescriptor
 
 const file_clinic_v1_types_branch_proto_rawDesc = "" +
@@ -287,7 +303,7 @@ const file_clinic_v1_types_branch_proto_rawDesc = "" +
 	"\aweekday\x18\x01 \x01(\x05R\aweekday\x12\x19\n" +
 	"\bopens_at\x18\x02 \x01(\tR\aopensAt\x12\x1b\n" +
 	"\tcloses_at\x18\x03 \x01(\tR\bclosesAt\x12\x1b\n" +
-	"\tis_closed\x18\x04 \x01(\bR\bisClosed\"\xff\x04\n" +
+	"\tis_closed\x18\x04 \x01(\bR\bisClosed\"\xcb\x05\n" +
 	"\n" +
 	"BranchInfo\x12\x1b\n" +
 	"\tbranch_id\x18\x01 \x01(\tR\bbranchId\x12\x12\n" +
@@ -312,7 +328,9 @@ const file_clinic_v1_types_branch_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB2Z0github.com/arm-1234/protos/clinic/v1/types;typesb\x06proto3"
+	"updated_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12#\n" +
+	"\rseason_notice\x18\x14 \x01(\tR\fseasonNotice\x12%\n" +
+	"\x0etimings_preset\x18\x15 \x01(\tR\rtimingsPresetB2Z0github.com/arm-1234/protos/clinic/v1/types;typesb\x06proto3"
 
 var (
 	file_clinic_v1_types_branch_proto_rawDescOnce sync.Once

@@ -2206,6 +2206,8 @@ type UpdateTimingsRequest struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	Days             []*types.OpeningHours  `protobuf:"bytes,1,rep,name=days,proto3" json:"days,omitempty"`
 	OpeningHoursJson string                 `protobuf:"bytes,2,opt,name=opening_hours_json,json=openingHoursJson,proto3" json:"opening_hours_json,omitempty"`
+	SeasonNotice     string                 `protobuf:"bytes,3,opt,name=season_notice,json=seasonNotice,proto3" json:"season_notice,omitempty"`
+	TimingsPreset    string                 `protobuf:"bytes,4,opt,name=timings_preset,json=timingsPreset,proto3" json:"timings_preset,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -2250,6 +2252,20 @@ func (x *UpdateTimingsRequest) GetDays() []*types.OpeningHours {
 func (x *UpdateTimingsRequest) GetOpeningHoursJson() string {
 	if x != nil {
 		return x.OpeningHoursJson
+	}
+	return ""
+}
+
+func (x *UpdateTimingsRequest) GetSeasonNotice() string {
+	if x != nil {
+		return x.SeasonNotice
+	}
+	return ""
+}
+
+func (x *UpdateTimingsRequest) GetTimingsPreset() string {
+	if x != nil {
+		return x.TimingsPreset
 	}
 	return ""
 }
@@ -2522,10 +2538,12 @@ const file_clinic_v1_request_clinic_request_proto_rawDesc = "" +
 	"\x14DeleteServiceRequest\x12*\n" +
 	"\n" +
 	"service_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\tserviceId\x12\x14\n" +
-	"\x05force\x18\x02 \x01(\bR\x05force\"\x81\x01\n" +
+	"\x05force\x18\x02 \x01(\bR\x05force\"\xe0\x01\n" +
 	"\x14UpdateTimingsRequest\x121\n" +
 	"\x04days\x18\x01 \x03(\v2\x1d.clinic.v1.types.OpeningHoursR\x04days\x126\n" +
-	"\x12opening_hours_json\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x18\xc0>R\x10openingHoursJson\"m\n" +
+	"\x12opening_hours_json\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x18\xc0>R\x10openingHoursJson\x12-\n" +
+	"\rseason_notice\x18\x03 \x01(\tB\b\xfaB\x05r\x03\x18\xac\x02R\fseasonNotice\x12.\n" +
+	"\x0etimings_preset\x18\x04 \x01(\tB\a\xfaB\x04r\x02\x18@R\rtimingsPreset\"m\n" +
 	"\x14UpdateContactRequest\x123\n" +
 	"\x05phone\x18\x01 \x01(\tB\x1d\xfaB\x1ar\x182\x13^(\\+91)?[6-9]\\d{9}$\xd0\x01\x01R\x05phone\x12 \n" +
 	"\x05email\x18\x02 \x01(\tB\n" +

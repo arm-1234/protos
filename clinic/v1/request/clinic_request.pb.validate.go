@@ -4556,6 +4556,28 @@ func (m *UpdateTimingsRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetSeasonNotice()) > 300 {
+		err := UpdateTimingsRequestValidationError{
+			field:  "SeasonNotice",
+			reason: "value length must be at most 300 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTimingsPreset()) > 64 {
+		err := UpdateTimingsRequestValidationError{
+			field:  "TimingsPreset",
+			reason: "value length must be at most 64 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return UpdateTimingsRequestMultiError(errors)
 	}
