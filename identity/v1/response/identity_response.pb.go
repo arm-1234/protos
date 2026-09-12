@@ -299,6 +299,110 @@ func (x *RequestOtpResponse) GetRetryAfterSeconds() int32 {
 	return 0
 }
 
+type ForgotPasswordResponse struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Sent              bool                   `protobuf:"varint,1,opt,name=sent,proto3" json:"sent,omitempty"`
+	ExpiresAt         *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	RetryAfterSeconds int32                  `protobuf:"varint,3,opt,name=retry_after_seconds,json=retryAfterSeconds,proto3" json:"retry_after_seconds,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *ForgotPasswordResponse) Reset() {
+	*x = ForgotPasswordResponse{}
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ForgotPasswordResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ForgotPasswordResponse) ProtoMessage() {}
+
+func (x *ForgotPasswordResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ForgotPasswordResponse.ProtoReflect.Descriptor instead.
+func (*ForgotPasswordResponse) Descriptor() ([]byte, []int) {
+	return file_identity_v1_response_identity_response_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ForgotPasswordResponse) GetSent() bool {
+	if x != nil {
+		return x.Sent
+	}
+	return false
+}
+
+func (x *ForgotPasswordResponse) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+func (x *ForgotPasswordResponse) GetRetryAfterSeconds() int32 {
+	if x != nil {
+		return x.RetryAfterSeconds
+	}
+	return 0
+}
+
+type LogoutResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutResponse) Reset() {
+	*x = LogoutResponse{}
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutResponse) ProtoMessage() {}
+
+func (x *LogoutResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_response_identity_response_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutResponse.ProtoReflect.Descriptor instead.
+func (*LogoutResponse) Descriptor() ([]byte, []int) {
+	return file_identity_v1_response_identity_response_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *LogoutResponse) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
 var File_identity_v1_response_identity_response_proto protoreflect.FileDescriptor
 
 const file_identity_v1_response_identity_response_proto_rawDesc = "" +
@@ -324,7 +428,14 @@ const file_identity_v1_response_identity_response_proto_rawDesc = "" +
 	"\x04sent\x18\x01 \x01(\bR\x04sent\x129\n" +
 	"\n" +
 	"expires_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12.\n" +
-	"\x13retry_after_seconds\x18\x03 \x01(\x05R\x11retryAfterSecondsB:Z8github.com/arm-1234/protos/identity/v1/response;responseb\x06proto3"
+	"\x13retry_after_seconds\x18\x03 \x01(\x05R\x11retryAfterSeconds\"\x97\x01\n" +
+	"\x16ForgotPasswordResponse\x12\x12\n" +
+	"\x04sent\x18\x01 \x01(\bR\x04sent\x129\n" +
+	"\n" +
+	"expires_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12.\n" +
+	"\x13retry_after_seconds\x18\x03 \x01(\x05R\x11retryAfterSeconds\" \n" +
+	"\x0eLogoutResponse\x12\x0e\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02okB:Z8github.com/arm-1234/protos/identity/v1/response;responseb\x06proto3"
 
 var (
 	file_identity_v1_response_identity_response_proto_rawDescOnce sync.Once
@@ -338,28 +449,31 @@ func file_identity_v1_response_identity_response_proto_rawDescGZIP() []byte {
 	return file_identity_v1_response_identity_response_proto_rawDescData
 }
 
-var file_identity_v1_response_identity_response_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_identity_v1_response_identity_response_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_identity_v1_response_identity_response_proto_goTypes = []any{
 	(*AuthResponse)(nil),              // 0: identity.v1.response.AuthResponse
 	(*RegisterMerchantResponse)(nil),  // 1: identity.v1.response.RegisterMerchantResponse
 	(*GetMeResponse)(nil),             // 2: identity.v1.response.GetMeResponse
 	(*RegisterPushTokenResponse)(nil), // 3: identity.v1.response.RegisterPushTokenResponse
 	(*RequestOtpResponse)(nil),        // 4: identity.v1.response.RequestOtpResponse
-	(*timestamppb.Timestamp)(nil),     // 5: google.protobuf.Timestamp
-	(*types.UserInfo)(nil),            // 6: identity.v1.types.UserInfo
+	(*ForgotPasswordResponse)(nil),    // 5: identity.v1.response.ForgotPasswordResponse
+	(*LogoutResponse)(nil),            // 6: identity.v1.response.LogoutResponse
+	(*timestamppb.Timestamp)(nil),     // 7: google.protobuf.Timestamp
+	(*types.UserInfo)(nil),            // 8: identity.v1.types.UserInfo
 }
 var file_identity_v1_response_identity_response_proto_depIdxs = []int32{
-	5, // 0: identity.v1.response.AuthResponse.expires_at:type_name -> google.protobuf.Timestamp
-	6, // 1: identity.v1.response.AuthResponse.user:type_name -> identity.v1.types.UserInfo
-	5, // 2: identity.v1.response.RegisterMerchantResponse.expires_at:type_name -> google.protobuf.Timestamp
-	6, // 3: identity.v1.response.RegisterMerchantResponse.user:type_name -> identity.v1.types.UserInfo
-	6, // 4: identity.v1.response.GetMeResponse.user:type_name -> identity.v1.types.UserInfo
-	5, // 5: identity.v1.response.RequestOtpResponse.expires_at:type_name -> google.protobuf.Timestamp
-	6, // [6:6] is the sub-list for method output_type
-	6, // [6:6] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	7, // 0: identity.v1.response.AuthResponse.expires_at:type_name -> google.protobuf.Timestamp
+	8, // 1: identity.v1.response.AuthResponse.user:type_name -> identity.v1.types.UserInfo
+	7, // 2: identity.v1.response.RegisterMerchantResponse.expires_at:type_name -> google.protobuf.Timestamp
+	8, // 3: identity.v1.response.RegisterMerchantResponse.user:type_name -> identity.v1.types.UserInfo
+	8, // 4: identity.v1.response.GetMeResponse.user:type_name -> identity.v1.types.UserInfo
+	7, // 5: identity.v1.response.RequestOtpResponse.expires_at:type_name -> google.protobuf.Timestamp
+	7, // 6: identity.v1.response.ForgotPasswordResponse.expires_at:type_name -> google.protobuf.Timestamp
+	7, // [7:7] is the sub-list for method output_type
+	7, // [7:7] is the sub-list for method input_type
+	7, // [7:7] is the sub-list for extension type_name
+	7, // [7:7] is the sub-list for extension extendee
+	0, // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_identity_v1_response_identity_response_proto_init() }
@@ -373,7 +487,7 @@ func file_identity_v1_response_identity_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_response_identity_response_proto_rawDesc), len(file_identity_v1_response_identity_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

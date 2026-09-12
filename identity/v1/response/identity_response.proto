@@ -33,3 +33,14 @@ message RequestOtpResponse {
   google.protobuf.Timestamp expires_at = 2;
   int32 retry_after_seconds = 3;
 }
+
+message ForgotPasswordResponse {
+  bool sent = 1;
+  google.protobuf.Timestamp expires_at = 2;
+  int32 retry_after_seconds = 3;
+}
+
+message LogoutResponse {
+  bool ok = 1;
+}
+

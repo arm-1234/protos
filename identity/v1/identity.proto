@@ -99,6 +99,27 @@ service Identity {
       body: "*"
     };
   }
+
+  rpc ForgotPassword (identity.v1.request.ForgotPasswordRequest) returns (identity.v1.response.ForgotPasswordResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/password:forgot"
+      body: "*"
+    };
+  }
+
+  rpc ResetPassword (identity.v1.request.ResetPasswordRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/password:reset"
+      body: "*"
+    };
+  }
+
+  rpc Logout (identity.v1.request.LogoutRequest) returns (identity.v1.response.LogoutResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/logout"
+      body: "*"
+    };
+  }
 }
 
 enum ErrorReason {

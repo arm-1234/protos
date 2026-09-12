@@ -24,24 +24,20 @@ const (
 )
 
 type UserInfo struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	UserId     string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	UserType   enums.UserType         `protobuf:"varint,2,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
-	Name       string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Phone      string                 `protobuf:"bytes,4,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email      string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
-	MerchantId string                 `protobuf:"bytes,6,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
-	Provider   string                 `protobuf:"bytes,7,opt,name=provider,proto3" json:"provider,omitempty"`
-	ExternalId string                 `protobuf:"bytes,8,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
-	CreatedAt  *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt  *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	Verified   bool                   `protobuf:"varint,11,opt,name=verified,proto3" json:"verified,omitempty"`
-	// Email ownership proven by OTP. Gates gift redemption, so a throwaway
-	// address cannot farm rewards.
-	EmailVerified bool `protobuf:"varint,12,opt,name=email_verified,json=emailVerified,proto3" json:"email_verified,omitempty"`
-	// True when a password is set. Lets the app show "log in with OTP" only for
-	// accounts that have no password yet.
-	HasPassword   bool `protobuf:"varint,13,opt,name=has_password,json=hasPassword,proto3" json:"has_password,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UserType      enums.UserType         `protobuf:"varint,2,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Phone         string                 `protobuf:"bytes,4,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
+	MerchantId    string                 `protobuf:"bytes,6,opt,name=merchant_id,json=merchantId,proto3" json:"merchant_id,omitempty"`
+	Provider      string                 `protobuf:"bytes,7,opt,name=provider,proto3" json:"provider,omitempty"`
+	ExternalId    string                 `protobuf:"bytes,8,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Verified      bool                   `protobuf:"varint,11,opt,name=verified,proto3" json:"verified,omitempty"`
+	EmailVerified bool                   `protobuf:"varint,12,opt,name=email_verified,json=emailVerified,proto3" json:"email_verified,omitempty"`
+	HasPassword   bool                   `protobuf:"varint,13,opt,name=has_password,json=hasPassword,proto3" json:"has_password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

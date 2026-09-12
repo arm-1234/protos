@@ -23,14 +23,17 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationIdentityAuthenticateWithProvider = "/identity.v1.Identity/AuthenticateWithProvider"
 const OperationIdentityConfirmPhoneChange = "/identity.v1.Identity/ConfirmPhoneChange"
+const OperationIdentityForgotPassword = "/identity.v1.Identity/ForgotPassword"
 const OperationIdentityGetMe = "/identity.v1.Identity/GetMe"
 const OperationIdentityLoginWithIdentifier = "/identity.v1.Identity/LoginWithIdentifier"
 const OperationIdentityLoginWithPhone = "/identity.v1.Identity/LoginWithPhone"
+const OperationIdentityLogout = "/identity.v1.Identity/Logout"
 const OperationIdentityRegisterMerchant = "/identity.v1.Identity/RegisterMerchant"
 const OperationIdentityRegisterPushToken = "/identity.v1.Identity/RegisterPushToken"
 const OperationIdentityRegisterUser = "/identity.v1.Identity/RegisterUser"
 const OperationIdentityRequestOtp = "/identity.v1.Identity/RequestOtp"
 const OperationIdentityRequestPhoneChange = "/identity.v1.Identity/RequestPhoneChange"
+const OperationIdentityResetPassword = "/identity.v1.Identity/ResetPassword"
 const OperationIdentitySetPassword = "/identity.v1.Identity/SetPassword"
 const OperationIdentityUpdateProfile = "/identity.v1.Identity/UpdateProfile"
 const OperationIdentityVerifyOtp = "/identity.v1.Identity/VerifyOtp"
@@ -38,16 +41,17 @@ const OperationIdentityVerifyOtp = "/identity.v1.Identity/VerifyOtp"
 type IdentityHTTPServer interface {
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
 	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
+	ForgotPassword(context.Context, *request.ForgotPasswordRequest) (*response.ForgotPasswordResponse, error)
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
-	// LoginWithIdentifier Password login by email or phone. LoginWithPhone is kept for existing
-	// merchant-store clients; new clients should call this.
 	LoginWithIdentifier(context.Context, *request.LoginWithIdentifierRequest) (*response.AuthResponse, error)
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
+	Logout(context.Context, *request.LogoutRequest) (*response.LogoutResponse, error)
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
 	RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error)
+	ResetPassword(context.Context, *request.ResetPasswordRequest) (*response.AuthResponse, error)
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
@@ -68,6 +72,9 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.POST("/v1/auth/otp:verify", _Identity_VerifyOtp0_HTTP_Handler(srv))
 	r.POST("/v1/me/phone:request", _Identity_RequestPhoneChange0_HTTP_Handler(srv))
 	r.POST("/v1/me/phone:confirm", _Identity_ConfirmPhoneChange0_HTTP_Handler(srv))
+	r.POST("/v1/auth/password:forgot", _Identity_ForgotPassword0_HTTP_Handler(srv))
+	r.POST("/v1/auth/password:reset", _Identity_ResetPassword0_HTTP_Handler(srv))
+	r.POST("/v1/auth/logout", _Identity_Logout0_HTTP_Handler(srv))
 }
 
 func _Identity_RegisterUser0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
@@ -353,19 +360,86 @@ func _Identity_ConfirmPhoneChange0_HTTP_Handler(srv IdentityHTTPServer) func(ctx
 	}
 }
 
+func _Identity_ForgotPassword0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ForgotPasswordRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityForgotPassword)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ForgotPassword(ctx, req.(*request.ForgotPasswordRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ForgotPasswordResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Identity_ResetPassword0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ResetPasswordRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityResetPassword)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ResetPassword(ctx, req.(*request.ResetPasswordRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.AuthResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Identity_Logout0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.LogoutRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityLogout)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Logout(ctx, req.(*request.LogoutRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.LogoutResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type IdentityHTTPClient interface {
 	AuthenticateWithProvider(ctx context.Context, req *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	ConfirmPhoneChange(ctx context.Context, req *request.ConfirmPhoneChangeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
+	ForgotPassword(ctx context.Context, req *request.ForgotPasswordRequest, opts ...http.CallOption) (rsp *response.ForgotPasswordResponse, err error)
 	GetMe(ctx context.Context, req *request.GetMeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
-	// LoginWithIdentifier Password login by email or phone. LoginWithPhone is kept for existing
-	// merchant-store clients; new clients should call this.
 	LoginWithIdentifier(ctx context.Context, req *request.LoginWithIdentifierRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	LoginWithPhone(ctx context.Context, req *request.LoginWithPhoneRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
+	Logout(ctx context.Context, req *request.LogoutRequest, opts ...http.CallOption) (rsp *response.LogoutResponse, err error)
 	RegisterMerchant(ctx context.Context, req *request.RegisterMerchantRequest, opts ...http.CallOption) (rsp *response.RegisterMerchantResponse, err error)
 	RegisterPushToken(ctx context.Context, req *request.RegisterPushTokenRequest, opts ...http.CallOption) (rsp *response.RegisterPushTokenResponse, err error)
 	RegisterUser(ctx context.Context, req *request.RegisterUserRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	RequestOtp(ctx context.Context, req *request.RequestOtpRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
 	RequestPhoneChange(ctx context.Context, req *request.RequestPhoneChangeRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
+	ResetPassword(ctx context.Context, req *request.ResetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	SetPassword(ctx context.Context, req *request.SetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	UpdateProfile(ctx context.Context, req *request.UpdateProfileRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
 	VerifyOtp(ctx context.Context, req *request.VerifyOtpRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
@@ -405,6 +479,19 @@ func (c *IdentityHTTPClientImpl) ConfirmPhoneChange(ctx context.Context, in *req
 	return &out, nil
 }
 
+func (c *IdentityHTTPClientImpl) ForgotPassword(ctx context.Context, in *request.ForgotPasswordRequest, opts ...http.CallOption) (*response.ForgotPasswordResponse, error) {
+	var out response.ForgotPasswordResponse
+	pattern := "/v1/auth/password:forgot"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityForgotPassword))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *IdentityHTTPClientImpl) GetMe(ctx context.Context, in *request.GetMeRequest, opts ...http.CallOption) (*response.GetMeResponse, error) {
 	var out response.GetMeResponse
 	pattern := "/v1/auth/me"
@@ -418,8 +505,6 @@ func (c *IdentityHTTPClientImpl) GetMe(ctx context.Context, in *request.GetMeReq
 	return &out, nil
 }
 
-// LoginWithIdentifier Password login by email or phone. LoginWithPhone is kept for existing
-// merchant-store clients; new clients should call this.
 func (c *IdentityHTTPClientImpl) LoginWithIdentifier(ctx context.Context, in *request.LoginWithIdentifierRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
 	var out response.AuthResponse
 	pattern := "/v1/auth/login:identifier"
@@ -438,6 +523,19 @@ func (c *IdentityHTTPClientImpl) LoginWithPhone(ctx context.Context, in *request
 	pattern := "/v1/auth/login"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationIdentityLoginWithPhone))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *IdentityHTTPClientImpl) Logout(ctx context.Context, in *request.LogoutRequest, opts ...http.CallOption) (*response.LogoutResponse, error) {
+	var out response.LogoutResponse
+	pattern := "/v1/auth/logout"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityLogout))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -503,6 +601,19 @@ func (c *IdentityHTTPClientImpl) RequestPhoneChange(ctx context.Context, in *req
 	pattern := "/v1/me/phone:request"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationIdentityRequestPhoneChange))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *IdentityHTTPClientImpl) ResetPassword(ctx context.Context, in *request.ResetPasswordRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
+	var out response.AuthResponse
+	pattern := "/v1/auth/password:reset"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityResetPassword))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

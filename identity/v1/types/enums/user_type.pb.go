@@ -27,9 +27,7 @@ const (
 	UserType_USER_TYPE_UNSPECIFIED UserType = 0
 	UserType_USER_TYPE_USER        UserType = 1
 	UserType_USER_TYPE_MERCHANT    UserType = 2
-	// Staff account. Carried in the JWT so services can gate privileged RPCs
-	// (creating competitions, reviewing flagged sessions) without a DB lookup.
-	UserType_USER_TYPE_ADMIN UserType = 3
+	UserType_USER_TYPE_ADMIN       UserType = 3
 )
 
 // Enum value maps for UserType.

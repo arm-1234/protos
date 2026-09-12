@@ -25,17 +25,12 @@ const (
 )
 
 type RegisterUserRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Name  string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Optional since the fitness app signs users up by email. At least one of
-	// phone or email must be present; the backend enforces that pair rule, as
-	// protoc-gen-validate cannot express it.
-	Phone    string `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email    string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	Password string `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
-	// Which app the account belongs to. Defaults to USER; registering an ADMIN
-	// is refused over this endpoint and must be provisioned out of band.
-	UserType      enums.UserType `protobuf:"varint,5,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phone         string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	UserType      enums.UserType         `protobuf:"varint,5,opt,name=user_type,json=userType,proto3,enum=identity.v1.types.enums.UserType" json:"user_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -105,16 +100,11 @@ func (x *RegisterUserRequest) GetUserType() enums.UserType {
 	return enums.UserType(0)
 }
 
-// Login with either an email or a phone number plus a password. Mirrors the
-// generic identifier that RequestOtp and VerifyOtp already take, so password
-// and OTP login share one shape.
 type LoginWithIdentifierRequest struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	Identifier string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
-	Password   string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	// Guards against a walker's credentials logging into the admin console, and
-	// vice versa. Rejected with IDENTITY_WRONG_APP on mismatch.
-	ExpectedUserType enums.UserType `protobuf:"varint,3,opt,name=expected_user_type,json=expectedUserType,proto3,enum=identity.v1.types.enums.UserType" json:"expected_user_type,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Identifier       string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	Password         string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	ExpectedUserType enums.UserType         `protobuf:"varint,3,opt,name=expected_user_type,json=expectedUserType,proto3,enum=identity.v1.types.enums.UserType" json:"expected_user_type,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -171,20 +161,19 @@ func (x *LoginWithIdentifierRequest) GetExpectedUserType() enums.UserType {
 }
 
 type RegisterMerchantRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	Name        string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phone       string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email       string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	StoreName   string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
-	Description string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
-	LogoUrl     string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
-	Address     string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
-	// Optional: blank means the backend generates a store address.
-	UpiVpa            string  `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
-	Latitude          float64 `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude         float64 `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Password          string  `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
-	MaxOrderDistanceM float64 `protobuf:"fixed64,12,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Name              string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phone             string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email             string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	StoreName         string                 `protobuf:"bytes,4,opt,name=store_name,json=storeName,proto3" json:"store_name,omitempty"`
+	Description       string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	LogoUrl           string                 `protobuf:"bytes,6,opt,name=logo_url,json=logoUrl,proto3" json:"logo_url,omitempty"`
+	Address           string                 `protobuf:"bytes,7,opt,name=address,proto3" json:"address,omitempty"`
+	UpiVpa            string                 `protobuf:"bytes,8,opt,name=upi_vpa,json=upiVpa,proto3" json:"upi_vpa,omitempty"`
+	Latitude          float64                `protobuf:"fixed64,9,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude         float64                `protobuf:"fixed64,10,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Password          string                 `protobuf:"bytes,11,opt,name=password,proto3" json:"password,omitempty"`
+	MaxOrderDistanceM float64                `protobuf:"fixed64,12,opt,name=max_order_distance_m,json=maxOrderDistanceM,proto3" json:"max_order_distance_m,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -364,16 +353,13 @@ func (x *LoginWithPhoneRequest) GetExpectedUserType() enums.UserType {
 }
 
 type SetPasswordRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Legacy phone-keyed field. Prefer identifier, which also accepts an email.
-	Phone           string `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
-	NewPassword     string `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
-	CurrentPassword string `protobuf:"bytes,3,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
-	// Email or phone. Takes precedence over phone when both are set, letting an
-	// OTP-only user add a password later.
-	Identifier    string `protobuf:"bytes,4,opt,name=identifier,proto3" json:"identifier,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Phone           string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	NewPassword     string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	CurrentPassword string                 `protobuf:"bytes,3,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
+	Identifier      string                 `protobuf:"bytes,4,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *SetPasswordRequest) Reset() {
@@ -890,6 +876,146 @@ func (x *ConfirmPhoneChangeRequest) GetCode() string {
 	return ""
 }
 
+type ForgotPasswordRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ForgotPasswordRequest) Reset() {
+	*x = ForgotPasswordRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ForgotPasswordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ForgotPasswordRequest) ProtoMessage() {}
+
+func (x *ForgotPasswordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ForgotPasswordRequest.ProtoReflect.Descriptor instead.
+func (*ForgotPasswordRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ForgotPasswordRequest) GetIdentifier() string {
+	if x != nil {
+		return x.Identifier
+	}
+	return ""
+}
+
+type ResetPasswordRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	NewPassword   string                 `protobuf:"bytes,3,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ResetPasswordRequest) Reset() {
+	*x = ResetPasswordRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ResetPasswordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResetPasswordRequest) ProtoMessage() {}
+
+func (x *ResetPasswordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResetPasswordRequest.ProtoReflect.Descriptor instead.
+func (*ResetPasswordRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *ResetPasswordRequest) GetIdentifier() string {
+	if x != nil {
+		return x.Identifier
+	}
+	return ""
+}
+
+func (x *ResetPasswordRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *ResetPasswordRequest) GetNewPassword() string {
+	if x != nil {
+		return x.NewPassword
+	}
+	return ""
+}
+
+type LogoutRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutRequest) Reset() {
+	*x = LogoutRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutRequest) ProtoMessage() {}
+
+func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
+func (*LogoutRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{15}
+}
+
 var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
 
 const file_identity_v1_request_identity_request_proto_rawDesc = "" +
@@ -972,7 +1098,19 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\x19ConfirmPhoneChangeRequest\x12*\n" +
 	"\tnew_phone\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14R\bnewPhone\x12!\n" +
 	"\x04code\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\n" +
-	"R\x04codeB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
+	"R\x04code\"G\n" +
+	"\x15ForgotPasswordRequest\x12.\n" +
+	"\n" +
+	"identifier\x18\x01 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x03\x18\xc0\x02R\n" +
+	"identifier\"\x9c\x01\n" +
+	"\x14ResetPasswordRequest\x12.\n" +
+	"\n" +
+	"identifier\x18\x01 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x03\x18\xc0\x02R\n" +
+	"identifier\x12!\n" +
+	"\x04code\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\n" +
+	"R\x04code\x121\n" +
+	"\fnew_password\x18\x03 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x06\x18\x80\x01R\vnewPassword\"\x0f\n" +
+	"\rLogoutRequestB8Z6github.com/arm-1234/protos/identity/v1/request;requestb\x06proto3"
 
 var (
 	file_identity_v1_request_identity_request_proto_rawDescOnce sync.Once
@@ -986,7 +1124,7 @@ func file_identity_v1_request_identity_request_proto_rawDescGZIP() []byte {
 	return file_identity_v1_request_identity_request_proto_rawDescData
 }
 
-var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),             // 0: identity.v1.request.RegisterUserRequest
 	(*LoginWithIdentifierRequest)(nil),      // 1: identity.v1.request.LoginWithIdentifierRequest
@@ -1001,18 +1139,21 @@ var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*VerifyOtpRequest)(nil),                // 10: identity.v1.request.VerifyOtpRequest
 	(*RequestPhoneChangeRequest)(nil),       // 11: identity.v1.request.RequestPhoneChangeRequest
 	(*ConfirmPhoneChangeRequest)(nil),       // 12: identity.v1.request.ConfirmPhoneChangeRequest
-	(enums.UserType)(0),                     // 13: identity.v1.types.enums.UserType
-	(enums.OtpChannel)(0),                   // 14: identity.v1.types.enums.OtpChannel
+	(*ForgotPasswordRequest)(nil),           // 13: identity.v1.request.ForgotPasswordRequest
+	(*ResetPasswordRequest)(nil),            // 14: identity.v1.request.ResetPasswordRequest
+	(*LogoutRequest)(nil),                   // 15: identity.v1.request.LogoutRequest
+	(enums.UserType)(0),                     // 16: identity.v1.types.enums.UserType
+	(enums.OtpChannel)(0),                   // 17: identity.v1.types.enums.OtpChannel
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	13, // 0: identity.v1.request.RegisterUserRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	13, // 1: identity.v1.request.LoginWithIdentifierRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
-	13, // 2: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
-	13, // 3: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	14, // 4: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	13, // 5: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	14, // 6: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	13, // 7: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	16, // 0: identity.v1.request.RegisterUserRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	16, // 1: identity.v1.request.LoginWithIdentifierRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	16, // 2: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	16, // 3: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	17, // 4: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	16, // 5: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	17, // 6: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	16, // 7: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
 	8,  // [8:8] is the sub-list for method output_type
 	8,  // [8:8] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -1031,7 +1172,7 @@ func file_identity_v1_request_identity_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_request_identity_request_proto_rawDesc), len(file_identity_v1_request_identity_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

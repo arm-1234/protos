@@ -34,6 +34,9 @@ const (
 	Identity_VerifyOtp_FullMethodName                = "/identity.v1.Identity/VerifyOtp"
 	Identity_RequestPhoneChange_FullMethodName       = "/identity.v1.Identity/RequestPhoneChange"
 	Identity_ConfirmPhoneChange_FullMethodName       = "/identity.v1.Identity/ConfirmPhoneChange"
+	Identity_ForgotPassword_FullMethodName           = "/identity.v1.Identity/ForgotPassword"
+	Identity_ResetPassword_FullMethodName            = "/identity.v1.Identity/ResetPassword"
+	Identity_Logout_FullMethodName                   = "/identity.v1.Identity/Logout"
 )
 
 // IdentityClient is the client API for Identity service.
@@ -43,8 +46,6 @@ type IdentityClient interface {
 	RegisterUser(ctx context.Context, in *request.RegisterUserRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	RegisterMerchant(ctx context.Context, in *request.RegisterMerchantRequest, opts ...grpc.CallOption) (*response.RegisterMerchantResponse, error)
 	LoginWithPhone(ctx context.Context, in *request.LoginWithPhoneRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
-	// Password login by email or phone. LoginWithPhone is kept for existing
-	// merchant-store clients; new clients should call this.
 	LoginWithIdentifier(ctx context.Context, in *request.LoginWithIdentifierRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
@@ -55,6 +56,9 @@ type IdentityClient interface {
 	VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	RequestPhoneChange(ctx context.Context, in *request.RequestPhoneChangeRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
 	ConfirmPhoneChange(ctx context.Context, in *request.ConfirmPhoneChangeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
+	ForgotPassword(ctx context.Context, in *request.ForgotPasswordRequest, opts ...grpc.CallOption) (*response.ForgotPasswordResponse, error)
+	ResetPassword(ctx context.Context, in *request.ResetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
+	Logout(ctx context.Context, in *request.LogoutRequest, opts ...grpc.CallOption) (*response.LogoutResponse, error)
 }
 
 type identityClient struct {
@@ -195,6 +199,36 @@ func (c *identityClient) ConfirmPhoneChange(ctx context.Context, in *request.Con
 	return out, nil
 }
 
+func (c *identityClient) ForgotPassword(ctx context.Context, in *request.ForgotPasswordRequest, opts ...grpc.CallOption) (*response.ForgotPasswordResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ForgotPasswordResponse)
+	err := c.cc.Invoke(ctx, Identity_ForgotPassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) ResetPassword(ctx context.Context, in *request.ResetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.AuthResponse)
+	err := c.cc.Invoke(ctx, Identity_ResetPassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) Logout(ctx context.Context, in *request.LogoutRequest, opts ...grpc.CallOption) (*response.LogoutResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.LogoutResponse)
+	err := c.cc.Invoke(ctx, Identity_Logout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentityServer is the server API for Identity service.
 // All implementations must embed UnimplementedIdentityServer
 // for forward compatibility.
@@ -202,8 +236,6 @@ type IdentityServer interface {
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 	RegisterMerchant(context.Context, *request.RegisterMerchantRequest) (*response.RegisterMerchantResponse, error)
 	LoginWithPhone(context.Context, *request.LoginWithPhoneRequest) (*response.AuthResponse, error)
-	// Password login by email or phone. LoginWithPhone is kept for existing
-	// merchant-store clients; new clients should call this.
 	LoginWithIdentifier(context.Context, *request.LoginWithIdentifierRequest) (*response.AuthResponse, error)
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
@@ -214,6 +246,9 @@ type IdentityServer interface {
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
 	RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error)
 	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
+	ForgotPassword(context.Context, *request.ForgotPasswordRequest) (*response.ForgotPasswordResponse, error)
+	ResetPassword(context.Context, *request.ResetPasswordRequest) (*response.AuthResponse, error)
+	Logout(context.Context, *request.LogoutRequest) (*response.LogoutResponse, error)
 	mustEmbedUnimplementedIdentityServer()
 }
 
@@ -262,6 +297,15 @@ func (UnimplementedIdentityServer) RequestPhoneChange(context.Context, *request.
 }
 func (UnimplementedIdentityServer) ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ConfirmPhoneChange not implemented")
+}
+func (UnimplementedIdentityServer) ForgotPassword(context.Context, *request.ForgotPasswordRequest) (*response.ForgotPasswordResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ForgotPassword not implemented")
+}
+func (UnimplementedIdentityServer) ResetPassword(context.Context, *request.ResetPasswordRequest) (*response.AuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ResetPassword not implemented")
+}
+func (UnimplementedIdentityServer) Logout(context.Context, *request.LogoutRequest) (*response.LogoutResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Logout not implemented")
 }
 func (UnimplementedIdentityServer) mustEmbedUnimplementedIdentityServer() {}
 func (UnimplementedIdentityServer) testEmbeddedByValue()                  {}
@@ -518,6 +562,60 @@ func _Identity_ConfirmPhoneChange_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identity_ForgotPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ForgotPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).ForgotPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_ForgotPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).ForgotPassword(ctx, req.(*request.ForgotPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_ResetPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ResetPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).ResetPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_ResetPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).ResetPassword(ctx, req.(*request.ResetPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.LogoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).Logout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_Logout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).Logout(ctx, req.(*request.LogoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Identity_ServiceDesc is the grpc.ServiceDesc for Identity service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -576,6 +674,18 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ConfirmPhoneChange",
 			Handler:    _Identity_ConfirmPhoneChange_Handler,
+		},
+		{
+			MethodName: "ForgotPassword",
+			Handler:    _Identity_ForgotPassword_Handler,
+		},
+		{
+			MethodName: "ResetPassword",
+			Handler:    _Identity_ResetPassword_Handler,
+		},
+		{
+			MethodName: "Logout",
+			Handler:    _Identity_Logout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

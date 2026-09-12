@@ -28,25 +28,22 @@ const (
 type ErrorReason int32
 
 const (
-	ErrorReason_IDENTITY_UNSPECIFIED         ErrorReason = 0
-	ErrorReason_USER_NOT_FOUND               ErrorReason = 1
-	ErrorReason_USER_ALREADY_EXISTS          ErrorReason = 2
-	ErrorReason_IDENTITY_INVALID_REQUEST     ErrorReason = 3
-	ErrorReason_IDENTITY_UNAUTHENTICATED     ErrorReason = 4
-	ErrorReason_IDENTITY_INVALID_CREDENTIALS ErrorReason = 5
-	ErrorReason_IDENTITY_PASSWORD_REQUIRED   ErrorReason = 6
-	ErrorReason_IDENTITY_OTP_INVALID         ErrorReason = 7
-	ErrorReason_IDENTITY_OTP_EXPIRED         ErrorReason = 8
-	ErrorReason_IDENTITY_OTP_RATE_LIMITED    ErrorReason = 9
-	ErrorReason_IDENTITY_OTP_DELIVERY_FAILED ErrorReason = 10
-	ErrorReason_IDENTITY_WRONG_APP           ErrorReason = 11
-	ErrorReason_IDENTITY_PHONE_TAKEN         ErrorReason = 12
-	ErrorReason_IDENTITY_EMAIL_TAKEN         ErrorReason = 13
-	// Neither phone nor email was supplied on registration.
-	ErrorReason_IDENTITY_IDENTIFIER_REQUIRED ErrorReason = 14
-	// Action needs a verified email, e.g. redeeming a gift.
-	ErrorReason_IDENTITY_EMAIL_NOT_VERIFIED ErrorReason = 15
-	// Admin accounts cannot be self-registered.
+	ErrorReason_IDENTITY_UNSPECIFIED               ErrorReason = 0
+	ErrorReason_USER_NOT_FOUND                     ErrorReason = 1
+	ErrorReason_USER_ALREADY_EXISTS                ErrorReason = 2
+	ErrorReason_IDENTITY_INVALID_REQUEST           ErrorReason = 3
+	ErrorReason_IDENTITY_UNAUTHENTICATED           ErrorReason = 4
+	ErrorReason_IDENTITY_INVALID_CREDENTIALS       ErrorReason = 5
+	ErrorReason_IDENTITY_PASSWORD_REQUIRED         ErrorReason = 6
+	ErrorReason_IDENTITY_OTP_INVALID               ErrorReason = 7
+	ErrorReason_IDENTITY_OTP_EXPIRED               ErrorReason = 8
+	ErrorReason_IDENTITY_OTP_RATE_LIMITED          ErrorReason = 9
+	ErrorReason_IDENTITY_OTP_DELIVERY_FAILED       ErrorReason = 10
+	ErrorReason_IDENTITY_WRONG_APP                 ErrorReason = 11
+	ErrorReason_IDENTITY_PHONE_TAKEN               ErrorReason = 12
+	ErrorReason_IDENTITY_EMAIL_TAKEN               ErrorReason = 13
+	ErrorReason_IDENTITY_IDENTIFIER_REQUIRED       ErrorReason = 14
+	ErrorReason_IDENTITY_EMAIL_NOT_VERIFIED        ErrorReason = 15
 	ErrorReason_IDENTITY_ADMIN_PROVISION_FORBIDDEN ErrorReason = 16
 )
 
@@ -142,7 +139,7 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\x14IDENTITY_EMAIL_TAKEN\x10\r\x1a\x04\xa8E\x99\x03\x12&\n" +
 	"\x1cIDENTITY_IDENTIFIER_REQUIRED\x10\x0e\x1a\x04\xa8E\x90\x03\x12%\n" +
 	"\x1bIDENTITY_EMAIL_NOT_VERIFIED\x10\x0f\x1a\x04\xa8E\x93\x03\x12,\n" +
-	"\"IDENTITY_ADMIN_PROVISION_FORBIDDEN\x10\x10\x1a\x04\xa8E\x93\x03\x1a\x04\xa0E\xf4\x032\xd6\r\n" +
+	"\"IDENTITY_ADMIN_PROVISION_FORBIDDEN\x10\x10\x1a\x04\xa8E\x93\x03\x1a\x04\xa0E\xf4\x032\xdd\x10\n" +
 	"\bIdentity\x12\x80\x01\n" +
 	"\fRegisterUser\x12(.identity.v1.request.RegisterUserRequest\x1a\".identity.v1.response.AuthResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/auth/users:register\x12\x98\x01\n" +
 	"\x10RegisterMerchant\x12,.identity.v1.request.RegisterMerchantRequest\x1a..identity.v1.response.RegisterMerchantResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/auth/merchants:register\x12{\n" +
@@ -157,7 +154,10 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"RequestOtp\x12&.identity.v1.request.RequestOtpRequest\x1a(.identity.v1.response.RequestOtpResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/auth/otp:request\x12v\n" +
 	"\tVerifyOtp\x12%.identity.v1.request.VerifyOtpRequest\x1a\".identity.v1.response.AuthResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/v1/auth/otp:verify\x12\x8f\x01\n" +
 	"\x12RequestPhoneChange\x12..identity.v1.request.RequestPhoneChangeRequest\x1a(.identity.v1.response.RequestOtpResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/me/phone:request\x12\x8a\x01\n" +
-	"\x12ConfirmPhoneChange\x12..identity.v1.request.ConfirmPhoneChangeRequest\x1a#.identity.v1.response.GetMeResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/me/phone:confirmB+Z)github.com/arm-1234/protos/identity/v1;v1b\x06proto3"
+	"\x12ConfirmPhoneChange\x12..identity.v1.request.ConfirmPhoneChangeRequest\x1a#.identity.v1.response.GetMeResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/me/phone:confirm\x12\x8f\x01\n" +
+	"\x0eForgotPassword\x12*.identity.v1.request.ForgotPasswordRequest\x1a,.identity.v1.response.ForgotPasswordResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/auth/password:forgot\x12\x82\x01\n" +
+	"\rResetPassword\x12).identity.v1.request.ResetPasswordRequest\x1a\".identity.v1.response.AuthResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/v1/auth/password:reset\x12n\n" +
+	"\x06Logout\x12\".identity.v1.request.LogoutRequest\x1a$.identity.v1.response.LogoutResponse\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/auth/logoutB+Z)github.com/arm-1234/protos/identity/v1;v1b\x06proto3"
 
 var (
 	file_identity_v1_identity_proto_rawDescOnce sync.Once
@@ -187,11 +187,16 @@ var file_identity_v1_identity_proto_goTypes = []any{
 	(*request.VerifyOtpRequest)(nil),                // 11: identity.v1.request.VerifyOtpRequest
 	(*request.RequestPhoneChangeRequest)(nil),       // 12: identity.v1.request.RequestPhoneChangeRequest
 	(*request.ConfirmPhoneChangeRequest)(nil),       // 13: identity.v1.request.ConfirmPhoneChangeRequest
-	(*response.AuthResponse)(nil),                   // 14: identity.v1.response.AuthResponse
-	(*response.RegisterMerchantResponse)(nil),       // 15: identity.v1.response.RegisterMerchantResponse
-	(*response.GetMeResponse)(nil),                  // 16: identity.v1.response.GetMeResponse
-	(*response.RegisterPushTokenResponse)(nil),      // 17: identity.v1.response.RegisterPushTokenResponse
-	(*response.RequestOtpResponse)(nil),             // 18: identity.v1.response.RequestOtpResponse
+	(*request.ForgotPasswordRequest)(nil),           // 14: identity.v1.request.ForgotPasswordRequest
+	(*request.ResetPasswordRequest)(nil),            // 15: identity.v1.request.ResetPasswordRequest
+	(*request.LogoutRequest)(nil),                   // 16: identity.v1.request.LogoutRequest
+	(*response.AuthResponse)(nil),                   // 17: identity.v1.response.AuthResponse
+	(*response.RegisterMerchantResponse)(nil),       // 18: identity.v1.response.RegisterMerchantResponse
+	(*response.GetMeResponse)(nil),                  // 19: identity.v1.response.GetMeResponse
+	(*response.RegisterPushTokenResponse)(nil),      // 20: identity.v1.response.RegisterPushTokenResponse
+	(*response.RequestOtpResponse)(nil),             // 21: identity.v1.response.RequestOtpResponse
+	(*response.ForgotPasswordResponse)(nil),         // 22: identity.v1.response.ForgotPasswordResponse
+	(*response.LogoutResponse)(nil),                 // 23: identity.v1.response.LogoutResponse
 }
 var file_identity_v1_identity_proto_depIdxs = []int32{
 	1,  // 0: identity.v1.Identity.RegisterUser:input_type -> identity.v1.request.RegisterUserRequest
@@ -207,21 +212,27 @@ var file_identity_v1_identity_proto_depIdxs = []int32{
 	11, // 10: identity.v1.Identity.VerifyOtp:input_type -> identity.v1.request.VerifyOtpRequest
 	12, // 11: identity.v1.Identity.RequestPhoneChange:input_type -> identity.v1.request.RequestPhoneChangeRequest
 	13, // 12: identity.v1.Identity.ConfirmPhoneChange:input_type -> identity.v1.request.ConfirmPhoneChangeRequest
-	14, // 13: identity.v1.Identity.RegisterUser:output_type -> identity.v1.response.AuthResponse
-	15, // 14: identity.v1.Identity.RegisterMerchant:output_type -> identity.v1.response.RegisterMerchantResponse
-	14, // 15: identity.v1.Identity.LoginWithPhone:output_type -> identity.v1.response.AuthResponse
-	14, // 16: identity.v1.Identity.LoginWithIdentifier:output_type -> identity.v1.response.AuthResponse
-	14, // 17: identity.v1.Identity.SetPassword:output_type -> identity.v1.response.AuthResponse
-	16, // 18: identity.v1.Identity.UpdateProfile:output_type -> identity.v1.response.GetMeResponse
-	14, // 19: identity.v1.Identity.AuthenticateWithProvider:output_type -> identity.v1.response.AuthResponse
-	16, // 20: identity.v1.Identity.GetMe:output_type -> identity.v1.response.GetMeResponse
-	17, // 21: identity.v1.Identity.RegisterPushToken:output_type -> identity.v1.response.RegisterPushTokenResponse
-	18, // 22: identity.v1.Identity.RequestOtp:output_type -> identity.v1.response.RequestOtpResponse
-	14, // 23: identity.v1.Identity.VerifyOtp:output_type -> identity.v1.response.AuthResponse
-	18, // 24: identity.v1.Identity.RequestPhoneChange:output_type -> identity.v1.response.RequestOtpResponse
-	16, // 25: identity.v1.Identity.ConfirmPhoneChange:output_type -> identity.v1.response.GetMeResponse
-	13, // [13:26] is the sub-list for method output_type
-	0,  // [0:13] is the sub-list for method input_type
+	14, // 13: identity.v1.Identity.ForgotPassword:input_type -> identity.v1.request.ForgotPasswordRequest
+	15, // 14: identity.v1.Identity.ResetPassword:input_type -> identity.v1.request.ResetPasswordRequest
+	16, // 15: identity.v1.Identity.Logout:input_type -> identity.v1.request.LogoutRequest
+	17, // 16: identity.v1.Identity.RegisterUser:output_type -> identity.v1.response.AuthResponse
+	18, // 17: identity.v1.Identity.RegisterMerchant:output_type -> identity.v1.response.RegisterMerchantResponse
+	17, // 18: identity.v1.Identity.LoginWithPhone:output_type -> identity.v1.response.AuthResponse
+	17, // 19: identity.v1.Identity.LoginWithIdentifier:output_type -> identity.v1.response.AuthResponse
+	17, // 20: identity.v1.Identity.SetPassword:output_type -> identity.v1.response.AuthResponse
+	19, // 21: identity.v1.Identity.UpdateProfile:output_type -> identity.v1.response.GetMeResponse
+	17, // 22: identity.v1.Identity.AuthenticateWithProvider:output_type -> identity.v1.response.AuthResponse
+	19, // 23: identity.v1.Identity.GetMe:output_type -> identity.v1.response.GetMeResponse
+	20, // 24: identity.v1.Identity.RegisterPushToken:output_type -> identity.v1.response.RegisterPushTokenResponse
+	21, // 25: identity.v1.Identity.RequestOtp:output_type -> identity.v1.response.RequestOtpResponse
+	17, // 26: identity.v1.Identity.VerifyOtp:output_type -> identity.v1.response.AuthResponse
+	21, // 27: identity.v1.Identity.RequestPhoneChange:output_type -> identity.v1.response.RequestOtpResponse
+	19, // 28: identity.v1.Identity.ConfirmPhoneChange:output_type -> identity.v1.response.GetMeResponse
+	22, // 29: identity.v1.Identity.ForgotPassword:output_type -> identity.v1.response.ForgotPasswordResponse
+	17, // 30: identity.v1.Identity.ResetPassword:output_type -> identity.v1.response.AuthResponse
+	23, // 31: identity.v1.Identity.Logout:output_type -> identity.v1.response.LogoutResponse
+	16, // [16:32] is the sub-list for method output_type
+	0,  // [0:16] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
