@@ -28,26 +28,33 @@ const (
 type ErrorReason int32
 
 const (
-	ErrorReason_WISHES_UNSPECIFIED      ErrorReason = 0
-	ErrorReason_WISHES_INVALID_REQUEST  ErrorReason = 1
-	ErrorReason_WISHES_UNAUTHENTICATED  ErrorReason = 2
-	ErrorReason_WISHES_FORBIDDEN        ErrorReason = 3
-	ErrorReason_WISH_NOT_FOUND          ErrorReason = 10
-	ErrorReason_WISH_NOT_OWNED          ErrorReason = 11
-	ErrorReason_WISH_ALREADY_REVOKED    ErrorReason = 12
-	ErrorReason_WISH_EXPIRED            ErrorReason = 13
-	ErrorReason_WISH_LIMIT_REACHED      ErrorReason = 14
-	ErrorReason_WISH_NOT_DRAFT          ErrorReason = 15
-	ErrorReason_WISH_ALREADY_PUBLISHED  ErrorReason = 16
-	ErrorReason_TEMPLATE_NOT_FOUND      ErrorReason = 20
-	ErrorReason_TEMPLATE_CONFIG_INVALID ErrorReason = 21
-	ErrorReason_PHOTO_REJECTED          ErrorReason = 22
-	ErrorReason_PHOTO_TOO_LARGE         ErrorReason = 23
-	ErrorReason_RESPONSE_NOT_ALLOWED    ErrorReason = 32
-	ErrorReason_RESPONSE_RATE_LIMITED   ErrorReason = 33
-	ErrorReason_DELIVERY_FAILED         ErrorReason = 30
-	ErrorReason_DELIVERY_RATE_LIMITED   ErrorReason = 31
-	ErrorReason_RENDERER_UNAVAILABLE    ErrorReason = 40
+	ErrorReason_WISHES_UNSPECIFIED          ErrorReason = 0
+	ErrorReason_WISHES_INVALID_REQUEST      ErrorReason = 1
+	ErrorReason_WISHES_UNAUTHENTICATED      ErrorReason = 2
+	ErrorReason_WISHES_FORBIDDEN            ErrorReason = 3
+	ErrorReason_WISH_NOT_FOUND              ErrorReason = 10
+	ErrorReason_WISH_NOT_OWNED              ErrorReason = 11
+	ErrorReason_WISH_ALREADY_REVOKED        ErrorReason = 12
+	ErrorReason_WISH_EXPIRED                ErrorReason = 13
+	ErrorReason_WISH_LIMIT_REACHED          ErrorReason = 14
+	ErrorReason_WISH_NOT_DRAFT              ErrorReason = 15
+	ErrorReason_WISH_ALREADY_PUBLISHED      ErrorReason = 16
+	ErrorReason_TEMPLATE_NOT_FOUND          ErrorReason = 20
+	ErrorReason_TEMPLATE_CONFIG_INVALID     ErrorReason = 21
+	ErrorReason_PHOTO_REJECTED              ErrorReason = 22
+	ErrorReason_PHOTO_TOO_LARGE             ErrorReason = 23
+	ErrorReason_RESPONSE_NOT_ALLOWED        ErrorReason = 32
+	ErrorReason_RESPONSE_RATE_LIMITED       ErrorReason = 33
+	ErrorReason_DELIVERY_FAILED             ErrorReason = 30
+	ErrorReason_DELIVERY_RATE_LIMITED       ErrorReason = 31
+	ErrorReason_RENDERER_UNAVAILABLE        ErrorReason = 40
+	ErrorReason_ORDER_NOT_FOUND             ErrorReason = 50
+	ErrorReason_ORDER_NOT_OWNED             ErrorReason = 51
+	ErrorReason_PAYMENT_REQUIRED            ErrorReason = 52
+	ErrorReason_PAYMENT_ALREADY_SETTLED     ErrorReason = 53
+	ErrorReason_PAYMENT_GATEWAY_ERROR       ErrorReason = 54
+	ErrorReason_PAYMENT_VERIFICATION_FAILED ErrorReason = 55
+	ErrorReason_PRICING_INVALID             ErrorReason = 56
 )
 
 // Enum value maps for ErrorReason.
@@ -73,28 +80,42 @@ var (
 		30: "DELIVERY_FAILED",
 		31: "DELIVERY_RATE_LIMITED",
 		40: "RENDERER_UNAVAILABLE",
+		50: "ORDER_NOT_FOUND",
+		51: "ORDER_NOT_OWNED",
+		52: "PAYMENT_REQUIRED",
+		53: "PAYMENT_ALREADY_SETTLED",
+		54: "PAYMENT_GATEWAY_ERROR",
+		55: "PAYMENT_VERIFICATION_FAILED",
+		56: "PRICING_INVALID",
 	}
 	ErrorReason_value = map[string]int32{
-		"WISHES_UNSPECIFIED":      0,
-		"WISHES_INVALID_REQUEST":  1,
-		"WISHES_UNAUTHENTICATED":  2,
-		"WISHES_FORBIDDEN":        3,
-		"WISH_NOT_FOUND":          10,
-		"WISH_NOT_OWNED":          11,
-		"WISH_ALREADY_REVOKED":    12,
-		"WISH_EXPIRED":            13,
-		"WISH_LIMIT_REACHED":      14,
-		"WISH_NOT_DRAFT":          15,
-		"WISH_ALREADY_PUBLISHED":  16,
-		"TEMPLATE_NOT_FOUND":      20,
-		"TEMPLATE_CONFIG_INVALID": 21,
-		"PHOTO_REJECTED":          22,
-		"PHOTO_TOO_LARGE":         23,
-		"RESPONSE_NOT_ALLOWED":    32,
-		"RESPONSE_RATE_LIMITED":   33,
-		"DELIVERY_FAILED":         30,
-		"DELIVERY_RATE_LIMITED":   31,
-		"RENDERER_UNAVAILABLE":    40,
+		"WISHES_UNSPECIFIED":          0,
+		"WISHES_INVALID_REQUEST":      1,
+		"WISHES_UNAUTHENTICATED":      2,
+		"WISHES_FORBIDDEN":            3,
+		"WISH_NOT_FOUND":              10,
+		"WISH_NOT_OWNED":              11,
+		"WISH_ALREADY_REVOKED":        12,
+		"WISH_EXPIRED":                13,
+		"WISH_LIMIT_REACHED":          14,
+		"WISH_NOT_DRAFT":              15,
+		"WISH_ALREADY_PUBLISHED":      16,
+		"TEMPLATE_NOT_FOUND":          20,
+		"TEMPLATE_CONFIG_INVALID":     21,
+		"PHOTO_REJECTED":              22,
+		"PHOTO_TOO_LARGE":             23,
+		"RESPONSE_NOT_ALLOWED":        32,
+		"RESPONSE_RATE_LIMITED":       33,
+		"DELIVERY_FAILED":             30,
+		"DELIVERY_RATE_LIMITED":       31,
+		"RENDERER_UNAVAILABLE":        40,
+		"ORDER_NOT_FOUND":             50,
+		"ORDER_NOT_OWNED":             51,
+		"PAYMENT_REQUIRED":            52,
+		"PAYMENT_ALREADY_SETTLED":     53,
+		"PAYMENT_GATEWAY_ERROR":       54,
+		"PAYMENT_VERIFICATION_FAILED": 55,
+		"PRICING_INVALID":             56,
 	}
 )
 
@@ -129,7 +150,7 @@ var File_wishes_v1_wishes_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\n" +
-	"\x16wishes/v1/wishes.proto\x12\twishes.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a&wishes/v1/request/wishes_request.proto\x1a(wishes/v1/response/wishes_response.proto*\xea\x04\n" +
+	"\x16wishes/v1/wishes.proto\x12\twishes.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a&wishes/v1/request/wishes_request.proto\x1a(wishes/v1/response/wishes_response.proto*\xc2\x06\n" +
 	"\vErrorReason\x12\x1c\n" +
 	"\x12WISHES_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12 \n" +
 	"\x16WISHES_INVALID_REQUEST\x10\x01\x1a\x04\xa8E\x90\x03\x12 \n" +
@@ -151,7 +172,14 @@ const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\x15RESPONSE_RATE_LIMITED\x10!\x1a\x04\xa8E\xad\x03\x12\x19\n" +
 	"\x0fDELIVERY_FAILED\x10\x1e\x1a\x04\xa8E\xf6\x03\x12\x1f\n" +
 	"\x15DELIVERY_RATE_LIMITED\x10\x1f\x1a\x04\xa8E\xad\x03\x12\x1e\n" +
-	"\x14RENDERER_UNAVAILABLE\x10(\x1a\x04\xa8E\xf7\x03\x1a\x04\xa0E\xf4\x032\xe7\x13\n" +
+	"\x14RENDERER_UNAVAILABLE\x10(\x1a\x04\xa8E\xf7\x03\x12\x19\n" +
+	"\x0fORDER_NOT_FOUND\x102\x1a\x04\xa8E\x94\x03\x12\x19\n" +
+	"\x0fORDER_NOT_OWNED\x103\x1a\x04\xa8E\x93\x03\x12\x1a\n" +
+	"\x10PAYMENT_REQUIRED\x104\x1a\x04\xa8E\x92\x03\x12!\n" +
+	"\x17PAYMENT_ALREADY_SETTLED\x105\x1a\x04\xa8E\x99\x03\x12\x1f\n" +
+	"\x15PAYMENT_GATEWAY_ERROR\x106\x1a\x04\xa8E\xf6\x03\x12%\n" +
+	"\x1bPAYMENT_VERIFICATION_FAILED\x107\x1a\x04\xa8E\x90\x03\x12\x19\n" +
+	"\x0fPRICING_INVALID\x108\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x032\xdd\x18\n" +
 	"\x06Wishes\x12q\n" +
 	"\n" +
 	"CreateWish\x12$.wishes.v1.request.CreateWishRequest\x1a&.wishes.v1.response.CreateWishResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
@@ -179,7 +207,13 @@ const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"RevokeWish\x12$.wishes.v1.request.RevokeWishRequest\x1a&.wishes.v1.response.RevokeWishResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/v1/wishes/{wish_id}:revoke\x12z\n" +
 	"\bSendWish\x12\".wishes.v1.request.SendWishRequest\x1a$.wishes.v1.response.SendWishResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/v1/wishes/{wish_id}:send\x12\x97\x01\n" +
 	"\x11ListWishResponses\x12+.wishes.v1.request.ListWishResponsesRequest\x1a-.wishes.v1.response.ListWishResponsesResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/v1/wishes/{wish_id}/responses\x12\x9f\x01\n" +
-	"\x11MarkResponsesSeen\x12+.wishes.v1.request.MarkResponsesSeenRequest\x1a-.wishes.v1.response.MarkResponsesSeenResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/v1/wishes/{wish_id}/responses:seenB)Z'github.com/arm-1234/protos/wishes/v1;v1b\x06proto3"
+	"\x11MarkResponsesSeen\x12+.wishes.v1.request.MarkResponsesSeenRequest\x1a-.wishes.v1.response.MarkResponsesSeenResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/v1/wishes/{wish_id}/responses:seen\x12o\n" +
+	"\n" +
+	"GetPricing\x12$.wishes.v1.request.GetPricingRequest\x1a&.wishes.v1.response.GetPricingResponse\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/v1/pricing\x12{\n" +
+	"\rUpdatePricing\x12'.wishes.v1.request.UpdatePricingRequest\x1a).wishes.v1.response.UpdatePricingResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\x1a\v/v1/pricing\x12\x89\x01\n" +
+	"\x10ListPriceHistory\x12*.wishes.v1.request.ListPriceHistoryRequest\x1a,.wishes.v1.response.ListPriceHistoryResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/pricing:history\x12\x84\x01\n" +
+	"\vCreateOrder\x12%.wishes.v1.request.CreateOrderRequest\x1a'.wishes.v1.response.CreateOrderResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/v1/wishes/{wish_id}:order\x12s\n" +
+	"\bGetOrder\x12\".wishes.v1.request.GetOrderRequest\x1a$.wishes.v1.response.GetOrderResponse\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/v1/orders/{order_id}B)Z'github.com/arm-1234/protos/wishes/v1;v1b\x06proto3"
 
 var (
 	file_wishes_v1_wishes_proto_rawDescOnce sync.Once
@@ -215,25 +249,35 @@ var file_wishes_v1_wishes_proto_goTypes = []any{
 	(*request.SendWishRequest)(nil),            // 17: wishes.v1.request.SendWishRequest
 	(*request.ListWishResponsesRequest)(nil),   // 18: wishes.v1.request.ListWishResponsesRequest
 	(*request.MarkResponsesSeenRequest)(nil),   // 19: wishes.v1.request.MarkResponsesSeenRequest
-	(*response.CreateWishResponse)(nil),        // 20: wishes.v1.response.CreateWishResponse
-	(*response.ListMyWishesResponse)(nil),      // 21: wishes.v1.response.ListMyWishesResponse
-	(*response.GetWishStatsResponse)(nil),      // 22: wishes.v1.response.GetWishStatsResponse
-	(*response.GetTemplateSchemaResponse)(nil), // 23: wishes.v1.response.GetTemplateSchemaResponse
-	(*response.SubmitResponseResponse)(nil),    // 24: wishes.v1.response.SubmitResponseResponse
-	(*response.ReportCardResponse)(nil),        // 25: wishes.v1.response.ReportCardResponse
-	(*response.ListTemplatesResponse)(nil),     // 26: wishes.v1.response.ListTemplatesResponse
-	(*response.SaveDraftResponse)(nil),         // 27: wishes.v1.response.SaveDraftResponse
-	(*response.GetWishResponse)(nil),           // 28: wishes.v1.response.GetWishResponse
-	(*response.UpdateWishResponse)(nil),        // 29: wishes.v1.response.UpdateWishResponse
-	(*response.PublishWishResponse)(nil),       // 30: wishes.v1.response.PublishWishResponse
-	(*response.DeleteWishResponse)(nil),        // 31: wishes.v1.response.DeleteWishResponse
-	(*response.UploadWishPhotoResponse)(nil),   // 32: wishes.v1.response.UploadWishPhotoResponse
-	(*response.DeleteWishPhotoResponse)(nil),   // 33: wishes.v1.response.DeleteWishPhotoResponse
-	(*response.ExtendWishResponse)(nil),        // 34: wishes.v1.response.ExtendWishResponse
-	(*response.RevokeWishResponse)(nil),        // 35: wishes.v1.response.RevokeWishResponse
-	(*response.SendWishResponse)(nil),          // 36: wishes.v1.response.SendWishResponse
-	(*response.ListWishResponsesResponse)(nil), // 37: wishes.v1.response.ListWishResponsesResponse
-	(*response.MarkResponsesSeenResponse)(nil), // 38: wishes.v1.response.MarkResponsesSeenResponse
+	(*request.GetPricingRequest)(nil),          // 20: wishes.v1.request.GetPricingRequest
+	(*request.UpdatePricingRequest)(nil),       // 21: wishes.v1.request.UpdatePricingRequest
+	(*request.ListPriceHistoryRequest)(nil),    // 22: wishes.v1.request.ListPriceHistoryRequest
+	(*request.CreateOrderRequest)(nil),         // 23: wishes.v1.request.CreateOrderRequest
+	(*request.GetOrderRequest)(nil),            // 24: wishes.v1.request.GetOrderRequest
+	(*response.CreateWishResponse)(nil),        // 25: wishes.v1.response.CreateWishResponse
+	(*response.ListMyWishesResponse)(nil),      // 26: wishes.v1.response.ListMyWishesResponse
+	(*response.GetWishStatsResponse)(nil),      // 27: wishes.v1.response.GetWishStatsResponse
+	(*response.GetTemplateSchemaResponse)(nil), // 28: wishes.v1.response.GetTemplateSchemaResponse
+	(*response.SubmitResponseResponse)(nil),    // 29: wishes.v1.response.SubmitResponseResponse
+	(*response.ReportCardResponse)(nil),        // 30: wishes.v1.response.ReportCardResponse
+	(*response.ListTemplatesResponse)(nil),     // 31: wishes.v1.response.ListTemplatesResponse
+	(*response.SaveDraftResponse)(nil),         // 32: wishes.v1.response.SaveDraftResponse
+	(*response.GetWishResponse)(nil),           // 33: wishes.v1.response.GetWishResponse
+	(*response.UpdateWishResponse)(nil),        // 34: wishes.v1.response.UpdateWishResponse
+	(*response.PublishWishResponse)(nil),       // 35: wishes.v1.response.PublishWishResponse
+	(*response.DeleteWishResponse)(nil),        // 36: wishes.v1.response.DeleteWishResponse
+	(*response.UploadWishPhotoResponse)(nil),   // 37: wishes.v1.response.UploadWishPhotoResponse
+	(*response.DeleteWishPhotoResponse)(nil),   // 38: wishes.v1.response.DeleteWishPhotoResponse
+	(*response.ExtendWishResponse)(nil),        // 39: wishes.v1.response.ExtendWishResponse
+	(*response.RevokeWishResponse)(nil),        // 40: wishes.v1.response.RevokeWishResponse
+	(*response.SendWishResponse)(nil),          // 41: wishes.v1.response.SendWishResponse
+	(*response.ListWishResponsesResponse)(nil), // 42: wishes.v1.response.ListWishResponsesResponse
+	(*response.MarkResponsesSeenResponse)(nil), // 43: wishes.v1.response.MarkResponsesSeenResponse
+	(*response.GetPricingResponse)(nil),        // 44: wishes.v1.response.GetPricingResponse
+	(*response.UpdatePricingResponse)(nil),     // 45: wishes.v1.response.UpdatePricingResponse
+	(*response.ListPriceHistoryResponse)(nil),  // 46: wishes.v1.response.ListPriceHistoryResponse
+	(*response.CreateOrderResponse)(nil),       // 47: wishes.v1.response.CreateOrderResponse
+	(*response.GetOrderResponse)(nil),          // 48: wishes.v1.response.GetOrderResponse
 }
 var file_wishes_v1_wishes_proto_depIdxs = []int32{
 	1,  // 0: wishes.v1.Wishes.CreateWish:input_type -> wishes.v1.request.CreateWishRequest
@@ -255,27 +299,37 @@ var file_wishes_v1_wishes_proto_depIdxs = []int32{
 	17, // 16: wishes.v1.Wishes.SendWish:input_type -> wishes.v1.request.SendWishRequest
 	18, // 17: wishes.v1.Wishes.ListWishResponses:input_type -> wishes.v1.request.ListWishResponsesRequest
 	19, // 18: wishes.v1.Wishes.MarkResponsesSeen:input_type -> wishes.v1.request.MarkResponsesSeenRequest
-	20, // 19: wishes.v1.Wishes.CreateWish:output_type -> wishes.v1.response.CreateWishResponse
-	21, // 20: wishes.v1.Wishes.ListMyWishes:output_type -> wishes.v1.response.ListMyWishesResponse
-	22, // 21: wishes.v1.Wishes.GetWishStats:output_type -> wishes.v1.response.GetWishStatsResponse
-	23, // 22: wishes.v1.Wishes.GetTemplateSchema:output_type -> wishes.v1.response.GetTemplateSchemaResponse
-	24, // 23: wishes.v1.Wishes.SubmitResponse:output_type -> wishes.v1.response.SubmitResponseResponse
-	25, // 24: wishes.v1.Wishes.ReportCard:output_type -> wishes.v1.response.ReportCardResponse
-	26, // 25: wishes.v1.Wishes.ListTemplates:output_type -> wishes.v1.response.ListTemplatesResponse
-	27, // 26: wishes.v1.Wishes.SaveDraft:output_type -> wishes.v1.response.SaveDraftResponse
-	28, // 27: wishes.v1.Wishes.GetWish:output_type -> wishes.v1.response.GetWishResponse
-	29, // 28: wishes.v1.Wishes.UpdateWish:output_type -> wishes.v1.response.UpdateWishResponse
-	30, // 29: wishes.v1.Wishes.PublishWish:output_type -> wishes.v1.response.PublishWishResponse
-	31, // 30: wishes.v1.Wishes.DeleteWish:output_type -> wishes.v1.response.DeleteWishResponse
-	32, // 31: wishes.v1.Wishes.UploadWishPhoto:output_type -> wishes.v1.response.UploadWishPhotoResponse
-	33, // 32: wishes.v1.Wishes.DeleteWishPhoto:output_type -> wishes.v1.response.DeleteWishPhotoResponse
-	34, // 33: wishes.v1.Wishes.ExtendWish:output_type -> wishes.v1.response.ExtendWishResponse
-	35, // 34: wishes.v1.Wishes.RevokeWish:output_type -> wishes.v1.response.RevokeWishResponse
-	36, // 35: wishes.v1.Wishes.SendWish:output_type -> wishes.v1.response.SendWishResponse
-	37, // 36: wishes.v1.Wishes.ListWishResponses:output_type -> wishes.v1.response.ListWishResponsesResponse
-	38, // 37: wishes.v1.Wishes.MarkResponsesSeen:output_type -> wishes.v1.response.MarkResponsesSeenResponse
-	19, // [19:38] is the sub-list for method output_type
-	0,  // [0:19] is the sub-list for method input_type
+	20, // 19: wishes.v1.Wishes.GetPricing:input_type -> wishes.v1.request.GetPricingRequest
+	21, // 20: wishes.v1.Wishes.UpdatePricing:input_type -> wishes.v1.request.UpdatePricingRequest
+	22, // 21: wishes.v1.Wishes.ListPriceHistory:input_type -> wishes.v1.request.ListPriceHistoryRequest
+	23, // 22: wishes.v1.Wishes.CreateOrder:input_type -> wishes.v1.request.CreateOrderRequest
+	24, // 23: wishes.v1.Wishes.GetOrder:input_type -> wishes.v1.request.GetOrderRequest
+	25, // 24: wishes.v1.Wishes.CreateWish:output_type -> wishes.v1.response.CreateWishResponse
+	26, // 25: wishes.v1.Wishes.ListMyWishes:output_type -> wishes.v1.response.ListMyWishesResponse
+	27, // 26: wishes.v1.Wishes.GetWishStats:output_type -> wishes.v1.response.GetWishStatsResponse
+	28, // 27: wishes.v1.Wishes.GetTemplateSchema:output_type -> wishes.v1.response.GetTemplateSchemaResponse
+	29, // 28: wishes.v1.Wishes.SubmitResponse:output_type -> wishes.v1.response.SubmitResponseResponse
+	30, // 29: wishes.v1.Wishes.ReportCard:output_type -> wishes.v1.response.ReportCardResponse
+	31, // 30: wishes.v1.Wishes.ListTemplates:output_type -> wishes.v1.response.ListTemplatesResponse
+	32, // 31: wishes.v1.Wishes.SaveDraft:output_type -> wishes.v1.response.SaveDraftResponse
+	33, // 32: wishes.v1.Wishes.GetWish:output_type -> wishes.v1.response.GetWishResponse
+	34, // 33: wishes.v1.Wishes.UpdateWish:output_type -> wishes.v1.response.UpdateWishResponse
+	35, // 34: wishes.v1.Wishes.PublishWish:output_type -> wishes.v1.response.PublishWishResponse
+	36, // 35: wishes.v1.Wishes.DeleteWish:output_type -> wishes.v1.response.DeleteWishResponse
+	37, // 36: wishes.v1.Wishes.UploadWishPhoto:output_type -> wishes.v1.response.UploadWishPhotoResponse
+	38, // 37: wishes.v1.Wishes.DeleteWishPhoto:output_type -> wishes.v1.response.DeleteWishPhotoResponse
+	39, // 38: wishes.v1.Wishes.ExtendWish:output_type -> wishes.v1.response.ExtendWishResponse
+	40, // 39: wishes.v1.Wishes.RevokeWish:output_type -> wishes.v1.response.RevokeWishResponse
+	41, // 40: wishes.v1.Wishes.SendWish:output_type -> wishes.v1.response.SendWishResponse
+	42, // 41: wishes.v1.Wishes.ListWishResponses:output_type -> wishes.v1.response.ListWishResponsesResponse
+	43, // 42: wishes.v1.Wishes.MarkResponsesSeen:output_type -> wishes.v1.response.MarkResponsesSeenResponse
+	44, // 43: wishes.v1.Wishes.GetPricing:output_type -> wishes.v1.response.GetPricingResponse
+	45, // 44: wishes.v1.Wishes.UpdatePricing:output_type -> wishes.v1.response.UpdatePricingResponse
+	46, // 45: wishes.v1.Wishes.ListPriceHistory:output_type -> wishes.v1.response.ListPriceHistoryResponse
+	47, // 46: wishes.v1.Wishes.CreateOrder:output_type -> wishes.v1.response.CreateOrderResponse
+	48, // 47: wishes.v1.Wishes.GetOrder:output_type -> wishes.v1.response.GetOrderResponse
+	24, // [24:48] is the sub-list for method output_type
+	0,  // [0:24] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

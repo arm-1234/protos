@@ -1033,11 +1033,255 @@ func (x *GetTemplateSchemaResponse) GetSchema() *structpb.Struct {
 	return nil
 }
 
+type GetPricingResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Price         *types.PriceInfo       `protobuf:"bytes,1,opt,name=price,proto3" json:"price,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPricingResponse) Reset() {
+	*x = GetPricingResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPricingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPricingResponse) ProtoMessage() {}
+
+func (x *GetPricingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPricingResponse.ProtoReflect.Descriptor instead.
+func (*GetPricingResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GetPricingResponse) GetPrice() *types.PriceInfo {
+	if x != nil {
+		return x.Price
+	}
+	return nil
+}
+
+type UpdatePricingResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Price         *types.PriceInfo       `protobuf:"bytes,1,opt,name=price,proto3" json:"price,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdatePricingResponse) Reset() {
+	*x = UpdatePricingResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdatePricingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdatePricingResponse) ProtoMessage() {}
+
+func (x *UpdatePricingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdatePricingResponse.ProtoReflect.Descriptor instead.
+func (*UpdatePricingResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *UpdatePricingResponse) GetPrice() *types.PriceInfo {
+	if x != nil {
+		return x.Price
+	}
+	return nil
+}
+
+type ListPriceHistoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Prices        []*types.PriceInfo     `protobuf:"bytes,1,rep,name=prices,proto3" json:"prices,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListPriceHistoryResponse) Reset() {
+	*x = ListPriceHistoryResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListPriceHistoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPriceHistoryResponse) ProtoMessage() {}
+
+func (x *ListPriceHistoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPriceHistoryResponse.ProtoReflect.Descriptor instead.
+func (*ListPriceHistoryResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ListPriceHistoryResponse) GetPrices() []*types.PriceInfo {
+	if x != nil {
+		return x.Prices
+	}
+	return nil
+}
+
+type CreateOrderResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Order         *types.OrderInfo       `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	RedirectUrl   string                 `protobuf:"bytes,2,opt,name=redirect_url,json=redirectUrl,proto3" json:"redirect_url,omitempty"`
+	Wish          *types.WishInfo        `protobuf:"bytes,3,opt,name=wish,proto3" json:"wish,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateOrderResponse) Reset() {
+	*x = CreateOrderResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateOrderResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateOrderResponse) ProtoMessage() {}
+
+func (x *CreateOrderResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateOrderResponse.ProtoReflect.Descriptor instead.
+func (*CreateOrderResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *CreateOrderResponse) GetOrder() *types.OrderInfo {
+	if x != nil {
+		return x.Order
+	}
+	return nil
+}
+
+func (x *CreateOrderResponse) GetRedirectUrl() string {
+	if x != nil {
+		return x.RedirectUrl
+	}
+	return ""
+}
+
+func (x *CreateOrderResponse) GetWish() *types.WishInfo {
+	if x != nil {
+		return x.Wish
+	}
+	return nil
+}
+
+type GetOrderResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Order         *types.OrderInfo       `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	Wish          *types.WishInfo        `protobuf:"bytes,2,opt,name=wish,proto3" json:"wish,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetOrderResponse) Reset() {
+	*x = GetOrderResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOrderResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOrderResponse) ProtoMessage() {}
+
+func (x *GetOrderResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOrderResponse.ProtoReflect.Descriptor instead.
+func (*GetOrderResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *GetOrderResponse) GetOrder() *types.OrderInfo {
+	if x != nil {
+		return x.Order
+	}
+	return nil
+}
+
+func (x *GetOrderResponse) GetWish() *types.WishInfo {
+	if x != nil {
+		return x.Wish
+	}
+	return nil
+}
+
 var File_wishes_v1_response_wishes_response_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\n" +
-	"(wishes/v1/response/wishes_response.proto\x12\x12wishes.v1.response\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1awishes/v1/types/wish.proto\x1a\x1ewishes/v1/types/response.proto\x1a\x1ewishes/v1/types/template.proto\x1a+wishes/v1/types/enums/delivery_status.proto\"\x8e\x01\n" +
+	"(wishes/v1/response/wishes_response.proto\x12\x12wishes.v1.response\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1awishes/v1/types/wish.proto\x1a\x1dwishes/v1/types/billing.proto\x1a\x1ewishes/v1/types/response.proto\x1a\x1ewishes/v1/types/template.proto\x1a+wishes/v1/types/enums/delivery_status.proto\"\x8e\x01\n" +
 	"\bPageInfo\x12\x1f\n" +
 	"\vpage_number\x18\x01 \x01(\x03R\n" +
 	"pageNumber\x12\x1b\n" +
@@ -1095,7 +1339,20 @@ const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\x12ReportCardResponse\x12\x1a\n" +
 	"\breceived\x18\x01 \x01(\bR\breceived\"L\n" +
 	"\x19GetTemplateSchemaResponse\x12/\n" +
-	"\x06schema\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06schemaB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
+	"\x06schema\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06schema\"F\n" +
+	"\x12GetPricingResponse\x120\n" +
+	"\x05price\x18\x01 \x01(\v2\x1a.wishes.v1.types.PriceInfoR\x05price\"I\n" +
+	"\x15UpdatePricingResponse\x120\n" +
+	"\x05price\x18\x01 \x01(\v2\x1a.wishes.v1.types.PriceInfoR\x05price\"N\n" +
+	"\x18ListPriceHistoryResponse\x122\n" +
+	"\x06prices\x18\x01 \x03(\v2\x1a.wishes.v1.types.PriceInfoR\x06prices\"\x99\x01\n" +
+	"\x13CreateOrderResponse\x120\n" +
+	"\x05order\x18\x01 \x01(\v2\x1a.wishes.v1.types.OrderInfoR\x05order\x12!\n" +
+	"\fredirect_url\x18\x02 \x01(\tR\vredirectUrl\x12-\n" +
+	"\x04wish\x18\x03 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wish\"s\n" +
+	"\x10GetOrderResponse\x120\n" +
+	"\x05order\x18\x01 \x01(\v2\x1a.wishes.v1.types.OrderInfoR\x05order\x12-\n" +
+	"\x04wish\x18\x02 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wishB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
 
 var (
 	file_wishes_v1_response_wishes_response_proto_rawDescOnce sync.Once
@@ -1109,7 +1366,7 @@ func file_wishes_v1_response_wishes_response_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_response_wishes_response_proto_rawDescData
 }
 
-var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*PageInfo)(nil),                  // 0: wishes.v1.response.PageInfo
 	(*CreateWishResponse)(nil),        // 1: wishes.v1.response.CreateWishResponse
@@ -1131,37 +1388,51 @@ var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*SubmitResponseResponse)(nil),    // 17: wishes.v1.response.SubmitResponseResponse
 	(*ReportCardResponse)(nil),        // 18: wishes.v1.response.ReportCardResponse
 	(*GetTemplateSchemaResponse)(nil), // 19: wishes.v1.response.GetTemplateSchemaResponse
-	(*types.WishInfo)(nil),            // 20: wishes.v1.types.WishInfo
-	(*structpb.Struct)(nil),           // 21: google.protobuf.Struct
-	(enums.DeliveryStatus)(0),         // 22: wishes.v1.types.enums.DeliveryStatus
-	(*timestamppb.Timestamp)(nil),     // 23: google.protobuf.Timestamp
-	(*types.WishResponseInfo)(nil),    // 24: wishes.v1.types.WishResponseInfo
-	(*types.TemplateInfo)(nil),        // 25: wishes.v1.types.TemplateInfo
+	(*GetPricingResponse)(nil),        // 20: wishes.v1.response.GetPricingResponse
+	(*UpdatePricingResponse)(nil),     // 21: wishes.v1.response.UpdatePricingResponse
+	(*ListPriceHistoryResponse)(nil),  // 22: wishes.v1.response.ListPriceHistoryResponse
+	(*CreateOrderResponse)(nil),       // 23: wishes.v1.response.CreateOrderResponse
+	(*GetOrderResponse)(nil),          // 24: wishes.v1.response.GetOrderResponse
+	(*types.WishInfo)(nil),            // 25: wishes.v1.types.WishInfo
+	(*structpb.Struct)(nil),           // 26: google.protobuf.Struct
+	(enums.DeliveryStatus)(0),         // 27: wishes.v1.types.enums.DeliveryStatus
+	(*timestamppb.Timestamp)(nil),     // 28: google.protobuf.Timestamp
+	(*types.WishResponseInfo)(nil),    // 29: wishes.v1.types.WishResponseInfo
+	(*types.TemplateInfo)(nil),        // 30: wishes.v1.types.TemplateInfo
+	(*types.PriceInfo)(nil),           // 31: wishes.v1.types.PriceInfo
+	(*types.OrderInfo)(nil),           // 32: wishes.v1.types.OrderInfo
 }
 var file_wishes_v1_response_wishes_response_proto_depIdxs = []int32{
-	20, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	20, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
+	25, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
 	0,  // 2: wishes.v1.response.ListMyWishesResponse.page:type_name -> wishes.v1.response.PageInfo
-	20, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	21, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
-	20, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	20, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	20, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	22, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
-	23, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
-	24, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
+	25, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	26, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
+	25, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	27, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
+	28, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
+	29, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
 	0,  // 11: wishes.v1.response.ListWishResponsesResponse.page:type_name -> wishes.v1.response.PageInfo
-	25, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
-	20, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
-	20, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	20, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
-	20, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
-	21, // 17: wishes.v1.response.GetTemplateSchemaResponse.schema:type_name -> google.protobuf.Struct
-	18, // [18:18] is the sub-list for method output_type
-	18, // [18:18] is the sub-list for method input_type
-	18, // [18:18] is the sub-list for extension type_name
-	18, // [18:18] is the sub-list for extension extendee
-	0,  // [0:18] is the sub-list for field type_name
+	30, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
+	25, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	26, // 17: wishes.v1.response.GetTemplateSchemaResponse.schema:type_name -> google.protobuf.Struct
+	31, // 18: wishes.v1.response.GetPricingResponse.price:type_name -> wishes.v1.types.PriceInfo
+	31, // 19: wishes.v1.response.UpdatePricingResponse.price:type_name -> wishes.v1.types.PriceInfo
+	31, // 20: wishes.v1.response.ListPriceHistoryResponse.prices:type_name -> wishes.v1.types.PriceInfo
+	32, // 21: wishes.v1.response.CreateOrderResponse.order:type_name -> wishes.v1.types.OrderInfo
+	25, // 22: wishes.v1.response.CreateOrderResponse.wish:type_name -> wishes.v1.types.WishInfo
+	32, // 23: wishes.v1.response.GetOrderResponse.order:type_name -> wishes.v1.types.OrderInfo
+	25, // 24: wishes.v1.response.GetOrderResponse.wish:type_name -> wishes.v1.types.WishInfo
+	25, // [25:25] is the sub-list for method output_type
+	25, // [25:25] is the sub-list for method input_type
+	25, // [25:25] is the sub-list for extension type_name
+	25, // [25:25] is the sub-list for extension extendee
+	0,  // [0:25] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_response_wishes_response_proto_init() }
@@ -1175,7 +1446,7 @@ func file_wishes_v1_response_wishes_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_response_wishes_response_proto_rawDesc), len(file_wishes_v1_response_wishes_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

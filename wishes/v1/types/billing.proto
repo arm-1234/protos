@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package wishes.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "wishes/v1/types/enums/order_status.proto";
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types;types";
+
+message OrderInfo {
+  string order_id = 1;
+  string wish_id = 2;
+  int64 amount_minor = 3;
+  string currency = 4;
+  string display = 5;
+  wishes.v1.types.enums.OrderStatus status = 6;
+  string gateway = 7;
+  string gateway_ref = 8;
+  string failure_reason = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp paid_at = 11;
+  google.protobuf.Timestamp expires_at = 12;
+}
+
+message PriceInfo {
+  int64 amount_minor = 1;
+  string currency = 2;
+  string display = 3;
+  bool free = 4;
+  string note = 5;
+  google.protobuf.Timestamp active_from = 6;
+}

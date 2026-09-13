@@ -134,6 +134,38 @@ service Wishes {
       body: "*"
     };
   }
+
+  rpc GetPricing (wishes.v1.request.GetPricingRequest) returns (wishes.v1.response.GetPricingResponse) {
+    option (google.api.http) = {
+      get: "/v1/pricing"
+    };
+  }
+
+  rpc UpdatePricing (wishes.v1.request.UpdatePricingRequest) returns (wishes.v1.response.UpdatePricingResponse) {
+    option (google.api.http) = {
+      put: "/v1/pricing"
+      body: "*"
+    };
+  }
+
+  rpc ListPriceHistory (wishes.v1.request.ListPriceHistoryRequest) returns (wishes.v1.response.ListPriceHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/pricing:history"
+    };
+  }
+
+  rpc CreateOrder (wishes.v1.request.CreateOrderRequest) returns (wishes.v1.response.CreateOrderResponse) {
+    option (google.api.http) = {
+      post: "/v1/wishes/{wish_id}:order"
+      body: "*"
+    };
+  }
+
+  rpc GetOrder (wishes.v1.request.GetOrderRequest) returns (wishes.v1.response.GetOrderResponse) {
+    option (google.api.http) = {
+      get: "/v1/orders/{order_id}"
+    };
+  }
 }
 
 enum ErrorReason {
@@ -164,4 +196,12 @@ enum ErrorReason {
   DELIVERY_RATE_LIMITED = 31 [(errors.code) = 429];
 
   RENDERER_UNAVAILABLE = 40 [(errors.code) = 503];
+
+  ORDER_NOT_FOUND = 50 [(errors.code) = 404];
+  ORDER_NOT_OWNED = 51 [(errors.code) = 403];
+  PAYMENT_REQUIRED = 52 [(errors.code) = 402];
+  PAYMENT_ALREADY_SETTLED = 53 [(errors.code) = 409];
+  PAYMENT_GATEWAY_ERROR = 54 [(errors.code) = 502];
+  PAYMENT_VERIFICATION_FAILED = 55 [(errors.code) = 400];
+  PRICING_INVALID = 56 [(errors.code) = 400];
 }

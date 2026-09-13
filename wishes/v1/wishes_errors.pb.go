@@ -250,3 +250,87 @@ func IsRendererUnavailable(err error) bool {
 func ErrorRendererUnavailable(format string, args ...interface{}) *errors.Error {
 	return errors.New(503, ErrorReason_RENDERER_UNAVAILABLE.String(), fmt.Sprintf(format, args...))
 }
+
+func IsOrderNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_ORDER_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorOrderNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_ORDER_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
+
+func IsOrderNotOwned(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_ORDER_NOT_OWNED.String() && e.Code == 403
+}
+
+func ErrorOrderNotOwned(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, ErrorReason_ORDER_NOT_OWNED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentRequired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_REQUIRED.String() && e.Code == 402
+}
+
+func ErrorPaymentRequired(format string, args ...interface{}) *errors.Error {
+	return errors.New(402, ErrorReason_PAYMENT_REQUIRED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentAlreadySettled(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_ALREADY_SETTLED.String() && e.Code == 409
+}
+
+func ErrorPaymentAlreadySettled(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_PAYMENT_ALREADY_SETTLED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentGatewayError(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_GATEWAY_ERROR.String() && e.Code == 502
+}
+
+func ErrorPaymentGatewayError(format string, args ...interface{}) *errors.Error {
+	return errors.New(502, ErrorReason_PAYMENT_GATEWAY_ERROR.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPaymentVerificationFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PAYMENT_VERIFICATION_FAILED.String() && e.Code == 400
+}
+
+func ErrorPaymentVerificationFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_PAYMENT_VERIFICATION_FAILED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsPricingInvalid(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_PRICING_INVALID.String() && e.Code == 400
+}
+
+func ErrorPricingInvalid(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_PRICING_INVALID.String(), fmt.Sprintf(format, args...))
+}

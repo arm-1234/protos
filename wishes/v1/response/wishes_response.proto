@@ -5,6 +5,7 @@ package wishes.v1.response;
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "wishes/v1/types/wish.proto";
+import "wishes/v1/types/billing.proto";
 import "wishes/v1/types/response.proto";
 import "wishes/v1/types/template.proto";
 import "wishes/v1/types/enums/delivery_status.proto";
@@ -105,4 +106,27 @@ message ReportCardResponse {
 
 message GetTemplateSchemaResponse {
   google.protobuf.Struct schema = 1;
+}
+
+message GetPricingResponse {
+  wishes.v1.types.PriceInfo price = 1;
+}
+
+message UpdatePricingResponse {
+  wishes.v1.types.PriceInfo price = 1;
+}
+
+message ListPriceHistoryResponse {
+  repeated wishes.v1.types.PriceInfo prices = 1;
+}
+
+message CreateOrderResponse {
+  wishes.v1.types.OrderInfo order = 1;
+  string redirect_url = 2;
+  wishes.v1.types.WishInfo wish = 3;
+}
+
+message GetOrderResponse {
+  wishes.v1.types.OrderInfo order = 1;
+  wishes.v1.types.WishInfo wish = 2;
 }

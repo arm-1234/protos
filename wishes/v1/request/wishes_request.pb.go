@@ -1077,6 +1077,234 @@ func (*GetTemplateSchemaRequest) Descriptor() ([]byte, []int) {
 	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{18}
 }
 
+type GetPricingRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPricingRequest) Reset() {
+	*x = GetPricingRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPricingRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPricingRequest) ProtoMessage() {}
+
+func (x *GetPricingRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPricingRequest.ProtoReflect.Descriptor instead.
+func (*GetPricingRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{19}
+}
+
+type UpdatePricingRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AmountMinor   int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency      string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
+	Note          string                 `protobuf:"bytes,3,opt,name=note,proto3" json:"note,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdatePricingRequest) Reset() {
+	*x = UpdatePricingRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdatePricingRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdatePricingRequest) ProtoMessage() {}
+
+func (x *UpdatePricingRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdatePricingRequest.ProtoReflect.Descriptor instead.
+func (*UpdatePricingRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *UpdatePricingRequest) GetAmountMinor() int64 {
+	if x != nil {
+		return x.AmountMinor
+	}
+	return 0
+}
+
+func (x *UpdatePricingRequest) GetCurrency() string {
+	if x != nil {
+		return x.Currency
+	}
+	return ""
+}
+
+func (x *UpdatePricingRequest) GetNote() string {
+	if x != nil {
+		return x.Note
+	}
+	return ""
+}
+
+type ListPriceHistoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListPriceHistoryRequest) Reset() {
+	*x = ListPriceHistoryRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListPriceHistoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPriceHistoryRequest) ProtoMessage() {}
+
+func (x *ListPriceHistoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPriceHistoryRequest.ProtoReflect.Descriptor instead.
+func (*ListPriceHistoryRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *ListPriceHistoryRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type CreateOrderRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WishId        string                 `protobuf:"bytes,1,opt,name=wish_id,json=wishId,proto3" json:"wish_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateOrderRequest) Reset() {
+	*x = CreateOrderRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateOrderRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateOrderRequest) ProtoMessage() {}
+
+func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateOrderRequest.ProtoReflect.Descriptor instead.
+func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *CreateOrderRequest) GetWishId() string {
+	if x != nil {
+		return x.WishId
+	}
+	return ""
+}
+
+type GetOrderRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetOrderRequest) Reset() {
+	*x = GetOrderRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOrderRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOrderRequest) ProtoMessage() {}
+
+func (x *GetOrderRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOrderRequest.ProtoReflect.Descriptor instead.
+func (*GetOrderRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *GetOrderRequest) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
@@ -1160,7 +1388,18 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\acard_id\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18@R\x06cardId\x12#\n" +
 	"\x06reason\x18\x02 \x01(\tB\v\xfaB\br\x06\x18\xe8\a\xd0\x01\x01R\x06reason\x12'\n" +
 	"\breporter\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc0\x02\xd0\x01\x01R\breporter\"\x1a\n" +
-	"\x18GetTemplateSchemaRequestB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\x18GetTemplateSchemaRequest\"\x13\n" +
+	"\x11GetPricingRequest\"\x95\x01\n" +
+	"\x14UpdatePricingRequest\x123\n" +
+	"\famount_minor\x18\x01 \x01(\x03B\x10\xe2A\x01\x02\xfaB\t\"\a\x18\x80\xad\xe2\x04(\x00R\vamountMinor\x12'\n" +
+	"\bcurrency\x18\x02 \x01(\tB\v\xfaB\br\x06\x98\x01\x03\xd0\x01\x01R\bcurrency\x12\x1f\n" +
+	"\x04note\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc8\x01\xd0\x01\x01R\x04note\":\n" +
+	"\x17ListPriceHistoryRequest\x12\x1f\n" +
+	"\x05limit\x18\x01 \x01(\x05B\t\xfaB\x06\x1a\x04\x18d(\x00R\x05limit\":\n" +
+	"\x12CreateOrderRequest\x12$\n" +
+	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\"9\n" +
+	"\x0fGetOrderRequest\x12&\n" +
+	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderIdB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -1174,7 +1413,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),        // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),      // 1: wishes.v1.request.ListMyWishesRequest
@@ -1195,18 +1434,23 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*SubmitResponseRequest)(nil),    // 16: wishes.v1.request.SubmitResponseRequest
 	(*ReportCardRequest)(nil),        // 17: wishes.v1.request.ReportCardRequest
 	(*GetTemplateSchemaRequest)(nil), // 18: wishes.v1.request.GetTemplateSchemaRequest
-	(*structpb.Struct)(nil),          // 19: google.protobuf.Struct
-	(enums.WishStatus)(0),            // 20: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),            // 21: wishes.v1.types.enums.WishSortBy
-	(enums.ResponseKind)(0),          // 22: wishes.v1.types.enums.ResponseKind
+	(*GetPricingRequest)(nil),        // 19: wishes.v1.request.GetPricingRequest
+	(*UpdatePricingRequest)(nil),     // 20: wishes.v1.request.UpdatePricingRequest
+	(*ListPriceHistoryRequest)(nil),  // 21: wishes.v1.request.ListPriceHistoryRequest
+	(*CreateOrderRequest)(nil),       // 22: wishes.v1.request.CreateOrderRequest
+	(*GetOrderRequest)(nil),          // 23: wishes.v1.request.GetOrderRequest
+	(*structpb.Struct)(nil),          // 24: google.protobuf.Struct
+	(enums.WishStatus)(0),            // 25: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),            // 26: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),          // 27: wishes.v1.types.enums.ResponseKind
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	19, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	20, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	21, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	19, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	19, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	22, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	24, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	25, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	26, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	24, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	24, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	27, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
 	6,  // [6:6] is the sub-list for method output_type
 	6,  // [6:6] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
@@ -1225,7 +1469,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

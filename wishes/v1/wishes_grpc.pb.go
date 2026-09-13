@@ -40,6 +40,11 @@ const (
 	Wishes_SendWish_FullMethodName          = "/wishes.v1.Wishes/SendWish"
 	Wishes_ListWishResponses_FullMethodName = "/wishes.v1.Wishes/ListWishResponses"
 	Wishes_MarkResponsesSeen_FullMethodName = "/wishes.v1.Wishes/MarkResponsesSeen"
+	Wishes_GetPricing_FullMethodName        = "/wishes.v1.Wishes/GetPricing"
+	Wishes_UpdatePricing_FullMethodName     = "/wishes.v1.Wishes/UpdatePricing"
+	Wishes_ListPriceHistory_FullMethodName  = "/wishes.v1.Wishes/ListPriceHistory"
+	Wishes_CreateOrder_FullMethodName       = "/wishes.v1.Wishes/CreateOrder"
+	Wishes_GetOrder_FullMethodName          = "/wishes.v1.Wishes/GetOrder"
 )
 
 // WishesClient is the client API for Wishes service.
@@ -65,6 +70,11 @@ type WishesClient interface {
 	SendWish(ctx context.Context, in *request.SendWishRequest, opts ...grpc.CallOption) (*response.SendWishResponse, error)
 	ListWishResponses(ctx context.Context, in *request.ListWishResponsesRequest, opts ...grpc.CallOption) (*response.ListWishResponsesResponse, error)
 	MarkResponsesSeen(ctx context.Context, in *request.MarkResponsesSeenRequest, opts ...grpc.CallOption) (*response.MarkResponsesSeenResponse, error)
+	GetPricing(ctx context.Context, in *request.GetPricingRequest, opts ...grpc.CallOption) (*response.GetPricingResponse, error)
+	UpdatePricing(ctx context.Context, in *request.UpdatePricingRequest, opts ...grpc.CallOption) (*response.UpdatePricingResponse, error)
+	ListPriceHistory(ctx context.Context, in *request.ListPriceHistoryRequest, opts ...grpc.CallOption) (*response.ListPriceHistoryResponse, error)
+	CreateOrder(ctx context.Context, in *request.CreateOrderRequest, opts ...grpc.CallOption) (*response.CreateOrderResponse, error)
+	GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...grpc.CallOption) (*response.GetOrderResponse, error)
 }
 
 type wishesClient struct {
@@ -265,6 +275,56 @@ func (c *wishesClient) MarkResponsesSeen(ctx context.Context, in *request.MarkRe
 	return out, nil
 }
 
+func (c *wishesClient) GetPricing(ctx context.Context, in *request.GetPricingRequest, opts ...grpc.CallOption) (*response.GetPricingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetPricingResponse)
+	err := c.cc.Invoke(ctx, Wishes_GetPricing_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) UpdatePricing(ctx context.Context, in *request.UpdatePricingRequest, opts ...grpc.CallOption) (*response.UpdatePricingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.UpdatePricingResponse)
+	err := c.cc.Invoke(ctx, Wishes_UpdatePricing_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) ListPriceHistory(ctx context.Context, in *request.ListPriceHistoryRequest, opts ...grpc.CallOption) (*response.ListPriceHistoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListPriceHistoryResponse)
+	err := c.cc.Invoke(ctx, Wishes_ListPriceHistory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) CreateOrder(ctx context.Context, in *request.CreateOrderRequest, opts ...grpc.CallOption) (*response.CreateOrderResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.CreateOrderResponse)
+	err := c.cc.Invoke(ctx, Wishes_CreateOrder_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...grpc.CallOption) (*response.GetOrderResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetOrderResponse)
+	err := c.cc.Invoke(ctx, Wishes_GetOrder_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WishesServer is the server API for Wishes service.
 // All implementations must embed UnimplementedWishesServer
 // for forward compatibility.
@@ -288,6 +348,11 @@ type WishesServer interface {
 	SendWish(context.Context, *request.SendWishRequest) (*response.SendWishResponse, error)
 	ListWishResponses(context.Context, *request.ListWishResponsesRequest) (*response.ListWishResponsesResponse, error)
 	MarkResponsesSeen(context.Context, *request.MarkResponsesSeenRequest) (*response.MarkResponsesSeenResponse, error)
+	GetPricing(context.Context, *request.GetPricingRequest) (*response.GetPricingResponse, error)
+	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
+	ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error)
+	CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error)
+	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
 	mustEmbedUnimplementedWishesServer()
 }
 
@@ -354,6 +419,21 @@ func (UnimplementedWishesServer) ListWishResponses(context.Context, *request.Lis
 }
 func (UnimplementedWishesServer) MarkResponsesSeen(context.Context, *request.MarkResponsesSeenRequest) (*response.MarkResponsesSeenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method MarkResponsesSeen not implemented")
+}
+func (UnimplementedWishesServer) GetPricing(context.Context, *request.GetPricingRequest) (*response.GetPricingResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetPricing not implemented")
+}
+func (UnimplementedWishesServer) UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdatePricing not implemented")
+}
+func (UnimplementedWishesServer) ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListPriceHistory not implemented")
+}
+func (UnimplementedWishesServer) CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateOrder not implemented")
+}
+func (UnimplementedWishesServer) GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetOrder not implemented")
 }
 func (UnimplementedWishesServer) mustEmbedUnimplementedWishesServer() {}
 func (UnimplementedWishesServer) testEmbeddedByValue()                {}
@@ -718,6 +798,96 @@ func _Wishes_MarkResponsesSeen_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wishes_GetPricing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetPricingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).GetPricing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_GetPricing_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).GetPricing(ctx, req.(*request.GetPricingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_UpdatePricing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdatePricingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).UpdatePricing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_UpdatePricing_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).UpdatePricing(ctx, req.(*request.UpdatePricingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_ListPriceHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListPriceHistoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).ListPriceHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_ListPriceHistory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).ListPriceHistory(ctx, req.(*request.ListPriceHistoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CreateOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).CreateOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_CreateOrder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).CreateOrder(ctx, req.(*request.CreateOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).GetOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_GetOrder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).GetOrder(ctx, req.(*request.GetOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Wishes_ServiceDesc is the grpc.ServiceDesc for Wishes service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -800,6 +970,26 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MarkResponsesSeen",
 			Handler:    _Wishes_MarkResponsesSeen_Handler,
+		},
+		{
+			MethodName: "GetPricing",
+			Handler:    _Wishes_GetPricing_Handler,
+		},
+		{
+			MethodName: "UpdatePricing",
+			Handler:    _Wishes_UpdatePricing_Handler,
+		},
+		{
+			MethodName: "ListPriceHistory",
+			Handler:    _Wishes_ListPriceHistory_Handler,
+		},
+		{
+			MethodName: "CreateOrder",
+			Handler:    _Wishes_CreateOrder_Handler,
+		},
+		{
+			MethodName: "GetOrder",
+			Handler:    _Wishes_GetOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

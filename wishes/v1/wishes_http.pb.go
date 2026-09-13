@@ -21,14 +21,18 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationWishesCreateOrder = "/wishes.v1.Wishes/CreateOrder"
 const OperationWishesCreateWish = "/wishes.v1.Wishes/CreateWish"
 const OperationWishesDeleteWish = "/wishes.v1.Wishes/DeleteWish"
 const OperationWishesDeleteWishPhoto = "/wishes.v1.Wishes/DeleteWishPhoto"
 const OperationWishesExtendWish = "/wishes.v1.Wishes/ExtendWish"
+const OperationWishesGetOrder = "/wishes.v1.Wishes/GetOrder"
+const OperationWishesGetPricing = "/wishes.v1.Wishes/GetPricing"
 const OperationWishesGetTemplateSchema = "/wishes.v1.Wishes/GetTemplateSchema"
 const OperationWishesGetWish = "/wishes.v1.Wishes/GetWish"
 const OperationWishesGetWishStats = "/wishes.v1.Wishes/GetWishStats"
 const OperationWishesListMyWishes = "/wishes.v1.Wishes/ListMyWishes"
+const OperationWishesListPriceHistory = "/wishes.v1.Wishes/ListPriceHistory"
 const OperationWishesListTemplates = "/wishes.v1.Wishes/ListTemplates"
 const OperationWishesListWishResponses = "/wishes.v1.Wishes/ListWishResponses"
 const OperationWishesMarkResponsesSeen = "/wishes.v1.Wishes/MarkResponsesSeen"
@@ -38,18 +42,23 @@ const OperationWishesRevokeWish = "/wishes.v1.Wishes/RevokeWish"
 const OperationWishesSaveDraft = "/wishes.v1.Wishes/SaveDraft"
 const OperationWishesSendWish = "/wishes.v1.Wishes/SendWish"
 const OperationWishesSubmitResponse = "/wishes.v1.Wishes/SubmitResponse"
+const OperationWishesUpdatePricing = "/wishes.v1.Wishes/UpdatePricing"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
 const OperationWishesUploadWishPhoto = "/wishes.v1.Wishes/UploadWishPhoto"
 
 type WishesHTTPServer interface {
+	CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error)
 	CreateWish(context.Context, *request.CreateWishRequest) (*response.CreateWishResponse, error)
 	DeleteWish(context.Context, *request.DeleteWishRequest) (*response.DeleteWishResponse, error)
 	DeleteWishPhoto(context.Context, *request.DeleteWishPhotoRequest) (*response.DeleteWishPhotoResponse, error)
 	ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error)
+	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
+	GetPricing(context.Context, *request.GetPricingRequest) (*response.GetPricingResponse, error)
 	GetTemplateSchema(context.Context, *request.GetTemplateSchemaRequest) (*response.GetTemplateSchemaResponse, error)
 	GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
+	ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error)
 	ListTemplates(context.Context, *request.ListTemplatesRequest) (*response.ListTemplatesResponse, error)
 	ListWishResponses(context.Context, *request.ListWishResponsesRequest) (*response.ListWishResponsesResponse, error)
 	MarkResponsesSeen(context.Context, *request.MarkResponsesSeenRequest) (*response.MarkResponsesSeenResponse, error)
@@ -59,6 +68,7 @@ type WishesHTTPServer interface {
 	SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error)
 	SendWish(context.Context, *request.SendWishRequest) (*response.SendWishResponse, error)
 	SubmitResponse(context.Context, *request.SubmitResponseRequest) (*response.SubmitResponseResponse, error)
+	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
 	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
 }
@@ -84,6 +94,11 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.POST("/v1/wishes/{wish_id}:send", _Wishes_SendWish0_HTTP_Handler(srv))
 	r.GET("/v1/wishes/{wish_id}/responses", _Wishes_ListWishResponses0_HTTP_Handler(srv))
 	r.POST("/v1/wishes/{wish_id}/responses:seen", _Wishes_MarkResponsesSeen0_HTTP_Handler(srv))
+	r.GET("/v1/pricing", _Wishes_GetPricing0_HTTP_Handler(srv))
+	r.PUT("/v1/pricing", _Wishes_UpdatePricing0_HTTP_Handler(srv))
+	r.GET("/v1/pricing:history", _Wishes_ListPriceHistory0_HTTP_Handler(srv))
+	r.POST("/v1/wishes/{wish_id}:order", _Wishes_CreateOrder0_HTTP_Handler(srv))
+	r.GET("/v1/orders/{order_id}", _Wishes_GetOrder0_HTTP_Handler(srv))
 }
 
 func _Wishes_CreateWish0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
@@ -519,15 +534,126 @@ func _Wishes_MarkResponsesSeen0_HTTP_Handler(srv WishesHTTPServer) func(ctx http
 	}
 }
 
+func _Wishes_GetPricing0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetPricingRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesGetPricing)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetPricing(ctx, req.(*request.GetPricingRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetPricingResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_UpdatePricing0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdatePricingRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesUpdatePricing)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdatePricing(ctx, req.(*request.UpdatePricingRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdatePricingResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_ListPriceHistory0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListPriceHistoryRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesListPriceHistory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListPriceHistory(ctx, req.(*request.ListPriceHistoryRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListPriceHistoryResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_CreateOrder0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.CreateOrderRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesCreateOrder)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateOrder(ctx, req.(*request.CreateOrderRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.CreateOrderResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_GetOrder0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetOrderRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesGetOrder)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetOrder(ctx, req.(*request.GetOrderRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetOrderResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type WishesHTTPClient interface {
+	CreateOrder(ctx context.Context, req *request.CreateOrderRequest, opts ...http.CallOption) (rsp *response.CreateOrderResponse, err error)
 	CreateWish(ctx context.Context, req *request.CreateWishRequest, opts ...http.CallOption) (rsp *response.CreateWishResponse, err error)
 	DeleteWish(ctx context.Context, req *request.DeleteWishRequest, opts ...http.CallOption) (rsp *response.DeleteWishResponse, err error)
 	DeleteWishPhoto(ctx context.Context, req *request.DeleteWishPhotoRequest, opts ...http.CallOption) (rsp *response.DeleteWishPhotoResponse, err error)
 	ExtendWish(ctx context.Context, req *request.ExtendWishRequest, opts ...http.CallOption) (rsp *response.ExtendWishResponse, err error)
+	GetOrder(ctx context.Context, req *request.GetOrderRequest, opts ...http.CallOption) (rsp *response.GetOrderResponse, err error)
+	GetPricing(ctx context.Context, req *request.GetPricingRequest, opts ...http.CallOption) (rsp *response.GetPricingResponse, err error)
 	GetTemplateSchema(ctx context.Context, req *request.GetTemplateSchemaRequest, opts ...http.CallOption) (rsp *response.GetTemplateSchemaResponse, err error)
 	GetWish(ctx context.Context, req *request.GetWishRequest, opts ...http.CallOption) (rsp *response.GetWishResponse, err error)
 	GetWishStats(ctx context.Context, req *request.GetWishStatsRequest, opts ...http.CallOption) (rsp *response.GetWishStatsResponse, err error)
 	ListMyWishes(ctx context.Context, req *request.ListMyWishesRequest, opts ...http.CallOption) (rsp *response.ListMyWishesResponse, err error)
+	ListPriceHistory(ctx context.Context, req *request.ListPriceHistoryRequest, opts ...http.CallOption) (rsp *response.ListPriceHistoryResponse, err error)
 	ListTemplates(ctx context.Context, req *request.ListTemplatesRequest, opts ...http.CallOption) (rsp *response.ListTemplatesResponse, err error)
 	ListWishResponses(ctx context.Context, req *request.ListWishResponsesRequest, opts ...http.CallOption) (rsp *response.ListWishResponsesResponse, err error)
 	MarkResponsesSeen(ctx context.Context, req *request.MarkResponsesSeenRequest, opts ...http.CallOption) (rsp *response.MarkResponsesSeenResponse, err error)
@@ -537,6 +663,7 @@ type WishesHTTPClient interface {
 	SaveDraft(ctx context.Context, req *request.SaveDraftRequest, opts ...http.CallOption) (rsp *response.SaveDraftResponse, err error)
 	SendWish(ctx context.Context, req *request.SendWishRequest, opts ...http.CallOption) (rsp *response.SendWishResponse, err error)
 	SubmitResponse(ctx context.Context, req *request.SubmitResponseRequest, opts ...http.CallOption) (rsp *response.SubmitResponseResponse, err error)
+	UpdatePricing(ctx context.Context, req *request.UpdatePricingRequest, opts ...http.CallOption) (rsp *response.UpdatePricingResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
 	UploadWishPhoto(ctx context.Context, req *request.UploadWishPhotoRequest, opts ...http.CallOption) (rsp *response.UploadWishPhotoResponse, err error)
 }
@@ -547,6 +674,19 @@ type WishesHTTPClientImpl struct {
 
 func NewWishesHTTPClient(client *http.Client) WishesHTTPClient {
 	return &WishesHTTPClientImpl{client}
+}
+
+func (c *WishesHTTPClientImpl) CreateOrder(ctx context.Context, in *request.CreateOrderRequest, opts ...http.CallOption) (*response.CreateOrderResponse, error) {
+	var out response.CreateOrderResponse
+	pattern := "/v1/wishes/{wish_id}:order"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesCreateOrder))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 func (c *WishesHTTPClientImpl) CreateWish(ctx context.Context, in *request.CreateWishRequest, opts ...http.CallOption) (*response.CreateWishResponse, error) {
@@ -601,6 +741,32 @@ func (c *WishesHTTPClientImpl) ExtendWish(ctx context.Context, in *request.Exten
 	return &out, nil
 }
 
+func (c *WishesHTTPClientImpl) GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...http.CallOption) (*response.GetOrderResponse, error) {
+	var out response.GetOrderResponse
+	pattern := "/v1/orders/{order_id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesGetOrder))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) GetPricing(ctx context.Context, in *request.GetPricingRequest, opts ...http.CallOption) (*response.GetPricingResponse, error) {
+	var out response.GetPricingResponse
+	pattern := "/v1/pricing"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesGetPricing))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *WishesHTTPClientImpl) GetTemplateSchema(ctx context.Context, in *request.GetTemplateSchemaRequest, opts ...http.CallOption) (*response.GetTemplateSchemaResponse, error) {
 	var out response.GetTemplateSchemaResponse
 	pattern := "/v1/wishes:schema"
@@ -645,6 +811,19 @@ func (c *WishesHTTPClientImpl) ListMyWishes(ctx context.Context, in *request.Lis
 	pattern := "/v1/wishes"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationWishesListMyWishes))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) ListPriceHistory(ctx context.Context, in *request.ListPriceHistoryRequest, opts ...http.CallOption) (*response.ListPriceHistoryResponse, error) {
+	var out response.ListPriceHistoryResponse
+	pattern := "/v1/pricing:history"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesListPriceHistory))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -764,6 +943,19 @@ func (c *WishesHTTPClientImpl) SubmitResponse(ctx context.Context, in *request.S
 	opts = append(opts, http.Operation(OperationWishesSubmitResponse))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) UpdatePricing(ctx context.Context, in *request.UpdatePricingRequest, opts ...http.CallOption) (*response.UpdatePricingResponse, error) {
+	var out response.UpdatePricingResponse
+	pattern := "/v1/pricing"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesUpdatePricing))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

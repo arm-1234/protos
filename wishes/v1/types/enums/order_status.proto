@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package wishes.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types/enums;enums";
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PENDING = 1;
+  ORDER_STATUS_PAID = 2;
+  ORDER_STATUS_FAILED = 3;
+  ORDER_STATUS_EXPIRED = 4;
+}
