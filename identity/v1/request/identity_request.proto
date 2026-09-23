@@ -104,8 +104,15 @@ message ConfirmPhoneChangeRequest {
   string code = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 4, max_len: 10}];
 }
 
+message RequestWhatsAppOtpRequest {
+  string phone = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 8, max_len: 20}];
+  string name = 2 [(validate.rules).string = {ignore_empty: true, max_len: 255}];
+  identity.v1.types.enums.UserType user_type = 3;
+}
+
 message ForgotPasswordRequest {
   string identifier = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 3, max_len: 320}];
+  identity.v1.types.enums.OtpChannel channel = 2;
 }
 
 message ResetPasswordRequest {
@@ -115,4 +122,5 @@ message ResetPasswordRequest {
 }
 
 message LogoutRequest {}
+
 

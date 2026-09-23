@@ -33,6 +33,7 @@ const OperationIdentityRegisterPushToken = "/identity.v1.Identity/RegisterPushTo
 const OperationIdentityRegisterUser = "/identity.v1.Identity/RegisterUser"
 const OperationIdentityRequestOtp = "/identity.v1.Identity/RequestOtp"
 const OperationIdentityRequestPhoneChange = "/identity.v1.Identity/RequestPhoneChange"
+const OperationIdentityRequestWhatsAppOtp = "/identity.v1.Identity/RequestWhatsAppOtp"
 const OperationIdentityResetPassword = "/identity.v1.Identity/ResetPassword"
 const OperationIdentitySetPassword = "/identity.v1.Identity/SetPassword"
 const OperationIdentityUpdateProfile = "/identity.v1.Identity/UpdateProfile"
@@ -51,6 +52,7 @@ type IdentityHTTPServer interface {
 	RegisterUser(context.Context, *request.RegisterUserRequest) (*response.AuthResponse, error)
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
 	RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error)
+	RequestWhatsAppOtp(context.Context, *request.RequestWhatsAppOtpRequest) (*response.RequestOtpResponse, error)
 	ResetPassword(context.Context, *request.ResetPasswordRequest) (*response.AuthResponse, error)
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
@@ -69,6 +71,7 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.GET("/v1/auth/me", _Identity_GetMe0_HTTP_Handler(srv))
 	r.POST("/v1/push/register", _Identity_RegisterPushToken0_HTTP_Handler(srv))
 	r.POST("/v1/auth/otp:request", _Identity_RequestOtp0_HTTP_Handler(srv))
+	r.POST("/v1/auth/otp/whatsapp:request", _Identity_RequestWhatsAppOtp0_HTTP_Handler(srv))
 	r.POST("/v1/auth/otp:verify", _Identity_VerifyOtp0_HTTP_Handler(srv))
 	r.POST("/v1/me/phone:request", _Identity_RequestPhoneChange0_HTTP_Handler(srv))
 	r.POST("/v1/me/phone:confirm", _Identity_ConfirmPhoneChange0_HTTP_Handler(srv))
@@ -294,6 +297,28 @@ func _Identity_RequestOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Co
 	}
 }
 
+func _Identity_RequestWhatsAppOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.RequestWhatsAppOtpRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityRequestWhatsAppOtp)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RequestWhatsAppOtp(ctx, req.(*request.RequestWhatsAppOtpRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.RequestOtpResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Identity_VerifyOtp0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.VerifyOtpRequest
@@ -439,6 +464,7 @@ type IdentityHTTPClient interface {
 	RegisterUser(ctx context.Context, req *request.RegisterUserRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	RequestOtp(ctx context.Context, req *request.RequestOtpRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
 	RequestPhoneChange(ctx context.Context, req *request.RequestPhoneChangeRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
+	RequestWhatsAppOtp(ctx context.Context, req *request.RequestWhatsAppOtpRequest, opts ...http.CallOption) (rsp *response.RequestOtpResponse, err error)
 	ResetPassword(ctx context.Context, req *request.ResetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	SetPassword(ctx context.Context, req *request.SetPasswordRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	UpdateProfile(ctx context.Context, req *request.UpdateProfileRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
@@ -601,6 +627,19 @@ func (c *IdentityHTTPClientImpl) RequestPhoneChange(ctx context.Context, in *req
 	pattern := "/v1/me/phone:request"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationIdentityRequestPhoneChange))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *IdentityHTTPClientImpl) RequestWhatsAppOtp(ctx context.Context, in *request.RequestWhatsAppOtpRequest, opts ...http.CallOption) (*response.RequestOtpResponse, error) {
+	var out response.RequestOtpResponse
+	pattern := "/v1/auth/otp/whatsapp:request"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityRequestWhatsAppOtp))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

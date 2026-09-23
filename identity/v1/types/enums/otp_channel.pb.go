@@ -27,6 +27,7 @@ const (
 	OtpChannel_OTP_CHANNEL_UNSPECIFIED OtpChannel = 0
 	OtpChannel_OTP_CHANNEL_EMAIL       OtpChannel = 1
 	OtpChannel_OTP_CHANNEL_SMS         OtpChannel = 2
+	OtpChannel_OTP_CHANNEL_WHATSAPP    OtpChannel = 3
 )
 
 // Enum value maps for OtpChannel.
@@ -35,11 +36,13 @@ var (
 		0: "OTP_CHANNEL_UNSPECIFIED",
 		1: "OTP_CHANNEL_EMAIL",
 		2: "OTP_CHANNEL_SMS",
+		3: "OTP_CHANNEL_WHATSAPP",
 	}
 	OtpChannel_value = map[string]int32{
 		"OTP_CHANNEL_UNSPECIFIED": 0,
 		"OTP_CHANNEL_EMAIL":       1,
 		"OTP_CHANNEL_SMS":         2,
+		"OTP_CHANNEL_WHATSAPP":    3,
 	}
 )
 
@@ -74,12 +77,13 @@ var File_identity_v1_types_enums_otp_channel_proto protoreflect.FileDescriptor
 
 const file_identity_v1_types_enums_otp_channel_proto_rawDesc = "" +
 	"\n" +
-	")identity/v1/types/enums/otp_channel.proto\x12\x17identity.v1.types.enums*U\n" +
+	")identity/v1/types/enums/otp_channel.proto\x12\x17identity.v1.types.enums*o\n" +
 	"\n" +
 	"OtpChannel\x12\x1b\n" +
 	"\x17OTP_CHANNEL_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11OTP_CHANNEL_EMAIL\x10\x01\x12\x13\n" +
-	"\x0fOTP_CHANNEL_SMS\x10\x02B:Z8github.com/arm-1234/protos/identity/v1/types/enums;enumsb\x06proto3"
+	"\x0fOTP_CHANNEL_SMS\x10\x02\x12\x18\n" +
+	"\x14OTP_CHANNEL_WHATSAPP\x10\x03B:Z8github.com/arm-1234/protos/identity/v1/types/enums;enumsb\x06proto3"
 
 var (
 	file_identity_v1_types_enums_otp_channel_proto_rawDescOnce sync.Once

@@ -79,6 +79,13 @@ service Identity {
     };
   }
 
+  rpc RequestWhatsAppOtp (identity.v1.request.RequestWhatsAppOtpRequest) returns (identity.v1.response.RequestOtpResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/otp/whatsapp:request"
+      body: "*"
+    };
+  }
+
   rpc VerifyOtp (identity.v1.request.VerifyOtpRequest) returns (identity.v1.response.AuthResponse) {
     option (google.api.http) = {
       post: "/v1/auth/otp:verify"

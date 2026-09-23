@@ -1923,6 +1923,136 @@ var _ interface {
 	ErrorName() string
 } = ConfirmPhoneChangeRequestValidationError{}
 
+// Validate checks the field values on RequestWhatsAppOtpRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestWhatsAppOtpRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RequestWhatsAppOtpRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RequestWhatsAppOtpRequestMultiError, or nil if none found.
+func (m *RequestWhatsAppOtpRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RequestWhatsAppOtpRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetPhone()); l < 8 || l > 20 {
+		err := RequestWhatsAppOtpRequestValidationError{
+			field:  "Phone",
+			reason: "value length must be between 8 and 20 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetName() != "" {
+
+		if utf8.RuneCountInString(m.GetName()) > 255 {
+			err := RequestWhatsAppOtpRequestValidationError{
+				field:  "Name",
+				reason: "value length must be at most 255 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	// no validation rules for UserType
+
+	if len(errors) > 0 {
+		return RequestWhatsAppOtpRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RequestWhatsAppOtpRequestMultiError is an error wrapping multiple validation
+// errors returned by RequestWhatsAppOtpRequest.ValidateAll() if the
+// designated constraints aren't met.
+type RequestWhatsAppOtpRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RequestWhatsAppOtpRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RequestWhatsAppOtpRequestMultiError) AllErrors() []error { return m }
+
+// RequestWhatsAppOtpRequestValidationError is the validation error returned by
+// RequestWhatsAppOtpRequest.Validate if the designated constraints aren't met.
+type RequestWhatsAppOtpRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RequestWhatsAppOtpRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RequestWhatsAppOtpRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RequestWhatsAppOtpRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RequestWhatsAppOtpRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RequestWhatsAppOtpRequestValidationError) ErrorName() string {
+	return "RequestWhatsAppOtpRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RequestWhatsAppOtpRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRequestWhatsAppOtpRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RequestWhatsAppOtpRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RequestWhatsAppOtpRequestValidationError{}
+
 // Validate checks the field values on ForgotPasswordRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1955,6 +2085,8 @@ func (m *ForgotPasswordRequest) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for Channel
 
 	if len(errors) > 0 {
 		return ForgotPasswordRequestMultiError(errors)

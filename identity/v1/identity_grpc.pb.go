@@ -31,6 +31,7 @@ const (
 	Identity_GetMe_FullMethodName                    = "/identity.v1.Identity/GetMe"
 	Identity_RegisterPushToken_FullMethodName        = "/identity.v1.Identity/RegisterPushToken"
 	Identity_RequestOtp_FullMethodName               = "/identity.v1.Identity/RequestOtp"
+	Identity_RequestWhatsAppOtp_FullMethodName       = "/identity.v1.Identity/RequestWhatsAppOtp"
 	Identity_VerifyOtp_FullMethodName                = "/identity.v1.Identity/VerifyOtp"
 	Identity_RequestPhoneChange_FullMethodName       = "/identity.v1.Identity/RequestPhoneChange"
 	Identity_ConfirmPhoneChange_FullMethodName       = "/identity.v1.Identity/ConfirmPhoneChange"
@@ -53,6 +54,7 @@ type IdentityClient interface {
 	GetMe(ctx context.Context, in *request.GetMeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error)
 	RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
+	RequestWhatsAppOtp(ctx context.Context, in *request.RequestWhatsAppOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
 	VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	RequestPhoneChange(ctx context.Context, in *request.RequestPhoneChangeRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
 	ConfirmPhoneChange(ctx context.Context, in *request.ConfirmPhoneChangeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
@@ -169,6 +171,16 @@ func (c *identityClient) RequestOtp(ctx context.Context, in *request.RequestOtpR
 	return out, nil
 }
 
+func (c *identityClient) RequestWhatsAppOtp(ctx context.Context, in *request.RequestWhatsAppOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.RequestOtpResponse)
+	err := c.cc.Invoke(ctx, Identity_RequestWhatsAppOtp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *identityClient) VerifyOtp(ctx context.Context, in *request.VerifyOtpRequest, opts ...grpc.CallOption) (*response.AuthResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.AuthResponse)
@@ -243,6 +255,7 @@ type IdentityServer interface {
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
+	RequestWhatsAppOtp(context.Context, *request.RequestWhatsAppOtpRequest) (*response.RequestOtpResponse, error)
 	VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error)
 	RequestPhoneChange(context.Context, *request.RequestPhoneChangeRequest) (*response.RequestOtpResponse, error)
 	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
@@ -288,6 +301,9 @@ func (UnimplementedIdentityServer) RegisterPushToken(context.Context, *request.R
 }
 func (UnimplementedIdentityServer) RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RequestOtp not implemented")
+}
+func (UnimplementedIdentityServer) RequestWhatsAppOtp(context.Context, *request.RequestWhatsAppOtpRequest) (*response.RequestOtpResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RequestWhatsAppOtp not implemented")
 }
 func (UnimplementedIdentityServer) VerifyOtp(context.Context, *request.VerifyOtpRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method VerifyOtp not implemented")
@@ -508,6 +524,24 @@ func _Identity_RequestOtp_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identity_RequestWhatsAppOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.RequestWhatsAppOtpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).RequestWhatsAppOtp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_RequestWhatsAppOtp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).RequestWhatsAppOtp(ctx, req.(*request.RequestWhatsAppOtpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Identity_VerifyOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.VerifyOtpRequest)
 	if err := dec(in); err != nil {
@@ -662,6 +696,10 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RequestOtp",
 			Handler:    _Identity_RequestOtp_Handler,
+		},
+		{
+			MethodName: "RequestWhatsAppOtp",
+			Handler:    _Identity_RequestWhatsAppOtp_Handler,
 		},
 		{
 			MethodName: "VerifyOtp",
