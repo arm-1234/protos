@@ -39,6 +39,7 @@ const (
 	ErrorReason_WISH_LIMIT_REACHED          ErrorReason = 14
 	ErrorReason_WISH_NOT_DRAFT              ErrorReason = 15
 	ErrorReason_WISH_ALREADY_PUBLISHED      ErrorReason = 16
+	ErrorReason_WISH_NOT_DELETABLE          ErrorReason = 17
 	ErrorReason_TEMPLATE_NOT_FOUND          ErrorReason = 20
 	ErrorReason_TEMPLATE_CONFIG_INVALID     ErrorReason = 21
 	ErrorReason_PHOTO_REJECTED              ErrorReason = 22
@@ -71,6 +72,7 @@ var (
 		14: "WISH_LIMIT_REACHED",
 		15: "WISH_NOT_DRAFT",
 		16: "WISH_ALREADY_PUBLISHED",
+		17: "WISH_NOT_DELETABLE",
 		20: "TEMPLATE_NOT_FOUND",
 		21: "TEMPLATE_CONFIG_INVALID",
 		22: "PHOTO_REJECTED",
@@ -100,6 +102,7 @@ var (
 		"WISH_LIMIT_REACHED":          14,
 		"WISH_NOT_DRAFT":              15,
 		"WISH_ALREADY_PUBLISHED":      16,
+		"WISH_NOT_DELETABLE":          17,
 		"TEMPLATE_NOT_FOUND":          20,
 		"TEMPLATE_CONFIG_INVALID":     21,
 		"PHOTO_REJECTED":              22,
@@ -150,7 +153,7 @@ var File_wishes_v1_wishes_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\n" +
-	"\x16wishes/v1/wishes.proto\x12\twishes.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a&wishes/v1/request/wishes_request.proto\x1a(wishes/v1/response/wishes_response.proto*\xc2\x06\n" +
+	"\x16wishes/v1/wishes.proto\x12\twishes.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x13errors/errors.proto\x1a&wishes/v1/request/wishes_request.proto\x1a(wishes/v1/response/wishes_response.proto*\xe0\x06\n" +
 	"\vErrorReason\x12\x1c\n" +
 	"\x12WISHES_UNSPECIFIED\x10\x00\x1a\x04\xa8E\xf4\x03\x12 \n" +
 	"\x16WISHES_INVALID_REQUEST\x10\x01\x1a\x04\xa8E\x90\x03\x12 \n" +
@@ -164,6 +167,7 @@ const file_wishes_v1_wishes_proto_rawDesc = "" +
 	"\x12WISH_LIMIT_REACHED\x10\x0e\x1a\x04\xa8E\xad\x03\x12\x18\n" +
 	"\x0eWISH_NOT_DRAFT\x10\x0f\x1a\x04\xa8E\x99\x03\x12 \n" +
 	"\x16WISH_ALREADY_PUBLISHED\x10\x10\x1a\x04\xa8E\x99\x03\x12\x1c\n" +
+	"\x12WISH_NOT_DELETABLE\x10\x11\x1a\x04\xa8E\x99\x03\x12\x1c\n" +
 	"\x12TEMPLATE_NOT_FOUND\x10\x14\x1a\x04\xa8E\x94\x03\x12!\n" +
 	"\x17TEMPLATE_CONFIG_INVALID\x10\x15\x1a\x04\xa8E\x90\x03\x12\x18\n" +
 	"\x0ePHOTO_REJECTED\x10\x16\x1a\x04\xa8E\xa6\x03\x12\x19\n" +

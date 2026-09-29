@@ -183,6 +183,7 @@ enum ErrorReason {
   WISH_LIMIT_REACHED = 14 [(errors.code) = 429];
   WISH_NOT_DRAFT = 15 [(errors.code) = 409];
   WISH_ALREADY_PUBLISHED = 16 [(errors.code) = 409];
+  WISH_NOT_DELETABLE = 17 [(errors.code) = 409];
 
   TEMPLATE_NOT_FOUND = 20 [(errors.code) = 404];
   TEMPLATE_CONFIG_INVALID = 21 [(errors.code) = 400];

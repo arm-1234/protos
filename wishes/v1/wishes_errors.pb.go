@@ -143,6 +143,18 @@ func ErrorWishAlreadyPublished(format string, args ...interface{}) *errors.Error
 	return errors.New(409, ErrorReason_WISH_ALREADY_PUBLISHED.String(), fmt.Sprintf(format, args...))
 }
 
+func IsWishNotDeletable(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_WISH_NOT_DELETABLE.String() && e.Code == 409
+}
+
+func ErrorWishNotDeletable(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_WISH_NOT_DELETABLE.String(), fmt.Sprintf(format, args...))
+}
+
 func IsTemplateNotFound(err error) bool {
 	if err == nil {
 		return false
