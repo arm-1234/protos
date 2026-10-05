@@ -124,9 +124,15 @@ message CreateOrderResponse {
   wishes.v1.types.OrderInfo order = 1;
   string redirect_url = 2;
   wishes.v1.types.WishInfo wish = 3;
+  wishes.v1.types.PaymentCheckout checkout = 4;
 }
 
 message GetOrderResponse {
+  wishes.v1.types.OrderInfo order = 1;
+  wishes.v1.types.WishInfo wish = 2;
+}
+
+message VerifyOrderPaymentResponse {
   wishes.v1.types.OrderInfo order = 1;
   wishes.v1.types.WishInfo wish = 2;
 }

@@ -243,6 +243,116 @@ var _ interface {
 	ErrorName() string
 } = OrderInfoValidationError{}
 
+// Validate checks the field values on PaymentCheckout with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PaymentCheckout) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PaymentCheckout with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PaymentCheckoutMultiError, or nil if none found.
+func (m *PaymentCheckout) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PaymentCheckout) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Gateway
+
+	// no validation rules for KeyId
+
+	// no validation rules for GatewayOrderId
+
+	// no validation rules for AmountMinor
+
+	// no validation rules for Currency
+
+	if len(errors) > 0 {
+		return PaymentCheckoutMultiError(errors)
+	}
+
+	return nil
+}
+
+// PaymentCheckoutMultiError is an error wrapping multiple validation errors
+// returned by PaymentCheckout.ValidateAll() if the designated constraints
+// aren't met.
+type PaymentCheckoutMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PaymentCheckoutMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PaymentCheckoutMultiError) AllErrors() []error { return m }
+
+// PaymentCheckoutValidationError is the validation error returned by
+// PaymentCheckout.Validate if the designated constraints aren't met.
+type PaymentCheckoutValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PaymentCheckoutValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PaymentCheckoutValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PaymentCheckoutValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PaymentCheckoutValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PaymentCheckoutValidationError) ErrorName() string { return "PaymentCheckoutValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PaymentCheckoutValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPaymentCheckout.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PaymentCheckoutValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PaymentCheckoutValidationError{}
+
 // Validate checks the field values on PriceInfo with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

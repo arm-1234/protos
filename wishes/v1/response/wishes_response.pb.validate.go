@@ -3098,6 +3098,35 @@ func (m *CreateOrderResponse) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetCheckout()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateOrderResponseValidationError{
+					field:  "Checkout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateOrderResponseValidationError{
+					field:  "Checkout",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCheckout()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateOrderResponseValidationError{
+				field:  "Checkout",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return CreateOrderResponseMultiError(errors)
 	}
@@ -3335,3 +3364,163 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetOrderResponseValidationError{}
+
+// Validate checks the field values on VerifyOrderPaymentResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VerifyOrderPaymentResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyOrderPaymentResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyOrderPaymentResponseMultiError, or nil if none found.
+func (m *VerifyOrderPaymentResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyOrderPaymentResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOrder()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VerifyOrderPaymentResponseValidationError{
+					field:  "Order",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VerifyOrderPaymentResponseValidationError{
+					field:  "Order",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOrder()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VerifyOrderPaymentResponseValidationError{
+				field:  "Order",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetWish()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VerifyOrderPaymentResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VerifyOrderPaymentResponseValidationError{
+					field:  "Wish",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetWish()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VerifyOrderPaymentResponseValidationError{
+				field:  "Wish",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return VerifyOrderPaymentResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyOrderPaymentResponseMultiError is an error wrapping multiple
+// validation errors returned by VerifyOrderPaymentResponse.ValidateAll() if
+// the designated constraints aren't met.
+type VerifyOrderPaymentResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyOrderPaymentResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyOrderPaymentResponseMultiError) AllErrors() []error { return m }
+
+// VerifyOrderPaymentResponseValidationError is the validation error returned
+// by VerifyOrderPaymentResponse.Validate if the designated constraints aren't met.
+type VerifyOrderPaymentResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyOrderPaymentResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyOrderPaymentResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyOrderPaymentResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyOrderPaymentResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyOrderPaymentResponseValidationError) ErrorName() string {
+	return "VerifyOrderPaymentResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VerifyOrderPaymentResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyOrderPaymentResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyOrderPaymentResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyOrderPaymentResponseValidationError{}

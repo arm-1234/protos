@@ -45,6 +45,7 @@ const OperationWishesSubmitResponse = "/wishes.v1.Wishes/SubmitResponse"
 const OperationWishesUpdatePricing = "/wishes.v1.Wishes/UpdatePricing"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
 const OperationWishesUploadWishPhoto = "/wishes.v1.Wishes/UploadWishPhoto"
+const OperationWishesVerifyOrderPayment = "/wishes.v1.Wishes/VerifyOrderPayment"
 
 type WishesHTTPServer interface {
 	CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error)
@@ -71,6 +72,7 @@ type WishesHTTPServer interface {
 	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
 	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
+	VerifyOrderPayment(context.Context, *request.VerifyOrderPaymentRequest) (*response.VerifyOrderPaymentResponse, error)
 }
 
 func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
@@ -99,6 +101,7 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.GET("/v1/pricing:history", _Wishes_ListPriceHistory0_HTTP_Handler(srv))
 	r.POST("/v1/wishes/{wish_id}:order", _Wishes_CreateOrder0_HTTP_Handler(srv))
 	r.GET("/v1/orders/{order_id}", _Wishes_GetOrder0_HTTP_Handler(srv))
+	r.POST("/v1/orders/{order_id}:verify", _Wishes_VerifyOrderPayment0_HTTP_Handler(srv))
 }
 
 func _Wishes_CreateWish0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
@@ -641,6 +644,31 @@ func _Wishes_GetOrder0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context)
 	}
 }
 
+func _Wishes_VerifyOrderPayment0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.VerifyOrderPaymentRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesVerifyOrderPayment)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.VerifyOrderPayment(ctx, req.(*request.VerifyOrderPaymentRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.VerifyOrderPaymentResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type WishesHTTPClient interface {
 	CreateOrder(ctx context.Context, req *request.CreateOrderRequest, opts ...http.CallOption) (rsp *response.CreateOrderResponse, err error)
 	CreateWish(ctx context.Context, req *request.CreateWishRequest, opts ...http.CallOption) (rsp *response.CreateWishResponse, err error)
@@ -666,6 +694,7 @@ type WishesHTTPClient interface {
 	UpdatePricing(ctx context.Context, req *request.UpdatePricingRequest, opts ...http.CallOption) (rsp *response.UpdatePricingResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
 	UploadWishPhoto(ctx context.Context, req *request.UploadWishPhotoRequest, opts ...http.CallOption) (rsp *response.UploadWishPhotoResponse, err error)
+	VerifyOrderPayment(ctx context.Context, req *request.VerifyOrderPaymentRequest, opts ...http.CallOption) (rsp *response.VerifyOrderPaymentResponse, err error)
 }
 
 type WishesHTTPClientImpl struct {
@@ -980,6 +1009,19 @@ func (c *WishesHTTPClientImpl) UploadWishPhoto(ctx context.Context, in *request.
 	pattern := "/v1/wishes/{wish_id}/photos"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationWishesUploadWishPhoto))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) VerifyOrderPayment(ctx context.Context, in *request.VerifyOrderPaymentRequest, opts ...http.CallOption) (*response.VerifyOrderPaymentResponse, error) {
+	var out response.VerifyOrderPaymentResponse
+	pattern := "/v1/orders/{order_id}:verify"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesVerifyOrderPayment))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

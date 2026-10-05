@@ -1305,6 +1305,66 @@ func (x *GetOrderRequest) GetOrderId() string {
 	return ""
 }
 
+type VerifyOrderPaymentRequest struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	OrderId          string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	GatewayPaymentId string                 `protobuf:"bytes,2,opt,name=gateway_payment_id,json=gatewayPaymentId,proto3" json:"gateway_payment_id,omitempty"`
+	Signature        string                 `protobuf:"bytes,3,opt,name=signature,proto3" json:"signature,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *VerifyOrderPaymentRequest) Reset() {
+	*x = VerifyOrderPaymentRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VerifyOrderPaymentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyOrderPaymentRequest) ProtoMessage() {}
+
+func (x *VerifyOrderPaymentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyOrderPaymentRequest.ProtoReflect.Descriptor instead.
+func (*VerifyOrderPaymentRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *VerifyOrderPaymentRequest) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+func (x *VerifyOrderPaymentRequest) GetGatewayPaymentId() string {
+	if x != nil {
+		return x.GatewayPaymentId
+	}
+	return ""
+}
+
+func (x *VerifyOrderPaymentRequest) GetSignature() string {
+	if x != nil {
+		return x.Signature
+	}
+	return ""
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
@@ -1399,7 +1459,11 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x12CreateOrderRequest\x12$\n" +
 	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\"9\n" +
 	"\x0fGetOrderRequest\x12&\n" +
-	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderIdB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\"\xae\x01\n" +
+	"\x19VerifyOrderPaymentRequest\x12&\n" +
+	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\x12;\n" +
+	"\x12gateway_payment_id\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x01\x18@R\x10gatewayPaymentId\x12,\n" +
+	"\tsignature\x18\x03 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\tsignatureB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -1413,44 +1477,45 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
-	(*CreateWishRequest)(nil),        // 0: wishes.v1.request.CreateWishRequest
-	(*ListMyWishesRequest)(nil),      // 1: wishes.v1.request.ListMyWishesRequest
-	(*GetWishRequest)(nil),           // 2: wishes.v1.request.GetWishRequest
-	(*UpdateWishRequest)(nil),        // 3: wishes.v1.request.UpdateWishRequest
-	(*ExtendWishRequest)(nil),        // 4: wishes.v1.request.ExtendWishRequest
-	(*RevokeWishRequest)(nil),        // 5: wishes.v1.request.RevokeWishRequest
-	(*SendWishRequest)(nil),          // 6: wishes.v1.request.SendWishRequest
-	(*ListWishResponsesRequest)(nil), // 7: wishes.v1.request.ListWishResponsesRequest
-	(*MarkResponsesSeenRequest)(nil), // 8: wishes.v1.request.MarkResponsesSeenRequest
-	(*GetWishStatsRequest)(nil),      // 9: wishes.v1.request.GetWishStatsRequest
-	(*ListTemplatesRequest)(nil),     // 10: wishes.v1.request.ListTemplatesRequest
-	(*SaveDraftRequest)(nil),         // 11: wishes.v1.request.SaveDraftRequest
-	(*PublishWishRequest)(nil),       // 12: wishes.v1.request.PublishWishRequest
-	(*DeleteWishRequest)(nil),        // 13: wishes.v1.request.DeleteWishRequest
-	(*UploadWishPhotoRequest)(nil),   // 14: wishes.v1.request.UploadWishPhotoRequest
-	(*DeleteWishPhotoRequest)(nil),   // 15: wishes.v1.request.DeleteWishPhotoRequest
-	(*SubmitResponseRequest)(nil),    // 16: wishes.v1.request.SubmitResponseRequest
-	(*ReportCardRequest)(nil),        // 17: wishes.v1.request.ReportCardRequest
-	(*GetTemplateSchemaRequest)(nil), // 18: wishes.v1.request.GetTemplateSchemaRequest
-	(*GetPricingRequest)(nil),        // 19: wishes.v1.request.GetPricingRequest
-	(*UpdatePricingRequest)(nil),     // 20: wishes.v1.request.UpdatePricingRequest
-	(*ListPriceHistoryRequest)(nil),  // 21: wishes.v1.request.ListPriceHistoryRequest
-	(*CreateOrderRequest)(nil),       // 22: wishes.v1.request.CreateOrderRequest
-	(*GetOrderRequest)(nil),          // 23: wishes.v1.request.GetOrderRequest
-	(*structpb.Struct)(nil),          // 24: google.protobuf.Struct
-	(enums.WishStatus)(0),            // 25: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),            // 26: wishes.v1.types.enums.WishSortBy
-	(enums.ResponseKind)(0),          // 27: wishes.v1.types.enums.ResponseKind
+	(*CreateWishRequest)(nil),         // 0: wishes.v1.request.CreateWishRequest
+	(*ListMyWishesRequest)(nil),       // 1: wishes.v1.request.ListMyWishesRequest
+	(*GetWishRequest)(nil),            // 2: wishes.v1.request.GetWishRequest
+	(*UpdateWishRequest)(nil),         // 3: wishes.v1.request.UpdateWishRequest
+	(*ExtendWishRequest)(nil),         // 4: wishes.v1.request.ExtendWishRequest
+	(*RevokeWishRequest)(nil),         // 5: wishes.v1.request.RevokeWishRequest
+	(*SendWishRequest)(nil),           // 6: wishes.v1.request.SendWishRequest
+	(*ListWishResponsesRequest)(nil),  // 7: wishes.v1.request.ListWishResponsesRequest
+	(*MarkResponsesSeenRequest)(nil),  // 8: wishes.v1.request.MarkResponsesSeenRequest
+	(*GetWishStatsRequest)(nil),       // 9: wishes.v1.request.GetWishStatsRequest
+	(*ListTemplatesRequest)(nil),      // 10: wishes.v1.request.ListTemplatesRequest
+	(*SaveDraftRequest)(nil),          // 11: wishes.v1.request.SaveDraftRequest
+	(*PublishWishRequest)(nil),        // 12: wishes.v1.request.PublishWishRequest
+	(*DeleteWishRequest)(nil),         // 13: wishes.v1.request.DeleteWishRequest
+	(*UploadWishPhotoRequest)(nil),    // 14: wishes.v1.request.UploadWishPhotoRequest
+	(*DeleteWishPhotoRequest)(nil),    // 15: wishes.v1.request.DeleteWishPhotoRequest
+	(*SubmitResponseRequest)(nil),     // 16: wishes.v1.request.SubmitResponseRequest
+	(*ReportCardRequest)(nil),         // 17: wishes.v1.request.ReportCardRequest
+	(*GetTemplateSchemaRequest)(nil),  // 18: wishes.v1.request.GetTemplateSchemaRequest
+	(*GetPricingRequest)(nil),         // 19: wishes.v1.request.GetPricingRequest
+	(*UpdatePricingRequest)(nil),      // 20: wishes.v1.request.UpdatePricingRequest
+	(*ListPriceHistoryRequest)(nil),   // 21: wishes.v1.request.ListPriceHistoryRequest
+	(*CreateOrderRequest)(nil),        // 22: wishes.v1.request.CreateOrderRequest
+	(*GetOrderRequest)(nil),           // 23: wishes.v1.request.GetOrderRequest
+	(*VerifyOrderPaymentRequest)(nil), // 24: wishes.v1.request.VerifyOrderPaymentRequest
+	(*structpb.Struct)(nil),           // 25: google.protobuf.Struct
+	(enums.WishStatus)(0),             // 26: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),             // 27: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),           // 28: wishes.v1.types.enums.ResponseKind
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	24, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	25, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	26, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	24, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	24, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	27, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	25, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	26, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	27, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	25, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	25, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	28, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
 	6,  // [6:6] is the sub-list for method output_type
 	6,  // [6:6] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
@@ -1469,7 +1534,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   24,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

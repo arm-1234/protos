@@ -166,6 +166,13 @@ service Wishes {
       get: "/v1/orders/{order_id}"
     };
   }
+
+  rpc VerifyOrderPayment (wishes.v1.request.VerifyOrderPaymentRequest) returns (wishes.v1.response.VerifyOrderPaymentResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{order_id}:verify"
+      body: "*"
+    };
+  }
 }
 
 enum ErrorReason {

@@ -22,6 +22,14 @@ message OrderInfo {
   google.protobuf.Timestamp expires_at = 12;
 }
 
+message PaymentCheckout {
+  string gateway = 1;
+  string key_id = 2;
+  string gateway_order_id = 3;
+  int64 amount_minor = 4;
+  string currency = 5;
+}
+
 message PriceInfo {
   int64 amount_minor = 1;
   string currency = 2;

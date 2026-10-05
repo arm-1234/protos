@@ -130,3 +130,9 @@ message CreateOrderRequest {
 message GetOrderRequest {
   string order_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
 }
+
+message VerifyOrderPaymentRequest {
+  string order_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string gateway_payment_id = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 64}];
+  string signature = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 128}];
+}

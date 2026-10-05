@@ -155,6 +155,82 @@ func (x *OrderInfo) GetExpiresAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type PaymentCheckout struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Gateway        string                 `protobuf:"bytes,1,opt,name=gateway,proto3" json:"gateway,omitempty"`
+	KeyId          string                 `protobuf:"bytes,2,opt,name=key_id,json=keyId,proto3" json:"key_id,omitempty"`
+	GatewayOrderId string                 `protobuf:"bytes,3,opt,name=gateway_order_id,json=gatewayOrderId,proto3" json:"gateway_order_id,omitempty"`
+	AmountMinor    int64                  `protobuf:"varint,4,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency       string                 `protobuf:"bytes,5,opt,name=currency,proto3" json:"currency,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *PaymentCheckout) Reset() {
+	*x = PaymentCheckout{}
+	mi := &file_wishes_v1_types_billing_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PaymentCheckout) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaymentCheckout) ProtoMessage() {}
+
+func (x *PaymentCheckout) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_types_billing_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaymentCheckout.ProtoReflect.Descriptor instead.
+func (*PaymentCheckout) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_types_billing_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *PaymentCheckout) GetGateway() string {
+	if x != nil {
+		return x.Gateway
+	}
+	return ""
+}
+
+func (x *PaymentCheckout) GetKeyId() string {
+	if x != nil {
+		return x.KeyId
+	}
+	return ""
+}
+
+func (x *PaymentCheckout) GetGatewayOrderId() string {
+	if x != nil {
+		return x.GatewayOrderId
+	}
+	return ""
+}
+
+func (x *PaymentCheckout) GetAmountMinor() int64 {
+	if x != nil {
+		return x.AmountMinor
+	}
+	return 0
+}
+
+func (x *PaymentCheckout) GetCurrency() string {
+	if x != nil {
+		return x.Currency
+	}
+	return ""
+}
+
 type PriceInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AmountMinor   int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
@@ -169,7 +245,7 @@ type PriceInfo struct {
 
 func (x *PriceInfo) Reset() {
 	*x = PriceInfo{}
-	mi := &file_wishes_v1_types_billing_proto_msgTypes[1]
+	mi := &file_wishes_v1_types_billing_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -181,7 +257,7 @@ func (x *PriceInfo) String() string {
 func (*PriceInfo) ProtoMessage() {}
 
 func (x *PriceInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_wishes_v1_types_billing_proto_msgTypes[1]
+	mi := &file_wishes_v1_types_billing_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -194,7 +270,7 @@ func (x *PriceInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PriceInfo.ProtoReflect.Descriptor instead.
 func (*PriceInfo) Descriptor() ([]byte, []int) {
-	return file_wishes_v1_types_billing_proto_rawDescGZIP(), []int{1}
+	return file_wishes_v1_types_billing_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *PriceInfo) GetAmountMinor() int64 {
@@ -260,7 +336,13 @@ const file_wishes_v1_types_billing_proto_rawDesc = "" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x123\n" +
 	"\apaid_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\x06paidAt\x129\n" +
 	"\n" +
-	"expires_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xc9\x01\n" +
+	"expires_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xab\x01\n" +
+	"\x0fPaymentCheckout\x12\x18\n" +
+	"\agateway\x18\x01 \x01(\tR\agateway\x12\x15\n" +
+	"\x06key_id\x18\x02 \x01(\tR\x05keyId\x12(\n" +
+	"\x10gateway_order_id\x18\x03 \x01(\tR\x0egatewayOrderId\x12!\n" +
+	"\famount_minor\x18\x04 \x01(\x03R\vamountMinor\x12\x1a\n" +
+	"\bcurrency\x18\x05 \x01(\tR\bcurrency\"\xc9\x01\n" +
 	"\tPriceInfo\x12!\n" +
 	"\famount_minor\x18\x01 \x01(\x03R\vamountMinor\x12\x1a\n" +
 	"\bcurrency\x18\x02 \x01(\tR\bcurrency\x12\x18\n" +
@@ -282,19 +364,20 @@ func file_wishes_v1_types_billing_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_types_billing_proto_rawDescData
 }
 
-var file_wishes_v1_types_billing_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_wishes_v1_types_billing_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_wishes_v1_types_billing_proto_goTypes = []any{
 	(*OrderInfo)(nil),             // 0: wishes.v1.types.OrderInfo
-	(*PriceInfo)(nil),             // 1: wishes.v1.types.PriceInfo
-	(enums.OrderStatus)(0),        // 2: wishes.v1.types.enums.OrderStatus
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*PaymentCheckout)(nil),       // 1: wishes.v1.types.PaymentCheckout
+	(*PriceInfo)(nil),             // 2: wishes.v1.types.PriceInfo
+	(enums.OrderStatus)(0),        // 3: wishes.v1.types.enums.OrderStatus
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
 }
 var file_wishes_v1_types_billing_proto_depIdxs = []int32{
-	2, // 0: wishes.v1.types.OrderInfo.status:type_name -> wishes.v1.types.enums.OrderStatus
-	3, // 1: wishes.v1.types.OrderInfo.created_at:type_name -> google.protobuf.Timestamp
-	3, // 2: wishes.v1.types.OrderInfo.paid_at:type_name -> google.protobuf.Timestamp
-	3, // 3: wishes.v1.types.OrderInfo.expires_at:type_name -> google.protobuf.Timestamp
-	3, // 4: wishes.v1.types.PriceInfo.active_from:type_name -> google.protobuf.Timestamp
+	3, // 0: wishes.v1.types.OrderInfo.status:type_name -> wishes.v1.types.enums.OrderStatus
+	4, // 1: wishes.v1.types.OrderInfo.created_at:type_name -> google.protobuf.Timestamp
+	4, // 2: wishes.v1.types.OrderInfo.paid_at:type_name -> google.protobuf.Timestamp
+	4, // 3: wishes.v1.types.OrderInfo.expires_at:type_name -> google.protobuf.Timestamp
+	4, // 4: wishes.v1.types.PriceInfo.active_from:type_name -> google.protobuf.Timestamp
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name
@@ -313,7 +396,7 @@ func file_wishes_v1_types_billing_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_types_billing_proto_rawDesc), len(file_wishes_v1_types_billing_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -21,30 +21,31 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Wishes_CreateWish_FullMethodName        = "/wishes.v1.Wishes/CreateWish"
-	Wishes_ListMyWishes_FullMethodName      = "/wishes.v1.Wishes/ListMyWishes"
-	Wishes_GetWishStats_FullMethodName      = "/wishes.v1.Wishes/GetWishStats"
-	Wishes_GetTemplateSchema_FullMethodName = "/wishes.v1.Wishes/GetTemplateSchema"
-	Wishes_SubmitResponse_FullMethodName    = "/wishes.v1.Wishes/SubmitResponse"
-	Wishes_ReportCard_FullMethodName        = "/wishes.v1.Wishes/ReportCard"
-	Wishes_ListTemplates_FullMethodName     = "/wishes.v1.Wishes/ListTemplates"
-	Wishes_SaveDraft_FullMethodName         = "/wishes.v1.Wishes/SaveDraft"
-	Wishes_GetWish_FullMethodName           = "/wishes.v1.Wishes/GetWish"
-	Wishes_UpdateWish_FullMethodName        = "/wishes.v1.Wishes/UpdateWish"
-	Wishes_PublishWish_FullMethodName       = "/wishes.v1.Wishes/PublishWish"
-	Wishes_DeleteWish_FullMethodName        = "/wishes.v1.Wishes/DeleteWish"
-	Wishes_UploadWishPhoto_FullMethodName   = "/wishes.v1.Wishes/UploadWishPhoto"
-	Wishes_DeleteWishPhoto_FullMethodName   = "/wishes.v1.Wishes/DeleteWishPhoto"
-	Wishes_ExtendWish_FullMethodName        = "/wishes.v1.Wishes/ExtendWish"
-	Wishes_RevokeWish_FullMethodName        = "/wishes.v1.Wishes/RevokeWish"
-	Wishes_SendWish_FullMethodName          = "/wishes.v1.Wishes/SendWish"
-	Wishes_ListWishResponses_FullMethodName = "/wishes.v1.Wishes/ListWishResponses"
-	Wishes_MarkResponsesSeen_FullMethodName = "/wishes.v1.Wishes/MarkResponsesSeen"
-	Wishes_GetPricing_FullMethodName        = "/wishes.v1.Wishes/GetPricing"
-	Wishes_UpdatePricing_FullMethodName     = "/wishes.v1.Wishes/UpdatePricing"
-	Wishes_ListPriceHistory_FullMethodName  = "/wishes.v1.Wishes/ListPriceHistory"
-	Wishes_CreateOrder_FullMethodName       = "/wishes.v1.Wishes/CreateOrder"
-	Wishes_GetOrder_FullMethodName          = "/wishes.v1.Wishes/GetOrder"
+	Wishes_CreateWish_FullMethodName         = "/wishes.v1.Wishes/CreateWish"
+	Wishes_ListMyWishes_FullMethodName       = "/wishes.v1.Wishes/ListMyWishes"
+	Wishes_GetWishStats_FullMethodName       = "/wishes.v1.Wishes/GetWishStats"
+	Wishes_GetTemplateSchema_FullMethodName  = "/wishes.v1.Wishes/GetTemplateSchema"
+	Wishes_SubmitResponse_FullMethodName     = "/wishes.v1.Wishes/SubmitResponse"
+	Wishes_ReportCard_FullMethodName         = "/wishes.v1.Wishes/ReportCard"
+	Wishes_ListTemplates_FullMethodName      = "/wishes.v1.Wishes/ListTemplates"
+	Wishes_SaveDraft_FullMethodName          = "/wishes.v1.Wishes/SaveDraft"
+	Wishes_GetWish_FullMethodName            = "/wishes.v1.Wishes/GetWish"
+	Wishes_UpdateWish_FullMethodName         = "/wishes.v1.Wishes/UpdateWish"
+	Wishes_PublishWish_FullMethodName        = "/wishes.v1.Wishes/PublishWish"
+	Wishes_DeleteWish_FullMethodName         = "/wishes.v1.Wishes/DeleteWish"
+	Wishes_UploadWishPhoto_FullMethodName    = "/wishes.v1.Wishes/UploadWishPhoto"
+	Wishes_DeleteWishPhoto_FullMethodName    = "/wishes.v1.Wishes/DeleteWishPhoto"
+	Wishes_ExtendWish_FullMethodName         = "/wishes.v1.Wishes/ExtendWish"
+	Wishes_RevokeWish_FullMethodName         = "/wishes.v1.Wishes/RevokeWish"
+	Wishes_SendWish_FullMethodName           = "/wishes.v1.Wishes/SendWish"
+	Wishes_ListWishResponses_FullMethodName  = "/wishes.v1.Wishes/ListWishResponses"
+	Wishes_MarkResponsesSeen_FullMethodName  = "/wishes.v1.Wishes/MarkResponsesSeen"
+	Wishes_GetPricing_FullMethodName         = "/wishes.v1.Wishes/GetPricing"
+	Wishes_UpdatePricing_FullMethodName      = "/wishes.v1.Wishes/UpdatePricing"
+	Wishes_ListPriceHistory_FullMethodName   = "/wishes.v1.Wishes/ListPriceHistory"
+	Wishes_CreateOrder_FullMethodName        = "/wishes.v1.Wishes/CreateOrder"
+	Wishes_GetOrder_FullMethodName           = "/wishes.v1.Wishes/GetOrder"
+	Wishes_VerifyOrderPayment_FullMethodName = "/wishes.v1.Wishes/VerifyOrderPayment"
 )
 
 // WishesClient is the client API for Wishes service.
@@ -75,6 +76,7 @@ type WishesClient interface {
 	ListPriceHistory(ctx context.Context, in *request.ListPriceHistoryRequest, opts ...grpc.CallOption) (*response.ListPriceHistoryResponse, error)
 	CreateOrder(ctx context.Context, in *request.CreateOrderRequest, opts ...grpc.CallOption) (*response.CreateOrderResponse, error)
 	GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...grpc.CallOption) (*response.GetOrderResponse, error)
+	VerifyOrderPayment(ctx context.Context, in *request.VerifyOrderPaymentRequest, opts ...grpc.CallOption) (*response.VerifyOrderPaymentResponse, error)
 }
 
 type wishesClient struct {
@@ -325,6 +327,16 @@ func (c *wishesClient) GetOrder(ctx context.Context, in *request.GetOrderRequest
 	return out, nil
 }
 
+func (c *wishesClient) VerifyOrderPayment(ctx context.Context, in *request.VerifyOrderPaymentRequest, opts ...grpc.CallOption) (*response.VerifyOrderPaymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.VerifyOrderPaymentResponse)
+	err := c.cc.Invoke(ctx, Wishes_VerifyOrderPayment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WishesServer is the server API for Wishes service.
 // All implementations must embed UnimplementedWishesServer
 // for forward compatibility.
@@ -353,6 +365,7 @@ type WishesServer interface {
 	ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error)
 	CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error)
 	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
+	VerifyOrderPayment(context.Context, *request.VerifyOrderPaymentRequest) (*response.VerifyOrderPaymentResponse, error)
 	mustEmbedUnimplementedWishesServer()
 }
 
@@ -434,6 +447,9 @@ func (UnimplementedWishesServer) CreateOrder(context.Context, *request.CreateOrd
 }
 func (UnimplementedWishesServer) GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetOrder not implemented")
+}
+func (UnimplementedWishesServer) VerifyOrderPayment(context.Context, *request.VerifyOrderPaymentRequest) (*response.VerifyOrderPaymentResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method VerifyOrderPayment not implemented")
 }
 func (UnimplementedWishesServer) mustEmbedUnimplementedWishesServer() {}
 func (UnimplementedWishesServer) testEmbeddedByValue()                {}
@@ -888,6 +904,24 @@ func _Wishes_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wishes_VerifyOrderPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.VerifyOrderPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).VerifyOrderPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_VerifyOrderPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).VerifyOrderPayment(ctx, req.(*request.VerifyOrderPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Wishes_ServiceDesc is the grpc.ServiceDesc for Wishes service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -990,6 +1024,10 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrder",
 			Handler:    _Wishes_GetOrder_Handler,
+		},
+		{
+			MethodName: "VerifyOrderPayment",
+			Handler:    _Wishes_VerifyOrderPayment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
