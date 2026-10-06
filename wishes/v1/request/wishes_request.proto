@@ -117,7 +117,6 @@ message UpdatePricingRequest {
   int64 amount_minor = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).int64 = {gte: 0, lte: 10000000}];
   string currency = 2 [(validate.rules).string = {ignore_empty: true, len: 3}];
   string note = 3 [(validate.rules).string = {ignore_empty: true, max_len: 200}];
-  // optional MRP; must be above amount_minor (the selling price), 0 for no discount
   int64 mrp_minor = 4 [(validate.rules).int64 = {gte: 0, lte: 10000000}];
 }
 

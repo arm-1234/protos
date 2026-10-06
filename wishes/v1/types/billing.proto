@@ -37,11 +37,7 @@ message PriceInfo {
   bool free = 4;
   string note = 5;
   google.protobuf.Timestamp active_from = 6;
-  // MRP shown struck through beside the selling price (amount_minor);
-  // 0 when no discount is running
   int64 mrp_minor = 7;
   string mrp_display = 8;
-  // whole percent off the MRP, computed by the server and rounded down;
-  // 0 when there is no discount
   int32 discount_percent = 9;
 }

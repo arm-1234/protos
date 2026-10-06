@@ -1114,12 +1114,11 @@ func (*GetPricingRequest) Descriptor() ([]byte, []int) {
 }
 
 type UpdatePricingRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	AmountMinor int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
-	Currency    string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
-	Note        string                 `protobuf:"bytes,3,opt,name=note,proto3" json:"note,omitempty"`
-	// optional MRP; must be above amount_minor (the selling price), 0 for no discount
-	MrpMinor      int64 `protobuf:"varint,4,opt,name=mrp_minor,json=mrpMinor,proto3" json:"mrp_minor,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AmountMinor   int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency      string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
+	Note          string                 `protobuf:"bytes,3,opt,name=note,proto3" json:"note,omitempty"`
+	MrpMinor      int64                  `protobuf:"varint,4,opt,name=mrp_minor,json=mrpMinor,proto3" json:"mrp_minor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

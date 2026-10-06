@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package feedback.v1.types;
+
+option go_package = "github.com/arm-1234/protos/feedback/v1/types;types";
+
+message FeedbackCategory {
+  string id = 1;
+  string label = 2;
+}

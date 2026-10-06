@@ -232,20 +232,16 @@ func (x *PaymentCheckout) GetCurrency() string {
 }
 
 type PriceInfo struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	AmountMinor int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
-	Currency    string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
-	Display     string                 `protobuf:"bytes,3,opt,name=display,proto3" json:"display,omitempty"`
-	Free        bool                   `protobuf:"varint,4,opt,name=free,proto3" json:"free,omitempty"`
-	Note        string                 `protobuf:"bytes,5,opt,name=note,proto3" json:"note,omitempty"`
-	ActiveFrom  *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=active_from,json=activeFrom,proto3" json:"active_from,omitempty"`
-	// MRP shown struck through beside the selling price (amount_minor);
-	// 0 when no discount is running
-	MrpMinor   int64  `protobuf:"varint,7,opt,name=mrp_minor,json=mrpMinor,proto3" json:"mrp_minor,omitempty"`
-	MrpDisplay string `protobuf:"bytes,8,opt,name=mrp_display,json=mrpDisplay,proto3" json:"mrp_display,omitempty"`
-	// whole percent off the MRP, computed by the server and rounded down;
-	// 0 when there is no discount
-	DiscountPercent int32 `protobuf:"varint,9,opt,name=discount_percent,json=discountPercent,proto3" json:"discount_percent,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	AmountMinor     int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency        string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
+	Display         string                 `protobuf:"bytes,3,opt,name=display,proto3" json:"display,omitempty"`
+	Free            bool                   `protobuf:"varint,4,opt,name=free,proto3" json:"free,omitempty"`
+	Note            string                 `protobuf:"bytes,5,opt,name=note,proto3" json:"note,omitempty"`
+	ActiveFrom      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=active_from,json=activeFrom,proto3" json:"active_from,omitempty"`
+	MrpMinor        int64                  `protobuf:"varint,7,opt,name=mrp_minor,json=mrpMinor,proto3" json:"mrp_minor,omitempty"`
+	MrpDisplay      string                 `protobuf:"bytes,8,opt,name=mrp_display,json=mrpDisplay,proto3" json:"mrp_display,omitempty"`
+	DiscountPercent int32                  `protobuf:"varint,9,opt,name=discount_percent,json=discountPercent,proto3" json:"discount_percent,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
