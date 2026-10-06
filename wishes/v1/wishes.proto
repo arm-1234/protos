@@ -154,6 +154,33 @@ service Wishes {
     };
   }
 
+  rpc CreateCoupon (wishes.v1.request.CreateCouponRequest) returns (wishes.v1.response.CreateCouponResponse) {
+    option (google.api.http) = {
+      post: "/v1/coupons"
+      body: "*"
+    };
+  }
+
+  rpc ListCoupons (wishes.v1.request.ListCouponsRequest) returns (wishes.v1.response.ListCouponsResponse) {
+    option (google.api.http) = {
+      get: "/v1/coupons"
+    };
+  }
+
+  rpc SetCouponStatus (wishes.v1.request.SetCouponStatusRequest) returns (wishes.v1.response.SetCouponStatusResponse) {
+    option (google.api.http) = {
+      post: "/v1/coupons/{code}:status"
+      body: "*"
+    };
+  }
+
+  rpc CheckCoupon (wishes.v1.request.CheckCouponRequest) returns (wishes.v1.response.CheckCouponResponse) {
+    option (google.api.http) = {
+      post: "/v1/coupons/{code}:check"
+      body: "*"
+    };
+  }
+
   rpc CreateOrder (wishes.v1.request.CreateOrderRequest) returns (wishes.v1.response.CreateOrderResponse) {
     option (google.api.http) = {
       post: "/v1/wishes/{wish_id}:order"
@@ -212,4 +239,11 @@ enum ErrorReason {
   PAYMENT_GATEWAY_ERROR = 54 [(errors.code) = 502];
   PAYMENT_VERIFICATION_FAILED = 55 [(errors.code) = 400];
   PRICING_INVALID = 56 [(errors.code) = 400];
+
+  COUPON_NOT_FOUND = 60 [(errors.code) = 404];
+  COUPON_EXPIRED = 61 [(errors.code) = 410];
+  COUPON_DISABLED = 62 [(errors.code) = 409];
+  COUPON_ALREADY_USED = 63 [(errors.code) = 409];
+  COUPON_CODE_TAKEN = 64 [(errors.code) = 409];
+  COUPON_NOT_APPLICABLE = 65 [(errors.code) = 422];
 }

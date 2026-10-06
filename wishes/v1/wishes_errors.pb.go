@@ -346,3 +346,75 @@ func IsPricingInvalid(err error) bool {
 func ErrorPricingInvalid(format string, args ...interface{}) *errors.Error {
 	return errors.New(400, ErrorReason_PRICING_INVALID.String(), fmt.Sprintf(format, args...))
 }
+
+func IsCouponNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_COUPON_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorCouponNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, ErrorReason_COUPON_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
+
+func IsCouponExpired(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_COUPON_EXPIRED.String() && e.Code == 410
+}
+
+func ErrorCouponExpired(format string, args ...interface{}) *errors.Error {
+	return errors.New(410, ErrorReason_COUPON_EXPIRED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsCouponDisabled(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_COUPON_DISABLED.String() && e.Code == 409
+}
+
+func ErrorCouponDisabled(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_COUPON_DISABLED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsCouponAlreadyUsed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_COUPON_ALREADY_USED.String() && e.Code == 409
+}
+
+func ErrorCouponAlreadyUsed(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_COUPON_ALREADY_USED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsCouponCodeTaken(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_COUPON_CODE_TAKEN.String() && e.Code == 409
+}
+
+func ErrorCouponCodeTaken(format string, args ...interface{}) *errors.Error {
+	return errors.New(409, ErrorReason_COUPON_CODE_TAKEN.String(), fmt.Sprintf(format, args...))
+}
+
+func IsCouponNotApplicable(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_COUPON_NOT_APPLICABLE.String() && e.Code == 422
+}
+
+func ErrorCouponNotApplicable(format string, args ...interface{}) *errors.Error {
+	return errors.New(422, ErrorReason_COUPON_NOT_APPLICABLE.String(), fmt.Sprintf(format, args...))
+}

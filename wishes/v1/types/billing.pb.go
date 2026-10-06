@@ -24,21 +24,25 @@ const (
 )
 
 type OrderInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	OrderId       string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	WishId        string                 `protobuf:"bytes,2,opt,name=wish_id,json=wishId,proto3" json:"wish_id,omitempty"`
-	AmountMinor   int64                  `protobuf:"varint,3,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
-	Currency      string                 `protobuf:"bytes,4,opt,name=currency,proto3" json:"currency,omitempty"`
-	Display       string                 `protobuf:"bytes,5,opt,name=display,proto3" json:"display,omitempty"`
-	Status        enums.OrderStatus      `protobuf:"varint,6,opt,name=status,proto3,enum=wishes.v1.types.enums.OrderStatus" json:"status,omitempty"`
-	Gateway       string                 `protobuf:"bytes,7,opt,name=gateway,proto3" json:"gateway,omitempty"`
-	GatewayRef    string                 `protobuf:"bytes,8,opt,name=gateway_ref,json=gatewayRef,proto3" json:"gateway_ref,omitempty"`
-	FailureReason string                 `protobuf:"bytes,9,opt,name=failure_reason,json=failureReason,proto3" json:"failure_reason,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	PaidAt        *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=paid_at,json=paidAt,proto3" json:"paid_at,omitempty"`
-	ExpiresAt     *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	OrderId         string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	WishId          string                 `protobuf:"bytes,2,opt,name=wish_id,json=wishId,proto3" json:"wish_id,omitempty"`
+	AmountMinor     int64                  `protobuf:"varint,3,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency        string                 `protobuf:"bytes,4,opt,name=currency,proto3" json:"currency,omitempty"`
+	Display         string                 `protobuf:"bytes,5,opt,name=display,proto3" json:"display,omitempty"`
+	Status          enums.OrderStatus      `protobuf:"varint,6,opt,name=status,proto3,enum=wishes.v1.types.enums.OrderStatus" json:"status,omitempty"`
+	Gateway         string                 `protobuf:"bytes,7,opt,name=gateway,proto3" json:"gateway,omitempty"`
+	GatewayRef      string                 `protobuf:"bytes,8,opt,name=gateway_ref,json=gatewayRef,proto3" json:"gateway_ref,omitempty"`
+	FailureReason   string                 `protobuf:"bytes,9,opt,name=failure_reason,json=failureReason,proto3" json:"failure_reason,omitempty"`
+	CreatedAt       *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	PaidAt          *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=paid_at,json=paidAt,proto3" json:"paid_at,omitempty"`
+	ExpiresAt       *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	CouponCode      string                 `protobuf:"bytes,13,opt,name=coupon_code,json=couponCode,proto3" json:"coupon_code,omitempty"`
+	BaseAmountMinor int64                  `protobuf:"varint,14,opt,name=base_amount_minor,json=baseAmountMinor,proto3" json:"base_amount_minor,omitempty"`
+	DiscountMinor   int64                  `protobuf:"varint,15,opt,name=discount_minor,json=discountMinor,proto3" json:"discount_minor,omitempty"`
+	DiscountDisplay string                 `protobuf:"bytes,16,opt,name=discount_display,json=discountDisplay,proto3" json:"discount_display,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *OrderInfo) Reset() {
@@ -153,6 +157,34 @@ func (x *OrderInfo) GetExpiresAt() *timestamppb.Timestamp {
 		return x.ExpiresAt
 	}
 	return nil
+}
+
+func (x *OrderInfo) GetCouponCode() string {
+	if x != nil {
+		return x.CouponCode
+	}
+	return ""
+}
+
+func (x *OrderInfo) GetBaseAmountMinor() int64 {
+	if x != nil {
+		return x.BaseAmountMinor
+	}
+	return 0
+}
+
+func (x *OrderInfo) GetDiscountMinor() int64 {
+	if x != nil {
+		return x.DiscountMinor
+	}
+	return 0
+}
+
+func (x *OrderInfo) GetDiscountDisplay() string {
+	if x != nil {
+		return x.DiscountDisplay
+	}
+	return ""
 }
 
 type PaymentCheckout struct {
@@ -343,7 +375,7 @@ var File_wishes_v1_types_billing_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_billing_proto_rawDesc = "" +
 	"\n" +
-	"\x1dwishes/v1/types/billing.proto\x12\x0fwishes.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a(wishes/v1/types/enums/order_status.proto\"\xe1\x03\n" +
+	"\x1dwishes/v1/types/billing.proto\x12\x0fwishes.v1.types\x1a\x1fgoogle/protobuf/timestamp.proto\x1a(wishes/v1/types/enums/order_status.proto\"\x80\x05\n" +
 	"\tOrderInfo\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\tR\aorderId\x12\x17\n" +
 	"\awish_id\x18\x02 \x01(\tR\x06wishId\x12!\n" +
@@ -360,7 +392,12 @@ const file_wishes_v1_types_billing_proto_rawDesc = "" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x123\n" +
 	"\apaid_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\x06paidAt\x129\n" +
 	"\n" +
-	"expires_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"\xab\x01\n" +
+	"expires_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1f\n" +
+	"\vcoupon_code\x18\r \x01(\tR\n" +
+	"couponCode\x12*\n" +
+	"\x11base_amount_minor\x18\x0e \x01(\x03R\x0fbaseAmountMinor\x12%\n" +
+	"\x0ediscount_minor\x18\x0f \x01(\x03R\rdiscountMinor\x12)\n" +
+	"\x10discount_display\x18\x10 \x01(\tR\x0fdiscountDisplay\"\xab\x01\n" +
 	"\x0fPaymentCheckout\x12\x18\n" +
 	"\agateway\x18\x01 \x01(\tR\agateway\x12\x15\n" +
 	"\x06key_id\x18\x02 \x01(\tR\x05keyId\x12(\n" +

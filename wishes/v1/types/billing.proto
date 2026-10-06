@@ -20,6 +20,10 @@ message OrderInfo {
   google.protobuf.Timestamp created_at = 10;
   google.protobuf.Timestamp paid_at = 11;
   google.protobuf.Timestamp expires_at = 12;
+  string coupon_code = 13;
+  int64 base_amount_minor = 14;
+  int64 discount_minor = 15;
+  string discount_display = 16;
 }
 
 message PaymentCheckout {

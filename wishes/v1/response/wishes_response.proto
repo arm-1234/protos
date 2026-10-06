@@ -6,6 +6,7 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "wishes/v1/types/wish.proto";
 import "wishes/v1/types/billing.proto";
+import "wishes/v1/types/coupon.proto";
 import "wishes/v1/types/response.proto";
 import "wishes/v1/types/template.proto";
 import "wishes/v1/types/enums/delivery_status.proto";
@@ -135,4 +136,20 @@ message GetOrderResponse {
 message VerifyOrderPaymentResponse {
   wishes.v1.types.OrderInfo order = 1;
   wishes.v1.types.WishInfo wish = 2;
+}
+
+message CreateCouponResponse {
+  wishes.v1.types.CouponInfo coupon = 1;
+}
+
+message ListCouponsResponse {
+  repeated wishes.v1.types.CouponInfo coupons = 1;
+}
+
+message SetCouponStatusResponse {
+  wishes.v1.types.CouponInfo coupon = 1;
+}
+
+message CheckCouponResponse {
+  wishes.v1.types.CouponQuote quote = 1;
 }

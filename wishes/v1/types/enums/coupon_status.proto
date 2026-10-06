@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package wishes.v1.types.enums;
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types/enums;enums";
+
+enum CouponStatus {
+  COUPON_STATUS_UNSPECIFIED = 0;
+  COUPON_STATUS_ACTIVE = 1;
+  COUPON_STATUS_DISABLED = 2;
+  COUPON_STATUS_EXPIRED = 3;
+}

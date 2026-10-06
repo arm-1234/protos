@@ -1228,6 +1228,7 @@ func (x *ListPriceHistoryRequest) GetLimit() int32 {
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	WishId        string                 `protobuf:"bytes,1,opt,name=wish_id,json=wishId,proto3" json:"wish_id,omitempty"`
+	CouponCode    string                 `protobuf:"bytes,2,opt,name=coupon_code,json=couponCode,proto3" json:"coupon_code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1265,6 +1266,13 @@ func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
 func (x *CreateOrderRequest) GetWishId() string {
 	if x != nil {
 		return x.WishId
+	}
+	return ""
+}
+
+func (x *CreateOrderRequest) GetCouponCode() string {
+	if x != nil {
+		return x.CouponCode
 	}
 	return ""
 }
@@ -1373,11 +1381,211 @@ func (x *VerifyOrderPaymentRequest) GetSignature() string {
 	return ""
 }
 
+type CreateCouponRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	PercentOff    int32                  `protobuf:"varint,2,opt,name=percent_off,json=percentOff,proto3" json:"percent_off,omitempty"`
+	ValidDays     int32                  `protobuf:"varint,3,opt,name=valid_days,json=validDays,proto3" json:"valid_days,omitempty"`
+	Note          string                 `protobuf:"bytes,4,opt,name=note,proto3" json:"note,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCouponRequest) Reset() {
+	*x = CreateCouponRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCouponRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCouponRequest) ProtoMessage() {}
+
+func (x *CreateCouponRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCouponRequest.ProtoReflect.Descriptor instead.
+func (*CreateCouponRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *CreateCouponRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *CreateCouponRequest) GetPercentOff() int32 {
+	if x != nil {
+		return x.PercentOff
+	}
+	return 0
+}
+
+func (x *CreateCouponRequest) GetValidDays() int32 {
+	if x != nil {
+		return x.ValidDays
+	}
+	return 0
+}
+
+func (x *CreateCouponRequest) GetNote() string {
+	if x != nil {
+		return x.Note
+	}
+	return ""
+}
+
+type ListCouponsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCouponsRequest) Reset() {
+	*x = ListCouponsRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCouponsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCouponsRequest) ProtoMessage() {}
+
+func (x *ListCouponsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCouponsRequest.ProtoReflect.Descriptor instead.
+func (*ListCouponsRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{26}
+}
+
+type SetCouponStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	Status        enums.CouponStatus     `protobuf:"varint,2,opt,name=status,proto3,enum=wishes.v1.types.enums.CouponStatus" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetCouponStatusRequest) Reset() {
+	*x = SetCouponStatusRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetCouponStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetCouponStatusRequest) ProtoMessage() {}
+
+func (x *SetCouponStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetCouponStatusRequest.ProtoReflect.Descriptor instead.
+func (*SetCouponStatusRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *SetCouponStatusRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *SetCouponStatusRequest) GetStatus() enums.CouponStatus {
+	if x != nil {
+		return x.Status
+	}
+	return enums.CouponStatus(0)
+}
+
+type CheckCouponRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckCouponRequest) Reset() {
+	*x = CheckCouponRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckCouponRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckCouponRequest) ProtoMessage() {}
+
+func (x *CheckCouponRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckCouponRequest.ProtoReflect.Descriptor instead.
+func (*CheckCouponRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *CheckCouponRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\n" +
-	"&wishes/v1/request/wishes_request.proto\x12\x11wishes.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x17validate/validate.proto\x1a'wishes/v1/types/enums/wish_status.proto\x1a(wishes/v1/types/enums/wish_sort_by.proto\x1a)wishes/v1/types/enums/response_kind.proto\"\x83\x02\n" +
+	"&wishes/v1/request/wishes_request.proto\x12\x11wishes.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x17validate/validate.proto\x1a'wishes/v1/types/enums/wish_status.proto\x1a(wishes/v1/types/enums/wish_sort_by.proto\x1a)wishes/v1/types/enums/response_kind.proto\x1a)wishes/v1/types/enums/coupon_status.proto\"\x83\x02\n" +
 	"\x11CreateWishRequest\x12<\n" +
 	"\btemplate\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\btemplate\x12/\n" +
 	"\x06config\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x06config\x12,\n" +
@@ -1464,15 +1672,30 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x04note\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc8\x01\xd0\x01\x01R\x04note\x12)\n" +
 	"\tmrp_minor\x18\x04 \x01(\x03B\f\xfaB\t\"\a\x18\x80\xad\xe2\x04(\x00R\bmrpMinor\":\n" +
 	"\x17ListPriceHistoryRequest\x12\x1f\n" +
-	"\x05limit\x18\x01 \x01(\x05B\t\xfaB\x06\x1a\x04\x18d(\x00R\x05limit\":\n" +
+	"\x05limit\x18\x01 \x01(\x05B\t\xfaB\x06\x1a\x04\x18d(\x00R\x05limit\"|\n" +
 	"\x12CreateOrderRequest\x12$\n" +
-	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\"9\n" +
+	"\awish_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x06wishId\x12@\n" +
+	"\vcoupon_code\x18\x02 \x01(\tB\x1f\xfaB\x1cr\x1a2\x15^[A-Za-z0-9_-]{3,32}$\xd0\x01\x01R\n" +
+	"couponCode\"9\n" +
 	"\x0fGetOrderRequest\x12&\n" +
 	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\"\xae\x01\n" +
 	"\x19VerifyOrderPaymentRequest\x12&\n" +
 	"\border_id\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\aorderId\x12;\n" +
 	"\x12gateway_payment_id\x18\x02 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x01\x18@R\x10gatewayPaymentId\x12,\n" +
-	"\tsignature\x18\x03 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\tsignatureB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\tsignature\x18\x03 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x01\x18\x80\x01R\tsignature\"\xcb\x01\n" +
+	"\x13CreateCouponRequest\x124\n" +
+	"\x04code\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x172\x15^[A-Za-z0-9_-]{3,32}$R\x04code\x12.\n" +
+	"\vpercent_off\x18\x02 \x01(\x05B\r\xe2A\x01\x02\xfaB\x06\x1a\x04\x18Z(\x01R\n" +
+	"percentOff\x12-\n" +
+	"\n" +
+	"valid_days\x18\x03 \x01(\x05B\x0e\xe2A\x01\x02\xfaB\a\x1a\x05\x18\xed\x02(\x01R\tvalidDays\x12\x1f\n" +
+	"\x04note\x18\x04 \x01(\tB\v\xfaB\br\x06\x18\xc8\x01\xd0\x01\x01R\x04note\"\x14\n" +
+	"\x12ListCouponsRequest\"\x9b\x01\n" +
+	"\x16SetCouponStatusRequest\x124\n" +
+	"\x04code\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x172\x15^[A-Za-z0-9_-]{3,32}$R\x04code\x12K\n" +
+	"\x06status\x18\x02 \x01(\x0e2#.wishes.v1.types.enums.CouponStatusB\x0e\xe2A\x01\x02\xfaB\a\x82\x01\x04\x18\x01\x18\x02R\x06status\"J\n" +
+	"\x12CheckCouponRequest\x124\n" +
+	"\x04code\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x172\x15^[A-Za-z0-9_-]{3,32}$R\x04codeB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -1486,7 +1709,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),         // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),       // 1: wishes.v1.request.ListMyWishesRequest
@@ -1513,23 +1736,29 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateOrderRequest)(nil),        // 22: wishes.v1.request.CreateOrderRequest
 	(*GetOrderRequest)(nil),           // 23: wishes.v1.request.GetOrderRequest
 	(*VerifyOrderPaymentRequest)(nil), // 24: wishes.v1.request.VerifyOrderPaymentRequest
-	(*structpb.Struct)(nil),           // 25: google.protobuf.Struct
-	(enums.WishStatus)(0),             // 26: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),             // 27: wishes.v1.types.enums.WishSortBy
-	(enums.ResponseKind)(0),           // 28: wishes.v1.types.enums.ResponseKind
+	(*CreateCouponRequest)(nil),       // 25: wishes.v1.request.CreateCouponRequest
+	(*ListCouponsRequest)(nil),        // 26: wishes.v1.request.ListCouponsRequest
+	(*SetCouponStatusRequest)(nil),    // 27: wishes.v1.request.SetCouponStatusRequest
+	(*CheckCouponRequest)(nil),        // 28: wishes.v1.request.CheckCouponRequest
+	(*structpb.Struct)(nil),           // 29: google.protobuf.Struct
+	(enums.WishStatus)(0),             // 30: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),             // 31: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),           // 32: wishes.v1.types.enums.ResponseKind
+	(enums.CouponStatus)(0),           // 33: wishes.v1.types.enums.CouponStatus
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	25, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	26, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	27, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	25, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	25, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	28, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
-	6,  // [6:6] is the sub-list for method output_type
-	6,  // [6:6] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	29, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	30, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	31, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	29, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	29, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	32, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	33, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
+	7,  // [7:7] is the sub-list for method output_type
+	7,  // [7:7] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_request_wishes_request_proto_init() }
@@ -1543,7 +1772,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   25,
+			NumMessages:   29,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

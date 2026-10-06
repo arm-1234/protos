@@ -43,6 +43,10 @@ const (
 	Wishes_GetPricing_FullMethodName         = "/wishes.v1.Wishes/GetPricing"
 	Wishes_UpdatePricing_FullMethodName      = "/wishes.v1.Wishes/UpdatePricing"
 	Wishes_ListPriceHistory_FullMethodName   = "/wishes.v1.Wishes/ListPriceHistory"
+	Wishes_CreateCoupon_FullMethodName       = "/wishes.v1.Wishes/CreateCoupon"
+	Wishes_ListCoupons_FullMethodName        = "/wishes.v1.Wishes/ListCoupons"
+	Wishes_SetCouponStatus_FullMethodName    = "/wishes.v1.Wishes/SetCouponStatus"
+	Wishes_CheckCoupon_FullMethodName        = "/wishes.v1.Wishes/CheckCoupon"
 	Wishes_CreateOrder_FullMethodName        = "/wishes.v1.Wishes/CreateOrder"
 	Wishes_GetOrder_FullMethodName           = "/wishes.v1.Wishes/GetOrder"
 	Wishes_VerifyOrderPayment_FullMethodName = "/wishes.v1.Wishes/VerifyOrderPayment"
@@ -74,6 +78,10 @@ type WishesClient interface {
 	GetPricing(ctx context.Context, in *request.GetPricingRequest, opts ...grpc.CallOption) (*response.GetPricingResponse, error)
 	UpdatePricing(ctx context.Context, in *request.UpdatePricingRequest, opts ...grpc.CallOption) (*response.UpdatePricingResponse, error)
 	ListPriceHistory(ctx context.Context, in *request.ListPriceHistoryRequest, opts ...grpc.CallOption) (*response.ListPriceHistoryResponse, error)
+	CreateCoupon(ctx context.Context, in *request.CreateCouponRequest, opts ...grpc.CallOption) (*response.CreateCouponResponse, error)
+	ListCoupons(ctx context.Context, in *request.ListCouponsRequest, opts ...grpc.CallOption) (*response.ListCouponsResponse, error)
+	SetCouponStatus(ctx context.Context, in *request.SetCouponStatusRequest, opts ...grpc.CallOption) (*response.SetCouponStatusResponse, error)
+	CheckCoupon(ctx context.Context, in *request.CheckCouponRequest, opts ...grpc.CallOption) (*response.CheckCouponResponse, error)
 	CreateOrder(ctx context.Context, in *request.CreateOrderRequest, opts ...grpc.CallOption) (*response.CreateOrderResponse, error)
 	GetOrder(ctx context.Context, in *request.GetOrderRequest, opts ...grpc.CallOption) (*response.GetOrderResponse, error)
 	VerifyOrderPayment(ctx context.Context, in *request.VerifyOrderPaymentRequest, opts ...grpc.CallOption) (*response.VerifyOrderPaymentResponse, error)
@@ -307,6 +315,46 @@ func (c *wishesClient) ListPriceHistory(ctx context.Context, in *request.ListPri
 	return out, nil
 }
 
+func (c *wishesClient) CreateCoupon(ctx context.Context, in *request.CreateCouponRequest, opts ...grpc.CallOption) (*response.CreateCouponResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.CreateCouponResponse)
+	err := c.cc.Invoke(ctx, Wishes_CreateCoupon_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) ListCoupons(ctx context.Context, in *request.ListCouponsRequest, opts ...grpc.CallOption) (*response.ListCouponsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListCouponsResponse)
+	err := c.cc.Invoke(ctx, Wishes_ListCoupons_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) SetCouponStatus(ctx context.Context, in *request.SetCouponStatusRequest, opts ...grpc.CallOption) (*response.SetCouponStatusResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.SetCouponStatusResponse)
+	err := c.cc.Invoke(ctx, Wishes_SetCouponStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) CheckCoupon(ctx context.Context, in *request.CheckCouponRequest, opts ...grpc.CallOption) (*response.CheckCouponResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.CheckCouponResponse)
+	err := c.cc.Invoke(ctx, Wishes_CheckCoupon_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *wishesClient) CreateOrder(ctx context.Context, in *request.CreateOrderRequest, opts ...grpc.CallOption) (*response.CreateOrderResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.CreateOrderResponse)
@@ -363,6 +411,10 @@ type WishesServer interface {
 	GetPricing(context.Context, *request.GetPricingRequest) (*response.GetPricingResponse, error)
 	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
 	ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error)
+	CreateCoupon(context.Context, *request.CreateCouponRequest) (*response.CreateCouponResponse, error)
+	ListCoupons(context.Context, *request.ListCouponsRequest) (*response.ListCouponsResponse, error)
+	SetCouponStatus(context.Context, *request.SetCouponStatusRequest) (*response.SetCouponStatusResponse, error)
+	CheckCoupon(context.Context, *request.CheckCouponRequest) (*response.CheckCouponResponse, error)
 	CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error)
 	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
 	VerifyOrderPayment(context.Context, *request.VerifyOrderPaymentRequest) (*response.VerifyOrderPaymentResponse, error)
@@ -441,6 +493,18 @@ func (UnimplementedWishesServer) UpdatePricing(context.Context, *request.UpdateP
 }
 func (UnimplementedWishesServer) ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListPriceHistory not implemented")
+}
+func (UnimplementedWishesServer) CreateCoupon(context.Context, *request.CreateCouponRequest) (*response.CreateCouponResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateCoupon not implemented")
+}
+func (UnimplementedWishesServer) ListCoupons(context.Context, *request.ListCouponsRequest) (*response.ListCouponsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListCoupons not implemented")
+}
+func (UnimplementedWishesServer) SetCouponStatus(context.Context, *request.SetCouponStatusRequest) (*response.SetCouponStatusResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SetCouponStatus not implemented")
+}
+func (UnimplementedWishesServer) CheckCoupon(context.Context, *request.CheckCouponRequest) (*response.CheckCouponResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CheckCoupon not implemented")
 }
 func (UnimplementedWishesServer) CreateOrder(context.Context, *request.CreateOrderRequest) (*response.CreateOrderResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateOrder not implemented")
@@ -868,6 +932,78 @@ func _Wishes_ListPriceHistory_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wishes_CreateCoupon_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CreateCouponRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).CreateCoupon(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_CreateCoupon_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).CreateCoupon(ctx, req.(*request.CreateCouponRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_ListCoupons_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListCouponsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).ListCoupons(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_ListCoupons_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).ListCoupons(ctx, req.(*request.ListCouponsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_SetCouponStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.SetCouponStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).SetCouponStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_SetCouponStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).SetCouponStatus(ctx, req.(*request.SetCouponStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_CheckCoupon_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CheckCouponRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).CheckCoupon(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_CheckCoupon_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).CheckCoupon(ctx, req.(*request.CheckCouponRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Wishes_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.CreateOrderRequest)
 	if err := dec(in); err != nil {
@@ -1016,6 +1152,22 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListPriceHistory",
 			Handler:    _Wishes_ListPriceHistory_Handler,
+		},
+		{
+			MethodName: "CreateCoupon",
+			Handler:    _Wishes_CreateCoupon_Handler,
+		},
+		{
+			MethodName: "ListCoupons",
+			Handler:    _Wishes_ListCoupons_Handler,
+		},
+		{
+			MethodName: "SetCouponStatus",
+			Handler:    _Wishes_SetCouponStatus_Handler,
+		},
+		{
+			MethodName: "CheckCoupon",
+			Handler:    _Wishes_CheckCoupon_Handler,
 		},
 		{
 			MethodName: "CreateOrder",

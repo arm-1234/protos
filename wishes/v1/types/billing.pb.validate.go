@@ -166,6 +166,14 @@ func (m *OrderInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for CouponCode
+
+	// no validation rules for BaseAmountMinor
+
+	// no validation rules for DiscountMinor
+
+	// no validation rules for DiscountDisplay
+
 	if len(errors) > 0 {
 		return OrderInfoMultiError(errors)
 	}
