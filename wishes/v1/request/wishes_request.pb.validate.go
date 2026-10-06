@@ -2875,6 +2875,17 @@ func (m *UpdatePricingRequest) validate(all bool) error {
 
 	}
 
+	if val := m.GetMrpMinor(); val < 0 || val > 10000000 {
+		err := UpdatePricingRequestValidationError{
+			field:  "MrpMinor",
+			reason: "value must be inside range [0, 10000000]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return UpdatePricingRequestMultiError(errors)
 	}

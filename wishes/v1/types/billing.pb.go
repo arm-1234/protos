@@ -232,15 +232,22 @@ func (x *PaymentCheckout) GetCurrency() string {
 }
 
 type PriceInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AmountMinor   int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
-	Currency      string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
-	Display       string                 `protobuf:"bytes,3,opt,name=display,proto3" json:"display,omitempty"`
-	Free          bool                   `protobuf:"varint,4,opt,name=free,proto3" json:"free,omitempty"`
-	Note          string                 `protobuf:"bytes,5,opt,name=note,proto3" json:"note,omitempty"`
-	ActiveFrom    *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=active_from,json=activeFrom,proto3" json:"active_from,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	AmountMinor int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency    string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
+	Display     string                 `protobuf:"bytes,3,opt,name=display,proto3" json:"display,omitempty"`
+	Free        bool                   `protobuf:"varint,4,opt,name=free,proto3" json:"free,omitempty"`
+	Note        string                 `protobuf:"bytes,5,opt,name=note,proto3" json:"note,omitempty"`
+	ActiveFrom  *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=active_from,json=activeFrom,proto3" json:"active_from,omitempty"`
+	// MRP shown struck through beside the selling price (amount_minor);
+	// 0 when no discount is running
+	MrpMinor   int64  `protobuf:"varint,7,opt,name=mrp_minor,json=mrpMinor,proto3" json:"mrp_minor,omitempty"`
+	MrpDisplay string `protobuf:"bytes,8,opt,name=mrp_display,json=mrpDisplay,proto3" json:"mrp_display,omitempty"`
+	// whole percent off the MRP, computed by the server and rounded down;
+	// 0 when there is no discount
+	DiscountPercent int32 `protobuf:"varint,9,opt,name=discount_percent,json=discountPercent,proto3" json:"discount_percent,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *PriceInfo) Reset() {
@@ -315,6 +322,27 @@ func (x *PriceInfo) GetActiveFrom() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *PriceInfo) GetMrpMinor() int64 {
+	if x != nil {
+		return x.MrpMinor
+	}
+	return 0
+}
+
+func (x *PriceInfo) GetMrpDisplay() string {
+	if x != nil {
+		return x.MrpDisplay
+	}
+	return ""
+}
+
+func (x *PriceInfo) GetDiscountPercent() int32 {
+	if x != nil {
+		return x.DiscountPercent
+	}
+	return 0
+}
+
 var File_wishes_v1_types_billing_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_billing_proto_rawDesc = "" +
@@ -342,7 +370,7 @@ const file_wishes_v1_types_billing_proto_rawDesc = "" +
 	"\x06key_id\x18\x02 \x01(\tR\x05keyId\x12(\n" +
 	"\x10gateway_order_id\x18\x03 \x01(\tR\x0egatewayOrderId\x12!\n" +
 	"\famount_minor\x18\x04 \x01(\x03R\vamountMinor\x12\x1a\n" +
-	"\bcurrency\x18\x05 \x01(\tR\bcurrency\"\xc9\x01\n" +
+	"\bcurrency\x18\x05 \x01(\tR\bcurrency\"\xb2\x02\n" +
 	"\tPriceInfo\x12!\n" +
 	"\famount_minor\x18\x01 \x01(\x03R\vamountMinor\x12\x1a\n" +
 	"\bcurrency\x18\x02 \x01(\tR\bcurrency\x12\x18\n" +
@@ -350,7 +378,11 @@ const file_wishes_v1_types_billing_proto_rawDesc = "" +
 	"\x04free\x18\x04 \x01(\bR\x04free\x12\x12\n" +
 	"\x04note\x18\x05 \x01(\tR\x04note\x12;\n" +
 	"\vactive_from\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"activeFromB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
+	"activeFrom\x12\x1b\n" +
+	"\tmrp_minor\x18\a \x01(\x03R\bmrpMinor\x12\x1f\n" +
+	"\vmrp_display\x18\b \x01(\tR\n" +
+	"mrpDisplay\x12)\n" +
+	"\x10discount_percent\x18\t \x01(\x05R\x0fdiscountPercentB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
 
 var (
 	file_wishes_v1_types_billing_proto_rawDescOnce sync.Once

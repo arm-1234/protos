@@ -414,6 +414,12 @@ func (m *PriceInfo) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for MrpMinor
+
+	// no validation rules for MrpDisplay
+
+	// no validation rules for DiscountPercent
+
 	if len(errors) > 0 {
 		return PriceInfoMultiError(errors)
 	}

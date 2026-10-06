@@ -1114,10 +1114,12 @@ func (*GetPricingRequest) Descriptor() ([]byte, []int) {
 }
 
 type UpdatePricingRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AmountMinor   int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
-	Currency      string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
-	Note          string                 `protobuf:"bytes,3,opt,name=note,proto3" json:"note,omitempty"`
+	state       protoimpl.MessageState `protogen:"open.v1"`
+	AmountMinor int64                  `protobuf:"varint,1,opt,name=amount_minor,json=amountMinor,proto3" json:"amount_minor,omitempty"`
+	Currency    string                 `protobuf:"bytes,2,opt,name=currency,proto3" json:"currency,omitempty"`
+	Note        string                 `protobuf:"bytes,3,opt,name=note,proto3" json:"note,omitempty"`
+	// optional MRP; must be above amount_minor (the selling price), 0 for no discount
+	MrpMinor      int64 `protobuf:"varint,4,opt,name=mrp_minor,json=mrpMinor,proto3" json:"mrp_minor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1171,6 +1173,13 @@ func (x *UpdatePricingRequest) GetNote() string {
 		return x.Note
 	}
 	return ""
+}
+
+func (x *UpdatePricingRequest) GetMrpMinor() int64 {
+	if x != nil {
+		return x.MrpMinor
+	}
+	return 0
 }
 
 type ListPriceHistoryRequest struct {
@@ -1449,11 +1458,12 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x06reason\x18\x02 \x01(\tB\v\xfaB\br\x06\x18\xe8\a\xd0\x01\x01R\x06reason\x12'\n" +
 	"\breporter\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc0\x02\xd0\x01\x01R\breporter\"\x1a\n" +
 	"\x18GetTemplateSchemaRequest\"\x13\n" +
-	"\x11GetPricingRequest\"\x95\x01\n" +
+	"\x11GetPricingRequest\"\xc0\x01\n" +
 	"\x14UpdatePricingRequest\x123\n" +
 	"\famount_minor\x18\x01 \x01(\x03B\x10\xe2A\x01\x02\xfaB\t\"\a\x18\x80\xad\xe2\x04(\x00R\vamountMinor\x12'\n" +
 	"\bcurrency\x18\x02 \x01(\tB\v\xfaB\br\x06\x98\x01\x03\xd0\x01\x01R\bcurrency\x12\x1f\n" +
-	"\x04note\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc8\x01\xd0\x01\x01R\x04note\":\n" +
+	"\x04note\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc8\x01\xd0\x01\x01R\x04note\x12)\n" +
+	"\tmrp_minor\x18\x04 \x01(\x03B\f\xfaB\t\"\a\x18\x80\xad\xe2\x04(\x00R\bmrpMinor\":\n" +
 	"\x17ListPriceHistoryRequest\x12\x1f\n" +
 	"\x05limit\x18\x01 \x01(\x05B\t\xfaB\x06\x1a\x04\x18d(\x00R\x05limit\":\n" +
 	"\x12CreateOrderRequest\x12$\n" +
