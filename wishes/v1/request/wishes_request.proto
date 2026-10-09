@@ -142,7 +142,7 @@ message VerifyOrderPaymentRequest {
 
 message CreateCouponRequest {
   string code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {pattern: "^[A-Za-z0-9_-]{3,32}$"}];
-  int32 percent_off = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 90}];
+  int32 percent_off = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 100}];
   int32 valid_days = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 365}];
   string note = 4 [(validate.rules).string = {ignore_empty: true, max_len: 200}];
 }

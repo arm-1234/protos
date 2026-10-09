@@ -3488,10 +3488,10 @@ func (m *CreateCouponRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if val := m.GetPercentOff(); val < 1 || val > 90 {
+	if val := m.GetPercentOff(); val < 1 || val > 100 {
 		err := CreateCouponRequestValidationError{
 			field:  "PercentOff",
-			reason: "value must be inside range [1, 90]",
+			reason: "value must be inside range [1, 100]",
 		}
 		if !all {
 			return err
