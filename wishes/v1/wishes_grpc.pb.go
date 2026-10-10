@@ -21,41 +21,45 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Wishes_CreateWish_FullMethodName         = "/wishes.v1.Wishes/CreateWish"
-	Wishes_ListMyWishes_FullMethodName       = "/wishes.v1.Wishes/ListMyWishes"
-	Wishes_GetWishStats_FullMethodName       = "/wishes.v1.Wishes/GetWishStats"
-	Wishes_GetTemplateSchema_FullMethodName  = "/wishes.v1.Wishes/GetTemplateSchema"
-	Wishes_SubmitResponse_FullMethodName     = "/wishes.v1.Wishes/SubmitResponse"
-	Wishes_ReportCard_FullMethodName         = "/wishes.v1.Wishes/ReportCard"
-	Wishes_ListTemplates_FullMethodName      = "/wishes.v1.Wishes/ListTemplates"
-	Wishes_SaveDraft_FullMethodName          = "/wishes.v1.Wishes/SaveDraft"
-	Wishes_GetWish_FullMethodName            = "/wishes.v1.Wishes/GetWish"
-	Wishes_UpdateWish_FullMethodName         = "/wishes.v1.Wishes/UpdateWish"
-	Wishes_PublishWish_FullMethodName        = "/wishes.v1.Wishes/PublishWish"
-	Wishes_DeleteWish_FullMethodName         = "/wishes.v1.Wishes/DeleteWish"
-	Wishes_UploadWishPhoto_FullMethodName    = "/wishes.v1.Wishes/UploadWishPhoto"
-	Wishes_DeleteWishPhoto_FullMethodName    = "/wishes.v1.Wishes/DeleteWishPhoto"
-	Wishes_ExtendWish_FullMethodName         = "/wishes.v1.Wishes/ExtendWish"
-	Wishes_RevokeWish_FullMethodName         = "/wishes.v1.Wishes/RevokeWish"
-	Wishes_SendWish_FullMethodName           = "/wishes.v1.Wishes/SendWish"
-	Wishes_ListWishResponses_FullMethodName  = "/wishes.v1.Wishes/ListWishResponses"
-	Wishes_MarkResponsesSeen_FullMethodName  = "/wishes.v1.Wishes/MarkResponsesSeen"
-	Wishes_GetPricing_FullMethodName         = "/wishes.v1.Wishes/GetPricing"
-	Wishes_UpdatePricing_FullMethodName      = "/wishes.v1.Wishes/UpdatePricing"
-	Wishes_ListPriceHistory_FullMethodName   = "/wishes.v1.Wishes/ListPriceHistory"
-	Wishes_CreateCoupon_FullMethodName       = "/wishes.v1.Wishes/CreateCoupon"
-	Wishes_ListCoupons_FullMethodName        = "/wishes.v1.Wishes/ListCoupons"
-	Wishes_SetCouponStatus_FullMethodName    = "/wishes.v1.Wishes/SetCouponStatus"
-	Wishes_CheckCoupon_FullMethodName        = "/wishes.v1.Wishes/CheckCoupon"
-	Wishes_CreateOrder_FullMethodName        = "/wishes.v1.Wishes/CreateOrder"
-	Wishes_GetOrder_FullMethodName           = "/wishes.v1.Wishes/GetOrder"
-	Wishes_VerifyOrderPayment_FullMethodName = "/wishes.v1.Wishes/VerifyOrderPayment"
+	Wishes_ListTemplateSoundtracks_FullMethodName   = "/wishes.v1.Wishes/ListTemplateSoundtracks"
+	Wishes_UpdateTemplateSoundtracks_FullMethodName = "/wishes.v1.Wishes/UpdateTemplateSoundtracks"
+	Wishes_CreateWish_FullMethodName                = "/wishes.v1.Wishes/CreateWish"
+	Wishes_ListMyWishes_FullMethodName              = "/wishes.v1.Wishes/ListMyWishes"
+	Wishes_GetWishStats_FullMethodName              = "/wishes.v1.Wishes/GetWishStats"
+	Wishes_GetTemplateSchema_FullMethodName         = "/wishes.v1.Wishes/GetTemplateSchema"
+	Wishes_SubmitResponse_FullMethodName            = "/wishes.v1.Wishes/SubmitResponse"
+	Wishes_ReportCard_FullMethodName                = "/wishes.v1.Wishes/ReportCard"
+	Wishes_ListTemplates_FullMethodName             = "/wishes.v1.Wishes/ListTemplates"
+	Wishes_SaveDraft_FullMethodName                 = "/wishes.v1.Wishes/SaveDraft"
+	Wishes_GetWish_FullMethodName                   = "/wishes.v1.Wishes/GetWish"
+	Wishes_UpdateWish_FullMethodName                = "/wishes.v1.Wishes/UpdateWish"
+	Wishes_PublishWish_FullMethodName               = "/wishes.v1.Wishes/PublishWish"
+	Wishes_DeleteWish_FullMethodName                = "/wishes.v1.Wishes/DeleteWish"
+	Wishes_UploadWishPhoto_FullMethodName           = "/wishes.v1.Wishes/UploadWishPhoto"
+	Wishes_DeleteWishPhoto_FullMethodName           = "/wishes.v1.Wishes/DeleteWishPhoto"
+	Wishes_ExtendWish_FullMethodName                = "/wishes.v1.Wishes/ExtendWish"
+	Wishes_RevokeWish_FullMethodName                = "/wishes.v1.Wishes/RevokeWish"
+	Wishes_SendWish_FullMethodName                  = "/wishes.v1.Wishes/SendWish"
+	Wishes_ListWishResponses_FullMethodName         = "/wishes.v1.Wishes/ListWishResponses"
+	Wishes_MarkResponsesSeen_FullMethodName         = "/wishes.v1.Wishes/MarkResponsesSeen"
+	Wishes_GetPricing_FullMethodName                = "/wishes.v1.Wishes/GetPricing"
+	Wishes_UpdatePricing_FullMethodName             = "/wishes.v1.Wishes/UpdatePricing"
+	Wishes_ListPriceHistory_FullMethodName          = "/wishes.v1.Wishes/ListPriceHistory"
+	Wishes_CreateCoupon_FullMethodName              = "/wishes.v1.Wishes/CreateCoupon"
+	Wishes_ListCoupons_FullMethodName               = "/wishes.v1.Wishes/ListCoupons"
+	Wishes_SetCouponStatus_FullMethodName           = "/wishes.v1.Wishes/SetCouponStatus"
+	Wishes_CheckCoupon_FullMethodName               = "/wishes.v1.Wishes/CheckCoupon"
+	Wishes_CreateOrder_FullMethodName               = "/wishes.v1.Wishes/CreateOrder"
+	Wishes_GetOrder_FullMethodName                  = "/wishes.v1.Wishes/GetOrder"
+	Wishes_VerifyOrderPayment_FullMethodName        = "/wishes.v1.Wishes/VerifyOrderPayment"
 )
 
 // WishesClient is the client API for Wishes service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WishesClient interface {
+	ListTemplateSoundtracks(ctx context.Context, in *request.ListTemplateSoundtracksRequest, opts ...grpc.CallOption) (*response.ListTemplateSoundtracksResponse, error)
+	UpdateTemplateSoundtracks(ctx context.Context, in *request.UpdateTemplateSoundtracksRequest, opts ...grpc.CallOption) (*response.UpdateTemplateSoundtracksResponse, error)
 	CreateWish(ctx context.Context, in *request.CreateWishRequest, opts ...grpc.CallOption) (*response.CreateWishResponse, error)
 	ListMyWishes(ctx context.Context, in *request.ListMyWishesRequest, opts ...grpc.CallOption) (*response.ListMyWishesResponse, error)
 	GetWishStats(ctx context.Context, in *request.GetWishStatsRequest, opts ...grpc.CallOption) (*response.GetWishStatsResponse, error)
@@ -93,6 +97,26 @@ type wishesClient struct {
 
 func NewWishesClient(cc grpc.ClientConnInterface) WishesClient {
 	return &wishesClient{cc}
+}
+
+func (c *wishesClient) ListTemplateSoundtracks(ctx context.Context, in *request.ListTemplateSoundtracksRequest, opts ...grpc.CallOption) (*response.ListTemplateSoundtracksResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ListTemplateSoundtracksResponse)
+	err := c.cc.Invoke(ctx, Wishes_ListTemplateSoundtracks_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) UpdateTemplateSoundtracks(ctx context.Context, in *request.UpdateTemplateSoundtracksRequest, opts ...grpc.CallOption) (*response.UpdateTemplateSoundtracksResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.UpdateTemplateSoundtracksResponse)
+	err := c.cc.Invoke(ctx, Wishes_UpdateTemplateSoundtracks_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *wishesClient) CreateWish(ctx context.Context, in *request.CreateWishRequest, opts ...grpc.CallOption) (*response.CreateWishResponse, error) {
@@ -389,6 +413,8 @@ func (c *wishesClient) VerifyOrderPayment(ctx context.Context, in *request.Verif
 // All implementations must embed UnimplementedWishesServer
 // for forward compatibility.
 type WishesServer interface {
+	ListTemplateSoundtracks(context.Context, *request.ListTemplateSoundtracksRequest) (*response.ListTemplateSoundtracksResponse, error)
+	UpdateTemplateSoundtracks(context.Context, *request.UpdateTemplateSoundtracksRequest) (*response.UpdateTemplateSoundtracksResponse, error)
 	CreateWish(context.Context, *request.CreateWishRequest) (*response.CreateWishResponse, error)
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
@@ -428,6 +454,12 @@ type WishesServer interface {
 // pointer dereference when methods are called.
 type UnimplementedWishesServer struct{}
 
+func (UnimplementedWishesServer) ListTemplateSoundtracks(context.Context, *request.ListTemplateSoundtracksRequest) (*response.ListTemplateSoundtracksResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListTemplateSoundtracks not implemented")
+}
+func (UnimplementedWishesServer) UpdateTemplateSoundtracks(context.Context, *request.UpdateTemplateSoundtracksRequest) (*response.UpdateTemplateSoundtracksResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateTemplateSoundtracks not implemented")
+}
 func (UnimplementedWishesServer) CreateWish(context.Context, *request.CreateWishRequest) (*response.CreateWishResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateWish not implemented")
 }
@@ -534,6 +566,42 @@ func RegisterWishesServer(s grpc.ServiceRegistrar, srv WishesServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Wishes_ServiceDesc, srv)
+}
+
+func _Wishes_ListTemplateSoundtracks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ListTemplateSoundtracksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).ListTemplateSoundtracks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_ListTemplateSoundtracks_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).ListTemplateSoundtracks(ctx, req.(*request.ListTemplateSoundtracksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_UpdateTemplateSoundtracks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateTemplateSoundtracksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).UpdateTemplateSoundtracks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_UpdateTemplateSoundtracks_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).UpdateTemplateSoundtracks(ctx, req.(*request.UpdateTemplateSoundtracksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Wishes_CreateWish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1065,6 +1133,14 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "wishes.v1.Wishes",
 	HandlerType: (*WishesServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListTemplateSoundtracks",
+			Handler:    _Wishes_ListTemplateSoundtracks_Handler,
+		},
+		{
+			MethodName: "UpdateTemplateSoundtracks",
+			Handler:    _Wishes_UpdateTemplateSoundtracks_Handler,
+		},
 		{
 			MethodName: "CreateWish",
 			Handler:    _Wishes_CreateWish_Handler,

@@ -153,3 +153,11 @@ message SetCouponStatusResponse {
 message CheckCouponResponse {
   wishes.v1.types.CouponQuote quote = 1;
 }
+
+message ListTemplateSoundtracksResponse {
+  repeated wishes.v1.types.TemplateSoundtracks templates = 1;
+}
+
+message UpdateTemplateSoundtracksResponse {
+  wishes.v1.types.TemplateSoundtracks soundtracks = 1;
+}

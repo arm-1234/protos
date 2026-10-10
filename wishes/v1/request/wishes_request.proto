@@ -10,6 +10,8 @@ import "wishes/v1/types/enums/wish_sort_by.proto";
 import "wishes/v1/types/enums/response_kind.proto";
 import "wishes/v1/types/enums/coupon_status.proto";
 
+import "wishes/v1/types/template.proto";
+
 option go_package = "github.com/arm-1234/protos/wishes/v1/request;request";
 
 message CreateWishRequest {
@@ -156,4 +158,11 @@ message SetCouponStatusRequest {
 
 message CheckCouponRequest {
   string code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {pattern: "^[A-Za-z0-9_-]{3,32}$"}];
+}
+
+message ListTemplateSoundtracksRequest {}
+
+message UpdateTemplateSoundtracksRequest {
+  string template = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}];
+  repeated wishes.v1.types.SoundtrackSong songs = 2 [(validate.rules).repeated = {max_items: 20, items: {message: {required: true}}}];
 }

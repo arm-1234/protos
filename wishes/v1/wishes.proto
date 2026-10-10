@@ -10,6 +10,14 @@ import "wishes/v1/response/wishes_response.proto";
 option go_package = "github.com/arm-1234/protos/wishes/v1;v1";
 
 service Wishes {
+  rpc ListTemplateSoundtracks (wishes.v1.request.ListTemplateSoundtracksRequest) returns (wishes.v1.response.ListTemplateSoundtracksResponse) {
+    option (google.api.http) = {get: "/v1/admin/soundtracks"};
+  }
+
+  rpc UpdateTemplateSoundtracks (wishes.v1.request.UpdateTemplateSoundtracksRequest) returns (wishes.v1.response.UpdateTemplateSoundtracksResponse) {
+    option (google.api.http) = {put: "/v1/admin/soundtracks/{template}" body: "*"};
+  }
+
   rpc CreateWish (wishes.v1.request.CreateWishRequest) returns (wishes.v1.response.CreateWishResponse) {
     option (google.api.http) = {
       post: "/v1/wishes"

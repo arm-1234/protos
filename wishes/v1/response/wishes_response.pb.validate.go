@@ -4053,3 +4053,274 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CheckCouponResponseValidationError{}
+
+// Validate checks the field values on ListTemplateSoundtracksResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListTemplateSoundtracksResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListTemplateSoundtracksResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ListTemplateSoundtracksResponseMultiError, or nil if none found.
+func (m *ListTemplateSoundtracksResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTemplateSoundtracksResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTemplates() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListTemplateSoundtracksResponseValidationError{
+						field:  fmt.Sprintf("Templates[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListTemplateSoundtracksResponseValidationError{
+						field:  fmt.Sprintf("Templates[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListTemplateSoundtracksResponseValidationError{
+					field:  fmt.Sprintf("Templates[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListTemplateSoundtracksResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTemplateSoundtracksResponseMultiError is an error wrapping multiple
+// validation errors returned by ListTemplateSoundtracksResponse.ValidateAll()
+// if the designated constraints aren't met.
+type ListTemplateSoundtracksResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTemplateSoundtracksResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTemplateSoundtracksResponseMultiError) AllErrors() []error { return m }
+
+// ListTemplateSoundtracksResponseValidationError is the validation error
+// returned by ListTemplateSoundtracksResponse.Validate if the designated
+// constraints aren't met.
+type ListTemplateSoundtracksResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTemplateSoundtracksResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTemplateSoundtracksResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTemplateSoundtracksResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTemplateSoundtracksResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTemplateSoundtracksResponseValidationError) ErrorName() string {
+	return "ListTemplateSoundtracksResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTemplateSoundtracksResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTemplateSoundtracksResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTemplateSoundtracksResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTemplateSoundtracksResponseValidationError{}
+
+// Validate checks the field values on UpdateTemplateSoundtracksResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *UpdateTemplateSoundtracksResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateTemplateSoundtracksResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// UpdateTemplateSoundtracksResponseMultiError, or nil if none found.
+func (m *UpdateTemplateSoundtracksResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateTemplateSoundtracksResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetSoundtracks()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateTemplateSoundtracksResponseValidationError{
+					field:  "Soundtracks",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateTemplateSoundtracksResponseValidationError{
+					field:  "Soundtracks",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSoundtracks()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateTemplateSoundtracksResponseValidationError{
+				field:  "Soundtracks",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateTemplateSoundtracksResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateTemplateSoundtracksResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// UpdateTemplateSoundtracksResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateTemplateSoundtracksResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateTemplateSoundtracksResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateTemplateSoundtracksResponseMultiError) AllErrors() []error { return m }
+
+// UpdateTemplateSoundtracksResponseValidationError is the validation error
+// returned by UpdateTemplateSoundtracksResponse.Validate if the designated
+// constraints aren't met.
+type UpdateTemplateSoundtracksResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateTemplateSoundtracksResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateTemplateSoundtracksResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateTemplateSoundtracksResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateTemplateSoundtracksResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateTemplateSoundtracksResponseValidationError) ErrorName() string {
+	return "UpdateTemplateSoundtracksResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateTemplateSoundtracksResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateTemplateSoundtracksResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateTemplateSoundtracksResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateTemplateSoundtracksResponseValidationError{}

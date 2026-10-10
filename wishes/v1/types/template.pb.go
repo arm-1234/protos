@@ -7,6 +7,7 @@
 package types
 
 import (
+	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -129,11 +130,131 @@ func (x *TemplateInfo) GetCrop() float64 {
 	return 0
 }
 
+type SoundtrackSong struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Artist        string                 `protobuf:"bytes,2,opt,name=artist,proto3" json:"artist,omitempty"`
+	YoutubeId     string                 `protobuf:"bytes,3,opt,name=youtube_id,json=youtubeId,proto3" json:"youtube_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SoundtrackSong) Reset() {
+	*x = SoundtrackSong{}
+	mi := &file_wishes_v1_types_template_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SoundtrackSong) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SoundtrackSong) ProtoMessage() {}
+
+func (x *SoundtrackSong) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_types_template_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SoundtrackSong.ProtoReflect.Descriptor instead.
+func (*SoundtrackSong) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_types_template_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SoundtrackSong) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *SoundtrackSong) GetArtist() string {
+	if x != nil {
+		return x.Artist
+	}
+	return ""
+}
+
+func (x *SoundtrackSong) GetYoutubeId() string {
+	if x != nil {
+		return x.YoutubeId
+	}
+	return ""
+}
+
+type TemplateSoundtracks struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Template      string                 `protobuf:"bytes,1,opt,name=template,proto3" json:"template,omitempty"`
+	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Songs         []*SoundtrackSong      `protobuf:"bytes,3,rep,name=songs,proto3" json:"songs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TemplateSoundtracks) Reset() {
+	*x = TemplateSoundtracks{}
+	mi := &file_wishes_v1_types_template_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TemplateSoundtracks) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TemplateSoundtracks) ProtoMessage() {}
+
+func (x *TemplateSoundtracks) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_types_template_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TemplateSoundtracks.ProtoReflect.Descriptor instead.
+func (*TemplateSoundtracks) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_types_template_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TemplateSoundtracks) GetTemplate() string {
+	if x != nil {
+		return x.Template
+	}
+	return ""
+}
+
+func (x *TemplateSoundtracks) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *TemplateSoundtracks) GetSongs() []*SoundtrackSong {
+	if x != nil {
+		return x.Songs
+	}
+	return nil
+}
+
 var File_wishes_v1_types_template_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_template_proto_rawDesc = "" +
 	"\n" +
-	"\x1ewishes/v1/types/template.proto\x12\x0fwishes.v1.types\"\xda\x01\n" +
+	"\x1ewishes/v1/types/template.proto\x12\x0fwishes.v1.types\x1a\x17validate/validate.proto\"\xda\x01\n" +
 	"\fTemplateInfo\x12\x1a\n" +
 	"\btemplate\x18\x01 \x01(\tR\btemplate\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12\x12\n" +
@@ -143,7 +264,16 @@ const file_wishes_v1_types_template_proto_rawDesc = "" +
 	"\x05glyph\x18\x06 \x01(\tR\x05glyph\x12\x16\n" +
 	"\x06accent\x18\a \x01(\tR\x06accent\x12\x12\n" +
 	"\x04tags\x18\b \x03(\tR\x04tags\x12\x12\n" +
-	"\x04crop\x18\t \x01(\x01R\x04cropB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
+	"\x04crop\x18\t \x01(\x01R\x04crop\"\x8d\x01\n" +
+	"\x0eSoundtrackSong\x12\x1f\n" +
+	"\x05title\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x01\x18xR\x05title\x12\x1f\n" +
+	"\x06artist\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x18xR\x06artist\x129\n" +
+	"\n" +
+	"youtube_id\x18\x03 \x01(\tB\x1a\xfaB\x17r\x152\x13^[A-Za-z0-9_-]{11}$R\tyoutubeId\"~\n" +
+	"\x13TemplateSoundtracks\x12\x1a\n" +
+	"\btemplate\x18\x01 \x01(\tR\btemplate\x12\x14\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\x125\n" +
+	"\x05songs\x18\x03 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongR\x05songsB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
 
 var (
 	file_wishes_v1_types_template_proto_rawDescOnce sync.Once
@@ -157,16 +287,19 @@ func file_wishes_v1_types_template_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_types_template_proto_rawDescData
 }
 
-var file_wishes_v1_types_template_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_wishes_v1_types_template_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_wishes_v1_types_template_proto_goTypes = []any{
-	(*TemplateInfo)(nil), // 0: wishes.v1.types.TemplateInfo
+	(*TemplateInfo)(nil),        // 0: wishes.v1.types.TemplateInfo
+	(*SoundtrackSong)(nil),      // 1: wishes.v1.types.SoundtrackSong
+	(*TemplateSoundtracks)(nil), // 2: wishes.v1.types.TemplateSoundtracks
 }
 var file_wishes_v1_types_template_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: wishes.v1.types.TemplateSoundtracks.songs:type_name -> wishes.v1.types.SoundtrackSong
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_types_template_proto_init() }
@@ -180,7 +313,7 @@ func file_wishes_v1_types_template_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_types_template_proto_rawDesc), len(file_wishes_v1_types_template_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
