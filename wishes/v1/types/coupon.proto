@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package wishes.v1.types;
+
+import "google/protobuf/timestamp.proto";
+import "wishes/v1/types/enums/coupon_status.proto";
+
+option go_package = "github.com/arm-1234/protos/wishes/v1/types;types";
+
+message CouponInfo {
+  string coupon_id = 1;
+  string code = 2;
+  int32 percent_off = 3;
+  wishes.v1.types.enums.CouponStatus status = 4;
+  int32 valid_days = 5;
+  string note = 6;
+  int64 times_used = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp expires_at = 9;
+}
+
+message CouponQuote {
+  string code = 1;
+  int32 percent_off = 2;
+  string currency = 3;
+  int64 base_amount_minor = 4;
+  string base_display = 5;
+  int64 discount_minor = 6;
+  string discount_display = 7;
+  int64 amount_minor = 8;
+  string display = 9;
+  google.protobuf.Timestamp expires_at = 10;
+}

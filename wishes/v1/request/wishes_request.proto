@@ -8,6 +8,9 @@ import "validate/validate.proto";
 import "wishes/v1/types/enums/wish_status.proto";
 import "wishes/v1/types/enums/wish_sort_by.proto";
 import "wishes/v1/types/enums/response_kind.proto";
+import "wishes/v1/types/enums/coupon_status.proto";
+
+import "wishes/v1/types/template.proto";
 
 option go_package = "github.com/arm-1234/protos/wishes/v1/request;request";
 
@@ -117,6 +120,7 @@ message UpdatePricingRequest {
   int64 amount_minor = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).int64 = {gte: 0, lte: 10000000}];
   string currency = 2 [(validate.rules).string = {ignore_empty: true, len: 3}];
   string note = 3 [(validate.rules).string = {ignore_empty: true, max_len: 200}];
+  int64 mrp_minor = 4 [(validate.rules).int64 = {gte: 0, lte: 10000000}];
 }
 
 message ListPriceHistoryRequest {
@@ -125,8 +129,40 @@ message ListPriceHistoryRequest {
 
 message CreateOrderRequest {
   string wish_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string coupon_code = 2 [(validate.rules).string = {ignore_empty: true, pattern: "^[A-Za-z0-9_-]{3,32}$"}];
 }
 
 message GetOrderRequest {
   string order_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+}
+
+message VerifyOrderPaymentRequest {
+  string order_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1];
+  string gateway_payment_id = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 64}];
+  string signature = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 128}];
+}
+
+message CreateCouponRequest {
+  string code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {pattern: "^[A-Za-z0-9_-]{3,32}$"}];
+  int32 percent_off = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 100}];
+  int32 valid_days = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 365}];
+  string note = 4 [(validate.rules).string = {ignore_empty: true, max_len: 200}];
+}
+
+message ListCouponsRequest {}
+
+message SetCouponStatusRequest {
+  string code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {pattern: "^[A-Za-z0-9_-]{3,32}$"}];
+  wishes.v1.types.enums.CouponStatus status = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).enum = {in: [1, 2]}];
+}
+
+message CheckCouponRequest {
+  string code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {pattern: "^[A-Za-z0-9_-]{3,32}$"}];
+}
+
+message ListTemplateSoundtracksRequest {}
+
+message UpdateTemplateSoundtracksRequest {
+  string template = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}];
+  repeated wishes.v1.types.SoundtrackSong songs = 2 [(validate.rules).repeated = {max_items: 20, items: {message: {required: true}}}];
 }

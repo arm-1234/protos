@@ -20,6 +20,18 @@ message OrderInfo {
   google.protobuf.Timestamp created_at = 10;
   google.protobuf.Timestamp paid_at = 11;
   google.protobuf.Timestamp expires_at = 12;
+  string coupon_code = 13;
+  int64 base_amount_minor = 14;
+  int64 discount_minor = 15;
+  string discount_display = 16;
+}
+
+message PaymentCheckout {
+  string gateway = 1;
+  string key_id = 2;
+  string gateway_order_id = 3;
+  int64 amount_minor = 4;
+  string currency = 5;
 }
 
 message PriceInfo {
@@ -29,4 +41,7 @@ message PriceInfo {
   bool free = 4;
   string note = 5;
   google.protobuf.Timestamp active_from = 6;
+  int64 mrp_minor = 7;
+  string mrp_display = 8;
+  int32 discount_percent = 9;
 }

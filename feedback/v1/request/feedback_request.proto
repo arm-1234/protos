@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package feedback.v1.request;
+
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/arm-1234/protos/feedback/v1/request;request";
+
+message ListFeedbackCategoriesRequest {}
+
+message SubmitFeedbackRequest {
+  string category = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 40}];
+  string title = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 120}];
+  string description = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 2000}];
+  string contact = 4 [(validate.rules).string = {ignore_empty: true, max_len: 200}];
+  string page = 5 [(validate.rules).string = {ignore_empty: true, max_len: 300}];
+}

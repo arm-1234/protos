@@ -10,6 +10,14 @@ import "wishes/v1/response/wishes_response.proto";
 option go_package = "github.com/arm-1234/protos/wishes/v1;v1";
 
 service Wishes {
+  rpc ListTemplateSoundtracks (wishes.v1.request.ListTemplateSoundtracksRequest) returns (wishes.v1.response.ListTemplateSoundtracksResponse) {
+    option (google.api.http) = {get: "/v1/admin/soundtracks"};
+  }
+
+  rpc UpdateTemplateSoundtracks (wishes.v1.request.UpdateTemplateSoundtracksRequest) returns (wishes.v1.response.UpdateTemplateSoundtracksResponse) {
+    option (google.api.http) = {put: "/v1/admin/soundtracks/{template}" body: "*"};
+  }
+
   rpc CreateWish (wishes.v1.request.CreateWishRequest) returns (wishes.v1.response.CreateWishResponse) {
     option (google.api.http) = {
       post: "/v1/wishes"
@@ -154,6 +162,33 @@ service Wishes {
     };
   }
 
+  rpc CreateCoupon (wishes.v1.request.CreateCouponRequest) returns (wishes.v1.response.CreateCouponResponse) {
+    option (google.api.http) = {
+      post: "/v1/coupons"
+      body: "*"
+    };
+  }
+
+  rpc ListCoupons (wishes.v1.request.ListCouponsRequest) returns (wishes.v1.response.ListCouponsResponse) {
+    option (google.api.http) = {
+      get: "/v1/coupons"
+    };
+  }
+
+  rpc SetCouponStatus (wishes.v1.request.SetCouponStatusRequest) returns (wishes.v1.response.SetCouponStatusResponse) {
+    option (google.api.http) = {
+      post: "/v1/coupons/{code}:status"
+      body: "*"
+    };
+  }
+
+  rpc CheckCoupon (wishes.v1.request.CheckCouponRequest) returns (wishes.v1.response.CheckCouponResponse) {
+    option (google.api.http) = {
+      post: "/v1/coupons/{code}:check"
+      body: "*"
+    };
+  }
+
   rpc CreateOrder (wishes.v1.request.CreateOrderRequest) returns (wishes.v1.response.CreateOrderResponse) {
     option (google.api.http) = {
       post: "/v1/wishes/{wish_id}:order"
@@ -164,6 +199,13 @@ service Wishes {
   rpc GetOrder (wishes.v1.request.GetOrderRequest) returns (wishes.v1.response.GetOrderResponse) {
     option (google.api.http) = {
       get: "/v1/orders/{order_id}"
+    };
+  }
+
+  rpc VerifyOrderPayment (wishes.v1.request.VerifyOrderPaymentRequest) returns (wishes.v1.response.VerifyOrderPaymentResponse) {
+    option (google.api.http) = {
+      post: "/v1/orders/{order_id}:verify"
+      body: "*"
     };
   }
 }
@@ -183,6 +225,7 @@ enum ErrorReason {
   WISH_LIMIT_REACHED = 14 [(errors.code) = 429];
   WISH_NOT_DRAFT = 15 [(errors.code) = 409];
   WISH_ALREADY_PUBLISHED = 16 [(errors.code) = 409];
+  WISH_NOT_DELETABLE = 17 [(errors.code) = 409];
 
   TEMPLATE_NOT_FOUND = 20 [(errors.code) = 404];
   TEMPLATE_CONFIG_INVALID = 21 [(errors.code) = 400];
@@ -204,4 +247,11 @@ enum ErrorReason {
   PAYMENT_GATEWAY_ERROR = 54 [(errors.code) = 502];
   PAYMENT_VERIFICATION_FAILED = 55 [(errors.code) = 400];
   PRICING_INVALID = 56 [(errors.code) = 400];
+
+  COUPON_NOT_FOUND = 60 [(errors.code) = 404];
+  COUPON_EXPIRED = 61 [(errors.code) = 410];
+  COUPON_DISABLED = 62 [(errors.code) = 409];
+  COUPON_ALREADY_USED = 63 [(errors.code) = 409];
+  COUPON_CODE_TAKEN = 64 [(errors.code) = 409];
+  COUPON_NOT_APPLICABLE = 65 [(errors.code) = 422];
 }

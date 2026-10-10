@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package feedback.v1;
+
+import "google/api/annotations.proto";
+import "errors/errors.proto";
+import "feedback/v1/request/feedback_request.proto";
+import "feedback/v1/response/feedback_response.proto";
+
+option go_package = "github.com/arm-1234/protos/feedback/v1;v1";
+
+service Feedback {
+  rpc ListFeedbackCategories (feedback.v1.request.ListFeedbackCategoriesRequest) returns (feedback.v1.response.ListFeedbackCategoriesResponse) {
+    option (google.api.http) = {
+      get: "/v1/feedback/categories"
+    };
+  }
+
+  rpc SubmitFeedback (feedback.v1.request.SubmitFeedbackRequest) returns (feedback.v1.response.SubmitFeedbackResponse) {
+    option (google.api.http) = {
+      post: "/v1/feedback"
+      body: "*"
+    };
+  }
+}
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+
+  FEEDBACK_UNSPECIFIED = 0 [(errors.code) = 500];
+  FEEDBACK_INVALID_REQUEST = 1 [(errors.code) = 400];
+  FEEDBACK_RATE_LIMITED = 2 [(errors.code) = 429];
+
+  FEEDBACK_CATEGORY_UNKNOWN = 10 [(errors.code) = 400];
+  FEEDBACK_UNAVAILABLE = 11 [(errors.code) = 503];
+}

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package wishes.v1.types;
 
+import "validate/validate.proto";
+
 option go_package = "github.com/arm-1234/protos/wishes/v1/types;types";
 
 message TemplateInfo {
@@ -14,4 +16,16 @@ message TemplateInfo {
   string accent = 7;
   repeated string tags = 8;
   double crop = 9;
+}
+
+message SoundtrackSong {
+  string title = 1 [(validate.rules).string = {min_len: 1, max_len: 120}];
+  string artist = 2 [(validate.rules).string.max_len = 120];
+  string youtube_id = 3 [(validate.rules).string = {pattern: "^[A-Za-z0-9_-]{11}$"}];
+}
+
+message TemplateSoundtracks {
+  string template = 1;
+  string title = 2;
+  repeated SoundtrackSong songs = 3;
 }

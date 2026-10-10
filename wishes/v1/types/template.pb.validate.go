@@ -149,3 +149,278 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TemplateInfoValidationError{}
+
+// Validate checks the field values on SoundtrackSong with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SoundtrackSong) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SoundtrackSong with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SoundtrackSongMultiError,
+// or nil if none found.
+func (m *SoundtrackSong) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SoundtrackSong) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetTitle()); l < 1 || l > 120 {
+		err := SoundtrackSongValidationError{
+			field:  "Title",
+			reason: "value length must be between 1 and 120 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetArtist()) > 120 {
+		err := SoundtrackSongValidationError{
+			field:  "Artist",
+			reason: "value length must be at most 120 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_SoundtrackSong_YoutubeId_Pattern.MatchString(m.GetYoutubeId()) {
+		err := SoundtrackSongValidationError{
+			field:  "YoutubeId",
+			reason: "value does not match regex pattern \"^[A-Za-z0-9_-]{11}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return SoundtrackSongMultiError(errors)
+	}
+
+	return nil
+}
+
+// SoundtrackSongMultiError is an error wrapping multiple validation errors
+// returned by SoundtrackSong.ValidateAll() if the designated constraints
+// aren't met.
+type SoundtrackSongMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SoundtrackSongMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SoundtrackSongMultiError) AllErrors() []error { return m }
+
+// SoundtrackSongValidationError is the validation error returned by
+// SoundtrackSong.Validate if the designated constraints aren't met.
+type SoundtrackSongValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SoundtrackSongValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SoundtrackSongValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SoundtrackSongValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SoundtrackSongValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SoundtrackSongValidationError) ErrorName() string { return "SoundtrackSongValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SoundtrackSongValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSoundtrackSong.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SoundtrackSongValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SoundtrackSongValidationError{}
+
+var _SoundtrackSong_YoutubeId_Pattern = regexp.MustCompile("^[A-Za-z0-9_-]{11}$")
+
+// Validate checks the field values on TemplateSoundtracks with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TemplateSoundtracks) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TemplateSoundtracks with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TemplateSoundtracksMultiError, or nil if none found.
+func (m *TemplateSoundtracks) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TemplateSoundtracks) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Template
+
+	// no validation rules for Title
+
+	for idx, item := range m.GetSongs() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, TemplateSoundtracksValidationError{
+						field:  fmt.Sprintf("Songs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, TemplateSoundtracksValidationError{
+						field:  fmt.Sprintf("Songs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return TemplateSoundtracksValidationError{
+					field:  fmt.Sprintf("Songs[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return TemplateSoundtracksMultiError(errors)
+	}
+
+	return nil
+}
+
+// TemplateSoundtracksMultiError is an error wrapping multiple validation
+// errors returned by TemplateSoundtracks.ValidateAll() if the designated
+// constraints aren't met.
+type TemplateSoundtracksMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TemplateSoundtracksMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TemplateSoundtracksMultiError) AllErrors() []error { return m }
+
+// TemplateSoundtracksValidationError is the validation error returned by
+// TemplateSoundtracks.Validate if the designated constraints aren't met.
+type TemplateSoundtracksValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TemplateSoundtracksValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TemplateSoundtracksValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TemplateSoundtracksValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TemplateSoundtracksValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TemplateSoundtracksValidationError) ErrorName() string {
+	return "TemplateSoundtracksValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TemplateSoundtracksValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTemplateSoundtracks.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TemplateSoundtracksValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TemplateSoundtracksValidationError{}
