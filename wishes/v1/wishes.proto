@@ -18,6 +18,14 @@ service Wishes {
     option (google.api.http) = {put: "/v1/admin/soundtracks/{template}" body: "*"};
   }
 
+  rpc ListTemplateShowcase (wishes.v1.request.ListTemplateShowcaseRequest) returns (wishes.v1.response.ListTemplateShowcaseResponse) {
+    option (google.api.http) = {get: "/v1/admin/showcase"};
+  }
+
+  rpc UpdateTemplateShowcase (wishes.v1.request.UpdateTemplateShowcaseRequest) returns (wishes.v1.response.UpdateTemplateShowcaseResponse) {
+    option (google.api.http) = {put: "/v1/admin/showcase/{template}" body: "*"};
+  }
+
   rpc CreateWish (wishes.v1.request.CreateWishRequest) returns (wishes.v1.response.CreateWishResponse) {
     option (google.api.http) = {
       post: "/v1/wishes"

@@ -424,3 +424,113 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TemplateSoundtracksValidationError{}
+
+// Validate checks the field values on TemplateShowcase with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *TemplateShowcase) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TemplateShowcase with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TemplateShowcaseMultiError, or nil if none found.
+func (m *TemplateShowcase) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TemplateShowcase) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Template
+
+	// no validation rules for Title
+
+	// no validation rules for Design
+
+	// no validation rules for Theme
+
+	// no validation rules for Tag
+
+	if len(errors) > 0 {
+		return TemplateShowcaseMultiError(errors)
+	}
+
+	return nil
+}
+
+// TemplateShowcaseMultiError is an error wrapping multiple validation errors
+// returned by TemplateShowcase.ValidateAll() if the designated constraints
+// aren't met.
+type TemplateShowcaseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TemplateShowcaseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TemplateShowcaseMultiError) AllErrors() []error { return m }
+
+// TemplateShowcaseValidationError is the validation error returned by
+// TemplateShowcase.Validate if the designated constraints aren't met.
+type TemplateShowcaseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TemplateShowcaseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TemplateShowcaseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TemplateShowcaseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TemplateShowcaseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TemplateShowcaseValidationError) ErrorName() string { return "TemplateShowcaseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TemplateShowcaseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTemplateShowcase.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TemplateShowcaseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TemplateShowcaseValidationError{}

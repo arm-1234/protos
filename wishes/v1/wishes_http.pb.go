@@ -36,6 +36,7 @@ const OperationWishesGetWishStats = "/wishes.v1.Wishes/GetWishStats"
 const OperationWishesListCoupons = "/wishes.v1.Wishes/ListCoupons"
 const OperationWishesListMyWishes = "/wishes.v1.Wishes/ListMyWishes"
 const OperationWishesListPriceHistory = "/wishes.v1.Wishes/ListPriceHistory"
+const OperationWishesListTemplateShowcase = "/wishes.v1.Wishes/ListTemplateShowcase"
 const OperationWishesListTemplateSoundtracks = "/wishes.v1.Wishes/ListTemplateSoundtracks"
 const OperationWishesListTemplates = "/wishes.v1.Wishes/ListTemplates"
 const OperationWishesListWishResponses = "/wishes.v1.Wishes/ListWishResponses"
@@ -48,6 +49,7 @@ const OperationWishesSendWish = "/wishes.v1.Wishes/SendWish"
 const OperationWishesSetCouponStatus = "/wishes.v1.Wishes/SetCouponStatus"
 const OperationWishesSubmitResponse = "/wishes.v1.Wishes/SubmitResponse"
 const OperationWishesUpdatePricing = "/wishes.v1.Wishes/UpdatePricing"
+const OperationWishesUpdateTemplateShowcase = "/wishes.v1.Wishes/UpdateTemplateShowcase"
 const OperationWishesUpdateTemplateSoundtracks = "/wishes.v1.Wishes/UpdateTemplateSoundtracks"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
 const OperationWishesUploadWishPhoto = "/wishes.v1.Wishes/UploadWishPhoto"
@@ -69,6 +71,7 @@ type WishesHTTPServer interface {
 	ListCoupons(context.Context, *request.ListCouponsRequest) (*response.ListCouponsResponse, error)
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
 	ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error)
+	ListTemplateShowcase(context.Context, *request.ListTemplateShowcaseRequest) (*response.ListTemplateShowcaseResponse, error)
 	ListTemplateSoundtracks(context.Context, *request.ListTemplateSoundtracksRequest) (*response.ListTemplateSoundtracksResponse, error)
 	ListTemplates(context.Context, *request.ListTemplatesRequest) (*response.ListTemplatesResponse, error)
 	ListWishResponses(context.Context, *request.ListWishResponsesRequest) (*response.ListWishResponsesResponse, error)
@@ -81,6 +84,7 @@ type WishesHTTPServer interface {
 	SetCouponStatus(context.Context, *request.SetCouponStatusRequest) (*response.SetCouponStatusResponse, error)
 	SubmitResponse(context.Context, *request.SubmitResponseRequest) (*response.SubmitResponseResponse, error)
 	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
+	UpdateTemplateShowcase(context.Context, *request.UpdateTemplateShowcaseRequest) (*response.UpdateTemplateShowcaseResponse, error)
 	UpdateTemplateSoundtracks(context.Context, *request.UpdateTemplateSoundtracksRequest) (*response.UpdateTemplateSoundtracksResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
 	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
@@ -91,6 +95,8 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r := s.Route("/")
 	r.GET("/v1/admin/soundtracks", _Wishes_ListTemplateSoundtracks0_HTTP_Handler(srv))
 	r.PUT("/v1/admin/soundtracks/{template}", _Wishes_UpdateTemplateSoundtracks0_HTTP_Handler(srv))
+	r.GET("/v1/admin/showcase", _Wishes_ListTemplateShowcase0_HTTP_Handler(srv))
+	r.PUT("/v1/admin/showcase/{template}", _Wishes_UpdateTemplateShowcase0_HTTP_Handler(srv))
 	r.POST("/v1/wishes", _Wishes_CreateWish0_HTTP_Handler(srv))
 	r.GET("/v1/wishes", _Wishes_ListMyWishes0_HTTP_Handler(srv))
 	r.GET("/v1/wishes:stats", _Wishes_GetWishStats0_HTTP_Handler(srv))
@@ -162,6 +168,50 @@ func _Wishes_UpdateTemplateSoundtracks0_HTTP_Handler(srv WishesHTTPServer) func(
 			return err
 		}
 		reply := out.(*response.UpdateTemplateSoundtracksResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_ListTemplateShowcase0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ListTemplateShowcaseRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesListTemplateShowcase)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListTemplateShowcase(ctx, req.(*request.ListTemplateShowcaseRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ListTemplateShowcaseResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_UpdateTemplateShowcase0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateTemplateShowcaseRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesUpdateTemplateShowcase)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateTemplateShowcase(ctx, req.(*request.UpdateTemplateShowcaseRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateTemplateShowcaseResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -838,6 +888,7 @@ type WishesHTTPClient interface {
 	ListCoupons(ctx context.Context, req *request.ListCouponsRequest, opts ...http.CallOption) (rsp *response.ListCouponsResponse, err error)
 	ListMyWishes(ctx context.Context, req *request.ListMyWishesRequest, opts ...http.CallOption) (rsp *response.ListMyWishesResponse, err error)
 	ListPriceHistory(ctx context.Context, req *request.ListPriceHistoryRequest, opts ...http.CallOption) (rsp *response.ListPriceHistoryResponse, err error)
+	ListTemplateShowcase(ctx context.Context, req *request.ListTemplateShowcaseRequest, opts ...http.CallOption) (rsp *response.ListTemplateShowcaseResponse, err error)
 	ListTemplateSoundtracks(ctx context.Context, req *request.ListTemplateSoundtracksRequest, opts ...http.CallOption) (rsp *response.ListTemplateSoundtracksResponse, err error)
 	ListTemplates(ctx context.Context, req *request.ListTemplatesRequest, opts ...http.CallOption) (rsp *response.ListTemplatesResponse, err error)
 	ListWishResponses(ctx context.Context, req *request.ListWishResponsesRequest, opts ...http.CallOption) (rsp *response.ListWishResponsesResponse, err error)
@@ -850,6 +901,7 @@ type WishesHTTPClient interface {
 	SetCouponStatus(ctx context.Context, req *request.SetCouponStatusRequest, opts ...http.CallOption) (rsp *response.SetCouponStatusResponse, err error)
 	SubmitResponse(ctx context.Context, req *request.SubmitResponseRequest, opts ...http.CallOption) (rsp *response.SubmitResponseResponse, err error)
 	UpdatePricing(ctx context.Context, req *request.UpdatePricingRequest, opts ...http.CallOption) (rsp *response.UpdatePricingResponse, err error)
+	UpdateTemplateShowcase(ctx context.Context, req *request.UpdateTemplateShowcaseRequest, opts ...http.CallOption) (rsp *response.UpdateTemplateShowcaseResponse, err error)
 	UpdateTemplateSoundtracks(ctx context.Context, req *request.UpdateTemplateSoundtracksRequest, opts ...http.CallOption) (rsp *response.UpdateTemplateSoundtracksResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
 	UploadWishPhoto(ctx context.Context, req *request.UploadWishPhotoRequest, opts ...http.CallOption) (rsp *response.UploadWishPhotoResponse, err error)
@@ -1059,6 +1111,19 @@ func (c *WishesHTTPClientImpl) ListPriceHistory(ctx context.Context, in *request
 	return &out, nil
 }
 
+func (c *WishesHTTPClientImpl) ListTemplateShowcase(ctx context.Context, in *request.ListTemplateShowcaseRequest, opts ...http.CallOption) (*response.ListTemplateShowcaseResponse, error) {
+	var out response.ListTemplateShowcaseResponse
+	pattern := "/v1/admin/showcase"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesListTemplateShowcase))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *WishesHTTPClientImpl) ListTemplateSoundtracks(ctx context.Context, in *request.ListTemplateSoundtracksRequest, opts ...http.CallOption) (*response.ListTemplateSoundtracksResponse, error) {
 	var out response.ListTemplateSoundtracksResponse
 	pattern := "/v1/admin/soundtracks"
@@ -1207,6 +1272,19 @@ func (c *WishesHTTPClientImpl) UpdatePricing(ctx context.Context, in *request.Up
 	pattern := "/v1/pricing"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationWishesUpdatePricing))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) UpdateTemplateShowcase(ctx context.Context, in *request.UpdateTemplateShowcaseRequest, opts ...http.CallOption) (*response.UpdateTemplateShowcaseResponse, error) {
+	var out response.UpdateTemplateShowcaseResponse
+	pattern := "/v1/admin/showcase/{template}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesUpdateTemplateShowcase))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {

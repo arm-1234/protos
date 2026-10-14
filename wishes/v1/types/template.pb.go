@@ -250,6 +250,82 @@ func (x *TemplateSoundtracks) GetSongs() []*SoundtrackSong {
 	return nil
 }
 
+type TemplateShowcase struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Template      string                 `protobuf:"bytes,1,opt,name=template,proto3" json:"template,omitempty"`
+	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Design        string                 `protobuf:"bytes,3,opt,name=design,proto3" json:"design,omitempty"`
+	Theme         string                 `protobuf:"bytes,4,opt,name=theme,proto3" json:"theme,omitempty"`
+	Tag           string                 `protobuf:"bytes,5,opt,name=tag,proto3" json:"tag,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TemplateShowcase) Reset() {
+	*x = TemplateShowcase{}
+	mi := &file_wishes_v1_types_template_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TemplateShowcase) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TemplateShowcase) ProtoMessage() {}
+
+func (x *TemplateShowcase) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_types_template_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TemplateShowcase.ProtoReflect.Descriptor instead.
+func (*TemplateShowcase) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_types_template_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *TemplateShowcase) GetTemplate() string {
+	if x != nil {
+		return x.Template
+	}
+	return ""
+}
+
+func (x *TemplateShowcase) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *TemplateShowcase) GetDesign() string {
+	if x != nil {
+		return x.Design
+	}
+	return ""
+}
+
+func (x *TemplateShowcase) GetTheme() string {
+	if x != nil {
+		return x.Theme
+	}
+	return ""
+}
+
+func (x *TemplateShowcase) GetTag() string {
+	if x != nil {
+		return x.Tag
+	}
+	return ""
+}
+
 var File_wishes_v1_types_template_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_template_proto_rawDesc = "" +
@@ -273,7 +349,13 @@ const file_wishes_v1_types_template_proto_rawDesc = "" +
 	"\x13TemplateSoundtracks\x12\x1a\n" +
 	"\btemplate\x18\x01 \x01(\tR\btemplate\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x125\n" +
-	"\x05songs\x18\x03 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongR\x05songsB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
+	"\x05songs\x18\x03 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongR\x05songs\"\x84\x01\n" +
+	"\x10TemplateShowcase\x12\x1a\n" +
+	"\btemplate\x18\x01 \x01(\tR\btemplate\x12\x14\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\x12\x16\n" +
+	"\x06design\x18\x03 \x01(\tR\x06design\x12\x14\n" +
+	"\x05theme\x18\x04 \x01(\tR\x05theme\x12\x10\n" +
+	"\x03tag\x18\x05 \x01(\tR\x03tagB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
 
 var (
 	file_wishes_v1_types_template_proto_rawDescOnce sync.Once
@@ -287,11 +369,12 @@ func file_wishes_v1_types_template_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_types_template_proto_rawDescData
 }
 
-var file_wishes_v1_types_template_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_wishes_v1_types_template_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_wishes_v1_types_template_proto_goTypes = []any{
 	(*TemplateInfo)(nil),        // 0: wishes.v1.types.TemplateInfo
 	(*SoundtrackSong)(nil),      // 1: wishes.v1.types.SoundtrackSong
 	(*TemplateSoundtracks)(nil), // 2: wishes.v1.types.TemplateSoundtracks
+	(*TemplateShowcase)(nil),    // 3: wishes.v1.types.TemplateShowcase
 }
 var file_wishes_v1_types_template_proto_depIdxs = []int32{
 	1, // 0: wishes.v1.types.TemplateSoundtracks.songs:type_name -> wishes.v1.types.SoundtrackSong
@@ -313,7 +396,7 @@ func file_wishes_v1_types_template_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_types_template_proto_rawDesc), len(file_wishes_v1_types_template_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

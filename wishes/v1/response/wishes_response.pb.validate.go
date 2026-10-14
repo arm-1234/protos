@@ -4324,3 +4324,272 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateTemplateSoundtracksResponseValidationError{}
+
+// Validate checks the field values on ListTemplateShowcaseResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListTemplateShowcaseResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListTemplateShowcaseResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListTemplateShowcaseResponseMultiError, or nil if none found.
+func (m *ListTemplateShowcaseResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTemplateShowcaseResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTemplates() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListTemplateShowcaseResponseValidationError{
+						field:  fmt.Sprintf("Templates[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListTemplateShowcaseResponseValidationError{
+						field:  fmt.Sprintf("Templates[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListTemplateShowcaseResponseValidationError{
+					field:  fmt.Sprintf("Templates[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListTemplateShowcaseResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTemplateShowcaseResponseMultiError is an error wrapping multiple
+// validation errors returned by ListTemplateShowcaseResponse.ValidateAll() if
+// the designated constraints aren't met.
+type ListTemplateShowcaseResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTemplateShowcaseResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTemplateShowcaseResponseMultiError) AllErrors() []error { return m }
+
+// ListTemplateShowcaseResponseValidationError is the validation error returned
+// by ListTemplateShowcaseResponse.Validate if the designated constraints
+// aren't met.
+type ListTemplateShowcaseResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTemplateShowcaseResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTemplateShowcaseResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTemplateShowcaseResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTemplateShowcaseResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTemplateShowcaseResponseValidationError) ErrorName() string {
+	return "ListTemplateShowcaseResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTemplateShowcaseResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTemplateShowcaseResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTemplateShowcaseResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTemplateShowcaseResponseValidationError{}
+
+// Validate checks the field values on UpdateTemplateShowcaseResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateTemplateShowcaseResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateTemplateShowcaseResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// UpdateTemplateShowcaseResponseMultiError, or nil if none found.
+func (m *UpdateTemplateShowcaseResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateTemplateShowcaseResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetShowcase()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateTemplateShowcaseResponseValidationError{
+					field:  "Showcase",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateTemplateShowcaseResponseValidationError{
+					field:  "Showcase",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetShowcase()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateTemplateShowcaseResponseValidationError{
+				field:  "Showcase",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateTemplateShowcaseResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateTemplateShowcaseResponseMultiError is an error wrapping multiple
+// validation errors returned by UpdateTemplateShowcaseResponse.ValidateAll()
+// if the designated constraints aren't met.
+type UpdateTemplateShowcaseResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateTemplateShowcaseResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateTemplateShowcaseResponseMultiError) AllErrors() []error { return m }
+
+// UpdateTemplateShowcaseResponseValidationError is the validation error
+// returned by UpdateTemplateShowcaseResponse.Validate if the designated
+// constraints aren't met.
+type UpdateTemplateShowcaseResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateTemplateShowcaseResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateTemplateShowcaseResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateTemplateShowcaseResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateTemplateShowcaseResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateTemplateShowcaseResponseValidationError) ErrorName() string {
+	return "UpdateTemplateShowcaseResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateTemplateShowcaseResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateTemplateShowcaseResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateTemplateShowcaseResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateTemplateShowcaseResponseValidationError{}

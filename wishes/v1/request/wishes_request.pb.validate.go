@@ -4242,3 +4242,292 @@ var _ interface {
 } = UpdateTemplateSoundtracksRequestValidationError{}
 
 var _UpdateTemplateSoundtracksRequest_Template_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]*$")
+
+// Validate checks the field values on ListTemplateShowcaseRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListTemplateShowcaseRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListTemplateShowcaseRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListTemplateShowcaseRequestMultiError, or nil if none found.
+func (m *ListTemplateShowcaseRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTemplateShowcaseRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ListTemplateShowcaseRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTemplateShowcaseRequestMultiError is an error wrapping multiple
+// validation errors returned by ListTemplateShowcaseRequest.ValidateAll() if
+// the designated constraints aren't met.
+type ListTemplateShowcaseRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTemplateShowcaseRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTemplateShowcaseRequestMultiError) AllErrors() []error { return m }
+
+// ListTemplateShowcaseRequestValidationError is the validation error returned
+// by ListTemplateShowcaseRequest.Validate if the designated constraints
+// aren't met.
+type ListTemplateShowcaseRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTemplateShowcaseRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTemplateShowcaseRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTemplateShowcaseRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTemplateShowcaseRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTemplateShowcaseRequestValidationError) ErrorName() string {
+	return "ListTemplateShowcaseRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTemplateShowcaseRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTemplateShowcaseRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTemplateShowcaseRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTemplateShowcaseRequestValidationError{}
+
+// Validate checks the field values on UpdateTemplateShowcaseRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateTemplateShowcaseRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateTemplateShowcaseRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// UpdateTemplateShowcaseRequestMultiError, or nil if none found.
+func (m *UpdateTemplateShowcaseRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateTemplateShowcaseRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetTemplate()); l < 2 || l > 64 {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Template",
+			reason: "value length must be between 2 and 64 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_UpdateTemplateShowcaseRequest_Template_Pattern.MatchString(m.GetTemplate()) {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Template",
+			reason: "value does not match regex pattern \"^[a-z][a-z0-9-]*$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetDesign()) > 64 {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Design",
+			reason: "value length must be at most 64 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_UpdateTemplateShowcaseRequest_Design_Pattern.MatchString(m.GetDesign()) {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Design",
+			reason: "value does not match regex pattern \"^([a-z][a-z0-9-]*)?$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTheme()) > 64 {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Theme",
+			reason: "value length must be at most 64 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_UpdateTemplateShowcaseRequest_Theme_Pattern.MatchString(m.GetTheme()) {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Theme",
+			reason: "value does not match regex pattern \"^([a-z][a-z0-9-]*)?$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTag()) > 40 {
+		err := UpdateTemplateShowcaseRequestValidationError{
+			field:  "Tag",
+			reason: "value length must be at most 40 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return UpdateTemplateShowcaseRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateTemplateShowcaseRequestMultiError is an error wrapping multiple
+// validation errors returned by UpdateTemplateShowcaseRequest.ValidateAll()
+// if the designated constraints aren't met.
+type UpdateTemplateShowcaseRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateTemplateShowcaseRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateTemplateShowcaseRequestMultiError) AllErrors() []error { return m }
+
+// UpdateTemplateShowcaseRequestValidationError is the validation error
+// returned by UpdateTemplateShowcaseRequest.Validate if the designated
+// constraints aren't met.
+type UpdateTemplateShowcaseRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateTemplateShowcaseRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateTemplateShowcaseRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateTemplateShowcaseRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateTemplateShowcaseRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateTemplateShowcaseRequestValidationError) ErrorName() string {
+	return "UpdateTemplateShowcaseRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateTemplateShowcaseRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateTemplateShowcaseRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateTemplateShowcaseRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateTemplateShowcaseRequestValidationError{}
+
+var _UpdateTemplateShowcaseRequest_Template_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]*$")
+
+var _UpdateTemplateShowcaseRequest_Design_Pattern = regexp.MustCompile("^([a-z][a-z0-9-]*)?$")
+
+var _UpdateTemplateShowcaseRequest_Theme_Pattern = regexp.MustCompile("^([a-z][a-z0-9-]*)?$")

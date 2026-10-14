@@ -161,3 +161,11 @@ message ListTemplateSoundtracksResponse {
 message UpdateTemplateSoundtracksResponse {
   wishes.v1.types.TemplateSoundtracks soundtracks = 1;
 }
+
+message ListTemplateShowcaseResponse {
+  repeated wishes.v1.types.TemplateShowcase templates = 1;
+}
+
+message UpdateTemplateShowcaseResponse {
+  wishes.v1.types.TemplateShowcase showcase = 1;
+}

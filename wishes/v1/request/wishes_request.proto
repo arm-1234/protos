@@ -166,3 +166,12 @@ message UpdateTemplateSoundtracksRequest {
   string template = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}];
   repeated wishes.v1.types.SoundtrackSong songs = 2 [(validate.rules).repeated = {max_items: 20, items: {message: {required: true}}}];
 }
+
+message ListTemplateShowcaseRequest {}
+
+message UpdateTemplateShowcaseRequest {
+  string template = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}];
+  string design = 2 [(validate.rules).string = {max_len: 64, pattern: "^([a-z][a-z0-9-]*)?$"}];
+  string theme = 3 [(validate.rules).string = {max_len: 64, pattern: "^([a-z][a-z0-9-]*)?$"}];
+  string tag = 4 [(validate.rules).string.max_len = 40];
+}

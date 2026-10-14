@@ -1670,6 +1670,110 @@ func (x *UpdateTemplateSoundtracksRequest) GetSongs() []*types.SoundtrackSong {
 	return nil
 }
 
+type ListTemplateShowcaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListTemplateShowcaseRequest) Reset() {
+	*x = ListTemplateShowcaseRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListTemplateShowcaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListTemplateShowcaseRequest) ProtoMessage() {}
+
+func (x *ListTemplateShowcaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListTemplateShowcaseRequest.ProtoReflect.Descriptor instead.
+func (*ListTemplateShowcaseRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{31}
+}
+
+type UpdateTemplateShowcaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Template      string                 `protobuf:"bytes,1,opt,name=template,proto3" json:"template,omitempty"`
+	Design        string                 `protobuf:"bytes,2,opt,name=design,proto3" json:"design,omitempty"`
+	Theme         string                 `protobuf:"bytes,3,opt,name=theme,proto3" json:"theme,omitempty"`
+	Tag           string                 `protobuf:"bytes,4,opt,name=tag,proto3" json:"tag,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateTemplateShowcaseRequest) Reset() {
+	*x = UpdateTemplateShowcaseRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateTemplateShowcaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTemplateShowcaseRequest) ProtoMessage() {}
+
+func (x *UpdateTemplateShowcaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTemplateShowcaseRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTemplateShowcaseRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *UpdateTemplateShowcaseRequest) GetTemplate() string {
+	if x != nil {
+		return x.Template
+	}
+	return ""
+}
+
+func (x *UpdateTemplateShowcaseRequest) GetDesign() string {
+	if x != nil {
+		return x.Design
+	}
+	return ""
+}
+
+func (x *UpdateTemplateShowcaseRequest) GetTheme() string {
+	if x != nil {
+		return x.Theme
+	}
+	return ""
+}
+
+func (x *UpdateTemplateShowcaseRequest) GetTag() string {
+	if x != nil {
+		return x.Tag
+	}
+	return ""
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
@@ -1788,7 +1892,13 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x1eListTemplateSoundtracksRequest\"\xa8\x01\n" +
 	" UpdateTemplateSoundtracksRequest\x12<\n" +
 	"\btemplate\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\btemplate\x12F\n" +
-	"\x05songs\x18\x02 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongB\x0f\xfaB\f\x92\x01\t\x10\x14\"\x05\x8a\x01\x02\x10\x01R\x05songsB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\x05songs\x18\x02 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongB\x0f\xfaB\f\x92\x01\t\x10\x14\"\x05\x8a\x01\x02\x10\x01R\x05songs\"\x1d\n" +
+	"\x1bListTemplateShowcaseRequest\"\xe4\x01\n" +
+	"\x1dUpdateTemplateShowcaseRequest\x12<\n" +
+	"\btemplate\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\btemplate\x125\n" +
+	"\x06design\x18\x02 \x01(\tB\x1d\xfaB\x1ar\x18\x18@2\x14^([a-z][a-z0-9-]*)?$R\x06design\x123\n" +
+	"\x05theme\x18\x03 \x01(\tB\x1d\xfaB\x1ar\x18\x18@2\x14^([a-z][a-z0-9-]*)?$R\x05theme\x12\x19\n" +
+	"\x03tag\x18\x04 \x01(\tB\a\xfaB\x04r\x02\x18(R\x03tagB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -1802,7 +1912,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 33)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),                // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),              // 1: wishes.v1.request.ListMyWishesRequest
@@ -1835,22 +1945,24 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CheckCouponRequest)(nil),               // 28: wishes.v1.request.CheckCouponRequest
 	(*ListTemplateSoundtracksRequest)(nil),   // 29: wishes.v1.request.ListTemplateSoundtracksRequest
 	(*UpdateTemplateSoundtracksRequest)(nil), // 30: wishes.v1.request.UpdateTemplateSoundtracksRequest
-	(*structpb.Struct)(nil),                  // 31: google.protobuf.Struct
-	(enums.WishStatus)(0),                    // 32: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),                    // 33: wishes.v1.types.enums.WishSortBy
-	(enums.ResponseKind)(0),                  // 34: wishes.v1.types.enums.ResponseKind
-	(enums.CouponStatus)(0),                  // 35: wishes.v1.types.enums.CouponStatus
-	(*types.SoundtrackSong)(nil),             // 36: wishes.v1.types.SoundtrackSong
+	(*ListTemplateShowcaseRequest)(nil),      // 31: wishes.v1.request.ListTemplateShowcaseRequest
+	(*UpdateTemplateShowcaseRequest)(nil),    // 32: wishes.v1.request.UpdateTemplateShowcaseRequest
+	(*structpb.Struct)(nil),                  // 33: google.protobuf.Struct
+	(enums.WishStatus)(0),                    // 34: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),                    // 35: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),                  // 36: wishes.v1.types.enums.ResponseKind
+	(enums.CouponStatus)(0),                  // 37: wishes.v1.types.enums.CouponStatus
+	(*types.SoundtrackSong)(nil),             // 38: wishes.v1.types.SoundtrackSong
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	31, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	32, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	33, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	31, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	31, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	34, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
-	35, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
-	36, // 7: wishes.v1.request.UpdateTemplateSoundtracksRequest.songs:type_name -> wishes.v1.types.SoundtrackSong
+	33, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	34, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	35, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	33, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	33, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	36, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	37, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
+	38, // 7: wishes.v1.request.UpdateTemplateSoundtracksRequest.songs:type_name -> wishes.v1.types.SoundtrackSong
 	8,  // [8:8] is the sub-list for method output_type
 	8,  // [8:8] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -1869,7 +1981,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   31,
+			NumMessages:   33,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
