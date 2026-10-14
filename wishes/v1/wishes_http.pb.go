@@ -52,6 +52,7 @@ const OperationWishesUpdatePricing = "/wishes.v1.Wishes/UpdatePricing"
 const OperationWishesUpdateTemplateShowcase = "/wishes.v1.Wishes/UpdateTemplateShowcase"
 const OperationWishesUpdateTemplateSoundtracks = "/wishes.v1.Wishes/UpdateTemplateSoundtracks"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
+const OperationWishesUpdateWishLifetime = "/wishes.v1.Wishes/UpdateWishLifetime"
 const OperationWishesUploadWishPhoto = "/wishes.v1.Wishes/UploadWishPhoto"
 const OperationWishesVerifyOrderPayment = "/wishes.v1.Wishes/VerifyOrderPayment"
 
@@ -87,6 +88,7 @@ type WishesHTTPServer interface {
 	UpdateTemplateShowcase(context.Context, *request.UpdateTemplateShowcaseRequest) (*response.UpdateTemplateShowcaseResponse, error)
 	UpdateTemplateSoundtracks(context.Context, *request.UpdateTemplateSoundtracksRequest) (*response.UpdateTemplateSoundtracksResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
+	UpdateWishLifetime(context.Context, *request.UpdateWishLifetimeRequest) (*response.UpdateWishLifetimeResponse, error)
 	UploadWishPhoto(context.Context, *request.UploadWishPhotoRequest) (*response.UploadWishPhotoResponse, error)
 	VerifyOrderPayment(context.Context, *request.VerifyOrderPaymentRequest) (*response.VerifyOrderPaymentResponse, error)
 }
@@ -97,6 +99,7 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.PUT("/v1/admin/soundtracks/{template}", _Wishes_UpdateTemplateSoundtracks0_HTTP_Handler(srv))
 	r.GET("/v1/admin/showcase", _Wishes_ListTemplateShowcase0_HTTP_Handler(srv))
 	r.PUT("/v1/admin/showcase/{template}", _Wishes_UpdateTemplateShowcase0_HTTP_Handler(srv))
+	r.PUT("/v1/admin/wishes/{wish}/lifetime", _Wishes_UpdateWishLifetime0_HTTP_Handler(srv))
 	r.POST("/v1/wishes", _Wishes_CreateWish0_HTTP_Handler(srv))
 	r.GET("/v1/wishes", _Wishes_ListMyWishes0_HTTP_Handler(srv))
 	r.GET("/v1/wishes:stats", _Wishes_GetWishStats0_HTTP_Handler(srv))
@@ -212,6 +215,31 @@ func _Wishes_UpdateTemplateShowcase0_HTTP_Handler(srv WishesHTTPServer) func(ctx
 			return err
 		}
 		reply := out.(*response.UpdateTemplateShowcaseResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_UpdateWishLifetime0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateWishLifetimeRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesUpdateWishLifetime)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateWishLifetime(ctx, req.(*request.UpdateWishLifetimeRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateWishLifetimeResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -904,6 +932,7 @@ type WishesHTTPClient interface {
 	UpdateTemplateShowcase(ctx context.Context, req *request.UpdateTemplateShowcaseRequest, opts ...http.CallOption) (rsp *response.UpdateTemplateShowcaseResponse, err error)
 	UpdateTemplateSoundtracks(ctx context.Context, req *request.UpdateTemplateSoundtracksRequest, opts ...http.CallOption) (rsp *response.UpdateTemplateSoundtracksResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
+	UpdateWishLifetime(ctx context.Context, req *request.UpdateWishLifetimeRequest, opts ...http.CallOption) (rsp *response.UpdateWishLifetimeResponse, err error)
 	UploadWishPhoto(ctx context.Context, req *request.UploadWishPhotoRequest, opts ...http.CallOption) (rsp *response.UploadWishPhotoResponse, err error)
 	VerifyOrderPayment(ctx context.Context, req *request.VerifyOrderPaymentRequest, opts ...http.CallOption) (rsp *response.VerifyOrderPaymentResponse, err error)
 }
@@ -1313,6 +1342,19 @@ func (c *WishesHTTPClientImpl) UpdateWish(ctx context.Context, in *request.Updat
 	opts = append(opts, http.Operation(OperationWishesUpdateWish))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PATCH", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) UpdateWishLifetime(ctx context.Context, in *request.UpdateWishLifetimeRequest, opts ...http.CallOption) (*response.UpdateWishLifetimeResponse, error) {
+	var out response.UpdateWishLifetimeResponse
+	pattern := "/v1/admin/wishes/{wish}/lifetime"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesUpdateWishLifetime))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

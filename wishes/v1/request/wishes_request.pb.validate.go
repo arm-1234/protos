@@ -4531,3 +4531,140 @@ var _UpdateTemplateShowcaseRequest_Template_Pattern = regexp.MustCompile("^[a-z]
 var _UpdateTemplateShowcaseRequest_Design_Pattern = regexp.MustCompile("^([a-z][a-z0-9-]*)?$")
 
 var _UpdateTemplateShowcaseRequest_Theme_Pattern = regexp.MustCompile("^([a-z][a-z0-9-]*)?$")
+
+// Validate checks the field values on UpdateWishLifetimeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateWishLifetimeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateWishLifetimeRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateWishLifetimeRequestMultiError, or nil if none found.
+func (m *UpdateWishLifetimeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateWishLifetimeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetWish()); l < 1 || l > 64 {
+		err := UpdateWishLifetimeRequestValidationError{
+			field:  "Wish",
+			reason: "value length must be between 1 and 64 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_UpdateWishLifetimeRequest_Wish_Pattern.MatchString(m.GetWish()) {
+		err := UpdateWishLifetimeRequestValidationError{
+			field:  "Wish",
+			reason: "value does not match regex pattern \"^[A-Za-z0-9_-]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if val := m.GetDays(); val < 1 || val > 100 {
+		err := UpdateWishLifetimeRequestValidationError{
+			field:  "Days",
+			reason: "value must be inside range [1, 100]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return UpdateWishLifetimeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateWishLifetimeRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdateWishLifetimeRequest.ValidateAll() if the
+// designated constraints aren't met.
+type UpdateWishLifetimeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateWishLifetimeRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateWishLifetimeRequestMultiError) AllErrors() []error { return m }
+
+// UpdateWishLifetimeRequestValidationError is the validation error returned by
+// UpdateWishLifetimeRequest.Validate if the designated constraints aren't met.
+type UpdateWishLifetimeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateWishLifetimeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateWishLifetimeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateWishLifetimeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateWishLifetimeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateWishLifetimeRequestValidationError) ErrorName() string {
+	return "UpdateWishLifetimeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateWishLifetimeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateWishLifetimeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateWishLifetimeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateWishLifetimeRequestValidationError{}
+
+var _UpdateWishLifetimeRequest_Wish_Pattern = regexp.MustCompile("^[A-Za-z0-9_-]+$")

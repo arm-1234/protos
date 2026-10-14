@@ -1774,6 +1774,58 @@ func (x *UpdateTemplateShowcaseRequest) GetTag() string {
 	return ""
 }
 
+type UpdateWishLifetimeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Wish          string                 `protobuf:"bytes,1,opt,name=wish,proto3" json:"wish,omitempty"`
+	Days          int32                  `protobuf:"varint,2,opt,name=days,proto3" json:"days,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateWishLifetimeRequest) Reset() {
+	*x = UpdateWishLifetimeRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateWishLifetimeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateWishLifetimeRequest) ProtoMessage() {}
+
+func (x *UpdateWishLifetimeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateWishLifetimeRequest.ProtoReflect.Descriptor instead.
+func (*UpdateWishLifetimeRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *UpdateWishLifetimeRequest) GetWish() string {
+	if x != nil {
+		return x.Wish
+	}
+	return ""
+}
+
+func (x *UpdateWishLifetimeRequest) GetDays() int32 {
+	if x != nil {
+		return x.Days
+	}
+	return 0
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
@@ -1898,7 +1950,10 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\btemplate\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\btemplate\x125\n" +
 	"\x06design\x18\x02 \x01(\tB\x1d\xfaB\x1ar\x18\x18@2\x14^([a-z][a-z0-9-]*)?$R\x06design\x123\n" +
 	"\x05theme\x18\x03 \x01(\tB\x1d\xfaB\x1ar\x18\x18@2\x14^([a-z][a-z0-9-]*)?$R\x05theme\x12\x19\n" +
-	"\x03tag\x18\x04 \x01(\tB\a\xfaB\x04r\x02\x18(R\x03tagB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\x03tag\x18\x04 \x01(\tB\a\xfaB\x04r\x02\x18(R\x03tag\"s\n" +
+	"\x19UpdateWishLifetimeRequest\x123\n" +
+	"\x04wish\x18\x01 \x01(\tB\x1f\xe2A\x01\x02\xfaB\x18r\x16\x10\x01\x18@2\x10^[A-Za-z0-9_-]+$R\x04wish\x12!\n" +
+	"\x04days\x18\x02 \x01(\x05B\r\xe2A\x01\x02\xfaB\x06\x1a\x04\x18d(\x01R\x04daysB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -1912,7 +1967,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 33)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),                // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),              // 1: wishes.v1.request.ListMyWishesRequest
@@ -1947,22 +2002,23 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*UpdateTemplateSoundtracksRequest)(nil), // 30: wishes.v1.request.UpdateTemplateSoundtracksRequest
 	(*ListTemplateShowcaseRequest)(nil),      // 31: wishes.v1.request.ListTemplateShowcaseRequest
 	(*UpdateTemplateShowcaseRequest)(nil),    // 32: wishes.v1.request.UpdateTemplateShowcaseRequest
-	(*structpb.Struct)(nil),                  // 33: google.protobuf.Struct
-	(enums.WishStatus)(0),                    // 34: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),                    // 35: wishes.v1.types.enums.WishSortBy
-	(enums.ResponseKind)(0),                  // 36: wishes.v1.types.enums.ResponseKind
-	(enums.CouponStatus)(0),                  // 37: wishes.v1.types.enums.CouponStatus
-	(*types.SoundtrackSong)(nil),             // 38: wishes.v1.types.SoundtrackSong
+	(*UpdateWishLifetimeRequest)(nil),        // 33: wishes.v1.request.UpdateWishLifetimeRequest
+	(*structpb.Struct)(nil),                  // 34: google.protobuf.Struct
+	(enums.WishStatus)(0),                    // 35: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),                    // 36: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),                  // 37: wishes.v1.types.enums.ResponseKind
+	(enums.CouponStatus)(0),                  // 38: wishes.v1.types.enums.CouponStatus
+	(*types.SoundtrackSong)(nil),             // 39: wishes.v1.types.SoundtrackSong
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	33, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	34, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	35, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	33, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	33, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	36, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
-	37, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
-	38, // 7: wishes.v1.request.UpdateTemplateSoundtracksRequest.songs:type_name -> wishes.v1.types.SoundtrackSong
+	34, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	35, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	36, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	34, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	34, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	37, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	38, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
+	39, // 7: wishes.v1.request.UpdateTemplateSoundtracksRequest.songs:type_name -> wishes.v1.types.SoundtrackSong
 	8,  // [8:8] is the sub-list for method output_type
 	8,  // [8:8] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -1981,7 +2037,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   33,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

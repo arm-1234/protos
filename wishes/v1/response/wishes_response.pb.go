@@ -1689,6 +1689,50 @@ func (x *UpdateTemplateShowcaseResponse) GetShowcase() *types.TemplateShowcase {
 	return nil
 }
 
+type UpdateWishLifetimeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Wish          *types.WishInfo        `protobuf:"bytes,1,opt,name=wish,proto3" json:"wish,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateWishLifetimeResponse) Reset() {
+	*x = UpdateWishLifetimeResponse{}
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateWishLifetimeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateWishLifetimeResponse) ProtoMessage() {}
+
+func (x *UpdateWishLifetimeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_response_wishes_response_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateWishLifetimeResponse.ProtoReflect.Descriptor instead.
+func (*UpdateWishLifetimeResponse) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_response_wishes_response_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *UpdateWishLifetimeResponse) GetWish() *types.WishInfo {
+	if x != nil {
+		return x.Wish
+	}
+	return nil
+}
+
 var File_wishes_v1_response_wishes_response_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
@@ -1784,7 +1828,9 @@ const file_wishes_v1_response_wishes_response_proto_rawDesc = "" +
 	"\x1cListTemplateShowcaseResponse\x12?\n" +
 	"\ttemplates\x18\x01 \x03(\v2!.wishes.v1.types.TemplateShowcaseR\ttemplates\"_\n" +
 	"\x1eUpdateTemplateShowcaseResponse\x12=\n" +
-	"\bshowcase\x18\x01 \x01(\v2!.wishes.v1.types.TemplateShowcaseR\bshowcaseB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
+	"\bshowcase\x18\x01 \x01(\v2!.wishes.v1.types.TemplateShowcaseR\bshowcase\"K\n" +
+	"\x1aUpdateWishLifetimeResponse\x12-\n" +
+	"\x04wish\x18\x01 \x01(\v2\x19.wishes.v1.types.WishInfoR\x04wishB8Z6github.com/arm-1234/protos/wishes/v1/response;responseb\x06proto3"
 
 var (
 	file_wishes_v1_response_wishes_response_proto_rawDescOnce sync.Once
@@ -1798,7 +1844,7 @@ func file_wishes_v1_response_wishes_response_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_response_wishes_response_proto_rawDescData
 }
 
-var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
+var file_wishes_v1_response_wishes_response_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
 var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*PageInfo)(nil),                          // 0: wishes.v1.response.PageInfo
 	(*CreateWishResponse)(nil),                // 1: wishes.v1.response.CreateWishResponse
@@ -1834,62 +1880,64 @@ var file_wishes_v1_response_wishes_response_proto_goTypes = []any{
 	(*UpdateTemplateSoundtracksResponse)(nil), // 31: wishes.v1.response.UpdateTemplateSoundtracksResponse
 	(*ListTemplateShowcaseResponse)(nil),      // 32: wishes.v1.response.ListTemplateShowcaseResponse
 	(*UpdateTemplateShowcaseResponse)(nil),    // 33: wishes.v1.response.UpdateTemplateShowcaseResponse
-	(*types.WishInfo)(nil),                    // 34: wishes.v1.types.WishInfo
-	(*structpb.Struct)(nil),                   // 35: google.protobuf.Struct
-	(enums.DeliveryStatus)(0),                 // 36: wishes.v1.types.enums.DeliveryStatus
-	(*timestamppb.Timestamp)(nil),             // 37: google.protobuf.Timestamp
-	(*types.WishResponseInfo)(nil),            // 38: wishes.v1.types.WishResponseInfo
-	(*types.TemplateInfo)(nil),                // 39: wishes.v1.types.TemplateInfo
-	(*types.PriceInfo)(nil),                   // 40: wishes.v1.types.PriceInfo
-	(*types.OrderInfo)(nil),                   // 41: wishes.v1.types.OrderInfo
-	(*types.PaymentCheckout)(nil),             // 42: wishes.v1.types.PaymentCheckout
-	(*types.CouponInfo)(nil),                  // 43: wishes.v1.types.CouponInfo
-	(*types.CouponQuote)(nil),                 // 44: wishes.v1.types.CouponQuote
-	(*types.TemplateSoundtracks)(nil),         // 45: wishes.v1.types.TemplateSoundtracks
-	(*types.TemplateShowcase)(nil),            // 46: wishes.v1.types.TemplateShowcase
+	(*UpdateWishLifetimeResponse)(nil),        // 34: wishes.v1.response.UpdateWishLifetimeResponse
+	(*types.WishInfo)(nil),                    // 35: wishes.v1.types.WishInfo
+	(*structpb.Struct)(nil),                   // 36: google.protobuf.Struct
+	(enums.DeliveryStatus)(0),                 // 37: wishes.v1.types.enums.DeliveryStatus
+	(*timestamppb.Timestamp)(nil),             // 38: google.protobuf.Timestamp
+	(*types.WishResponseInfo)(nil),            // 39: wishes.v1.types.WishResponseInfo
+	(*types.TemplateInfo)(nil),                // 40: wishes.v1.types.TemplateInfo
+	(*types.PriceInfo)(nil),                   // 41: wishes.v1.types.PriceInfo
+	(*types.OrderInfo)(nil),                   // 42: wishes.v1.types.OrderInfo
+	(*types.PaymentCheckout)(nil),             // 43: wishes.v1.types.PaymentCheckout
+	(*types.CouponInfo)(nil),                  // 44: wishes.v1.types.CouponInfo
+	(*types.CouponQuote)(nil),                 // 45: wishes.v1.types.CouponQuote
+	(*types.TemplateSoundtracks)(nil),         // 46: wishes.v1.types.TemplateSoundtracks
+	(*types.TemplateShowcase)(nil),            // 47: wishes.v1.types.TemplateShowcase
 }
 var file_wishes_v1_response_wishes_response_proto_depIdxs = []int32{
-	34, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	34, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
+	35, // 0: wishes.v1.response.CreateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	35, // 1: wishes.v1.response.ListMyWishesResponse.wishes:type_name -> wishes.v1.types.WishInfo
 	0,  // 2: wishes.v1.response.ListMyWishesResponse.page:type_name -> wishes.v1.response.PageInfo
-	34, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	35, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
-	34, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	34, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	34, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	36, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
-	37, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
-	38, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
+	35, // 3: wishes.v1.response.GetWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	36, // 4: wishes.v1.response.GetWishResponse.config:type_name -> google.protobuf.Struct
+	35, // 5: wishes.v1.response.UpdateWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	35, // 6: wishes.v1.response.ExtendWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	35, // 7: wishes.v1.response.RevokeWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	37, // 8: wishes.v1.response.SendWishResponse.delivery_status:type_name -> wishes.v1.types.enums.DeliveryStatus
+	38, // 9: wishes.v1.response.SendWishResponse.delivered_at:type_name -> google.protobuf.Timestamp
+	39, // 10: wishes.v1.response.ListWishResponsesResponse.responses:type_name -> wishes.v1.types.WishResponseInfo
 	0,  // 11: wishes.v1.response.ListWishResponsesResponse.page:type_name -> wishes.v1.response.PageInfo
-	39, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
-	34, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
-	34, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
-	34, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
-	34, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
-	35, // 17: wishes.v1.response.GetTemplateSchemaResponse.schema:type_name -> google.protobuf.Struct
-	40, // 18: wishes.v1.response.GetPricingResponse.price:type_name -> wishes.v1.types.PriceInfo
-	40, // 19: wishes.v1.response.UpdatePricingResponse.price:type_name -> wishes.v1.types.PriceInfo
-	40, // 20: wishes.v1.response.ListPriceHistoryResponse.prices:type_name -> wishes.v1.types.PriceInfo
-	41, // 21: wishes.v1.response.CreateOrderResponse.order:type_name -> wishes.v1.types.OrderInfo
-	34, // 22: wishes.v1.response.CreateOrderResponse.wish:type_name -> wishes.v1.types.WishInfo
-	42, // 23: wishes.v1.response.CreateOrderResponse.checkout:type_name -> wishes.v1.types.PaymentCheckout
-	41, // 24: wishes.v1.response.GetOrderResponse.order:type_name -> wishes.v1.types.OrderInfo
-	34, // 25: wishes.v1.response.GetOrderResponse.wish:type_name -> wishes.v1.types.WishInfo
-	41, // 26: wishes.v1.response.VerifyOrderPaymentResponse.order:type_name -> wishes.v1.types.OrderInfo
-	34, // 27: wishes.v1.response.VerifyOrderPaymentResponse.wish:type_name -> wishes.v1.types.WishInfo
-	43, // 28: wishes.v1.response.CreateCouponResponse.coupon:type_name -> wishes.v1.types.CouponInfo
-	43, // 29: wishes.v1.response.ListCouponsResponse.coupons:type_name -> wishes.v1.types.CouponInfo
-	43, // 30: wishes.v1.response.SetCouponStatusResponse.coupon:type_name -> wishes.v1.types.CouponInfo
-	44, // 31: wishes.v1.response.CheckCouponResponse.quote:type_name -> wishes.v1.types.CouponQuote
-	45, // 32: wishes.v1.response.ListTemplateSoundtracksResponse.templates:type_name -> wishes.v1.types.TemplateSoundtracks
-	45, // 33: wishes.v1.response.UpdateTemplateSoundtracksResponse.soundtracks:type_name -> wishes.v1.types.TemplateSoundtracks
-	46, // 34: wishes.v1.response.ListTemplateShowcaseResponse.templates:type_name -> wishes.v1.types.TemplateShowcase
-	46, // 35: wishes.v1.response.UpdateTemplateShowcaseResponse.showcase:type_name -> wishes.v1.types.TemplateShowcase
-	36, // [36:36] is the sub-list for method output_type
-	36, // [36:36] is the sub-list for method input_type
-	36, // [36:36] is the sub-list for extension type_name
-	36, // [36:36] is the sub-list for extension extendee
-	0,  // [0:36] is the sub-list for field type_name
+	40, // 12: wishes.v1.response.ListTemplatesResponse.templates:type_name -> wishes.v1.types.TemplateInfo
+	35, // 13: wishes.v1.response.SaveDraftResponse.wish:type_name -> wishes.v1.types.WishInfo
+	35, // 14: wishes.v1.response.PublishWishResponse.wish:type_name -> wishes.v1.types.WishInfo
+	35, // 15: wishes.v1.response.UploadWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	35, // 16: wishes.v1.response.DeleteWishPhotoResponse.wish:type_name -> wishes.v1.types.WishInfo
+	36, // 17: wishes.v1.response.GetTemplateSchemaResponse.schema:type_name -> google.protobuf.Struct
+	41, // 18: wishes.v1.response.GetPricingResponse.price:type_name -> wishes.v1.types.PriceInfo
+	41, // 19: wishes.v1.response.UpdatePricingResponse.price:type_name -> wishes.v1.types.PriceInfo
+	41, // 20: wishes.v1.response.ListPriceHistoryResponse.prices:type_name -> wishes.v1.types.PriceInfo
+	42, // 21: wishes.v1.response.CreateOrderResponse.order:type_name -> wishes.v1.types.OrderInfo
+	35, // 22: wishes.v1.response.CreateOrderResponse.wish:type_name -> wishes.v1.types.WishInfo
+	43, // 23: wishes.v1.response.CreateOrderResponse.checkout:type_name -> wishes.v1.types.PaymentCheckout
+	42, // 24: wishes.v1.response.GetOrderResponse.order:type_name -> wishes.v1.types.OrderInfo
+	35, // 25: wishes.v1.response.GetOrderResponse.wish:type_name -> wishes.v1.types.WishInfo
+	42, // 26: wishes.v1.response.VerifyOrderPaymentResponse.order:type_name -> wishes.v1.types.OrderInfo
+	35, // 27: wishes.v1.response.VerifyOrderPaymentResponse.wish:type_name -> wishes.v1.types.WishInfo
+	44, // 28: wishes.v1.response.CreateCouponResponse.coupon:type_name -> wishes.v1.types.CouponInfo
+	44, // 29: wishes.v1.response.ListCouponsResponse.coupons:type_name -> wishes.v1.types.CouponInfo
+	44, // 30: wishes.v1.response.SetCouponStatusResponse.coupon:type_name -> wishes.v1.types.CouponInfo
+	45, // 31: wishes.v1.response.CheckCouponResponse.quote:type_name -> wishes.v1.types.CouponQuote
+	46, // 32: wishes.v1.response.ListTemplateSoundtracksResponse.templates:type_name -> wishes.v1.types.TemplateSoundtracks
+	46, // 33: wishes.v1.response.UpdateTemplateSoundtracksResponse.soundtracks:type_name -> wishes.v1.types.TemplateSoundtracks
+	47, // 34: wishes.v1.response.ListTemplateShowcaseResponse.templates:type_name -> wishes.v1.types.TemplateShowcase
+	47, // 35: wishes.v1.response.UpdateTemplateShowcaseResponse.showcase:type_name -> wishes.v1.types.TemplateShowcase
+	35, // 36: wishes.v1.response.UpdateWishLifetimeResponse.wish:type_name -> wishes.v1.types.WishInfo
+	37, // [37:37] is the sub-list for method output_type
+	37, // [37:37] is the sub-list for method input_type
+	37, // [37:37] is the sub-list for extension type_name
+	37, // [37:37] is the sub-list for extension extendee
+	0,  // [0:37] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_response_wishes_response_proto_init() }
@@ -1903,7 +1951,7 @@ func file_wishes_v1_response_wishes_response_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_response_wishes_response_proto_rawDesc), len(file_wishes_v1_response_wishes_response_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   34,
+			NumMessages:   35,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

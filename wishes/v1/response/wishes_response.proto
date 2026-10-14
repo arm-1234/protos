@@ -169,3 +169,7 @@ message ListTemplateShowcaseResponse {
 message UpdateTemplateShowcaseResponse {
   wishes.v1.types.TemplateShowcase showcase = 1;
 }
+
+message UpdateWishLifetimeResponse {
+  wishes.v1.types.WishInfo wish = 1;
+}
