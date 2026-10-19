@@ -1214,6 +1214,120 @@ var _ interface {
 	ErrorName() string
 } = AuthenticateWithProviderRequestValidationError{}
 
+// Validate checks the field values on AuthenticateWithGoogleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AuthenticateWithGoogleRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AuthenticateWithGoogleRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// AuthenticateWithGoogleRequestMultiError, or nil if none found.
+func (m *AuthenticateWithGoogleRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AuthenticateWithGoogleRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetIdToken()); l < 20 || l > 4096 {
+		err := AuthenticateWithGoogleRequestValidationError{
+			field:  "IdToken",
+			reason: "value length must be between 20 and 4096 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return AuthenticateWithGoogleRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AuthenticateWithGoogleRequestMultiError is an error wrapping multiple
+// validation errors returned by AuthenticateWithGoogleRequest.ValidateAll()
+// if the designated constraints aren't met.
+type AuthenticateWithGoogleRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AuthenticateWithGoogleRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AuthenticateWithGoogleRequestMultiError) AllErrors() []error { return m }
+
+// AuthenticateWithGoogleRequestValidationError is the validation error
+// returned by AuthenticateWithGoogleRequest.Validate if the designated
+// constraints aren't met.
+type AuthenticateWithGoogleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AuthenticateWithGoogleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AuthenticateWithGoogleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AuthenticateWithGoogleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AuthenticateWithGoogleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AuthenticateWithGoogleRequestValidationError) ErrorName() string {
+	return "AuthenticateWithGoogleRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AuthenticateWithGoogleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAuthenticateWithGoogleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AuthenticateWithGoogleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AuthenticateWithGoogleRequestValidationError{}
+
 // Validate checks the field values on GetMeRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

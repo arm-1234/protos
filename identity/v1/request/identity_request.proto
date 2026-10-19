@@ -74,6 +74,10 @@ message AuthenticateWithProviderRequest {
   string email = 6;
 }
 
+message AuthenticateWithGoogleRequest {
+  string id_token = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 20, max_len: 4096}];
+}
+
 message GetMeRequest {}
 
 message RegisterPushTokenRequest {

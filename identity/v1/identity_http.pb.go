@@ -21,6 +21,7 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationIdentityAuthenticateWithGoogle = "/identity.v1.Identity/AuthenticateWithGoogle"
 const OperationIdentityAuthenticateWithProvider = "/identity.v1.Identity/AuthenticateWithProvider"
 const OperationIdentityConfirmPhoneChange = "/identity.v1.Identity/ConfirmPhoneChange"
 const OperationIdentityForgotPassword = "/identity.v1.Identity/ForgotPassword"
@@ -40,6 +41,7 @@ const OperationIdentityUpdateProfile = "/identity.v1.Identity/UpdateProfile"
 const OperationIdentityVerifyOtp = "/identity.v1.Identity/VerifyOtp"
 
 type IdentityHTTPServer interface {
+	AuthenticateWithGoogle(context.Context, *request.AuthenticateWithGoogleRequest) (*response.AuthResponse, error)
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
 	ConfirmPhoneChange(context.Context, *request.ConfirmPhoneChangeRequest) (*response.GetMeResponse, error)
 	ForgotPassword(context.Context, *request.ForgotPasswordRequest) (*response.ForgotPasswordResponse, error)
@@ -68,6 +70,7 @@ func RegisterIdentityHTTPServer(s *http.Server, srv IdentityHTTPServer) {
 	r.POST("/v1/auth/password:set", _Identity_SetPassword0_HTTP_Handler(srv))
 	r.PATCH("/v1/auth/me", _Identity_UpdateProfile0_HTTP_Handler(srv))
 	r.POST("/v1/auth/external", _Identity_AuthenticateWithProvider0_HTTP_Handler(srv))
+	r.POST("/v1/auth/google", _Identity_AuthenticateWithGoogle0_HTTP_Handler(srv))
 	r.GET("/v1/auth/me", _Identity_GetMe0_HTTP_Handler(srv))
 	r.POST("/v1/push/register", _Identity_RegisterPushToken0_HTTP_Handler(srv))
 	r.POST("/v1/auth/otp:request", _Identity_RequestOtp0_HTTP_Handler(srv))
@@ -224,6 +227,28 @@ func _Identity_AuthenticateWithProvider0_HTTP_Handler(srv IdentityHTTPServer) fu
 		http.SetOperation(ctx, OperationIdentityAuthenticateWithProvider)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.AuthenticateWithProvider(ctx, req.(*request.AuthenticateWithProviderRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.AuthResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Identity_AuthenticateWithGoogle0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.AuthenticateWithGoogleRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationIdentityAuthenticateWithGoogle)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.AuthenticateWithGoogle(ctx, req.(*request.AuthenticateWithGoogleRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -452,6 +477,7 @@ func _Identity_Logout0_HTTP_Handler(srv IdentityHTTPServer) func(ctx http.Contex
 }
 
 type IdentityHTTPClient interface {
+	AuthenticateWithGoogle(ctx context.Context, req *request.AuthenticateWithGoogleRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	AuthenticateWithProvider(ctx context.Context, req *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (rsp *response.AuthResponse, err error)
 	ConfirmPhoneChange(ctx context.Context, req *request.ConfirmPhoneChangeRequest, opts ...http.CallOption) (rsp *response.GetMeResponse, err error)
 	ForgotPassword(ctx context.Context, req *request.ForgotPasswordRequest, opts ...http.CallOption) (rsp *response.ForgotPasswordResponse, err error)
@@ -477,6 +503,19 @@ type IdentityHTTPClientImpl struct {
 
 func NewIdentityHTTPClient(client *http.Client) IdentityHTTPClient {
 	return &IdentityHTTPClientImpl{client}
+}
+
+func (c *IdentityHTTPClientImpl) AuthenticateWithGoogle(ctx context.Context, in *request.AuthenticateWithGoogleRequest, opts ...http.CallOption) (*response.AuthResponse, error) {
+	var out response.AuthResponse
+	pattern := "/v1/auth/google"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationIdentityAuthenticateWithGoogle))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 func (c *IdentityHTTPClientImpl) AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...http.CallOption) (*response.AuthResponse, error) {

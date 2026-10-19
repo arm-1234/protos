@@ -28,6 +28,7 @@ const (
 	Identity_SetPassword_FullMethodName              = "/identity.v1.Identity/SetPassword"
 	Identity_UpdateProfile_FullMethodName            = "/identity.v1.Identity/UpdateProfile"
 	Identity_AuthenticateWithProvider_FullMethodName = "/identity.v1.Identity/AuthenticateWithProvider"
+	Identity_AuthenticateWithGoogle_FullMethodName   = "/identity.v1.Identity/AuthenticateWithGoogle"
 	Identity_GetMe_FullMethodName                    = "/identity.v1.Identity/GetMe"
 	Identity_RegisterPushToken_FullMethodName        = "/identity.v1.Identity/RegisterPushToken"
 	Identity_RequestOtp_FullMethodName               = "/identity.v1.Identity/RequestOtp"
@@ -51,6 +52,7 @@ type IdentityClient interface {
 	SetPassword(ctx context.Context, in *request.SetPasswordRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	UpdateProfile(ctx context.Context, in *request.UpdateProfileRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	AuthenticateWithProvider(ctx context.Context, in *request.AuthenticateWithProviderRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
+	AuthenticateWithGoogle(ctx context.Context, in *request.AuthenticateWithGoogleRequest, opts ...grpc.CallOption) (*response.AuthResponse, error)
 	GetMe(ctx context.Context, in *request.GetMeRequest, opts ...grpc.CallOption) (*response.GetMeResponse, error)
 	RegisterPushToken(ctx context.Context, in *request.RegisterPushTokenRequest, opts ...grpc.CallOption) (*response.RegisterPushTokenResponse, error)
 	RequestOtp(ctx context.Context, in *request.RequestOtpRequest, opts ...grpc.CallOption) (*response.RequestOtpResponse, error)
@@ -135,6 +137,16 @@ func (c *identityClient) AuthenticateWithProvider(ctx context.Context, in *reque
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.AuthResponse)
 	err := c.cc.Invoke(ctx, Identity_AuthenticateWithProvider_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityClient) AuthenticateWithGoogle(ctx context.Context, in *request.AuthenticateWithGoogleRequest, opts ...grpc.CallOption) (*response.AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.AuthResponse)
+	err := c.cc.Invoke(ctx, Identity_AuthenticateWithGoogle_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -252,6 +264,7 @@ type IdentityServer interface {
 	SetPassword(context.Context, *request.SetPasswordRequest) (*response.AuthResponse, error)
 	UpdateProfile(context.Context, *request.UpdateProfileRequest) (*response.GetMeResponse, error)
 	AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error)
+	AuthenticateWithGoogle(context.Context, *request.AuthenticateWithGoogleRequest) (*response.AuthResponse, error)
 	GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error)
 	RegisterPushToken(context.Context, *request.RegisterPushTokenRequest) (*response.RegisterPushTokenResponse, error)
 	RequestOtp(context.Context, *request.RequestOtpRequest) (*response.RequestOtpResponse, error)
@@ -292,6 +305,9 @@ func (UnimplementedIdentityServer) UpdateProfile(context.Context, *request.Updat
 }
 func (UnimplementedIdentityServer) AuthenticateWithProvider(context.Context, *request.AuthenticateWithProviderRequest) (*response.AuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method AuthenticateWithProvider not implemented")
+}
+func (UnimplementedIdentityServer) AuthenticateWithGoogle(context.Context, *request.AuthenticateWithGoogleRequest) (*response.AuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method AuthenticateWithGoogle not implemented")
 }
 func (UnimplementedIdentityServer) GetMe(context.Context, *request.GetMeRequest) (*response.GetMeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetMe not implemented")
@@ -466,6 +482,24 @@ func _Identity_AuthenticateWithProvider_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServer).AuthenticateWithProvider(ctx, req.(*request.AuthenticateWithProviderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identity_AuthenticateWithGoogle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.AuthenticateWithGoogleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServer).AuthenticateWithGoogle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Identity_AuthenticateWithGoogle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServer).AuthenticateWithGoogle(ctx, req.(*request.AuthenticateWithGoogleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -684,6 +718,10 @@ var Identity_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AuthenticateWithProvider",
 			Handler:    _Identity_AuthenticateWithProvider_Handler,
+		},
+		{
+			MethodName: "AuthenticateWithGoogle",
+			Handler:    _Identity_AuthenticateWithGoogle_Handler,
 		},
 		{
 			MethodName: "GetMe",

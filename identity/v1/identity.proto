@@ -59,6 +59,13 @@ service Identity {
     };
   }
 
+  rpc AuthenticateWithGoogle (identity.v1.request.AuthenticateWithGoogleRequest) returns (identity.v1.response.AuthResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/google"
+      body: "*"
+    };
+  }
+
   rpc GetMe (identity.v1.request.GetMeRequest) returns (identity.v1.response.GetMeResponse) {
     option (google.api.http) = {
       get: "/v1/auth/me"

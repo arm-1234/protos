@@ -556,6 +556,50 @@ func (x *AuthenticateWithProviderRequest) GetEmail() string {
 	return ""
 }
 
+type AuthenticateWithGoogleRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IdToken       string                 `protobuf:"bytes,1,opt,name=id_token,json=idToken,proto3" json:"id_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AuthenticateWithGoogleRequest) Reset() {
+	*x = AuthenticateWithGoogleRequest{}
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AuthenticateWithGoogleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AuthenticateWithGoogleRequest) ProtoMessage() {}
+
+func (x *AuthenticateWithGoogleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AuthenticateWithGoogleRequest.ProtoReflect.Descriptor instead.
+func (*AuthenticateWithGoogleRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AuthenticateWithGoogleRequest) GetIdToken() string {
+	if x != nil {
+		return x.IdToken
+	}
+	return ""
+}
+
 type GetMeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -564,7 +608,7 @@ type GetMeRequest struct {
 
 func (x *GetMeRequest) Reset() {
 	*x = GetMeRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[7]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -576,7 +620,7 @@ func (x *GetMeRequest) String() string {
 func (*GetMeRequest) ProtoMessage() {}
 
 func (x *GetMeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[7]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -589,7 +633,7 @@ func (x *GetMeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMeRequest.ProtoReflect.Descriptor instead.
 func (*GetMeRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{7}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{8}
 }
 
 type RegisterPushTokenRequest struct {
@@ -602,7 +646,7 @@ type RegisterPushTokenRequest struct {
 
 func (x *RegisterPushTokenRequest) Reset() {
 	*x = RegisterPushTokenRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[8]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -614,7 +658,7 @@ func (x *RegisterPushTokenRequest) String() string {
 func (*RegisterPushTokenRequest) ProtoMessage() {}
 
 func (x *RegisterPushTokenRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[8]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -627,7 +671,7 @@ func (x *RegisterPushTokenRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterPushTokenRequest.ProtoReflect.Descriptor instead.
 func (*RegisterPushTokenRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{8}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *RegisterPushTokenRequest) GetToken() string {
@@ -656,7 +700,7 @@ type RequestOtpRequest struct {
 
 func (x *RequestOtpRequest) Reset() {
 	*x = RequestOtpRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[9]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -668,7 +712,7 @@ func (x *RequestOtpRequest) String() string {
 func (*RequestOtpRequest) ProtoMessage() {}
 
 func (x *RequestOtpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[9]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -681,7 +725,7 @@ func (x *RequestOtpRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RequestOtpRequest.ProtoReflect.Descriptor instead.
 func (*RequestOtpRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{9}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *RequestOtpRequest) GetIdentifier() string {
@@ -724,7 +768,7 @@ type VerifyOtpRequest struct {
 
 func (x *VerifyOtpRequest) Reset() {
 	*x = VerifyOtpRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[10]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -736,7 +780,7 @@ func (x *VerifyOtpRequest) String() string {
 func (*VerifyOtpRequest) ProtoMessage() {}
 
 func (x *VerifyOtpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[10]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -749,7 +793,7 @@ func (x *VerifyOtpRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VerifyOtpRequest.ProtoReflect.Descriptor instead.
 func (*VerifyOtpRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{10}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *VerifyOtpRequest) GetIdentifier() string {
@@ -789,7 +833,7 @@ type RequestPhoneChangeRequest struct {
 
 func (x *RequestPhoneChangeRequest) Reset() {
 	*x = RequestPhoneChangeRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[11]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -801,7 +845,7 @@ func (x *RequestPhoneChangeRequest) String() string {
 func (*RequestPhoneChangeRequest) ProtoMessage() {}
 
 func (x *RequestPhoneChangeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[11]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -814,7 +858,7 @@ func (x *RequestPhoneChangeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RequestPhoneChangeRequest.ProtoReflect.Descriptor instead.
 func (*RequestPhoneChangeRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{11}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *RequestPhoneChangeRequest) GetNewPhone() string {
@@ -834,7 +878,7 @@ type ConfirmPhoneChangeRequest struct {
 
 func (x *ConfirmPhoneChangeRequest) Reset() {
 	*x = ConfirmPhoneChangeRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[12]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -846,7 +890,7 @@ func (x *ConfirmPhoneChangeRequest) String() string {
 func (*ConfirmPhoneChangeRequest) ProtoMessage() {}
 
 func (x *ConfirmPhoneChangeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[12]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -859,7 +903,7 @@ func (x *ConfirmPhoneChangeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConfirmPhoneChangeRequest.ProtoReflect.Descriptor instead.
 func (*ConfirmPhoneChangeRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{12}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ConfirmPhoneChangeRequest) GetNewPhone() string {
@@ -887,7 +931,7 @@ type RequestWhatsAppOtpRequest struct {
 
 func (x *RequestWhatsAppOtpRequest) Reset() {
 	*x = RequestWhatsAppOtpRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[13]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -899,7 +943,7 @@ func (x *RequestWhatsAppOtpRequest) String() string {
 func (*RequestWhatsAppOtpRequest) ProtoMessage() {}
 
 func (x *RequestWhatsAppOtpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[13]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -912,7 +956,7 @@ func (x *RequestWhatsAppOtpRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RequestWhatsAppOtpRequest.ProtoReflect.Descriptor instead.
 func (*RequestWhatsAppOtpRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{13}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *RequestWhatsAppOtpRequest) GetPhone() string {
@@ -946,7 +990,7 @@ type ForgotPasswordRequest struct {
 
 func (x *ForgotPasswordRequest) Reset() {
 	*x = ForgotPasswordRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[14]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -958,7 +1002,7 @@ func (x *ForgotPasswordRequest) String() string {
 func (*ForgotPasswordRequest) ProtoMessage() {}
 
 func (x *ForgotPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[14]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -971,7 +1015,7 @@ func (x *ForgotPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ForgotPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ForgotPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{14}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ForgotPasswordRequest) GetIdentifier() string {
@@ -999,7 +1043,7 @@ type ResetPasswordRequest struct {
 
 func (x *ResetPasswordRequest) Reset() {
 	*x = ResetPasswordRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[15]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1011,7 +1055,7 @@ func (x *ResetPasswordRequest) String() string {
 func (*ResetPasswordRequest) ProtoMessage() {}
 
 func (x *ResetPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[15]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1024,7 +1068,7 @@ func (x *ResetPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ResetPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{15}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ResetPasswordRequest) GetIdentifier() string {
@@ -1056,7 +1100,7 @@ type LogoutRequest struct {
 
 func (x *LogoutRequest) Reset() {
 	*x = LogoutRequest{}
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[16]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1068,7 +1112,7 @@ func (x *LogoutRequest) String() string {
 func (*LogoutRequest) ProtoMessage() {}
 
 func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_identity_v1_request_identity_request_proto_msgTypes[16]
+	mi := &file_identity_v1_request_identity_request_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1081,7 +1125,7 @@ func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
 func (*LogoutRequest) Descriptor() ([]byte, []int) {
-	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{16}
+	return file_identity_v1_request_identity_request_proto_rawDescGZIP(), []int{17}
 }
 
 var File_identity_v1_request_identity_request_proto protoreflect.FileDescriptor
@@ -1141,7 +1185,9 @@ const file_identity_v1_request_identity_request_proto_rawDesc = "" +
 	"\tuser_type\x18\x03 \x01(\x0e2!.identity.v1.types.enums.UserTypeR\buserType\x12\x12\n" +
 	"\x04name\x18\x04 \x01(\tR\x04name\x12\x14\n" +
 	"\x05phone\x18\x05 \x01(\tR\x05phone\x12\x14\n" +
-	"\x05email\x18\x06 \x01(\tR\x05email\"\x0e\n" +
+	"\x05email\x18\x06 \x01(\tR\x05email\"J\n" +
+	"\x1dAuthenticateWithGoogleRequest\x12)\n" +
+	"\bid_token\x18\x01 \x01(\tB\x0e\xe2A\x01\x02\xfaB\ar\x05\x10\x14\x18\x80 R\aidToken\"\x0e\n" +
 	"\fGetMeRequest\"Y\n" +
 	"\x18RegisterPushTokenRequest\x12!\n" +
 	"\x05token\x18\x01 \x01(\tB\v\xe2A\x01\x02\xfaB\x04r\x02\x10\x01R\x05token\x12\x1a\n" +
@@ -1197,7 +1243,7 @@ func file_identity_v1_request_identity_request_proto_rawDescGZIP() []byte {
 	return file_identity_v1_request_identity_request_proto_rawDescData
 }
 
-var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_identity_v1_request_identity_request_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),             // 0: identity.v1.request.RegisterUserRequest
 	(*LoginWithIdentifierRequest)(nil),      // 1: identity.v1.request.LoginWithIdentifierRequest
@@ -1206,30 +1252,31 @@ var file_identity_v1_request_identity_request_proto_goTypes = []any{
 	(*SetPasswordRequest)(nil),              // 4: identity.v1.request.SetPasswordRequest
 	(*UpdateProfileRequest)(nil),            // 5: identity.v1.request.UpdateProfileRequest
 	(*AuthenticateWithProviderRequest)(nil), // 6: identity.v1.request.AuthenticateWithProviderRequest
-	(*GetMeRequest)(nil),                    // 7: identity.v1.request.GetMeRequest
-	(*RegisterPushTokenRequest)(nil),        // 8: identity.v1.request.RegisterPushTokenRequest
-	(*RequestOtpRequest)(nil),               // 9: identity.v1.request.RequestOtpRequest
-	(*VerifyOtpRequest)(nil),                // 10: identity.v1.request.VerifyOtpRequest
-	(*RequestPhoneChangeRequest)(nil),       // 11: identity.v1.request.RequestPhoneChangeRequest
-	(*ConfirmPhoneChangeRequest)(nil),       // 12: identity.v1.request.ConfirmPhoneChangeRequest
-	(*RequestWhatsAppOtpRequest)(nil),       // 13: identity.v1.request.RequestWhatsAppOtpRequest
-	(*ForgotPasswordRequest)(nil),           // 14: identity.v1.request.ForgotPasswordRequest
-	(*ResetPasswordRequest)(nil),            // 15: identity.v1.request.ResetPasswordRequest
-	(*LogoutRequest)(nil),                   // 16: identity.v1.request.LogoutRequest
-	(enums.UserType)(0),                     // 17: identity.v1.types.enums.UserType
-	(enums.OtpChannel)(0),                   // 18: identity.v1.types.enums.OtpChannel
+	(*AuthenticateWithGoogleRequest)(nil),   // 7: identity.v1.request.AuthenticateWithGoogleRequest
+	(*GetMeRequest)(nil),                    // 8: identity.v1.request.GetMeRequest
+	(*RegisterPushTokenRequest)(nil),        // 9: identity.v1.request.RegisterPushTokenRequest
+	(*RequestOtpRequest)(nil),               // 10: identity.v1.request.RequestOtpRequest
+	(*VerifyOtpRequest)(nil),                // 11: identity.v1.request.VerifyOtpRequest
+	(*RequestPhoneChangeRequest)(nil),       // 12: identity.v1.request.RequestPhoneChangeRequest
+	(*ConfirmPhoneChangeRequest)(nil),       // 13: identity.v1.request.ConfirmPhoneChangeRequest
+	(*RequestWhatsAppOtpRequest)(nil),       // 14: identity.v1.request.RequestWhatsAppOtpRequest
+	(*ForgotPasswordRequest)(nil),           // 15: identity.v1.request.ForgotPasswordRequest
+	(*ResetPasswordRequest)(nil),            // 16: identity.v1.request.ResetPasswordRequest
+	(*LogoutRequest)(nil),                   // 17: identity.v1.request.LogoutRequest
+	(enums.UserType)(0),                     // 18: identity.v1.types.enums.UserType
+	(enums.OtpChannel)(0),                   // 19: identity.v1.types.enums.OtpChannel
 }
 var file_identity_v1_request_identity_request_proto_depIdxs = []int32{
-	17, // 0: identity.v1.request.RegisterUserRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	17, // 1: identity.v1.request.LoginWithIdentifierRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
-	17, // 2: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
-	17, // 3: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	18, // 4: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	17, // 5: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	18, // 6: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
-	17, // 7: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
-	17, // 8: identity.v1.request.RequestWhatsAppOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
-	18, // 9: identity.v1.request.ForgotPasswordRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	18, // 0: identity.v1.request.RegisterUserRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	18, // 1: identity.v1.request.LoginWithIdentifierRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	18, // 2: identity.v1.request.LoginWithPhoneRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	18, // 3: identity.v1.request.AuthenticateWithProviderRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	19, // 4: identity.v1.request.RequestOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	18, // 5: identity.v1.request.RequestOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	19, // 6: identity.v1.request.VerifyOtpRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
+	18, // 7: identity.v1.request.VerifyOtpRequest.expected_user_type:type_name -> identity.v1.types.enums.UserType
+	18, // 8: identity.v1.request.RequestWhatsAppOtpRequest.user_type:type_name -> identity.v1.types.enums.UserType
+	19, // 9: identity.v1.request.ForgotPasswordRequest.channel:type_name -> identity.v1.types.enums.OtpChannel
 	10, // [10:10] is the sub-list for method output_type
 	10, // [10:10] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
@@ -1248,7 +1295,7 @@ func file_identity_v1_request_identity_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_request_identity_request_proto_rawDesc), len(file_identity_v1_request_identity_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
