@@ -176,6 +176,10 @@ message UpdateTemplateShowcaseRequest {
   string tag = 4 [(validate.rules).string.max_len = 40];
 }
 
+message ReorderTemplateShowcaseRequest {
+  repeated string templates = 1 [(validate.rules).repeated = {min_items: 1, max_items: 64, unique: true, items: {string: {min_len: 2, max_len: 64, pattern: "^[a-z][a-z0-9-]*$"}}}];
+}
+
 message UpdateWishLifetimeRequest {
   string wish = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 64, pattern: "^[A-Za-z0-9_-]+$"}];
   int32 days = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 100}];

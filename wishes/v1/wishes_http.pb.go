@@ -42,6 +42,7 @@ const OperationWishesListTemplates = "/wishes.v1.Wishes/ListTemplates"
 const OperationWishesListWishResponses = "/wishes.v1.Wishes/ListWishResponses"
 const OperationWishesMarkResponsesSeen = "/wishes.v1.Wishes/MarkResponsesSeen"
 const OperationWishesPublishWish = "/wishes.v1.Wishes/PublishWish"
+const OperationWishesReorderTemplateShowcase = "/wishes.v1.Wishes/ReorderTemplateShowcase"
 const OperationWishesReportCard = "/wishes.v1.Wishes/ReportCard"
 const OperationWishesRevokeWish = "/wishes.v1.Wishes/RevokeWish"
 const OperationWishesSaveDraft = "/wishes.v1.Wishes/SaveDraft"
@@ -78,6 +79,7 @@ type WishesHTTPServer interface {
 	ListWishResponses(context.Context, *request.ListWishResponsesRequest) (*response.ListWishResponsesResponse, error)
 	MarkResponsesSeen(context.Context, *request.MarkResponsesSeenRequest) (*response.MarkResponsesSeenResponse, error)
 	PublishWish(context.Context, *request.PublishWishRequest) (*response.PublishWishResponse, error)
+	ReorderTemplateShowcase(context.Context, *request.ReorderTemplateShowcaseRequest) (*response.ReorderTemplateShowcaseResponse, error)
 	ReportCard(context.Context, *request.ReportCardRequest) (*response.ReportCardResponse, error)
 	RevokeWish(context.Context, *request.RevokeWishRequest) (*response.RevokeWishResponse, error)
 	SaveDraft(context.Context, *request.SaveDraftRequest) (*response.SaveDraftResponse, error)
@@ -99,6 +101,7 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.PUT("/v1/admin/soundtracks/{template}", _Wishes_UpdateTemplateSoundtracks0_HTTP_Handler(srv))
 	r.GET("/v1/admin/showcase", _Wishes_ListTemplateShowcase0_HTTP_Handler(srv))
 	r.PUT("/v1/admin/showcase/{template}", _Wishes_UpdateTemplateShowcase0_HTTP_Handler(srv))
+	r.PUT("/v1/admin/showcase:order", _Wishes_ReorderTemplateShowcase0_HTTP_Handler(srv))
 	r.PUT("/v1/admin/wishes/{wish}/lifetime", _Wishes_UpdateWishLifetime0_HTTP_Handler(srv))
 	r.POST("/v1/wishes", _Wishes_CreateWish0_HTTP_Handler(srv))
 	r.GET("/v1/wishes", _Wishes_ListMyWishes0_HTTP_Handler(srv))
@@ -215,6 +218,28 @@ func _Wishes_UpdateTemplateShowcase0_HTTP_Handler(srv WishesHTTPServer) func(ctx
 			return err
 		}
 		reply := out.(*response.UpdateTemplateShowcaseResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_ReorderTemplateShowcase0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.ReorderTemplateShowcaseRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesReorderTemplateShowcase)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ReorderTemplateShowcase(ctx, req.(*request.ReorderTemplateShowcaseRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.ReorderTemplateShowcaseResponse)
 		return ctx.Result(200, reply)
 	}
 }
@@ -922,6 +947,7 @@ type WishesHTTPClient interface {
 	ListWishResponses(ctx context.Context, req *request.ListWishResponsesRequest, opts ...http.CallOption) (rsp *response.ListWishResponsesResponse, err error)
 	MarkResponsesSeen(ctx context.Context, req *request.MarkResponsesSeenRequest, opts ...http.CallOption) (rsp *response.MarkResponsesSeenResponse, err error)
 	PublishWish(ctx context.Context, req *request.PublishWishRequest, opts ...http.CallOption) (rsp *response.PublishWishResponse, err error)
+	ReorderTemplateShowcase(ctx context.Context, req *request.ReorderTemplateShowcaseRequest, opts ...http.CallOption) (rsp *response.ReorderTemplateShowcaseResponse, err error)
 	ReportCard(ctx context.Context, req *request.ReportCardRequest, opts ...http.CallOption) (rsp *response.ReportCardResponse, err error)
 	RevokeWish(ctx context.Context, req *request.RevokeWishRequest, opts ...http.CallOption) (rsp *response.RevokeWishResponse, err error)
 	SaveDraft(ctx context.Context, req *request.SaveDraftRequest, opts ...http.CallOption) (rsp *response.SaveDraftResponse, err error)
@@ -1212,6 +1238,19 @@ func (c *WishesHTTPClientImpl) PublishWish(ctx context.Context, in *request.Publ
 	opts = append(opts, http.Operation(OperationWishesPublishWish))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) ReorderTemplateShowcase(ctx context.Context, in *request.ReorderTemplateShowcaseRequest, opts ...http.CallOption) (*response.ReorderTemplateShowcaseResponse, error) {
+	var out response.ReorderTemplateShowcaseResponse
+	pattern := "/v1/admin/showcase:order"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesReorderTemplateShowcase))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

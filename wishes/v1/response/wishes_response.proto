@@ -166,6 +166,10 @@ message ListTemplateShowcaseResponse {
   repeated wishes.v1.types.TemplateShowcase templates = 1;
 }
 
+message ReorderTemplateShowcaseResponse {
+  repeated wishes.v1.types.TemplateShowcase templates = 1;
+}
+
 message UpdateTemplateShowcaseResponse {
   wishes.v1.types.TemplateShowcase showcase = 1;
 }

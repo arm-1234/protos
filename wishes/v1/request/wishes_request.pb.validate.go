@@ -4532,6 +4532,164 @@ var _UpdateTemplateShowcaseRequest_Design_Pattern = regexp.MustCompile("^([a-z][
 
 var _UpdateTemplateShowcaseRequest_Theme_Pattern = regexp.MustCompile("^([a-z][a-z0-9-]*)?$")
 
+// Validate checks the field values on ReorderTemplateShowcaseRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReorderTemplateShowcaseRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReorderTemplateShowcaseRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ReorderTemplateShowcaseRequestMultiError, or nil if none found.
+func (m *ReorderTemplateShowcaseRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReorderTemplateShowcaseRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := len(m.GetTemplates()); l < 1 || l > 64 {
+		err := ReorderTemplateShowcaseRequestValidationError{
+			field:  "Templates",
+			reason: "value must contain between 1 and 64 items, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	_ReorderTemplateShowcaseRequest_Templates_Unique := make(map[string]struct{}, len(m.GetTemplates()))
+
+	for idx, item := range m.GetTemplates() {
+		_, _ = idx, item
+
+		if _, exists := _ReorderTemplateShowcaseRequest_Templates_Unique[item]; exists {
+			err := ReorderTemplateShowcaseRequestValidationError{
+				field:  fmt.Sprintf("Templates[%v]", idx),
+				reason: "repeated value must contain unique items",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+			_ReorderTemplateShowcaseRequest_Templates_Unique[item] = struct{}{}
+		}
+
+		if l := utf8.RuneCountInString(item); l < 2 || l > 64 {
+			err := ReorderTemplateShowcaseRequestValidationError{
+				field:  fmt.Sprintf("Templates[%v]", idx),
+				reason: "value length must be between 2 and 64 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ReorderTemplateShowcaseRequest_Templates_Pattern.MatchString(item) {
+			err := ReorderTemplateShowcaseRequestValidationError{
+				field:  fmt.Sprintf("Templates[%v]", idx),
+				reason: "value does not match regex pattern \"^[a-z][a-z0-9-]*$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ReorderTemplateShowcaseRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReorderTemplateShowcaseRequestMultiError is an error wrapping multiple
+// validation errors returned by ReorderTemplateShowcaseRequest.ValidateAll()
+// if the designated constraints aren't met.
+type ReorderTemplateShowcaseRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReorderTemplateShowcaseRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReorderTemplateShowcaseRequestMultiError) AllErrors() []error { return m }
+
+// ReorderTemplateShowcaseRequestValidationError is the validation error
+// returned by ReorderTemplateShowcaseRequest.Validate if the designated
+// constraints aren't met.
+type ReorderTemplateShowcaseRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReorderTemplateShowcaseRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReorderTemplateShowcaseRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReorderTemplateShowcaseRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReorderTemplateShowcaseRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReorderTemplateShowcaseRequestValidationError) ErrorName() string {
+	return "ReorderTemplateShowcaseRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReorderTemplateShowcaseRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReorderTemplateShowcaseRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReorderTemplateShowcaseRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReorderTemplateShowcaseRequestValidationError{}
+
+var _ReorderTemplateShowcaseRequest_Templates_Pattern = regexp.MustCompile("^[a-z][a-z0-9-]*$")
+
 // Validate checks the field values on UpdateWishLifetimeRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

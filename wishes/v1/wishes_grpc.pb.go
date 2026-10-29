@@ -25,6 +25,7 @@ const (
 	Wishes_UpdateTemplateSoundtracks_FullMethodName = "/wishes.v1.Wishes/UpdateTemplateSoundtracks"
 	Wishes_ListTemplateShowcase_FullMethodName      = "/wishes.v1.Wishes/ListTemplateShowcase"
 	Wishes_UpdateTemplateShowcase_FullMethodName    = "/wishes.v1.Wishes/UpdateTemplateShowcase"
+	Wishes_ReorderTemplateShowcase_FullMethodName   = "/wishes.v1.Wishes/ReorderTemplateShowcase"
 	Wishes_UpdateWishLifetime_FullMethodName        = "/wishes.v1.Wishes/UpdateWishLifetime"
 	Wishes_CreateWish_FullMethodName                = "/wishes.v1.Wishes/CreateWish"
 	Wishes_ListMyWishes_FullMethodName              = "/wishes.v1.Wishes/ListMyWishes"
@@ -65,6 +66,7 @@ type WishesClient interface {
 	UpdateTemplateSoundtracks(ctx context.Context, in *request.UpdateTemplateSoundtracksRequest, opts ...grpc.CallOption) (*response.UpdateTemplateSoundtracksResponse, error)
 	ListTemplateShowcase(ctx context.Context, in *request.ListTemplateShowcaseRequest, opts ...grpc.CallOption) (*response.ListTemplateShowcaseResponse, error)
 	UpdateTemplateShowcase(ctx context.Context, in *request.UpdateTemplateShowcaseRequest, opts ...grpc.CallOption) (*response.UpdateTemplateShowcaseResponse, error)
+	ReorderTemplateShowcase(ctx context.Context, in *request.ReorderTemplateShowcaseRequest, opts ...grpc.CallOption) (*response.ReorderTemplateShowcaseResponse, error)
 	UpdateWishLifetime(ctx context.Context, in *request.UpdateWishLifetimeRequest, opts ...grpc.CallOption) (*response.UpdateWishLifetimeResponse, error)
 	CreateWish(ctx context.Context, in *request.CreateWishRequest, opts ...grpc.CallOption) (*response.CreateWishResponse, error)
 	ListMyWishes(ctx context.Context, in *request.ListMyWishesRequest, opts ...grpc.CallOption) (*response.ListMyWishesResponse, error)
@@ -139,6 +141,16 @@ func (c *wishesClient) UpdateTemplateShowcase(ctx context.Context, in *request.U
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.UpdateTemplateShowcaseResponse)
 	err := c.cc.Invoke(ctx, Wishes_UpdateTemplateShowcase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) ReorderTemplateShowcase(ctx context.Context, in *request.ReorderTemplateShowcaseRequest, opts ...grpc.CallOption) (*response.ReorderTemplateShowcaseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.ReorderTemplateShowcaseResponse)
+	err := c.cc.Invoke(ctx, Wishes_ReorderTemplateShowcase_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -453,6 +465,7 @@ type WishesServer interface {
 	UpdateTemplateSoundtracks(context.Context, *request.UpdateTemplateSoundtracksRequest) (*response.UpdateTemplateSoundtracksResponse, error)
 	ListTemplateShowcase(context.Context, *request.ListTemplateShowcaseRequest) (*response.ListTemplateShowcaseResponse, error)
 	UpdateTemplateShowcase(context.Context, *request.UpdateTemplateShowcaseRequest) (*response.UpdateTemplateShowcaseResponse, error)
+	ReorderTemplateShowcase(context.Context, *request.ReorderTemplateShowcaseRequest) (*response.ReorderTemplateShowcaseResponse, error)
 	UpdateWishLifetime(context.Context, *request.UpdateWishLifetimeRequest) (*response.UpdateWishLifetimeResponse, error)
 	CreateWish(context.Context, *request.CreateWishRequest) (*response.CreateWishResponse, error)
 	ListMyWishes(context.Context, *request.ListMyWishesRequest) (*response.ListMyWishesResponse, error)
@@ -504,6 +517,9 @@ func (UnimplementedWishesServer) ListTemplateShowcase(context.Context, *request.
 }
 func (UnimplementedWishesServer) UpdateTemplateShowcase(context.Context, *request.UpdateTemplateShowcaseRequest) (*response.UpdateTemplateShowcaseResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateTemplateShowcase not implemented")
+}
+func (UnimplementedWishesServer) ReorderTemplateShowcase(context.Context, *request.ReorderTemplateShowcaseRequest) (*response.ReorderTemplateShowcaseResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ReorderTemplateShowcase not implemented")
 }
 func (UnimplementedWishesServer) UpdateWishLifetime(context.Context, *request.UpdateWishLifetimeRequest) (*response.UpdateWishLifetimeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateWishLifetime not implemented")
@@ -684,6 +700,24 @@ func _Wishes_UpdateTemplateShowcase_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WishesServer).UpdateTemplateShowcase(ctx, req.(*request.UpdateTemplateShowcaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_ReorderTemplateShowcase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ReorderTemplateShowcaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).ReorderTemplateShowcase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_ReorderTemplateShowcase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).ReorderTemplateShowcase(ctx, req.(*request.ReorderTemplateShowcaseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1250,6 +1284,10 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateTemplateShowcase",
 			Handler:    _Wishes_UpdateTemplateShowcase_Handler,
+		},
+		{
+			MethodName: "ReorderTemplateShowcase",
+			Handler:    _Wishes_ReorderTemplateShowcase_Handler,
 		},
 		{
 			MethodName: "UpdateWishLifetime",

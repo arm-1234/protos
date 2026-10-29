@@ -257,6 +257,7 @@ type TemplateShowcase struct {
 	Design        string                 `protobuf:"bytes,3,opt,name=design,proto3" json:"design,omitempty"`
 	Theme         string                 `protobuf:"bytes,4,opt,name=theme,proto3" json:"theme,omitempty"`
 	Tag           string                 `protobuf:"bytes,5,opt,name=tag,proto3" json:"tag,omitempty"`
+	Position      int32                  `protobuf:"varint,6,opt,name=position,proto3" json:"position,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -326,6 +327,13 @@ func (x *TemplateShowcase) GetTag() string {
 	return ""
 }
 
+func (x *TemplateShowcase) GetPosition() int32 {
+	if x != nil {
+		return x.Position
+	}
+	return 0
+}
+
 var File_wishes_v1_types_template_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_types_template_proto_rawDesc = "" +
@@ -349,13 +357,14 @@ const file_wishes_v1_types_template_proto_rawDesc = "" +
 	"\x13TemplateSoundtracks\x12\x1a\n" +
 	"\btemplate\x18\x01 \x01(\tR\btemplate\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x125\n" +
-	"\x05songs\x18\x03 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongR\x05songs\"\x84\x01\n" +
+	"\x05songs\x18\x03 \x03(\v2\x1f.wishes.v1.types.SoundtrackSongR\x05songs\"\xa0\x01\n" +
 	"\x10TemplateShowcase\x12\x1a\n" +
 	"\btemplate\x18\x01 \x01(\tR\btemplate\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12\x16\n" +
 	"\x06design\x18\x03 \x01(\tR\x06design\x12\x14\n" +
 	"\x05theme\x18\x04 \x01(\tR\x05theme\x12\x10\n" +
-	"\x03tag\x18\x05 \x01(\tR\x03tagB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
+	"\x03tag\x18\x05 \x01(\tR\x03tag\x12\x1a\n" +
+	"\bposition\x18\x06 \x01(\x05R\bpositionB2Z0github.com/arm-1234/protos/wishes/v1/types;typesb\x06proto3"
 
 var (
 	file_wishes_v1_types_template_proto_rawDescOnce sync.Once

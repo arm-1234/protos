@@ -36,4 +36,5 @@ message TemplateShowcase {
   string design = 3;
   string theme = 4;
   string tag = 5;
+  int32 position = 6;
 }

@@ -26,6 +26,10 @@ service Wishes {
     option (google.api.http) = {put: "/v1/admin/showcase/{template}" body: "*"};
   }
 
+  rpc ReorderTemplateShowcase (wishes.v1.request.ReorderTemplateShowcaseRequest) returns (wishes.v1.response.ReorderTemplateShowcaseResponse) {
+    option (google.api.http) = {put: "/v1/admin/showcase:order" body: "*"};
+  }
+
   rpc UpdateWishLifetime (wishes.v1.request.UpdateWishLifetimeRequest) returns (wishes.v1.response.UpdateWishLifetimeResponse) {
     option (google.api.http) = {put: "/v1/admin/wishes/{wish}/lifetime" body: "*"};
   }

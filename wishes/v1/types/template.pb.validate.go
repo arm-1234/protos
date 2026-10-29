@@ -457,6 +457,8 @@ func (m *TemplateShowcase) validate(all bool) error {
 
 	// no validation rules for Tag
 
+	// no validation rules for Position
+
 	if len(errors) > 0 {
 		return TemplateShowcaseMultiError(errors)
 	}
