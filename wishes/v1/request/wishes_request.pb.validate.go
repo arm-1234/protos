@@ -2629,6 +2629,32 @@ func (m *GetTemplateSchemaRequest) validate(all bool) error {
 
 	var errors []error
 
+	if m.GetTemplate() != "" {
+
+		if utf8.RuneCountInString(m.GetTemplate()) > 64 {
+			err := GetTemplateSchemaRequestValidationError{
+				field:  "Template",
+				reason: "value length must be at most 64 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_GetTemplateSchemaRequest_Template_Pattern.MatchString(m.GetTemplate()) {
+			err := GetTemplateSchemaRequestValidationError{
+				field:  "Template",
+				reason: "value does not match regex pattern \"^[a-z0-9-]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return GetTemplateSchemaRequestMultiError(errors)
 	}
@@ -2708,6 +2734,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetTemplateSchemaRequestValidationError{}
+
+var _GetTemplateSchemaRequest_Template_Pattern = regexp.MustCompile("^[a-z0-9-]+$")
 
 // Validate checks the field values on GetPricingRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the

@@ -1044,6 +1044,7 @@ func (x *ReportCardRequest) GetReporter() string {
 
 type GetTemplateSchemaRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Template      string                 `protobuf:"bytes,1,opt,name=template,proto3" json:"template,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1076,6 +1077,13 @@ func (x *GetTemplateSchemaRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use GetTemplateSchemaRequest.ProtoReflect.Descriptor instead.
 func (*GetTemplateSchemaRequest) Descriptor() ([]byte, []int) {
 	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetTemplateSchemaRequest) GetTemplate() string {
+	if x != nil {
+		return x.Template
+	}
+	return ""
 }
 
 type GetPricingRequest struct {
@@ -1952,8 +1960,9 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\x11ReportCardRequest\x12&\n" +
 	"\acard_id\x18\x01 \x01(\tB\r\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18@R\x06cardId\x12#\n" +
 	"\x06reason\x18\x02 \x01(\tB\v\xfaB\br\x06\x18\xe8\a\xd0\x01\x01R\x06reason\x12'\n" +
-	"\breporter\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc0\x02\xd0\x01\x01R\breporter\"\x1a\n" +
-	"\x18GetTemplateSchemaRequest\"\x13\n" +
+	"\breporter\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xc0\x02\xd0\x01\x01R\breporter\"P\n" +
+	"\x18GetTemplateSchemaRequest\x124\n" +
+	"\btemplate\x18\x01 \x01(\tB\x18\xfaB\x15r\x13\x18@2\f^[a-z0-9-]+$\xd0\x01\x01R\btemplate\"\x13\n" +
 	"\x11GetPricingRequest\"\xc0\x01\n" +
 	"\x14UpdatePricingRequest\x123\n" +
 	"\famount_minor\x18\x01 \x01(\x03B\x10\xe2A\x01\x02\xfaB\t\"\a\x18\x80\xad\xe2\x04(\x00R\vamountMinor\x12'\n" +

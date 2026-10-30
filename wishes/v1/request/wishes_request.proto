@@ -112,7 +112,9 @@ message ReportCardRequest {
   string reporter = 3 [(validate.rules).string = {ignore_empty: true, max_len: 320}];
 }
 
-message GetTemplateSchemaRequest {}
+message GetTemplateSchemaRequest {
+  string template = 1 [(validate.rules).string = {ignore_empty: true, max_len: 64, pattern: "^[a-z0-9-]+$"}];
+}
 
 message GetPricingRequest {}
 
