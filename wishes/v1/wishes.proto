@@ -178,6 +178,25 @@ service Wishes {
     };
   }
 
+  rpc GetSiteBanner (wishes.v1.request.GetSiteBannerRequest) returns (wishes.v1.response.GetSiteBannerResponse) {
+    option (google.api.http) = {
+      get: "/v1/banner"
+    };
+  }
+
+  rpc GetSiteBannerSettings (wishes.v1.request.GetSiteBannerSettingsRequest) returns (wishes.v1.response.GetSiteBannerSettingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/admin/banner"
+    };
+  }
+
+  rpc UpdateSiteBanner (wishes.v1.request.UpdateSiteBannerRequest) returns (wishes.v1.response.UpdateSiteBannerResponse) {
+    option (google.api.http) = {
+      put: "/v1/admin/banner"
+      body: "*"
+    };
+  }
+
   rpc CreateCoupon (wishes.v1.request.CreateCouponRequest) returns (wishes.v1.response.CreateCouponResponse) {
     option (google.api.http) = {
       post: "/v1/coupons"
@@ -270,4 +289,6 @@ enum ErrorReason {
   COUPON_ALREADY_USED = 63 [(errors.code) = 409];
   COUPON_CODE_TAKEN = 64 [(errors.code) = 409];
   COUPON_NOT_APPLICABLE = 65 [(errors.code) = 422];
+
+  BANNER_INVALID = 70 [(errors.code) = 400];
 }

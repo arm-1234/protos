@@ -4,6 +4,7 @@ package wishes.v1.request;
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "wishes/v1/types/enums/wish_status.proto";
 import "wishes/v1/types/enums/wish_sort_by.proto";
@@ -185,4 +186,16 @@ message ReorderTemplateShowcaseRequest {
 message UpdateWishLifetimeRequest {
   string wish = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1, max_len: 64, pattern: "^[A-Za-z0-9_-]+$"}];
   int32 days = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).int32 = {gte: 1, lte: 100}];
+}
+
+message GetSiteBannerRequest {}
+
+message GetSiteBannerSettingsRequest {}
+
+message UpdateSiteBannerRequest {
+  bool enabled = 1;
+  repeated string messages = 2 [(validate.rules).repeated = {max_items: 6, items: {string: {min_len: 1, max_len: 240}}}];
+  string link = 3 [(validate.rules).string = {ignore_empty: true, max_len: 300}];
+  google.protobuf.Timestamp starts_at = 4;
+  google.protobuf.Timestamp ends_at = 5;
 }

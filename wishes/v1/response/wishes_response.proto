@@ -9,6 +9,7 @@ import "wishes/v1/types/billing.proto";
 import "wishes/v1/types/coupon.proto";
 import "wishes/v1/types/response.proto";
 import "wishes/v1/types/template.proto";
+import "wishes/v1/types/site.proto";
 import "wishes/v1/types/enums/delivery_status.proto";
 
 option go_package = "github.com/arm-1234/protos/wishes/v1/response;response";
@@ -176,4 +177,18 @@ message UpdateTemplateShowcaseResponse {
 
 message UpdateWishLifetimeResponse {
   wishes.v1.types.WishInfo wish = 1;
+}
+
+message GetSiteBannerResponse {
+  wishes.v1.types.SiteBanner banner = 1;
+}
+
+message GetSiteBannerSettingsResponse {
+  wishes.v1.types.SiteBanner banner = 1;
+  bool live = 2;
+}
+
+message UpdateSiteBannerResponse {
+  wishes.v1.types.SiteBanner banner = 1;
+  bool live = 2;
 }
