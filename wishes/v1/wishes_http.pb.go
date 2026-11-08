@@ -30,6 +30,8 @@ const OperationWishesDeleteWishPhoto = "/wishes.v1.Wishes/DeleteWishPhoto"
 const OperationWishesExtendWish = "/wishes.v1.Wishes/ExtendWish"
 const OperationWishesGetOrder = "/wishes.v1.Wishes/GetOrder"
 const OperationWishesGetPricing = "/wishes.v1.Wishes/GetPricing"
+const OperationWishesGetSiteBanner = "/wishes.v1.Wishes/GetSiteBanner"
+const OperationWishesGetSiteBannerSettings = "/wishes.v1.Wishes/GetSiteBannerSettings"
 const OperationWishesGetTemplateSchema = "/wishes.v1.Wishes/GetTemplateSchema"
 const OperationWishesGetWish = "/wishes.v1.Wishes/GetWish"
 const OperationWishesGetWishStats = "/wishes.v1.Wishes/GetWishStats"
@@ -50,6 +52,7 @@ const OperationWishesSendWish = "/wishes.v1.Wishes/SendWish"
 const OperationWishesSetCouponStatus = "/wishes.v1.Wishes/SetCouponStatus"
 const OperationWishesSubmitResponse = "/wishes.v1.Wishes/SubmitResponse"
 const OperationWishesUpdatePricing = "/wishes.v1.Wishes/UpdatePricing"
+const OperationWishesUpdateSiteBanner = "/wishes.v1.Wishes/UpdateSiteBanner"
 const OperationWishesUpdateTemplateShowcase = "/wishes.v1.Wishes/UpdateTemplateShowcase"
 const OperationWishesUpdateTemplateSoundtracks = "/wishes.v1.Wishes/UpdateTemplateSoundtracks"
 const OperationWishesUpdateWish = "/wishes.v1.Wishes/UpdateWish"
@@ -67,6 +70,8 @@ type WishesHTTPServer interface {
 	ExtendWish(context.Context, *request.ExtendWishRequest) (*response.ExtendWishResponse, error)
 	GetOrder(context.Context, *request.GetOrderRequest) (*response.GetOrderResponse, error)
 	GetPricing(context.Context, *request.GetPricingRequest) (*response.GetPricingResponse, error)
+	GetSiteBanner(context.Context, *request.GetSiteBannerRequest) (*response.GetSiteBannerResponse, error)
+	GetSiteBannerSettings(context.Context, *request.GetSiteBannerSettingsRequest) (*response.GetSiteBannerSettingsResponse, error)
 	GetTemplateSchema(context.Context, *request.GetTemplateSchemaRequest) (*response.GetTemplateSchemaResponse, error)
 	GetWish(context.Context, *request.GetWishRequest) (*response.GetWishResponse, error)
 	GetWishStats(context.Context, *request.GetWishStatsRequest) (*response.GetWishStatsResponse, error)
@@ -87,6 +92,7 @@ type WishesHTTPServer interface {
 	SetCouponStatus(context.Context, *request.SetCouponStatusRequest) (*response.SetCouponStatusResponse, error)
 	SubmitResponse(context.Context, *request.SubmitResponseRequest) (*response.SubmitResponseResponse, error)
 	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
+	UpdateSiteBanner(context.Context, *request.UpdateSiteBannerRequest) (*response.UpdateSiteBannerResponse, error)
 	UpdateTemplateShowcase(context.Context, *request.UpdateTemplateShowcaseRequest) (*response.UpdateTemplateShowcaseResponse, error)
 	UpdateTemplateSoundtracks(context.Context, *request.UpdateTemplateSoundtracksRequest) (*response.UpdateTemplateSoundtracksResponse, error)
 	UpdateWish(context.Context, *request.UpdateWishRequest) (*response.UpdateWishResponse, error)
@@ -125,6 +131,9 @@ func RegisterWishesHTTPServer(s *http.Server, srv WishesHTTPServer) {
 	r.GET("/v1/pricing", _Wishes_GetPricing0_HTTP_Handler(srv))
 	r.PUT("/v1/pricing", _Wishes_UpdatePricing0_HTTP_Handler(srv))
 	r.GET("/v1/pricing:history", _Wishes_ListPriceHistory0_HTTP_Handler(srv))
+	r.GET("/v1/banner", _Wishes_GetSiteBanner0_HTTP_Handler(srv))
+	r.GET("/v1/admin/banner", _Wishes_GetSiteBannerSettings0_HTTP_Handler(srv))
+	r.PUT("/v1/admin/banner", _Wishes_UpdateSiteBanner0_HTTP_Handler(srv))
 	r.POST("/v1/coupons", _Wishes_CreateCoupon0_HTTP_Handler(srv))
 	r.GET("/v1/coupons", _Wishes_ListCoupons0_HTTP_Handler(srv))
 	r.POST("/v1/coupons/{code}:status", _Wishes_SetCouponStatus0_HTTP_Handler(srv))
@@ -762,6 +771,66 @@ func _Wishes_ListPriceHistory0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.
 	}
 }
 
+func _Wishes_GetSiteBanner0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetSiteBannerRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesGetSiteBanner)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetSiteBanner(ctx, req.(*request.GetSiteBannerRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetSiteBannerResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_GetSiteBannerSettings0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.GetSiteBannerSettingsRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesGetSiteBannerSettings)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetSiteBannerSettings(ctx, req.(*request.GetSiteBannerSettingsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.GetSiteBannerSettingsResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Wishes_UpdateSiteBanner0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in request.UpdateSiteBannerRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationWishesUpdateSiteBanner)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateSiteBanner(ctx, req.(*request.UpdateSiteBannerRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*response.UpdateSiteBannerResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Wishes_CreateCoupon0_HTTP_Handler(srv WishesHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in request.CreateCouponRequest
@@ -935,6 +1004,8 @@ type WishesHTTPClient interface {
 	ExtendWish(ctx context.Context, req *request.ExtendWishRequest, opts ...http.CallOption) (rsp *response.ExtendWishResponse, err error)
 	GetOrder(ctx context.Context, req *request.GetOrderRequest, opts ...http.CallOption) (rsp *response.GetOrderResponse, err error)
 	GetPricing(ctx context.Context, req *request.GetPricingRequest, opts ...http.CallOption) (rsp *response.GetPricingResponse, err error)
+	GetSiteBanner(ctx context.Context, req *request.GetSiteBannerRequest, opts ...http.CallOption) (rsp *response.GetSiteBannerResponse, err error)
+	GetSiteBannerSettings(ctx context.Context, req *request.GetSiteBannerSettingsRequest, opts ...http.CallOption) (rsp *response.GetSiteBannerSettingsResponse, err error)
 	GetTemplateSchema(ctx context.Context, req *request.GetTemplateSchemaRequest, opts ...http.CallOption) (rsp *response.GetTemplateSchemaResponse, err error)
 	GetWish(ctx context.Context, req *request.GetWishRequest, opts ...http.CallOption) (rsp *response.GetWishResponse, err error)
 	GetWishStats(ctx context.Context, req *request.GetWishStatsRequest, opts ...http.CallOption) (rsp *response.GetWishStatsResponse, err error)
@@ -955,6 +1026,7 @@ type WishesHTTPClient interface {
 	SetCouponStatus(ctx context.Context, req *request.SetCouponStatusRequest, opts ...http.CallOption) (rsp *response.SetCouponStatusResponse, err error)
 	SubmitResponse(ctx context.Context, req *request.SubmitResponseRequest, opts ...http.CallOption) (rsp *response.SubmitResponseResponse, err error)
 	UpdatePricing(ctx context.Context, req *request.UpdatePricingRequest, opts ...http.CallOption) (rsp *response.UpdatePricingResponse, err error)
+	UpdateSiteBanner(ctx context.Context, req *request.UpdateSiteBannerRequest, opts ...http.CallOption) (rsp *response.UpdateSiteBannerResponse, err error)
 	UpdateTemplateShowcase(ctx context.Context, req *request.UpdateTemplateShowcaseRequest, opts ...http.CallOption) (rsp *response.UpdateTemplateShowcaseResponse, err error)
 	UpdateTemplateSoundtracks(ctx context.Context, req *request.UpdateTemplateSoundtracksRequest, opts ...http.CallOption) (rsp *response.UpdateTemplateSoundtracksResponse, err error)
 	UpdateWish(ctx context.Context, req *request.UpdateWishRequest, opts ...http.CallOption) (rsp *response.UpdateWishResponse, err error)
@@ -1080,6 +1152,32 @@ func (c *WishesHTTPClientImpl) GetPricing(ctx context.Context, in *request.GetPr
 	pattern := "/v1/pricing"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationWishesGetPricing))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) GetSiteBanner(ctx context.Context, in *request.GetSiteBannerRequest, opts ...http.CallOption) (*response.GetSiteBannerResponse, error) {
+	var out response.GetSiteBannerResponse
+	pattern := "/v1/banner"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesGetSiteBanner))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) GetSiteBannerSettings(ctx context.Context, in *request.GetSiteBannerSettingsRequest, opts ...http.CallOption) (*response.GetSiteBannerSettingsResponse, error) {
+	var out response.GetSiteBannerSettingsResponse
+	pattern := "/v1/admin/banner"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationWishesGetSiteBannerSettings))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -1340,6 +1438,19 @@ func (c *WishesHTTPClientImpl) UpdatePricing(ctx context.Context, in *request.Up
 	pattern := "/v1/pricing"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationWishesUpdatePricing))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *WishesHTTPClientImpl) UpdateSiteBanner(ctx context.Context, in *request.UpdateSiteBannerRequest, opts ...http.CallOption) (*response.UpdateSiteBannerResponse, error) {
+	var out response.UpdateSiteBannerResponse
+	pattern := "/v1/admin/banner"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationWishesUpdateSiteBanner))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {

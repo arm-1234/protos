@@ -4854,3 +4854,412 @@ var _ interface {
 } = UpdateWishLifetimeRequestValidationError{}
 
 var _UpdateWishLifetimeRequest_Wish_Pattern = regexp.MustCompile("^[A-Za-z0-9_-]+$")
+
+// Validate checks the field values on GetSiteBannerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetSiteBannerRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetSiteBannerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetSiteBannerRequestMultiError, or nil if none found.
+func (m *GetSiteBannerRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetSiteBannerRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetSiteBannerRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetSiteBannerRequestMultiError is an error wrapping multiple validation
+// errors returned by GetSiteBannerRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetSiteBannerRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetSiteBannerRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetSiteBannerRequestMultiError) AllErrors() []error { return m }
+
+// GetSiteBannerRequestValidationError is the validation error returned by
+// GetSiteBannerRequest.Validate if the designated constraints aren't met.
+type GetSiteBannerRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetSiteBannerRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetSiteBannerRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetSiteBannerRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetSiteBannerRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetSiteBannerRequestValidationError) ErrorName() string {
+	return "GetSiteBannerRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetSiteBannerRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetSiteBannerRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetSiteBannerRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetSiteBannerRequestValidationError{}
+
+// Validate checks the field values on GetSiteBannerSettingsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetSiteBannerSettingsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetSiteBannerSettingsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetSiteBannerSettingsRequestMultiError, or nil if none found.
+func (m *GetSiteBannerSettingsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetSiteBannerSettingsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetSiteBannerSettingsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetSiteBannerSettingsRequestMultiError is an error wrapping multiple
+// validation errors returned by GetSiteBannerSettingsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetSiteBannerSettingsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetSiteBannerSettingsRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetSiteBannerSettingsRequestMultiError) AllErrors() []error { return m }
+
+// GetSiteBannerSettingsRequestValidationError is the validation error returned
+// by GetSiteBannerSettingsRequest.Validate if the designated constraints
+// aren't met.
+type GetSiteBannerSettingsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetSiteBannerSettingsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetSiteBannerSettingsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetSiteBannerSettingsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetSiteBannerSettingsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetSiteBannerSettingsRequestValidationError) ErrorName() string {
+	return "GetSiteBannerSettingsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetSiteBannerSettingsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetSiteBannerSettingsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetSiteBannerSettingsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetSiteBannerSettingsRequestValidationError{}
+
+// Validate checks the field values on UpdateSiteBannerRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateSiteBannerRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateSiteBannerRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateSiteBannerRequestMultiError, or nil if none found.
+func (m *UpdateSiteBannerRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateSiteBannerRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Enabled
+
+	if len(m.GetMessages()) > 6 {
+		err := UpdateSiteBannerRequestValidationError{
+			field:  "Messages",
+			reason: "value must contain no more than 6 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetMessages() {
+		_, _ = idx, item
+
+		if l := utf8.RuneCountInString(item); l < 1 || l > 240 {
+			err := UpdateSiteBannerRequestValidationError{
+				field:  fmt.Sprintf("Messages[%v]", idx),
+				reason: "value length must be between 1 and 240 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.GetLink() != "" {
+
+		if utf8.RuneCountInString(m.GetLink()) > 300 {
+			err := UpdateSiteBannerRequestValidationError{
+				field:  "Link",
+				reason: "value length must be at most 300 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetStartsAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateSiteBannerRequestValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateSiteBannerRequestValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartsAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateSiteBannerRequestValidationError{
+				field:  "StartsAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEndsAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateSiteBannerRequestValidationError{
+					field:  "EndsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateSiteBannerRequestValidationError{
+					field:  "EndsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEndsAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateSiteBannerRequestValidationError{
+				field:  "EndsAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateSiteBannerRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateSiteBannerRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdateSiteBannerRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateSiteBannerRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateSiteBannerRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateSiteBannerRequestMultiError) AllErrors() []error { return m }
+
+// UpdateSiteBannerRequestValidationError is the validation error returned by
+// UpdateSiteBannerRequest.Validate if the designated constraints aren't met.
+type UpdateSiteBannerRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateSiteBannerRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateSiteBannerRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateSiteBannerRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateSiteBannerRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateSiteBannerRequestValidationError) ErrorName() string {
+	return "UpdateSiteBannerRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateSiteBannerRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateSiteBannerRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateSiteBannerRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateSiteBannerRequestValidationError{}

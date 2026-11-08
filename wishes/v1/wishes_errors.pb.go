@@ -418,3 +418,15 @@ func IsCouponNotApplicable(err error) bool {
 func ErrorCouponNotApplicable(format string, args ...interface{}) *errors.Error {
 	return errors.New(422, ErrorReason_COUPON_NOT_APPLICABLE.String(), fmt.Sprintf(format, args...))
 }
+
+func IsBannerInvalid(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_BANNER_INVALID.String() && e.Code == 400
+}
+
+func ErrorBannerInvalid(format string, args ...interface{}) *errors.Error {
+	return errors.New(400, ErrorReason_BANNER_INVALID.String(), fmt.Sprintf(format, args...))
+}

@@ -14,6 +14,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -1878,11 +1879,159 @@ func (x *UpdateWishLifetimeRequest) GetDays() int32 {
 	return 0
 }
 
+type GetSiteBannerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSiteBannerRequest) Reset() {
+	*x = GetSiteBannerRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSiteBannerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSiteBannerRequest) ProtoMessage() {}
+
+func (x *GetSiteBannerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSiteBannerRequest.ProtoReflect.Descriptor instead.
+func (*GetSiteBannerRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{35}
+}
+
+type GetSiteBannerSettingsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSiteBannerSettingsRequest) Reset() {
+	*x = GetSiteBannerSettingsRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSiteBannerSettingsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSiteBannerSettingsRequest) ProtoMessage() {}
+
+func (x *GetSiteBannerSettingsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSiteBannerSettingsRequest.ProtoReflect.Descriptor instead.
+func (*GetSiteBannerSettingsRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{36}
+}
+
+type UpdateSiteBannerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Enabled       bool                   `protobuf:"varint,1,opt,name=enabled,proto3" json:"enabled,omitempty"`
+	Messages      []string               `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
+	Link          string                 `protobuf:"bytes,3,opt,name=link,proto3" json:"link,omitempty"`
+	StartsAt      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	EndsAt        *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=ends_at,json=endsAt,proto3" json:"ends_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateSiteBannerRequest) Reset() {
+	*x = UpdateSiteBannerRequest{}
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateSiteBannerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateSiteBannerRequest) ProtoMessage() {}
+
+func (x *UpdateSiteBannerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wishes_v1_request_wishes_request_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateSiteBannerRequest.ProtoReflect.Descriptor instead.
+func (*UpdateSiteBannerRequest) Descriptor() ([]byte, []int) {
+	return file_wishes_v1_request_wishes_request_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *UpdateSiteBannerRequest) GetEnabled() bool {
+	if x != nil {
+		return x.Enabled
+	}
+	return false
+}
+
+func (x *UpdateSiteBannerRequest) GetMessages() []string {
+	if x != nil {
+		return x.Messages
+	}
+	return nil
+}
+
+func (x *UpdateSiteBannerRequest) GetLink() string {
+	if x != nil {
+		return x.Link
+	}
+	return ""
+}
+
+func (x *UpdateSiteBannerRequest) GetStartsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartsAt
+	}
+	return nil
+}
+
+func (x *UpdateSiteBannerRequest) GetEndsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EndsAt
+	}
+	return nil
+}
+
 var File_wishes_v1_request_wishes_request_proto protoreflect.FileDescriptor
 
 const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\n" +
-	"&wishes/v1/request/wishes_request.proto\x12\x11wishes.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x17validate/validate.proto\x1a'wishes/v1/types/enums/wish_status.proto\x1a(wishes/v1/types/enums/wish_sort_by.proto\x1a)wishes/v1/types/enums/response_kind.proto\x1a)wishes/v1/types/enums/coupon_status.proto\x1a\x1ewishes/v1/types/template.proto\"\x83\x02\n" +
+	"&wishes/v1/request/wishes_request.proto\x12\x11wishes.v1.request\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\x1a'wishes/v1/types/enums/wish_status.proto\x1a(wishes/v1/types/enums/wish_sort_by.proto\x1a)wishes/v1/types/enums/response_kind.proto\x1a)wishes/v1/types/enums/coupon_status.proto\x1a\x1ewishes/v1/types/template.proto\"\x83\x02\n" +
 	"\x11CreateWishRequest\x12<\n" +
 	"\btemplate\x18\x01 \x01(\tB \xe2A\x01\x02\xfaB\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\btemplate\x12/\n" +
 	"\x06config\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x06config\x12,\n" +
@@ -2008,7 +2157,15 @@ const file_wishes_v1_request_wishes_request_proto_rawDesc = "" +
 	"\ttemplates\x18\x01 \x03(\tB'\xfaB$\x92\x01!\b\x01\x10@\x18\x01\"\x19r\x17\x10\x02\x18@2\x11^[a-z][a-z0-9-]*$R\ttemplates\"s\n" +
 	"\x19UpdateWishLifetimeRequest\x123\n" +
 	"\x04wish\x18\x01 \x01(\tB\x1f\xe2A\x01\x02\xfaB\x18r\x16\x10\x01\x18@2\x10^[A-Za-z0-9_-]+$R\x04wish\x12!\n" +
-	"\x04days\x18\x02 \x01(\x05B\r\xe2A\x01\x02\xfaB\x06\x1a\x04\x18d(\x01R\x04daysB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
+	"\x04days\x18\x02 \x01(\x05B\r\xe2A\x01\x02\xfaB\x06\x1a\x04\x18d(\x01R\x04days\"\x16\n" +
+	"\x14GetSiteBannerRequest\"\x1e\n" +
+	"\x1cGetSiteBannerSettingsRequest\"\xf1\x01\n" +
+	"\x17UpdateSiteBannerRequest\x12\x18\n" +
+	"\aenabled\x18\x01 \x01(\bR\aenabled\x12-\n" +
+	"\bmessages\x18\x02 \x03(\tB\x11\xfaB\x0e\x92\x01\v\x10\x06\"\ar\x05\x10\x01\x18\xf0\x01R\bmessages\x12\x1f\n" +
+	"\x04link\x18\x03 \x01(\tB\v\xfaB\br\x06\x18\xac\x02\xd0\x01\x01R\x04link\x127\n" +
+	"\tstarts_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\bstartsAt\x123\n" +
+	"\aends_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\x06endsAtB6Z4github.com/arm-1234/protos/wishes/v1/request;requestb\x06proto3"
 
 var (
 	file_wishes_v1_request_wishes_request_proto_rawDescOnce sync.Once
@@ -2022,7 +2179,7 @@ func file_wishes_v1_request_wishes_request_proto_rawDescGZIP() []byte {
 	return file_wishes_v1_request_wishes_request_proto_rawDescData
 }
 
-var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_wishes_v1_request_wishes_request_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
 var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*CreateWishRequest)(nil),                // 0: wishes.v1.request.CreateWishRequest
 	(*ListMyWishesRequest)(nil),              // 1: wishes.v1.request.ListMyWishesRequest
@@ -2059,27 +2216,33 @@ var file_wishes_v1_request_wishes_request_proto_goTypes = []any{
 	(*UpdateTemplateShowcaseRequest)(nil),    // 32: wishes.v1.request.UpdateTemplateShowcaseRequest
 	(*ReorderTemplateShowcaseRequest)(nil),   // 33: wishes.v1.request.ReorderTemplateShowcaseRequest
 	(*UpdateWishLifetimeRequest)(nil),        // 34: wishes.v1.request.UpdateWishLifetimeRequest
-	(*structpb.Struct)(nil),                  // 35: google.protobuf.Struct
-	(enums.WishStatus)(0),                    // 36: wishes.v1.types.enums.WishStatus
-	(enums.WishSortBy)(0),                    // 37: wishes.v1.types.enums.WishSortBy
-	(enums.ResponseKind)(0),                  // 38: wishes.v1.types.enums.ResponseKind
-	(enums.CouponStatus)(0),                  // 39: wishes.v1.types.enums.CouponStatus
-	(*types.SoundtrackSong)(nil),             // 40: wishes.v1.types.SoundtrackSong
+	(*GetSiteBannerRequest)(nil),             // 35: wishes.v1.request.GetSiteBannerRequest
+	(*GetSiteBannerSettingsRequest)(nil),     // 36: wishes.v1.request.GetSiteBannerSettingsRequest
+	(*UpdateSiteBannerRequest)(nil),          // 37: wishes.v1.request.UpdateSiteBannerRequest
+	(*structpb.Struct)(nil),                  // 38: google.protobuf.Struct
+	(enums.WishStatus)(0),                    // 39: wishes.v1.types.enums.WishStatus
+	(enums.WishSortBy)(0),                    // 40: wishes.v1.types.enums.WishSortBy
+	(enums.ResponseKind)(0),                  // 41: wishes.v1.types.enums.ResponseKind
+	(enums.CouponStatus)(0),                  // 42: wishes.v1.types.enums.CouponStatus
+	(*types.SoundtrackSong)(nil),             // 43: wishes.v1.types.SoundtrackSong
+	(*timestamppb.Timestamp)(nil),            // 44: google.protobuf.Timestamp
 }
 var file_wishes_v1_request_wishes_request_proto_depIdxs = []int32{
-	35, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
-	36, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
-	37, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
-	35, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
-	35, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
-	38, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
-	39, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
-	40, // 7: wishes.v1.request.UpdateTemplateSoundtracksRequest.songs:type_name -> wishes.v1.types.SoundtrackSong
-	8,  // [8:8] is the sub-list for method output_type
-	8,  // [8:8] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	38, // 0: wishes.v1.request.CreateWishRequest.config:type_name -> google.protobuf.Struct
+	39, // 1: wishes.v1.request.ListMyWishesRequest.statuses:type_name -> wishes.v1.types.enums.WishStatus
+	40, // 2: wishes.v1.request.ListMyWishesRequest.sort_by:type_name -> wishes.v1.types.enums.WishSortBy
+	38, // 3: wishes.v1.request.UpdateWishRequest.config:type_name -> google.protobuf.Struct
+	38, // 4: wishes.v1.request.SaveDraftRequest.config:type_name -> google.protobuf.Struct
+	41, // 5: wishes.v1.request.SubmitResponseRequest.kind:type_name -> wishes.v1.types.enums.ResponseKind
+	42, // 6: wishes.v1.request.SetCouponStatusRequest.status:type_name -> wishes.v1.types.enums.CouponStatus
+	43, // 7: wishes.v1.request.UpdateTemplateSoundtracksRequest.songs:type_name -> wishes.v1.types.SoundtrackSong
+	44, // 8: wishes.v1.request.UpdateSiteBannerRequest.starts_at:type_name -> google.protobuf.Timestamp
+	44, // 9: wishes.v1.request.UpdateSiteBannerRequest.ends_at:type_name -> google.protobuf.Timestamp
+	10, // [10:10] is the sub-list for method output_type
+	10, // [10:10] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_wishes_v1_request_wishes_request_proto_init() }
@@ -2093,7 +2256,7 @@ func file_wishes_v1_request_wishes_request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wishes_v1_request_wishes_request_proto_rawDesc), len(file_wishes_v1_request_wishes_request_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   35,
+			NumMessages:   38,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

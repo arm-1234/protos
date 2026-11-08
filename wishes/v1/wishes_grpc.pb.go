@@ -49,6 +49,9 @@ const (
 	Wishes_GetPricing_FullMethodName                = "/wishes.v1.Wishes/GetPricing"
 	Wishes_UpdatePricing_FullMethodName             = "/wishes.v1.Wishes/UpdatePricing"
 	Wishes_ListPriceHistory_FullMethodName          = "/wishes.v1.Wishes/ListPriceHistory"
+	Wishes_GetSiteBanner_FullMethodName             = "/wishes.v1.Wishes/GetSiteBanner"
+	Wishes_GetSiteBannerSettings_FullMethodName     = "/wishes.v1.Wishes/GetSiteBannerSettings"
+	Wishes_UpdateSiteBanner_FullMethodName          = "/wishes.v1.Wishes/UpdateSiteBanner"
 	Wishes_CreateCoupon_FullMethodName              = "/wishes.v1.Wishes/CreateCoupon"
 	Wishes_ListCoupons_FullMethodName               = "/wishes.v1.Wishes/ListCoupons"
 	Wishes_SetCouponStatus_FullMethodName           = "/wishes.v1.Wishes/SetCouponStatus"
@@ -90,6 +93,9 @@ type WishesClient interface {
 	GetPricing(ctx context.Context, in *request.GetPricingRequest, opts ...grpc.CallOption) (*response.GetPricingResponse, error)
 	UpdatePricing(ctx context.Context, in *request.UpdatePricingRequest, opts ...grpc.CallOption) (*response.UpdatePricingResponse, error)
 	ListPriceHistory(ctx context.Context, in *request.ListPriceHistoryRequest, opts ...grpc.CallOption) (*response.ListPriceHistoryResponse, error)
+	GetSiteBanner(ctx context.Context, in *request.GetSiteBannerRequest, opts ...grpc.CallOption) (*response.GetSiteBannerResponse, error)
+	GetSiteBannerSettings(ctx context.Context, in *request.GetSiteBannerSettingsRequest, opts ...grpc.CallOption) (*response.GetSiteBannerSettingsResponse, error)
+	UpdateSiteBanner(ctx context.Context, in *request.UpdateSiteBannerRequest, opts ...grpc.CallOption) (*response.UpdateSiteBannerResponse, error)
 	CreateCoupon(ctx context.Context, in *request.CreateCouponRequest, opts ...grpc.CallOption) (*response.CreateCouponResponse, error)
 	ListCoupons(ctx context.Context, in *request.ListCouponsRequest, opts ...grpc.CallOption) (*response.ListCouponsResponse, error)
 	SetCouponStatus(ctx context.Context, in *request.SetCouponStatusRequest, opts ...grpc.CallOption) (*response.SetCouponStatusResponse, error)
@@ -387,6 +393,36 @@ func (c *wishesClient) ListPriceHistory(ctx context.Context, in *request.ListPri
 	return out, nil
 }
 
+func (c *wishesClient) GetSiteBanner(ctx context.Context, in *request.GetSiteBannerRequest, opts ...grpc.CallOption) (*response.GetSiteBannerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetSiteBannerResponse)
+	err := c.cc.Invoke(ctx, Wishes_GetSiteBanner_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) GetSiteBannerSettings(ctx context.Context, in *request.GetSiteBannerSettingsRequest, opts ...grpc.CallOption) (*response.GetSiteBannerSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.GetSiteBannerSettingsResponse)
+	err := c.cc.Invoke(ctx, Wishes_GetSiteBannerSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishesClient) UpdateSiteBanner(ctx context.Context, in *request.UpdateSiteBannerRequest, opts ...grpc.CallOption) (*response.UpdateSiteBannerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(response.UpdateSiteBannerResponse)
+	err := c.cc.Invoke(ctx, Wishes_UpdateSiteBanner_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *wishesClient) CreateCoupon(ctx context.Context, in *request.CreateCouponRequest, opts ...grpc.CallOption) (*response.CreateCouponResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(response.CreateCouponResponse)
@@ -489,6 +525,9 @@ type WishesServer interface {
 	GetPricing(context.Context, *request.GetPricingRequest) (*response.GetPricingResponse, error)
 	UpdatePricing(context.Context, *request.UpdatePricingRequest) (*response.UpdatePricingResponse, error)
 	ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error)
+	GetSiteBanner(context.Context, *request.GetSiteBannerRequest) (*response.GetSiteBannerResponse, error)
+	GetSiteBannerSettings(context.Context, *request.GetSiteBannerSettingsRequest) (*response.GetSiteBannerSettingsResponse, error)
+	UpdateSiteBanner(context.Context, *request.UpdateSiteBannerRequest) (*response.UpdateSiteBannerResponse, error)
 	CreateCoupon(context.Context, *request.CreateCouponRequest) (*response.CreateCouponResponse, error)
 	ListCoupons(context.Context, *request.ListCouponsRequest) (*response.ListCouponsResponse, error)
 	SetCouponStatus(context.Context, *request.SetCouponStatusRequest) (*response.SetCouponStatusResponse, error)
@@ -589,6 +628,15 @@ func (UnimplementedWishesServer) UpdatePricing(context.Context, *request.UpdateP
 }
 func (UnimplementedWishesServer) ListPriceHistory(context.Context, *request.ListPriceHistoryRequest) (*response.ListPriceHistoryResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListPriceHistory not implemented")
+}
+func (UnimplementedWishesServer) GetSiteBanner(context.Context, *request.GetSiteBannerRequest) (*response.GetSiteBannerResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetSiteBanner not implemented")
+}
+func (UnimplementedWishesServer) GetSiteBannerSettings(context.Context, *request.GetSiteBannerSettingsRequest) (*response.GetSiteBannerSettingsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetSiteBannerSettings not implemented")
+}
+func (UnimplementedWishesServer) UpdateSiteBanner(context.Context, *request.UpdateSiteBannerRequest) (*response.UpdateSiteBannerResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateSiteBanner not implemented")
 }
 func (UnimplementedWishesServer) CreateCoupon(context.Context, *request.CreateCouponRequest) (*response.CreateCouponResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateCoupon not implemented")
@@ -1136,6 +1184,60 @@ func _Wishes_ListPriceHistory_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Wishes_GetSiteBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetSiteBannerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).GetSiteBanner(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_GetSiteBanner_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).GetSiteBanner(ctx, req.(*request.GetSiteBannerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_GetSiteBannerSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetSiteBannerSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).GetSiteBannerSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_GetSiteBannerSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).GetSiteBannerSettings(ctx, req.(*request.GetSiteBannerSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Wishes_UpdateSiteBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateSiteBannerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishesServer).UpdateSiteBanner(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Wishes_UpdateSiteBanner_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishesServer).UpdateSiteBanner(ctx, req.(*request.UpdateSiteBannerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Wishes_CreateCoupon_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(request.CreateCouponRequest)
 	if err := dec(in); err != nil {
@@ -1380,6 +1482,18 @@ var Wishes_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListPriceHistory",
 			Handler:    _Wishes_ListPriceHistory_Handler,
+		},
+		{
+			MethodName: "GetSiteBanner",
+			Handler:    _Wishes_GetSiteBanner_Handler,
+		},
+		{
+			MethodName: "GetSiteBannerSettings",
+			Handler:    _Wishes_GetSiteBannerSettings_Handler,
+		},
+		{
+			MethodName: "UpdateSiteBanner",
+			Handler:    _Wishes_UpdateSiteBanner_Handler,
 		},
 		{
 			MethodName: "CreateCoupon",
